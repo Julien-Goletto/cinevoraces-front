@@ -2,8 +2,14 @@
 @use './reset.scss';
 @use './global.scss';
 
+html {
+  font-size: 16px;
+}
 body {
   font-family: sans-serif;
+}
+p {
+  letter-spacing: 1%;
 }
 .test {
   background-color: yellow;

@@ -1,0 +1,57 @@
+@use './var';
+@use './mixins' as mix;
+ 
+.h0 {
+  font-size: 3rem;
+  font-weight: 700;
+}
+.h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  background-color: darkblue !important;
+}
+.h2 {
+  font-size: 2.05rem;
+  font-weight: 700;
+}
+.h3 {
+  font-size: 1.75rem;
+  font-weight: 600;
+}
+.h4 {
+  font-size: 1.45rem;
+  font-weight: 600;
+}
+.h5 {
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+
+.input-text {
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.category-link {
+  font-size: 0.750rem;
+  font-weight: 500;
+}
+
+
+.container {
+  padding-left: 12px;
+  padding-right: 12px;
+  @each $name, $value in var.$breakpoints {
+    @include mix.breakpoint($name) {
+      @each $pad, $value in var.$padding {
+        @if $name == $pad {
+          padding-left: $value;
+          padding-right: $value;
+        }
+      }
+      margin-left: auto;
+      margin-right: auto;
+      max-width: $value;
+    }
+  } 
+}

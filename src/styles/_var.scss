@@ -1,1 +1,25 @@
-$red: red;
+$white: #F2F2F3;
+$background: #202029;
+$secondary-background: #393945;
+$input-text: #8A8A92;
+
+$primary: #FC9A3F;
+$secondary: #FC783F;
+
+$breakpoints: (
+  'small':  400px,
+  'xsmall':  500px,
+  'medium': 640px,
+  'large': 868px,
+  'xlarge': 1024px,
+  'xxlarge':  1440px
+) !default;
+
+$padding : (
+  'small': 10px,
+  'xsmall':  15px,
+  'medium': 15px,
+  'large': 30px,
+  'xlarge': 30px,
+  'xxlarge' : 30px
+);

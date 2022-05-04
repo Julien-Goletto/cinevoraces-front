@@ -73,3 +73,15 @@ If you need to give a class that contain "-" (try to avoid using "-" as much as 
 ```javascript
 <div className={styles['jambon-beurre']}>Je kiffe le jambon</div>
 ```
+To use global types you nedd to extend them like in example below :
+```scss
+.title {
+  @extend .h1;
+  color: #f0f;
+}
+// Add for multiple extends:
+.title {
+  @extend .h1, .section;
+  color: #f0f;
+}
+```

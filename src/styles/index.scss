@@ -1,0 +1,10 @@
+@use './var.scss';
+@use './reset.scss';
+@use './global.scss';
+
+body {
+  font-family: sans-serif;
+}
+.test {
+  background-color: yellow;
+}

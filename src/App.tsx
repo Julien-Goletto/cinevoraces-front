@@ -7,7 +7,8 @@ import {
 } from 'react-router-dom';
 
 import Layout from 'components/Layout/Layout';
-import Home from './pages/Home/Home';
+import Home from 'pages/Home/Home';
+import Films from 'pages/Films/Films';
 
 function App() {
 
@@ -16,6 +17,7 @@ function App() {
       <Router>
         <Routes>
           <Route path='/' element={<Home />}/>
+          <Route path='/films' element={<Films />}/>
         </Routes>
       </Router>
       <Toast />

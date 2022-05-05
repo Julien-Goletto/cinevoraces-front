@@ -7,7 +7,7 @@ function Header() {
         <button className={styles['header__nav-mobile']}>
           <img src='images/mobile_menu.svg' alt='' />
         </button>
-        <img src='images/logo_title.svg' alt='Logo du site' />
+        <img className={styles.header__logo__img} src='images/logo_title.svg' alt='Logo du site' />
       </div>
       <nav className={styles.header__nav}>
         <a href='#' className={styles.link}>Accueil</a> 

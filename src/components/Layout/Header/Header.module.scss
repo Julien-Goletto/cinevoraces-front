@@ -2,6 +2,7 @@
 @use '~styles/var';
 
 .header {
+  padding: .5em 0;
   display: flex;
   justify-content: space-between;
 }
@@ -10,12 +11,15 @@
   align-items: center;
   gap: 1.5em;
 }
+.header__logo__img {
+  width: 10rem;
+}
 .header__nav {
+  composes : default-text from global;
+  letter-spacing: .04rem;
   display: none;
   align-items: center;
-  gap:  1em;
-  font-weight: 500;
-  letter-spacing: .04rem;
+  gap: 1em;
 }
 .header__nav-mobile {
   background: none;
@@ -38,5 +42,13 @@
   }
   .header__nav-mobile {
     display: none;
+  }
+  .header__logo__img {
+    width: 12.5rem;
+  }
+}
+@include mix.breakpoint('laptop') {
+  .header__logo__img {
+    width: 13.4rem;
   }
 }

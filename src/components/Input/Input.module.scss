@@ -1,0 +1,33 @@
+@use '~styles/var';
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  width: 100%;
+  margin: 14px 0;
+}
+.label {
+  font-size: 14px;
+  font-weight: 500;
+}
+.input {
+  background-color: var.$secondary-background;
+  color: var.$white;
+  font-size: 14px;
+  font-family: 'Montserrat', Arial, Helvetica, sans-serif;
+  padding-left: 2.5em;
+  padding-top: 1em;
+  padding-bottom: 1em;
+  border: none;
+  border-radius: 10px;
+
+  &--username{
+    background: url('user.svg') var.$secondary-background;;
+    background-position: 1em center;
+    background-repeat: no-repeat;
+  }
+}
+.input::placeholder {
+  color: var.$input-text;
+}

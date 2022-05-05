@@ -1,0 +1,69 @@
+@use '~styles/var';
+@use '~styles/mixins' as mix;
+
+
+.button {
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 14px;
+  border: none;
+  width: 201px;
+  height: 44px;
+  box-shadow: inset 0px -2px 3px rgba(48, 48, 48, 0.25);
+}
+
+.button--full {
+  background-color: var.$primary;
+}
+
+.button--empty {
+  color: var.$white;
+  border: 1px solid var.$primary;
+  background-color: transparent;
+}
+
+.button--white {
+  background-color: var.$white;
+}
+
+.button_action {
+  font-size: 1rem;
+  font-weight: 600;
+  width: 96px;
+  height: 35px;
+  border: none;
+  border-radius: 20px;
+  box-shadow: inset 0px -2px 3px rgba(48, 48, 48, 0.25);
+}
+
+.button_search {
+  width: 68px;
+  height: 48px;
+  border-radius: 20px;
+  border: none;
+  box-shadow: inset 0px -2px 3px rgba(48, 48, 48, 0.25);
+}
+
+@include mix.breakpoint('tablet') {
+  .button { 
+    width: 209px;
+    height: 47px;
+  }
+
+  .button_action { 
+    width: 104px;
+    height: 37px;
+  }
+}
+
+@include mix.breakpoint('desktop') {
+  .button { 
+    width: 213px;
+    height: 50px;
+  }
+
+  .button_action { 
+    width: 111px;
+    height: 39px;
+  }
+}

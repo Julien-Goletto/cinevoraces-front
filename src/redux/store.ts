@@ -1,10 +1,10 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
-import counterSlice from './slices/counter';
+import globalSlice from './slices/global';
 import { api } from './api';
 
 export const store = configureStore({
   reducer: {
-    counter: counterSlice,
+    global: globalSlice,
     [api.reducerPath]: api.reducer
   },
   middleware: (getDefaultMiddleware) =>

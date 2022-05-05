@@ -1139,11 +1139,6 @@
   resolved "https://registry.yarnpkg.com/@csstools/postcss-unset-value/-/postcss-unset-value-1.0.0.tgz#f6e0e58376f09e381a49bd553772a97a477da3fd"
   integrity sha512-T5ZyNSw9G0x0UDFiXV40a7VjKw2b+l4G+S0sctKqxhx8cg9QtMUAGwJBVU9mHPDPoZEmwm0tEoukjl4zb9MU7Q==
 
-"@drewbot/sass-flexbox-grid@^2.0.7":
-  version "2.0.7"
-  resolved "https://registry.yarnpkg.com/@drewbot/sass-flexbox-grid/-/sass-flexbox-grid-2.0.7.tgz#3e1a9bb995139d1f7f849ae215926b91e32ff6dc"
-  integrity sha512-cDbfmA0dgskPR83k2piT27+2eGOJZ0S/q+huJmJzTjllJr9KPhJ6/c8pr88FEL2aVnD5LvY7yITHAPrd0h8+Yg==
-
 "@eslint/eslintrc@^1.2.2":
   version "1.2.2"
   resolved "https://registry.yarnpkg.com/@eslint/eslintrc/-/eslintrc-1.2.2.tgz#4989b9e8c0216747ee7cca314ae73791bb281aae"

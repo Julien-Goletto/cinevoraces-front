@@ -1,3 +1,4 @@
+import Button from 'components/Button/Button';
 import Toast from 'components/Toast/Toast';
 import React from 'react';
 import {
@@ -18,6 +19,7 @@ function App() {
         </Routes>
       </Router>
       <Toast />
+      <Button />
     </>
   );
 }

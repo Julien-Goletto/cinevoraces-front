@@ -1,5 +1,6 @@
+@use '~styles/mixins' as mix;
+
 .toast {
-  composes: h1 from global;
   position: fixed;
   bottom: 0;
   left: 50%;
@@ -8,4 +9,8 @@
   transform: translateX(-50%);
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
+}
+
+@include mix.breakpoint('tablet') {
+
 }

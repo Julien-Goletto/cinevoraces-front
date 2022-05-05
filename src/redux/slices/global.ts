@@ -4,8 +4,8 @@ import { RootState } from '../store';
 const initialState = { value: 0 };
 
 
-const counterSlice = createSlice({
-  name: 'counter',
+const globalSlice = createSlice({
+  name: 'global',
   initialState,
   reducers: {
     increment(state) {
@@ -17,7 +17,7 @@ const counterSlice = createSlice({
   }
 });
 
-export const getCount = (state: RootState) => state.counter.value;
+export const getCount = (state: RootState) => state.global.value;
 
-export const { increment, decrement } = counterSlice.actions;
-export default counterSlice.reducer;
+export const { increment, decrement } = globalSlice.actions;
+export default globalSlice.reducer;

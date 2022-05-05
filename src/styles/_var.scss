@@ -1,1 +1,14 @@
-$red: red;
+$white: #F2F2F3;
+$background: #202029;
+$secondary-background: #393945;
+$input-text: #8A8A92;
+
+$primary: #FC9A3F;
+$secondary: #FC783F;
+
+$breakpoints: (
+  'mobile': 100%,
+  'tablet': 768px,
+  'laptop': 1024px,
+  'desktop': 1440px,
+) !default;

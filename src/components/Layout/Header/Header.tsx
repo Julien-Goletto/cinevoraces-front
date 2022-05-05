@@ -1,5 +1,8 @@
 import styles from './Header.module.scss';
 
+// TODO : Use Redux
+const isLogged = false;
+
 function Header() {
   return(
     <header className={`container ${styles.header}`}>
@@ -17,14 +20,23 @@ function Header() {
         <a href='#' className={styles.link}>Le dernier film</a>
       </nav>
 
-      {/* // TODO : Use Button component */}
-      <button style={{
-        height: '2.75rem',
-        width: '7.75rem',
-        margin: 0,
-        right: 0,
-      }}
-      >Se connecter</button>
+      {!isLogged &&
+        <>
+          {/* // TODO : Use Button component */}
+          <button style={{
+            height: '2.75rem',
+            width: '7.75rem',
+            margin: 0,
+            right: 0,
+          }}>Se connecter</button>
+        </>
+      }
+      {isLogged &&
+      <>
+        {/* // TODO : Call drop-down menu here */}
+        <img className={styles.header__user} src='images/user_default.svg' alt='' />
+      </>
+      }
     </header>
   );
 }

@@ -1,10 +1,12 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
 import globalSlice from './slices/global';
+import interactionSlice from './slices/interaction';
 import { api } from './api';
 
 export const store = configureStore({
   reducer: {
     global: globalSlice,
+    interaction: interactionSlice,
     [api.reducerPath]: api.reducer
   },
   middleware: (getDefaultMiddleware) =>

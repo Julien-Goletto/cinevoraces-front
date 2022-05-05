@@ -1,0 +1,42 @@
+@use '~styles/mixins' as mix;
+@use '~styles/var' as v;
+
+.header {
+  display: flex;
+  justify-content: space-between;
+}
+.header__logo {
+  display: flex;
+  align-items: center;
+  gap: 1.5em;
+}
+.header__nav {
+  display: none;
+  align-items: center;
+  gap:  1em;
+  font-weight: 500;
+  letter-spacing: .04rem;
+}
+.header__nav-mobile {
+  background: none;
+  border: none;
+}
+
+.link {
+  color: v.$white;
+}
+.dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 100%;
+  background-color: v.$primary;
+}
+
+@include mix.breakpoint('tablet') {
+  .header__nav {
+    display: flex;
+  }
+  .header__nav-mobile {
+    display: none;
+  }
+}

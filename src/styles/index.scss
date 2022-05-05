@@ -1,10 +1,16 @@
 @use './var.scss';
 @use './reset.scss';
 @use './global.scss';
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap');
 
+html {
+  font-size: 16px;
+}
 body {
   font-family: sans-serif;
+  background-color: var.$background;
+  color: var.$white;
 }
-.test {
-  background-color: yellow;
+p {
+  letter-spacing: 1%;
 }

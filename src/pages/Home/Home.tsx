@@ -5,6 +5,7 @@ import Metrics from 'components/Metrics/Metrics';
 import About from './About/About';
 import SendMovie from './About/SendMovie/SendMovie';
 import Share from './About/Share/Share';
+import JoinUs from './JoinUs/JoinUs';
 
 function Home() {
   return (
@@ -18,6 +19,7 @@ function Home() {
         <SendMovie />
         <Share />
       </About>
+      <JoinUs />
       
     </>
   );

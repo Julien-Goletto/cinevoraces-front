@@ -20,8 +20,6 @@ function App() {
         </Routes>
       </Router>
       <Toast />
-      <Button state='full'>Hello world</Button>
-      <ButtonActions state='full'>Test</ButtonActions>
     </>
   );
 }

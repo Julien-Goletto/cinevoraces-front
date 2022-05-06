@@ -1,0 +1,53 @@
+@use '~styles/mixins' as mix;
+
+.metrics {
+    margin: 5em auto;
+    composes: container from global;
+}
+
+.metrics__title {
+    @include mix.h4;
+    text-align: center;
+    @include mix.breakpoint('tablet') {
+        @include mix.h3;
+    } 
+    @include mix.breakpoint('tablet') {
+        @include mix.h2;
+    } 
+}
+
+.metrics__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    margin: 3em 0 0 0;
+    @include mix.breakpoint('tablet') {
+        @include mix.wrapper;
+    } 
+}
+.metric {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    &--purple {
+        color: #C99AF8;
+    }
+    &--yellow {
+        color: #FCCA15;
+    }
+    &--green {
+        color: #85F086;
+    }
+}
+.metric__count {
+    @include mix.h2;
+    @include mix.breakpoint('tablet') {
+        @include mix.h1;
+    }
+}
+.metric__type {
+    @include mix.h4;
+    @include mix.breakpoint('tablet') {
+        @include mix.h3;
+    }
+}

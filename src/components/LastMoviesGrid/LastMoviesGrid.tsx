@@ -1,3 +1,4 @@
+import ButtonActions from 'components/Buttons/ButtonActions';
 import styles from './LastMoviesGrid.module.scss';
 
 const fake_data: {[key:string]: string}[] = [
@@ -23,14 +24,7 @@ function LastMoviesGrid() {
         )}
       </div>
 
-      {/* // TODO : Use Button component */}
-      <button style={{
-        height: '34px',
-        width: '190px',
-        margin: 0,
-        right: 0,
-      }}
-      >Voir la liste des films</button>
+      <ButtonActions state='full'>Voir la liste des</ButtonActions>
     </div>
   );
 }

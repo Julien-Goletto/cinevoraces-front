@@ -1,0 +1,70 @@
+@use '~styles/var';
+@use '~styles/mixins' as mix;
+
+.send {
+  background-color: var.$secondary-background;
+  margin: 4em auto;
+}
+.send__wrapper {
+  composes: container from global;
+  padding-top: 2em;
+  padding-bottom:  2em;
+}
+.send__title {
+  @include mix.h3;
+  margin-bottom: 1em;
+  &--top {
+    display: block;
+  }
+  &--bottom {
+    display: none;
+  }
+}
+.send__content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1em;
+}
+
+.send__img {
+  width: 230px;
+  height: 100%;
+}
+
+
+@media (min-width: 515px) {
+
+  .send__content {
+    flex-direction: row;
+  }
+}
+@include mix.breakpoint('tablet') {
+  .send__text {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    width: 100%;
+    &> * {
+      width: 95%;
+    }
+  }
+  .send__title--top {
+    display: none;
+  }
+  .send__title--bottom {
+    display: block;
+  }
+  .send__img {
+    width: 250px;
+  }
+  .send__wrapper {
+    padding-top: 3em;
+    padding-bottom:  3em;
+  }
+}
+@include mix.breakpoint('laptop') {
+  .send__content {
+    @include mix.wrapper;
+  }
+}

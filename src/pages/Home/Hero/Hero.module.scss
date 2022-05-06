@@ -1,0 +1,69 @@
+@use '~styles/var';
+@use '~styles/mixins' as mix;
+
+
+.hero {
+  composes: container from global;
+  & span {
+    color: var.$primary;
+  }
+  margin: 5em auto 6em auto;
+  @include mix.breakpoint('desktop') {
+    display: flex;
+  }
+}
+.hero__text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  @include mix.breakpoint('desktop') {
+    width: 50%;
+  }
+}
+.hero__img {
+  display: none;
+  text-align: right;
+  & img {
+    max-width: 85%;
+    border-radius: 10px;
+    outline: 4px solid #2D2F37;
+    box-shadow: 4.88426px 2.93056px 11.7222px rgba(0, 0, 0, 0.15);
+  }
+}
+.hero__title {
+  @include mix.h1;
+  padding-bottom: .8em;
+
+}
+.hero__subtitle {
+  @include mix.h4;
+  padding-bottom: 2em;
+}
+.hero__btns {
+  display: flex;
+  gap: 1em;
+}
+
+@include mix.breakpoint('tablet') {
+  .hero__btns {
+    gap: 2em;
+  }
+  .hero {
+    margin: 7em auto 7em auto;
+  }
+}
+@include mix.breakpoint('desktop') {
+  .hero {
+    margin: 7em auto 8.5em auto;
+  }
+  .hero__title {
+    @include mix.h0;
+  }
+  .hero__subtitle {
+    @include mix.h3;
+  }
+  .hero__img {
+    width: 50%;
+    display: block;
+  }
+}

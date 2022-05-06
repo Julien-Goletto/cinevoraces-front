@@ -8,8 +8,6 @@ import {
 
 import Layout from 'components/Layout/Layout';
 import Home from './pages/Home/Home';
-import Modal from 'components/Modal/Modal';
-import Connection from 'components/Modal/Connection/Connection';
 
 function App() {
 
@@ -21,9 +19,6 @@ function App() {
         </Routes>
       </Router>
       <Toast />
-      <Modal>
-        <Connection />
-      </Modal>
     </Layout>
   );
 }

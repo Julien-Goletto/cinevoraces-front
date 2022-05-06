@@ -3,8 +3,8 @@ import styles from './DropDownMenu.module.scss';
 
 const { season, genre, country } = { 
   season: [1, 2, 3],
-  genre: ['Porn', 'Cosplay', 'Bukkake', 'Golden shower', 'Creampie', 'Animals'],
-  country: ['Alsace', 'France', 'Japon', 'Bolivie']
+  genre: ['Action', 'Film d\'épouvante'],
+  country: ['Alsace', 'Autre']
 };
 
 function DropDownMenu() {

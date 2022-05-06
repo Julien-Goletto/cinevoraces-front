@@ -6,30 +6,30 @@ type TagsProps = { array: string[], tagName: string }
 
 function FieldsetSeason({array}: SeasonProps) {
   return(
-    <fieldset>
-      <ul className={styles.fieldset}>
+    <fieldset className={styles.fieldset}>
+      <ul>
         <li>
-          <input 
-            className={styles.fieldset__element}
-            type='radio'
-            value='all'
-            name='season'
-          />
-          <label htmlFor='all'>
+          <label>
             Tout les films
+            <input 
+              className={styles.fieldset__element}
+              type='radio'
+              value='all'
+              name='season'
+            />
           </label>
         </li>
 
         { array.map((season) => 
           <li>
-            <input 
-              className={styles.fieldset__element}
-              type='radio'
-              value={season}
-              name='season'
-            />
-            <label htmlFor='season'>
+            <label>
               Saison {season}
+              <input 
+                className={styles.fieldset__element}
+                type='radio'
+                value={season}
+                name='season'
+              />
             </label>
           </li>
         )}
@@ -40,21 +40,25 @@ function FieldsetSeason({array}: SeasonProps) {
 
 function FieldsetViewed() {
   return(
-    <fieldset>
-      <ul className={styles.fieldset}>
+    <fieldset className={styles.fieldset}>
+      <ul>
         <li>
-          <input 
-            className={styles.fieldset__element}
-            type='radio' value='true' name='season'
-          />
-          <label htmlFor='true'>Vus</label>
+          <label>
+            Vus
+            <input 
+              className={styles.fieldset__element}
+              type='radio' value='true' name='isViewed'
+            />
+          </label>
         </li>
         <li>
-          <input 
-            className={styles.fieldset__element}
-            type='radio' value='true' name='season'
-          />
-          <label htmlFor='false'>À voir</label>
+          <label>
+            À voir
+            <input 
+              className={styles.fieldset__element}
+              type='radio' value='false' name='isViewed'
+            />
+          </label>
         </li>
       </ul>
     </fieldset>
@@ -68,8 +72,8 @@ function FieldsetTags({ array, tagName }: TagsProps) {
     (isOpen) ? setIsOpen(false) : setIsOpen(true);
   };
   return(
-    <fieldset>
-      <ul className={styles['fieldset--tags']}>
+    <fieldset className={styles['fieldset__tags']}>
+      <ul>
         <button
           className={styles.fieldset__element}
           onClick={handleTagsDropDown}
@@ -78,15 +82,15 @@ function FieldsetTags({ array, tagName }: TagsProps) {
         </button>
         { isOpen &&
           array.map((tag) =>
-            <li>
-              <label htmlFor={tagName}>
+            <li className={styles.fieldset__element}>
+              <label htmlFor={tag}>
                 {tag}
               </label>
               <input 
                 className={styles.fieldset__element}
                 type='checkbox'
                 value={tag}
-                name={tagName}
+                id={tag}
               />
             </li>
           )}

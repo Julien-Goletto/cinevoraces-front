@@ -12,7 +12,7 @@
     display: flex;
   }
 }
-.hero__text {
+.text {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -20,7 +20,7 @@
     width: 50%;
   }
 }
-.hero__img {
+.img {
   display: none;
   text-align: right;
   & img {
@@ -30,22 +30,22 @@
     box-shadow: 4.88426px 2.93056px 11.7222px rgba(0, 0, 0, 0.15);
   }
 }
-.hero__title {
+.title {
   @include mix.h1;
   padding-bottom: .8em;
 
 }
-.hero__subtitle {
+.subtitle {
   @include mix.h4;
   padding-bottom: 2em;
 }
-.hero__btns {
+.btns {
   display: flex;
   gap: 1em;
 }
 
 @include mix.breakpoint('tablet') {
-  .hero__btns {
+  .btns {
     gap: 2em;
   }
   .hero {
@@ -56,13 +56,13 @@
   .hero {
     margin: 7em auto 8.5em auto;
   }
-  .hero__title {
+  .title {
     @include mix.h0;
   }
-  .hero__subtitle {
+  .subtitle {
     @include mix.h3;
   }
-  .hero__img {
+  .img {
     width: 50%;
     display: block;
   }

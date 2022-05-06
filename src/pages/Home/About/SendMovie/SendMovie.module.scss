@@ -5,12 +5,12 @@
   background-color: var.$secondary-background;
   margin: 4em auto;
 }
-.send__wrapper {
+.wrapper {
   composes: container from global;
   padding-top: 2em;
   padding-bottom:  2em;
 }
-.send__title {
+.title {
   @include mix.h3;
   margin-bottom: 1em;
   &--top {
@@ -20,14 +20,14 @@
     display: none;
   }
 }
-.send__content {
+.content {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 1em;
 }
 
-.send__img {
+.img {
   width: 230px;
   height: 100%;
 }
@@ -35,12 +35,12 @@
 
 @media (min-width: 515px) {
 
-  .send__content {
+  .content {
     flex-direction: row;
   }
 }
 @include mix.breakpoint('tablet') {
-  .send__text {
+  .text {
     display: flex;
     flex-direction: column;
     align-items: flex-end;
@@ -49,22 +49,22 @@
       width: 95%;
     }
   }
-  .send__title--top {
+  .title--top {
     display: none;
   }
-  .send__title--bottom {
+  .title--bottom {
     display: block;
   }
-  .send__img {
+  .img {
     width: 250px;
   }
-  .send__wrapper {
+  .wrapper {
     padding-top: 3em;
     padding-bottom:  3em;
   }
 }
 @include mix.breakpoint('laptop') {
-  .send__content {
+  .content {
     @include mix.wrapper;
   }
 }

@@ -8,10 +8,10 @@ type ButtonProps = {
 function ButtonActions({children, state}: ButtonProps)  {
 
   if(state === 'full' || state === null) {
-    return <button className={`${styles.button_action} ${styles['button--full']}`}>{children}</button>;
+    return <button className={`${styles['button-action']} ${styles['button--full']}`}>{children}</button>;
   }
   if(state === 'white') {
-    return <button className={`${styles.button_action} ${styles['button--white']}`}>{children}</button>;
+    return <button className={`${styles['button-action']} ${styles['button--white']}`}>{children}</button>;
   }
   return null;
   

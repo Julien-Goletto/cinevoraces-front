@@ -7,7 +7,7 @@ type ButtonProps = {
 function ButtonSearch({children}: ButtonProps)  {
 
   return (
-    <button className={`${styles.button_search} ${styles['button--full']}`}>{children}</button>
+    <button className={`${styles['button-search']} ${styles['button--full']}`}>{children}</button>
   );
 };
 

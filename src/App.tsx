@@ -1,3 +1,6 @@
+import Button from 'components/Buttons/Button';
+import ButtonActions from 'components/Buttons/ButtonActions';
+import ButtonSearch from 'components/Buttons/ButtonSearch';
 import Toast from 'components/Toast/Toast';
 import React from 'react';
 import {
@@ -17,6 +20,8 @@ function App() {
         </Routes>
       </Router>
       <Toast />
+      <Button state='full'>Hello world</Button>
+      <ButtonActions state='full'>Test</ButtonActions>
     </>
   );
 }

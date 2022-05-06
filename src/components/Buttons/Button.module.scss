@@ -1,6 +1,9 @@
 @use '~styles/var';
 @use '~styles/mixins' as mix;
 
+button {
+  font-family: 'Montserrat', Arial, Helvetica, sans-serif;
+}
 
 .button {
   font-size: 1rem;
@@ -26,7 +29,7 @@
   background-color: var.$white;
 }
 
-.button_action {
+.button-action {
   font-size: 1rem;
   font-weight: 600;
   width: 96px;
@@ -36,7 +39,7 @@
   box-shadow: inset 0px -2px 3px rgba(48, 48, 48, 0.25);
 }
 
-.button_search {
+.button-search {
   width: 68px;
   height: 48px;
   border-radius: 20px;
@@ -50,7 +53,7 @@
     height: 47px;
   }
 
-  .button_action { 
+  .button-action { 
     width: 104px;
     height: 37px;
   }
@@ -62,7 +65,7 @@
     height: 50px;
   }
 
-  .button_action { 
+  .button-action { 
     width: 111px;
     height: 39px;
   }

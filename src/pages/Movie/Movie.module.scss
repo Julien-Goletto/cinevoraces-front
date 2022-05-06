@@ -1,0 +1,81 @@
+@use '~styles/mixins' as mix;
+@use '~styles/var';
+
+.movie {
+  margin: 2em auto;
+}
+
+.content {
+  display: flex;
+  gap: 2em;
+  margin-bottom: 2.5em;
+}
+
+.poster {
+  border-radius: 10px;
+  position: relative;
+  background: linear-gradient(50.76deg, rgba(0, 0, 0, 0) 44.12%, #FC9A3F 96.37%);
+  padding: 2px;
+}
+
+.interactions {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: space-evenly;
+}
+
+.img {
+  max-width: 100%;
+  border-radius: 10px;
+}
+//Description
+.casting {
+  display: flex;
+  margin-top: 1em;
+}
+
+.cast {
+  margin-right: 1.5em;
+  text-transform: uppercase;
+  color: #8A8A92;
+  @include mix.p;
+}
+
+.title {
+  @include mix.h3;
+}
+
+.year {
+  font-size: 1rem;
+  font-weight: 400;
+  color: #8A8A92;
+  margin-left: 0.5em;
+}
+
+.element {
+  color: #8A8A92;
+  text-transform: uppercase;
+  margin-top: 1em;
+  @include mix.p;
+}
+
+.elm {
+  margin-left: 1em;
+  text-transform: none;
+  color: var.$white;
+}
+
+.elm--orange {
+  color: var.$primary;
+}
+
+
+.elm--weight {
+  font-weight: 400;
+}
+
+.list {
+  margin-bottom: 0.8em;
+}
+

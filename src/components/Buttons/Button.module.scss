@@ -10,8 +10,7 @@ button {
   font-weight: 600;
   border-radius: 14px;
   border: none;
-  width: 201px;
-  height: 44px;
+  padding: 0.8em 1.5em;
   box-shadow: inset 0px -2px 3px rgba(48, 48, 48, 0.25);
 }
 
@@ -32,16 +31,14 @@ button {
 .button-action {
   font-size: 1rem;
   font-weight: 600;
-  width: 96px;
-  height: 35px;
+  padding: 0.6em 1.3em;
   border: none;
   border-radius: 20px;
   box-shadow: inset 0px -2px 3px rgba(48, 48, 48, 0.25);
 }
 
 .button-search {
-  width: 68px;
-  height: 48px;
+  padding: 1.2em 2.1em;
   border-radius: 20px;
   border: none;
   box-shadow: inset 0px -2px 3px rgba(48, 48, 48, 0.25);
@@ -49,24 +46,20 @@ button {
 
 @include mix.breakpoint('tablet') {
   .button { 
-    width: 209px;
-    height: 47px;
+    padding: 0.9em 1.7em;
   }
 
   .button-action { 
-    width: 104px;
-    height: 37px;
+    padding: 0.7em 1.5em;
   }
 }
 
 @include mix.breakpoint('desktop') {
   .button { 
-    width: 213px;
-    height: 50px;
+    padding: 1em 1.9em;
   }
 
   .button-action { 
-    width: 111px;
-    height: 39px;
+    padding: 0.8em 1.7em;
   }
 }

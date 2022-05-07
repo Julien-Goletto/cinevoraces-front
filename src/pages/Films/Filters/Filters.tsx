@@ -18,10 +18,9 @@ function Filters() {
       }}
       >Tout les films</button>
       
-      <div className={styles['filters__search-bar']}>
+      <div className={styles['filters-search-bar']}>
         <img src='images/input_search.svg' alt='' />
         <input 
-          className={styles['filters__search-bar__input']}
           placeholder='Filtrer par titre'
           type='text'
         />

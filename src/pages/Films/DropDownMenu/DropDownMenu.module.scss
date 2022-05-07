@@ -28,7 +28,7 @@
   }
 }
 
-.fieldset, .fieldset__tags {
+.fieldset, .fieldset-tags {
   padding: 1em 0;
   display: flex;
   flex-direction: column;
@@ -56,14 +56,14 @@
     gap: 1.5em;
   }
 }
-.fieldset__tags {
+.fieldset-tags {
   padding: 0;
   border: none;
   & li {
     margin-left: 2em;
   }
 }
-.fieldset__element {
+.fieldset-element {
   letter-spacing: .04rem;
   &:hover {
     cursor: pointer;

@@ -3,13 +3,13 @@ import styles from './DropDownMenu.module.scss';
 
 function FieldsetSeason({array}: FieldsetSeason) {
   return(
-    <fieldset className={styles.fieldset}>
+    <fieldset className={styles['fieldset']}>
       <ul>
         <li>
           <label>
             Tout les films
             <input 
-              className={styles.fieldset__element}
+              className={styles['fieldset-element']}
               type='radio'
               value='all'
               name='season'
@@ -22,7 +22,7 @@ function FieldsetSeason({array}: FieldsetSeason) {
             <label>
               Saison {season}
               <input
-                className={styles.fieldset__element}
+                className={styles['fieldset-element']}
                 type='radio'
                 value={season}
                 name='season'
@@ -37,13 +37,13 @@ function FieldsetSeason({array}: FieldsetSeason) {
 
 function FieldsetViewed() {
   return(
-    <fieldset className={styles.fieldset}>
+    <fieldset className={styles['fieldset']}>
       <ul>
         <li>
           <label>
             Vus
             <input 
-              className={styles.fieldset__element}
+              className={styles['fieldset-element']}
               type='radio' value='true' name='isViewed'
             />
           </label>
@@ -52,7 +52,7 @@ function FieldsetViewed() {
           <label>
             À voir
             <input 
-              className={styles.fieldset__element}
+              className={styles['fieldset-element']}
               type='radio' value='false' name='isViewed'
             />
           </label>
@@ -69,22 +69,22 @@ function FieldsetTags({ array, tagName }: FieldsetTag) {
     (isOpen) ? setIsOpen(false) : setIsOpen(true);
   };
   return(
-    <fieldset className={styles['fieldset__tags']}>
+    <fieldset className={styles['fieldset-tags']}>
       <ul>
         <button
-          className={styles.fieldset__element}
+          className={styles['fieldset-element']}
           onClick={handleTagsDropDown}
         >
           {tagName}<img src='images/arrow-right.svg' alt='' />
         </button>
         { isOpen &&
           array.map((tag, key) =>
-            <li className={styles.fieldset__element} key={key}>
+            <li className={styles['fieldset-element']} key={key}>
               <label htmlFor={tag}>
                 {tag}
               </label>
               <input 
-                className={styles.fieldset__element}
+                className={styles['fieldset-element']}
                 type='checkbox'
                 value={tag}
                 id={tag}

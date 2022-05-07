@@ -1,10 +1,7 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import styles from './DropDownMenu.module.scss';
 
-type SeasonProps = { array: number[] }
-type TagsProps = { array: string[], tagName: string }
-
-function FieldsetSeason({array}: SeasonProps) {
+function FieldsetSeason({array}: FieldsetSeason) {
   return(
     <fieldset className={styles.fieldset}>
       <ul>
@@ -20,11 +17,11 @@ function FieldsetSeason({array}: SeasonProps) {
           </label>
         </li>
 
-        { array.map((season) => 
-          <li>
+        { array.map((season, key) => 
+          <li key={key}>
             <label>
               Saison {season}
-              <input 
+              <input
                 className={styles.fieldset__element}
                 type='radio'
                 value={season}
@@ -65,7 +62,7 @@ function FieldsetViewed() {
   );
 }
 
-function FieldsetTags({ array, tagName }: TagsProps) {
+function FieldsetTags({ array, tagName }: FieldsetTag) {
   const [isOpen, setIsOpen] = useState(false);
   const handleTagsDropDown = (e:eventButton) => {
     e.preventDefault();
@@ -81,8 +78,8 @@ function FieldsetTags({ array, tagName }: TagsProps) {
           {tagName}<img src='images/arrow-right.svg' alt='' />
         </button>
         { isOpen &&
-          array.map((tag) =>
-            <li className={styles.fieldset__element}>
+          array.map((tag, key) =>
+            <li className={styles.fieldset__element} key={key}>
               <label htmlFor={tag}>
                 {tag}
               </label>
@@ -99,4 +96,67 @@ function FieldsetTags({ array, tagName }: TagsProps) {
   );
 }
 
-export { FieldsetSeason, FieldsetViewed, FieldsetTags };
+function FieldsetDate({ min, max, label }: FieldsetDate) {
+  const [minVal, setMinVal] = useState(min);
+  const [maxVal, setMaxVal] = useState(max);
+  const minValRef = useRef(min);
+  const maxValRef = useRef(max);
+  const range = useRef<any>(null);
+  const getPercent = useCallback((value: number) => 
+    Math.round(((value - min) / (max - min)) * 100), [min, max]
+  );
+  useEffect(() => {
+    const minPercent = getPercent(minVal);
+    const maxPercent = getPercent(maxValRef.current);
+    if (range.current) {
+      range.current.style.left = `${minPercent}%`;
+      range.current.style.width = `${maxPercent - minPercent}%`;
+    }}, [minVal, getPercent]);
+  useEffect(() => {
+    const minPercent = getPercent(minValRef.current);
+    const maxPercent = getPercent(maxVal);
+    if (range.current) {
+      range.current.style.width = `${maxPercent - minPercent}%`;
+    }}, [maxVal, getPercent]);
+
+  const minThumbHandler = (event: eventHandler) => {
+    const value = Math.min(Number(event.target.value), maxVal - 1);
+    setMinVal(value);
+    minValRef.current = value;
+  };
+  const maxThumbHandler = (event: eventHandler) => {
+    const value = Math.max(Number(event.target.value), minVal + 1);
+    setMaxVal(value);
+    maxValRef.current = value;
+  };
+  return (
+    <fieldset className={styles['fieldset-date']}>
+      <label htmlFor={label}>{label}</label>
+      <div className={styles['input-container']}>
+        <div className={`${styles['value']}`}>{minVal}</div>
+        <div className={styles['slider']}>
+          <input
+            id={label}
+            type='range'
+            min={min}
+            max={max}
+            value={minVal}
+            onChange={minThumbHandler}
+            style={{ zIndex: (minVal > max - 100) ? '5' : 'unset' }}
+          />
+          <input
+            id={label}
+            type='range'
+            min={min}
+            max={max}
+            value={maxVal}
+            onChange={maxThumbHandler}
+          />
+        </div>
+        <div className={`${styles['value']}`}>{maxVal}</div>
+      </div>
+    </fieldset>
+  );
+};
+
+export { FieldsetSeason, FieldsetViewed, FieldsetTags, FieldsetDate };

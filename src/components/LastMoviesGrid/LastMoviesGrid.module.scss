@@ -8,10 +8,10 @@
 .last-movies button:nth-last-child(1) {
   align-self: flex-end;
 }
-.last-movies__title {
+.title {
   font-size: 1.75rem;
 }
-.last-movies__grid {
+.grid {
   display: grid;
   gap: .5em;
   grid-template-columns: 1fr 1fr 1fr;
@@ -24,22 +24,22 @@
 .poster:nth-child(5) {
   display: none;
 }
-.poster__img {
+.img {
   width: 100%;
   height: 100%; 
   object-fit: cover;
 }
 
 @include mix.breakpoint('tablet') {
-  .last-movies__title h2 {
+  .title h2 {
     font-size: 2.05rem;
   }
 }
 @include mix.breakpoint('laptop') {
-  .last-movies__title h2 {
+  .title h2 {
     font-size: 2.5rem;
   }
-  .last-movies__grid {
+  .grid {
     grid-template-columns: 1fr 1fr 1fr 1fr;
   }
   .poster:nth-child(4) {
@@ -47,7 +47,7 @@
   }
 }
 @include mix.breakpoint('desktop') {
-  .last-movies__grid {
+  .grid {
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
     gap: 1em;
   }

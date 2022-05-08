@@ -69,6 +69,14 @@
     cursor: pointer;
   }
 }
+.fieldset-reset {
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: .04em;
+  border: 1px var.$primary solid;
+  padding: 0 1em;
+  border-radius: 50px;
+}
 
 $checkbox-size: 1em;
 $checkbox-input-background-color: var.$background;

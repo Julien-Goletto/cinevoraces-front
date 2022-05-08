@@ -15,6 +15,11 @@ function FieldsetSeason({array}: FieldsetSeason) {
               name='season'
             />
           </label>
+          <button
+            className={styles['fieldset-reset']}
+          >
+            Éffacer filtres
+          </button>
         </li>
 
         { array.map((season, key) => 
@@ -39,6 +44,15 @@ function FieldsetViewed() {
   return(
     <fieldset className={styles['fieldset']}>
       <ul>
+        <li>
+          <label>
+            Tous
+            <input 
+              className={styles['fieldset-element']}
+              type='radio' value='all' name='isViewed'
+            />
+          </label>
+        </li>
         <li>
           <label>
             Vus

@@ -3,8 +3,7 @@ import DropDownMenu from '../DropDownMenu/DropDownMenu';
 import styles from './Filters.module.scss';
 
 function Filters() {
-  // TODO : Use Redux
-  const [isDropMenu, SetIsDropMenu] = useState(true);
+  const [isDropMenu, SetIsDropMenu] = useState(false);
   
   return(
     <div className={`container ${styles.filters}`}>

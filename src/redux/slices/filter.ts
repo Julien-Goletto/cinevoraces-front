@@ -24,18 +24,24 @@ const initialState: FilterState = {
       tags: [{name: 'Alsace', isChecked: false},{name: 'Allemagne', isChecked: false},{name: 'Corse', isChecked: false},{name: 'États-Unis', isChecked: false}]
     }
   ],
-  periode: {isBetween: [1900, 2077]}
+  periode: {baseValues: [1900,2077], stateValues: [1900, 2077]}
 };
 
 const filterSlice = createSlice({
   name: 'filter',
   initialState,
   reducers: {
-    setPeriode(state) {
-      // TODO: code me
-      // state.periode[];
+    setPeriodeMinVal(state, action) {
+      state.periode.stateValues[0] = action.payload;
+    },
+    setPeriodeMaxVal(state, action) {
+      state.periode.stateValues[1] = action.payload;
     },
   }
 });
 
+
+export const periodeBaseValues = (state: RootState) => state.filter.periode.baseValues;
+export const periodeStateValues = (state: RootState) => state.filter.periode.stateValues;
+export const { setPeriodeMinVal, setPeriodeMaxVal } = filterSlice.actions;
 export default filterSlice.reducer;

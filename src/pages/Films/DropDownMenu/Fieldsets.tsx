@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { useAppDispatch, useAppSelector } from 'redux/hooks';
+import { periodeBaseValues, periodeStateValues, setPeriodeMinVal, setPeriodeMaxVal } from 'redux/slices/filter';
 import styles from './DropDownMenu.module.scss';
 
 function FieldsetRadio({array, handler}: FieldsetRadio) {
@@ -61,66 +62,66 @@ function FieldsetCheckbox({ array, tagName, handler }: FieldsetCheckbox) {
 }
 
 function FieldsetDate() {
-  const [min, max] = useAppSelector((state) => state.filter.periode.isBetween);
+  const [baseValueMin, baseValueMax] = useAppSelector(periodeBaseValues);
+  const [stateValueMin, stateValueMax] = useAppSelector(periodeStateValues);
+  const dispatch = useAppDispatch();
 
-  const [minVal, setMinVal] = useState(min);
-  const [maxVal, setMaxVal] = useState(max);
-  const minValRef = useRef(min);
-  const maxValRef = useRef(max);
+  const handleMinThumb = (event: onChangeEvent) => {
+    const value = Math.min(Number(event.target.value), stateValueMax - 1);
+    dispatch(setPeriodeMinVal(value));
+    minValRef.current = value;
+  };
+  const handleMaxThumb = (event: onChangeEvent) => {
+    const value = Math.max(Number(event.target.value), stateValueMin + 1);
+    dispatch(setPeriodeMaxVal(value));
+    maxValRef.current = value;
+  };
+  const minValRef = useRef(baseValueMin);
+  const maxValRef = useRef(baseValueMax);
   const range = useRef<any>(null);
   const getPercent = useCallback((value: number) => 
-    Math.round(((value - min) / (max - min)) * 100), [min, max]
+    Math.round(((value - baseValueMin) / (baseValueMax - baseValueMin)) * 100), [baseValueMin, baseValueMax]
   );
 
   useEffect(() => {
-    const minPercent = getPercent(minVal);
+    const minPercent = getPercent(stateValueMin);
     const maxPercent = getPercent(maxValRef.current);
     if (range.current) {
       range.current.style.left = `${minPercent}%`;
       range.current.style.width = `${maxPercent - minPercent}%`;
-    }}, [minVal, getPercent]);
+    }}, [stateValueMin, getPercent]);
   useEffect(() => {
     const minPercent = getPercent(minValRef.current);
-    const maxPercent = getPercent(maxVal);
+    const maxPercent = getPercent(stateValueMax);
     if (range.current) {
       range.current.style.width = `${maxPercent - minPercent}%`;
-    }}, [maxVal, getPercent]);
+    }}, [stateValueMax, getPercent]);
 
-  const minThumbHandler = (event: onChangeEvent) => {
-    const value = Math.min(Number(event.target.value), maxVal - 1);
-    setMinVal(value);
-    minValRef.current = value;
-  };
-  const maxThumbHandler = (event: onChangeEvent) => {
-    const value = Math.max(Number(event.target.value), minVal + 1);
-    setMaxVal(value);
-    maxValRef.current = value;
-  };
   return (
     <fieldset className={styles['fieldset-date']}>
       <label htmlFor='time'>Période</label>
       <div className={styles['input-container']}>
-        <div className={`${styles['value']}`}>{minVal}</div>
+        <div className={`${styles['value']}`}>{stateValueMin}</div>
         <div className={styles['slider']}>
           <input
             id='time'
             type='range'
-            min={min}
-            max={max}
-            value={minVal}
-            onChange={minThumbHandler}
-            style={{ zIndex: (minVal > max - 100) ? '5' : 'unset' }}
+            min={baseValueMin}
+            max={baseValueMax}
+            value={stateValueMin}
+            onChange={handleMinThumb}
+            style={{ zIndex: (stateValueMin > baseValueMax - 100) ? '5' : 'unset' }}
           />
           <input
             id='time'
             type='range'
-            min={min}
-            max={max}
-            value={maxVal}
-            onChange={maxThumbHandler}
+            min={baseValueMin}
+            max={baseValueMax}
+            value={stateValueMax}
+            onChange={handleMaxThumb}
           />
         </div>
-        <div className={`${styles['value']}`}>{maxVal}</div>
+        <div className={`${styles['value']}`}>{stateValueMax}</div>
       </div>
     </fieldset>
   );

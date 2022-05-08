@@ -31,6 +31,11 @@ const filterSlice = createSlice({
   name: 'filter',
   initialState,
   reducers: {
+    setSeasonFilter(state, action) {
+      state.seasons.forEach((season) => {
+        (season.value === action.payload) ? season.isChecked = true : season.isChecked = false;
+      });
+    },
     setPeriodeMinVal(state, action) {
       state.periode.stateValues[0] = action.payload;
     },
@@ -41,7 +46,14 @@ const filterSlice = createSlice({
 });
 
 
+export const filters = (state: RootState) => state.filter;
 export const periodeBaseValues = (state: RootState) => state.filter.periode.baseValues;
 export const periodeStateValues = (state: RootState) => state.filter.periode.stateValues;
-export const { setPeriodeMinVal, setPeriodeMaxVal } = filterSlice.actions;
+
+export const { 
+  setSeasonFilter,
+  setPeriodeMinVal, 
+  setPeriodeMaxVal 
+} = filterSlice.actions;
+
 export default filterSlice.reducer;

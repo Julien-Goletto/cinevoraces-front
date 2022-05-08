@@ -65,6 +65,9 @@ function FieldsetDate() {
   const [baseValueMin, baseValueMax] = useAppSelector(periodeBaseValues);
   const [stateValueMin, stateValueMax] = useAppSelector(periodeStateValues);
   const dispatch = useAppDispatch();
+  const minValRef = useRef(baseValueMin);
+  const maxValRef = useRef(baseValueMax);
+  const range = useRef<any>(null);
 
   const handleMinThumb = (event: onChangeEvent) => {
     const value = Math.min(Number(event.target.value), stateValueMax - 1);
@@ -76,9 +79,6 @@ function FieldsetDate() {
     dispatch(setPeriodeMaxVal(value));
     maxValRef.current = value;
   };
-  const minValRef = useRef(baseValueMin);
-  const maxValRef = useRef(baseValueMax);
-  const range = useRef<any>(null);
   const getPercent = useCallback((value: number) => 
     Math.round(((value - baseValueMin) / (baseValueMax - baseValueMin)) * 100), [baseValueMin, baseValueMax]
   );

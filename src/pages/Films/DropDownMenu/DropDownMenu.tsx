@@ -1,15 +1,15 @@
 import { useAppDispatch, useAppSelector } from 'redux/hooks';
-import { filters, setSeasonFilter, setIsViewedFilter, setTagFilter } from 'redux/slices/filter';
+import { filters, resetAllFilters, setSeasonFilter, setIsViewedFilter, setTagFilter } from 'redux/slices/filter';
 import { FieldsetRadio, FieldsetCheckbox, FieldsetDate } from './Fieldsets';
 import styles from './DropDownMenu.module.scss';
 
 function DropDownMenu() {
   const { seasons, isViewed, tags } = useAppSelector(filters);
   const dispatch = useAppDispatch();
-
-  const handleReset = (e:mouseEvent) => {
+  
+  const handleReset = (e:mouseEvent) =>  {
     e.preventDefault();
-    // TODO: Code me
+    dispatch(resetAllFilters());  
   };
   const handleSeasonFilter = (event: onChangeEvent) => {
     const value = String(event.target.value);

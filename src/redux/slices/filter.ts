@@ -31,22 +31,35 @@ const filterSlice = createSlice({
   name: 'filter',
   initialState,
   reducers: {
+    resetAllFilters(state) {
+      state.seasons.forEach((el, i) => {
+        (i === 0) ? el.isChecked = true : el.isChecked = false;
+      });
+      state.isViewed.forEach((el, i) => {
+        (i === 0) ? el.isChecked = true : el.isChecked = false;
+      });
+      state.tags.forEach((el) => {
+        el.tags.forEach((el) => {
+          el.isChecked = false;
+        });
+      });
+    },
     setSeasonFilter(state, action) {
-      state.seasons.forEach((i) => {
-        (i.value === action.payload) ? i.isChecked = true : i.isChecked = false;
+      state.seasons.forEach((el) => {
+        (el.value === action.payload) ? el.isChecked = true : el.isChecked = false;
       });
     },
     setIsViewedFilter(state, action) {
-      state.isViewed.forEach((i) => {
-        (i.value === action.payload) ? i.isChecked = true : i.isChecked = false;
+      state.isViewed.forEach((el) => {
+        (el.value === action.payload) ? el.isChecked = true : el.isChecked = false;
       });
     },
     setTagFilter(state, action) {
-      state.tags.forEach((i) => {
-        if (i.tagName === action.payload.tagName) {
-          i.tags.forEach((i) => {
-            if (i.name === action.payload.tag) {
-              i.isChecked = !i.isChecked;
+      state.tags.forEach((el) => {
+        if (el.tagName === action.payload.tagName) {
+          el.tags.forEach((el) => {
+            if (el.name === action.payload.tag) {
+              el.isChecked = !el.isChecked;
             }});
         }});
     },
@@ -64,6 +77,7 @@ export const periodeBaseValues = (state: RootState) => state.filter.periode.base
 export const periodeStateValues = (state: RootState) => state.filter.periode.stateValues;
 
 export const { 
+  resetAllFilters,
   setSeasonFilter,
   setIsViewedFilter,
   setTagFilter,

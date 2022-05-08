@@ -1,31 +1,49 @@
-import { FieldsetSeason, FieldsetViewed, FieldsetTags, FieldsetDate } from './Fieldsets';
+import { FieldsetRadio, FieldsetCheckbox, FieldsetDate } from './Fieldsets';
 import styles from './DropDownMenu.module.scss';
-
-const { season, genre, country, minValue, maxValue } = { 
-  season: [1, 2, 3],
-  genre: ['Action', 'Film d\'épouvante'],
-  country: ['Alsace', 'Autre'],
-  minValue: 1900, maxValue: 2077
-};
+import { useAppDispatch, useAppSelector } from 'redux/hooks';
 
 function DropDownMenu() {
+  const { seasons, isViewed, tags } = useAppSelector((state) => state.filter);
+  const dispatch = useAppDispatch();
+
+  const handleReset = (e:mouseEvent) => {
+    e.preventDefault();
+    // TODO: Code me
+  };
+  const handleSeasonFilter = (event: onChangeEvent) => {
+    console.log(event.target.value);
+    // TODO: Code me
+  };
+  const handleIsViewedFilter = (event: onChangeEvent) => {
+    console.log(event.target.value);
+    // TODO: Code me
+  };
+
   return(
     <form className={styles['drop-down-menu']}>
-      <FieldsetSeason array={season}/>
-      <FieldsetViewed/>
-      <FieldsetTags
-        array={genre}
-        tagName='Genres' 
+      <button
+        className={styles['fieldset-reset']}
+        onClick={handleReset}
+      >
+        Éffacer filtres
+      </button>
+      <FieldsetRadio 
+        array={seasons}
+        handler={handleSeasonFilter}
       />
-      <FieldsetTags 
-        array={country}
-        tagName='Pays'
+      <FieldsetRadio 
+        array={isViewed}
+        handler={handleIsViewedFilter}
       />
-      <FieldsetDate
-        min={minValue}
-        max={maxValue}
-        label='Période'
-      />
+      { tags.map(({tagName, tags}, key) => 
+        <FieldsetCheckbox
+          key={key}
+          array={tags}
+          tagName={tagName}
+          handler={handleSeasonFilter}
+        />
+      )}
+      <FieldsetDate/>
     </form>
   );
 }

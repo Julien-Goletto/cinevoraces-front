@@ -70,11 +70,15 @@
   }
 }
 .fieldset-reset {
+  position: absolute;
+  cursor: pointer;
+  top: 1.75em;
+  right: 1.5em;
   font-size: 12px;
   font-weight: 500;
   letter-spacing: .04em;
   border: 1px var.$primary solid;
-  padding: 0 1em;
+  padding: 1em;
   border-radius: 50px;
 }
 

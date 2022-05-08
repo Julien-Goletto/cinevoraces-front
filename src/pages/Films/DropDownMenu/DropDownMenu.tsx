@@ -1,5 +1,5 @@
 import { useAppDispatch, useAppSelector } from 'redux/hooks';
-import { filters, setSeasonFilter } from 'redux/slices/filter';
+import { filters, setSeasonFilter, setIsViewedFilter, setTagFilter } from 'redux/slices/filter';
 import { FieldsetRadio, FieldsetCheckbox, FieldsetDate } from './Fieldsets';
 import styles from './DropDownMenu.module.scss';
 
@@ -12,13 +12,19 @@ function DropDownMenu() {
     // TODO: Code me
   };
   const handleSeasonFilter = (event: onChangeEvent) => {
-    console.log(seasons);
     const value = String(event.target.value);
     dispatch(setSeasonFilter(value));
   };
   const handleIsViewedFilter = (event: onChangeEvent) => {
-    console.log(event.target.value);
-    // TODO: Code me
+    const value = String(event.target.value);
+    dispatch(setIsViewedFilter(value));
+  };
+  const handleIsTagsFilter = (event: onChangeEvent) => {
+    const object = {
+      tagName: event.target.dataset.set,
+      tag: event.target.value
+    };
+    dispatch(setTagFilter(object));
   };
 
   return(
@@ -31,10 +37,12 @@ function DropDownMenu() {
       </button>
       <FieldsetRadio 
         array={seasons}
+        label='season'
         handler={handleSeasonFilter}
       />
       <FieldsetRadio 
         array={isViewed}
+        label='isViewed'
         handler={handleIsViewedFilter}
       />
       { tags.map(({tagName, tags}, key) => 
@@ -42,7 +50,7 @@ function DropDownMenu() {
           key={key}
           array={tags}
           tagName={tagName}
-          handler={handleSeasonFilter}
+          handler={handleIsTagsFilter}
         />
       )}
       <FieldsetDate/>

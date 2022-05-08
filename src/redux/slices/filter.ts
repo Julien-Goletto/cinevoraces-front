@@ -32,9 +32,23 @@ const filterSlice = createSlice({
   initialState,
   reducers: {
     setSeasonFilter(state, action) {
-      state.seasons.forEach((season) => {
-        (season.value === action.payload) ? season.isChecked = true : season.isChecked = false;
+      state.seasons.forEach((i) => {
+        (i.value === action.payload) ? i.isChecked = true : i.isChecked = false;
       });
+    },
+    setIsViewedFilter(state, action) {
+      state.isViewed.forEach((i) => {
+        (i.value === action.payload) ? i.isChecked = true : i.isChecked = false;
+      });
+    },
+    setTagFilter(state, action) {
+      state.tags.forEach((i) => {
+        if (i.tagName === action.payload.tagName) {
+          i.tags.forEach((i) => {
+            if (i.name === action.payload.tag) {
+              i.isChecked = !i.isChecked;
+            }});
+        }});
     },
     setPeriodeMinVal(state, action) {
       state.periode.stateValues[0] = action.payload;
@@ -45,13 +59,14 @@ const filterSlice = createSlice({
   }
 });
 
-
 export const filters = (state: RootState) => state.filter;
 export const periodeBaseValues = (state: RootState) => state.filter.periode.baseValues;
 export const periodeStateValues = (state: RootState) => state.filter.periode.stateValues;
 
 export const { 
   setSeasonFilter,
+  setIsViewedFilter,
+  setTagFilter,
   setPeriodeMinVal, 
   setPeriodeMaxVal 
 } = filterSlice.actions;

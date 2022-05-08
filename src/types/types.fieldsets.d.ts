@@ -1,9 +1,10 @@
 type FieldsetRadio = {
-  array: radioFilter[]
+  array: radioFilter[],
+  label: string,
   handler: onChangeEventHandler
 }
 type FieldsetCheckbox = { 
   array: tag[],
-  tagName: string
+  tagName: string,
   handler: onChangeEventHandler
 }

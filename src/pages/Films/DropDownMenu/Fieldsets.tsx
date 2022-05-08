@@ -3,20 +3,21 @@ import { useAppDispatch, useAppSelector } from 'redux/hooks';
 import { periodeBaseValues, periodeStateValues, setPeriodeMinVal, setPeriodeMaxVal } from 'redux/slices/filter';
 import styles from './DropDownMenu.module.scss';
 
-function FieldsetRadio({array, handler}: FieldsetRadio) {
+function FieldsetRadio({array, label, handler}: FieldsetRadio) {
   return(
     <fieldset className={styles['fieldset']}>
       <ul>
-        { array.map((item, key) => 
+        { array.map(({name, value, isChecked}, key) => 
           <li key={key}>
             <label>
-              {item.name}
+              {name}
               <input
                 className={styles['fieldset-element']}
                 type='radio'
-                value={item.value}
-                name='season'
+                value={value}
+                name={label}
                 onChange={handler}
+                defaultChecked={isChecked}
               />
             </label>
           </li>
@@ -49,10 +50,12 @@ function FieldsetCheckbox({ array, tagName, handler }: FieldsetCheckbox) {
               </label>
               <input 
                 className={styles['fieldset-element']}
+                data-set={tagName}
                 type='checkbox'
                 value={name}
                 id={name}
                 onChange={handler}
+                defaultChecked={isChecked}
               />
             </li>
           )}

@@ -1,0 +1,40 @@
+@use '~styles/var';
+
+.user {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3rem;
+  margin: 4rem auto;
+}
+.title {
+  font-size: 2.05rem;
+  font-weight: 700;
+}
+
+.user-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5em;
+  padding: 1em 0;
+  width: 100%;
+  background-color: var.$secondary-background;
+  border-radius: 10px;
+  & .row {
+    display: flex;
+    align-items: center;
+    gap: .5em;
+  }
+  & .img {
+    width: 40px;
+    height: 40px;
+    border: 1px var.$white solid;
+    border-radius: 100%;
+  }
+  & .username {
+    font-size: 1.2rem;
+    font-weight: 500;
+  }
+}

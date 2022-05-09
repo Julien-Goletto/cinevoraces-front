@@ -8,7 +8,8 @@ import {
 
 import Layout from 'components/Layout/Layout';
 import Error from './pages/Error/Error';
-import Films from 'pages/Films/Films';
+import Films from './pages/Films/Films';
+import User from './pages/User/User';
 import Home from './pages/Home/Home';
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
         <Routes>
           <Route path='/' element={<Home />}/>
           <Route path='/films' element={<Films />}/>
+          <Route path='/user' element={<User />}/>
           <Route path='*' element={<Error />}/>
         </Routes>
       </Router>

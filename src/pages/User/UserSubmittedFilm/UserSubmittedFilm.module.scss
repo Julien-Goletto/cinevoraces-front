@@ -1,0 +1,32 @@
+@use '~styles/mixins' as mix;
+@use '~styles/var';
+
+.user-submitted {
+  padding: 1em;
+  background-color: var.$secondary-background;
+  width: 100vw;
+  & button {
+    width: fit-content;
+  }
+  & .no-film-submitted {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2em;
+    & p { @include mix.breakpoint('tablet') {
+            font-size: 1.2rem;
+          }}
+    & span {
+      color: var.$primary
+    }
+  }
+  & .pending-proposal {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2em;
+    & .film {
+
+    }
+  }
+}

@@ -7,8 +7,9 @@ import {
 } from 'react-router-dom';
 
 import Layout from 'components/Layout/Layout';
-import Home from 'pages/Home/Home';
+import Error from './pages/Error/Error';
 import Films from 'pages/Films/Films';
+import Home from './pages/Home/Home';
 
 function App() {
 
@@ -18,6 +19,7 @@ function App() {
         <Routes>
           <Route path='/' element={<Home />}/>
           <Route path='/films' element={<Films />}/>
+          <Route path='*' element={<Error />}/>
         </Routes>
       </Router>
       <Toast />

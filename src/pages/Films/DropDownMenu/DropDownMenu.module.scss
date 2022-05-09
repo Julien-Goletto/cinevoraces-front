@@ -83,7 +83,7 @@
   }
 }
 .fieldset-reset--hidden {
-  display: none;
+  display: none !important;
 }
 
 $checkbox-size: 1em;

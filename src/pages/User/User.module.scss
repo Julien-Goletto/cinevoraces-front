@@ -1,3 +1,4 @@
+@use '~styles/mixins' as mix;
 @use '~styles/var';
 
 .user {
@@ -11,6 +12,14 @@
   font-size: 2.05rem;
   font-weight: 700;
 }
+.title-h2 {
+  text-align: center;
+  font-size: 1.45rem;
+  font-weight: 600;
+  & span {
+    white-space: nowrap;
+  }
+}
 
 .user-header {
   display: flex;
@@ -22,6 +31,13 @@
   width: 100%;
   background-color: var.$secondary-background;
   border-radius: 10px;
+  @media screen and (max-width: 370px) {
+    gap: .8em;
+  }
+  @include mix.breakpoint('tablet') {
+    padding: 1em 3em;
+    width: fit-content;
+  }
   & .row {
     display: flex;
     align-items: center;
@@ -36,5 +52,86 @@
   & .username {
     font-size: 1.2rem;
     font-weight: 500;
+    @include mix.breakpoint('tablet') {
+      font-size: 1.75rem;
+      font-weight: 600;
+    }
+    @include mix.breakpoint('laptop') {
+      font-size: 2.05rem;
+      font-weight: 700;
+    }
+  }
+  & .register-date {
+    display: flex;
+    gap: .3em;
+    @media screen and (max-width: 370px) {
+      gap: .4em;
+      align-items: center;
+      flex-direction: column;
+    }
+  }
+}
+
+.user-metrics {
+  display: grid;
+  gap: 1.5em;
+  grid-template-columns: repeat(5, minmax(1px, 1fr));
+  grid-template-areas: 
+    ". primary . secondary ."
+    "purple . yellow . green";
+  @include mix.breakpoint('tablet') {
+    width: 100%;
+    justify-content: space-between;
+    grid-template-areas: 
+    "primary secondary purple yellow green";
+  }
+  & .metric {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    gap: 1em;
+    &--primary {
+      color: var.$primary;
+      grid-area: primary;
+    }
+    &--secondary {
+      color: var.$secondary;
+      grid-area: secondary;
+    }
+    &--purple {
+      color: var.$purple;
+      grid-area: purple;
+    }
+    &--yellow {
+      color: var.$yellow;
+      grid-area: yellow;
+    }
+    &--green {
+        color: var.$green;
+        grid-area: green;
+      }
+  }
+  & .count {
+    font-size: 2.05rem;
+    font-weight: 700;
+    @media screen and (max-width: 395px) {
+      font-size: 1.8rem;
+    }
+    @include mix.breakpoint('tablet') {
+      font-size: 2.5rem;
+    }
+  }
+  & .type {
+    font-size: 1.2rem;
+      font-weight: 600;
+      @media screen and (max-width: 395px) {
+        font-size: 1.1rem;
+        font-weight: 500;
+    }
+    @include mix.breakpoint('tablet') {
+      font-size: 1.45rem;
+    }
   }
 }

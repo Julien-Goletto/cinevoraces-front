@@ -8,7 +8,7 @@
 .last-movies button:nth-last-child(1) {
   align-self: flex-end;
 }
-.last-movies__title {
+.title {
   @include mix.h3;
 }
 .grid {
@@ -31,15 +31,15 @@
 }
 
 @include mix.breakpoint('tablet') {
-  .last-movies__title {
+  .title {
     //@include mix.h2;
   }
 }
 @include mix.breakpoint('laptop') {
-  .last-movies__title {
+  .title {
     //@include mix.h2;
   }
-  .last-movies__grid {
+  .grid {
     grid-template-columns: repeat(4, 1fr);
   }
   .poster:nth-child(4) {
@@ -47,10 +47,10 @@
   }
 }
 @include mix.breakpoint('desktop') {
-  .last-movies__title {
+  .title {
     @include mix.h2;
   }
-  .last-movies__grid {
+  .grid {
     grid-template-columns: repeat(5, 1fr);
     gap: 1em;
   }

@@ -8,6 +8,7 @@ import {
 
 import Layout from 'components/Layout/Layout';
 import Home from './pages/Home/Home';
+import Register from './pages/Register/Register';
 
 function App() {
 
@@ -16,6 +17,7 @@ function App() {
       <Router>
         <Routes>
           <Route path='/' element={<Home />}/>
+          <Route path='/register' element={<Register />}/>
         </Routes>
       </Router>
       <Toast />

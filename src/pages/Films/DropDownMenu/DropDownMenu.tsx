@@ -4,10 +4,11 @@ import { FieldsetRadio, FieldsetCheckbox, FieldsetDate } from './Fieldsets';
 import styles from './DropDownMenu.module.scss';
 
 function DropDownMenu() {
-  const { seasons, isViewed, tags } = useAppSelector(filters);
+  const { seasons, isViewed, tags, isDefault } = useAppSelector(filters);
   const dispatch = useAppDispatch();
   
   const handleReset = (e:mouseEvent) =>  {
+    // FIXME: This event does not re-render components
     e.preventDefault();
     dispatch(resetAllFilters());  
   };
@@ -30,10 +31,12 @@ function DropDownMenu() {
   return(
     <form className={styles['drop-down-menu']}>
       <button
-        className={styles['fieldset-reset']}
+        className={`
+        ${(isDefault) ? styles['fieldset-reset--hidden'] : styles['fieldset-reset']}
+        `}
         onClick={handleReset}
       >
-        Éffacer filtres
+        <img src='images/arrow-counterclockwise.svg' alt='' />
       </button>
       <FieldsetRadio 
         array={seasons}

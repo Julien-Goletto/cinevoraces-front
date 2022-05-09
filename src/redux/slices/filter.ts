@@ -24,7 +24,8 @@ const initialState: FilterState = {
       tags: [{name: 'Alsace', isChecked: false},{name: 'Allemagne', isChecked: false},{name: 'Corse', isChecked: false},{name: 'États-Unis', isChecked: false}]
     }
   ],
-  periode: {baseValues: [1900,2077], stateValues: [1900, 2077]}
+  periode: {baseValues: [1900,2077], stateValues: [1900, 2077]},
+  isDefault: true
 };
 
 const filterSlice = createSlice({
@@ -43,16 +44,19 @@ const filterSlice = createSlice({
           el.isChecked = false;
         });
       });
+      state.isDefault = true;
     },
     setSeasonFilter(state, action) {
       state.seasons.forEach((el) => {
         (el.value === action.payload) ? el.isChecked = true : el.isChecked = false;
       });
+      state.isDefault = false;
     },
     setIsViewedFilter(state, action) {
       state.isViewed.forEach((el) => {
         (el.value === action.payload) ? el.isChecked = true : el.isChecked = false;
       });
+      state.isDefault = false;
     },
     setTagFilter(state, action) {
       state.tags.forEach((el) => {
@@ -62,12 +66,15 @@ const filterSlice = createSlice({
               el.isChecked = !el.isChecked;
             }});
         }});
+      state.isDefault = false;
     },
     setPeriodeMinVal(state, action) {
       state.periode.stateValues[0] = action.payload;
+      state.isDefault = false;
     },
     setPeriodeMaxVal(state, action) {
       state.periode.stateValues[1] = action.payload;
+      state.isDefault = false;
     },
   }
 });

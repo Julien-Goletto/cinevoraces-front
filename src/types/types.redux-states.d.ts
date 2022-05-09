@@ -2,7 +2,8 @@ interface FilterState {
   seasons: radioFilter[],
   isViewed: radioFilter[],
   tags: checkboxFilter[],
-  periode: periodeFilter
+  periode: periodeFilter,
+  isDefault: boolean
 }
 type radioFilter = { 
   name: string,

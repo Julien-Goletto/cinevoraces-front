@@ -77,9 +77,13 @@
   font-size: 12px;
   font-weight: 500;
   letter-spacing: .04em;
-  border: 1px var.$primary solid;
-  padding: 1em;
-  border-radius: 50px;
+  padding: .5em;
+  & img {
+    width: 2em;
+  }
+}
+.fieldset-reset--hidden {
+  display: none;
 }
 
 $checkbox-size: 1em;

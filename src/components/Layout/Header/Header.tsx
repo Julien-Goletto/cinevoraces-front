@@ -1,15 +1,17 @@
+import { useAppDispatch } from 'redux/hooks';
+import { mobileIsOpen } from 'redux/slices/global';
 import styles from './Header.module.scss';
+import MenuMobile from './MenuMobile/MenuMobile';
 
 // TODO : Use Redux
 const isLogged = false;
 
 function Header() {
+  const dispatch = useAppDispatch();
   return(
     <header className={`container ${styles.header}`}>
       <div className={styles.logo}>
-        <button className={styles['nav-mobile']}>
-          <img src='images/mobile_menu.svg' alt='' />
-        </button>
+        <MenuMobile />
         <img className={styles.logo__img} src='images/logo_title.svg' alt='Logo du site' />
       </div>
       <nav className={styles.nav}>

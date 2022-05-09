@@ -1,7 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { RootState } from '../store';
 
-const initialState = { value: 0 };
+const initialState = { 
+  value: 0,
+  mobileIsOpen: false
+};
 
 
 const globalSlice = createSlice({
@@ -13,11 +16,16 @@ const globalSlice = createSlice({
     },
     decrement(state) {
       state.value--;
+    },
+    mobileIsOpen(state) {
+      state.mobileIsOpen = !state.mobileIsOpen;
+      console.log('caca');
+      
     }
   }
 });
 
 export const getCount = (state: RootState) => state.global.value;
 
-export const { increment, decrement } = globalSlice.actions;
+export const { increment, decrement, mobileIsOpen } = globalSlice.actions;
 export default globalSlice.reducer;

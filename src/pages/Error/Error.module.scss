@@ -4,35 +4,39 @@
 .error {
   width: fit-content;
   margin: 5rem auto;
+
 }
-.error__title {
+.title {
   display: flex;
   align-items: center;
   gap: .4em;
   font-size: 1.8rem;
   font-weight: 700;
 }
-.error__img {
+.img {
   width: 4.5rem;
   height: 2.625rem;
 }
-.error__subtitle {
+.subtitle {
   color: var.$primary;
   margin-top: 2em;
 }
-.error__body {
+.body {
   margin: 3em 0;
 }
 .pathname {
   color: var.$primary;
   margin: 0 .15rem;
 }
+button:last-child {
+  margin-bottom: 2.5rem;
+}
 
 @include mix.breakpoint('tablet') {
-  .error__title {
+  .title {
     font-size: 3rem;
   }
-  .error__img {
+  .img {
     width: 7.8rem;
     height: 4.17rem;
   }

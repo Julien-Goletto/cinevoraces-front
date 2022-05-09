@@ -8,7 +8,7 @@ import {
 
 import Layout from 'components/Layout/Layout';
 import Home from './pages/Home/Home';
-import Movie from './pages/Movie/Movie';
+import Film from './pages/Film/Film';
 
 function App() {
 
@@ -16,8 +16,8 @@ function App() {
     <Layout>
       <Router>
         <Routes>
-          {/* <Route path='/' element={<Home />}/> */}
-          <Route path='/movie' element={<Movie />}/>
+          <Route path='/' element={<Home />}/>
+          <Route path='/film' element={<Film />}/>
         </Routes>
       </Router>
       <Toast />

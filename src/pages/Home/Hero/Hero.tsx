@@ -8,8 +8,8 @@ function Hero() {
         <h1 className={styles.title}>Bienvenue dans le <span>ciné-club</span> virtuel !</h1>
         <p className={styles.subtitle}>Chaque semaine, un film à découvrir</p>
         <div className={styles.btns}>
-          <Button state='full'>Découvrir un film</Button>
-          <Button state='empty'>S'inscrire</Button>
+          <Button href='/films' state='full'>Découvrir un film</Button>
+          <Button href='/register' state='empty'>S'inscrire</Button>
         </div>
       </div>
       <div className={styles.img}>

@@ -1,14 +1,7 @@
 import { MouseEventHandler } from 'react';
 import styles from './Button.module.scss';
 
-type ButtonProps = {
-  state: string
-  children: React.ReactNode
-  action?: MouseEventHandler; 
-}
-
-function ButtonActions({children, state, action}: ButtonProps)  {
-
+function ButtonActions({children, state, action}: Button)  {
   if(state === 'full' || state === null) {
     return <button onClick={action} className={`${styles['button-action']} ${styles['button--full']}`}>{children}</button>;
   }
@@ -16,7 +9,6 @@ function ButtonActions({children, state, action}: ButtonProps)  {
     return <button onClick={action} className={`${styles['button-action']} ${styles['button--white']}`}>{children}</button>;
   }
   return null;
-  
 };
 
 export default ButtonActions;

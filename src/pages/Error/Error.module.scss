@@ -1,0 +1,43 @@
+@use '~styles/mixins' as mix;
+@use '~styles/var';
+
+.error {
+  width: fit-content;
+  margin: 5rem auto;
+  button:last-child {
+    margin-bottom: 2.5rem;
+  }
+}
+.title {
+  display: flex;
+  align-items: center;
+  gap: .4em;
+  font-size: 1.8rem;
+  font-weight: 700;
+}
+.img {
+  width: 4.5rem;
+  height: 2.625rem;
+}
+.subtitle {
+  color: var.$primary;
+  margin-top: 2em;
+}
+.body {
+  margin: 3em 0;
+}
+.pathname {
+  color: var.$primary;
+  margin: 0 .15rem;
+}
+
+
+@include mix.breakpoint('tablet') {
+  .title {
+    font-size: 3rem;
+  }
+  .img {
+    width: 7.8rem;
+    height: 4.17rem;
+  }
+}

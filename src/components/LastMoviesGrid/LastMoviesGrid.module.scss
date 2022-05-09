@@ -8,13 +8,13 @@
 .last-movies button:nth-last-child(1) {
   align-self: flex-end;
 }
-.last-movies__title {
-  font-size: 1.75rem;
+.title {
+  @include mix.h3;
 }
-.last-movies__grid {
+.grid {
   display: grid;
   gap: .5em;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: repeat(3, 1fr);
 }
 .poster {
   border-radius: 10px;
@@ -24,31 +24,34 @@
 .poster:nth-child(5) {
   display: none;
 }
-.poster__img {
+.img {
   width: 100%;
   height: 100%; 
   object-fit: cover;
 }
 
 @include mix.breakpoint('tablet') {
-  .last-movies__title h2 {
-    font-size: 2.05rem;
+  .title {
+    //@include mix.h2;
   }
 }
 @include mix.breakpoint('laptop') {
-  .last-movies__title h2 {
-    font-size: 2.5rem;
+  .title {
+    //@include mix.h2;
   }
-  .last-movies__grid {
-    grid-template-columns: 1fr 1fr 1fr 1fr;
+  .grid {
+    grid-template-columns: repeat(4, 1fr);
   }
   .poster:nth-child(4) {
     display: block;
   }
 }
 @include mix.breakpoint('desktop') {
-  .last-movies__grid {
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  .title {
+    @include mix.h2;
+  }
+  .grid {
+    grid-template-columns: repeat(5, 1fr);
     gap: 1em;
   }
   .poster:nth-child(5) {

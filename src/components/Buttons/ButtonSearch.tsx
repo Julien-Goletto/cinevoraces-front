@@ -1,11 +1,6 @@
 import styles from './Button.module.scss';
 
-type ButtonProps = {
-  children: React.ReactNode
-}
-
-function ButtonSearch({children}: ButtonProps)  {
-
+function ButtonSearch({children}: ButtonSearch)  {
   return (
     <button className={`${styles['button-search']} ${styles['button--full']}`}>{children}</button>
   );

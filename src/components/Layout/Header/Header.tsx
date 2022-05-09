@@ -1,3 +1,4 @@
+import ButtonActions from 'components/Buttons/ButtonActions';
 import Connection from 'components/Modal/Connection/Connection';
 import Modal from 'components/Modal/Modal';
 import { useAppDispatch, useAppSelector } from 'redux/hooks';
@@ -7,7 +8,7 @@ import MenuMobile from './MenuMobile/MenuMobile';
 import UserMenu from './UserMenu/UserMenu';
 
 // TODO : Use Redux
-const isLogged = true;
+const isLogged = false;
 
 function Header() {
   const dispatch = useAppDispatch();
@@ -25,22 +26,16 @@ function Header() {
           <img className={styles.logo__img} src='images/logo_title.svg' alt='Logo du site' />
         </div>
         <nav className={styles.nav}>
-          <a href='#' className={styles.link}>Accueil</a> 
+          <a href='/' className={styles.link}>Accueil</a> 
           <div className={styles.dot}></div>
-          <a href='#' className={styles.link}>Les films</a>
+          <a href='/films' className={styles.link}>Les films</a>
           <div className={styles.dot}></div>
-          <a href='#' className={styles.link}>Le dernier film</a>
+          <a href='/' className={styles.link}>Le dernier film</a>
         </nav>
 
         {!isLogged &&
           <>
-            {/* // TODO : Use Button component */}
-            <button onClick={() => dispatch(toggleConnection()) } style={{
-              height: '2.75rem',
-              width: '7.75rem',
-              margin: 0,
-              right: 0,
-            }}>Se connecter</button>
+            <ButtonActions state='full' action={()=> {dispatch(toggleConnection());}}>Se connecter</ButtonActions>
           </>
         }
         {isLogged &&

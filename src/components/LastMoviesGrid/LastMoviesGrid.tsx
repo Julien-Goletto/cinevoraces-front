@@ -24,7 +24,7 @@ function LastMoviesGrid() {
         )}
       </div>
 
-      <ButtonActions state='full'>Voir la liste des</ButtonActions>
+      <ButtonActions href='/films' state='full'>Voir la liste des films</ButtonActions>
     </div>
   );
 }

@@ -18,7 +18,7 @@ function MenuMobile() {
             <a href='/'>Accueil</a>
           </li>
           <li className={styles.link}>
-            <a href='/'>Les films</a>
+            <a href='/films'>Les films</a>
           </li>
           <li className={styles.link}>
             <a href='/'>La team</a>

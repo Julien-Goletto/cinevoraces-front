@@ -1,0 +1,48 @@
+@use '~styles/mixins' as mix;
+@use '~styles/var';
+
+.filters {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5em;
+  margin: 2em 0;
+}
+.search-bar {
+  display: flex;
+  gap: .5em;
+  background-color: var.$secondary-background;
+  border-radius: 10px;
+  padding: .8em 1em;
+  max-width: 400px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  & input {
+    border: none;
+    background: none;
+    color: var.$white;
+  }
+}
+.filters button:nth-child(1) {
+  width: fit-content;
+  display: flex;
+  gap: .5em;
+  & img {
+    width: 1rem;
+  }
+}
+    
+@include mix.breakpoint('tablet') {
+  .filters {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+  .filters-search-bar {
+    width: 320px;
+  }
+}
+@include mix.breakpoint('laptop') {
+  .filters-search-bar {
+    width: 420px;
+  }
+}

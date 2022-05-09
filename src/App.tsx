@@ -10,6 +10,7 @@ import Layout from 'components/Layout/Layout';
 import Error from './pages/Error/Error';
 import Films from 'pages/Films/Films';
 import Home from './pages/Home/Home';
+import Register from './pages/Register/Register';
 
 function App() {
 
@@ -18,6 +19,7 @@ function App() {
       <Router>
         <Routes>
           <Route path='/' element={<Home />}/>
+          <Route path='/register' element={<Register />}/>
           <Route path='/films' element={<Films />}/>
           <Route path='*' element={<Error />}/>
         </Routes>

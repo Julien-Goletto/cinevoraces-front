@@ -4,7 +4,9 @@
 .error {
   width: fit-content;
   margin: 5rem auto;
-
+  button:last-child {
+    margin-bottom: 2.5rem;
+  }
 }
 .title {
   display: flex;
@@ -28,9 +30,7 @@
   color: var.$primary;
   margin: 0 .15rem;
 }
-button:last-child {
-  margin-bottom: 2.5rem;
-}
+
 
 @include mix.breakpoint('tablet') {
   .title {

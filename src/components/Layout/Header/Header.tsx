@@ -3,16 +3,15 @@ import Modal from 'components/Modal/Modal';
 import { useAppDispatch, useAppSelector } from 'redux/hooks';
 import { toggleConnection } from 'redux/slices/global';
 import styles from './Header.module.scss';
+import MenuMobile from './MenuMobile/MenuMobile';
+import UserMenu from './UserMenu/UserMenu';
 
 // TODO : Use Redux
-const isLogged = false;
+const isLogged = true;
 
 function Header() {
   const dispatch = useAppDispatch();
   const connectionIsOpen = useAppSelector(state => state.global.connectionIsOpen );
-
-  
-
   return(
     <>
       { connectionIsOpen && 
@@ -22,9 +21,7 @@ function Header() {
       }
       <header className={`container ${styles.header}`}>
         <div className={styles.logo}>
-          <button className={styles['nav-mobile']}>
-            <img src='images/mobile_menu.svg' alt='' />
-          </button>
+          <MenuMobile />
           <img className={styles.logo__img} src='images/logo_title.svg' alt='Logo du site' />
         </div>
         <nav className={styles.nav}>
@@ -48,8 +45,7 @@ function Header() {
         }
         {isLogged &&
         <>
-          {/* // TODO : Call drop-down menu here */}
-          <img className={styles.user} src='images/user_default.svg' alt='' />
+          <UserMenu />
         </>
         }
       </header>

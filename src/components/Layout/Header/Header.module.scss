@@ -5,6 +5,7 @@
   padding: .5em 0;
   display: flex;
   justify-content: space-between;
+  position: relative;
 }
 .logo {
   display: flex;
@@ -25,12 +26,7 @@
   background: none;
   border: none;
 }
-.user {
-  width: 40px;
-  height: 40px;
-  border: 1px var.$white solid;
-  border-radius: 100%;
-}
+
 
 .link {
   color: var.$white;

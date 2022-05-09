@@ -4,9 +4,10 @@ import { useAppDispatch, useAppSelector } from 'redux/hooks';
 import { toggleConnection } from 'redux/slices/global';
 import styles from './Header.module.scss';
 import MenuMobile from './MenuMobile/MenuMobile';
+import UserMenu from './UserMenu/UserMenu';
 
 // TODO : Use Redux
-const isLogged = false;
+const isLogged = true;
 
 function Header() {
   const dispatch = useAppDispatch();
@@ -44,8 +45,7 @@ function Header() {
         }
         {isLogged &&
         <>
-          {/* // TODO : Call drop-down menu here */}
-          <img className={styles.user} src='images/user_default.svg' alt='' />
+          <UserMenu />
         </>
         }
       </header>

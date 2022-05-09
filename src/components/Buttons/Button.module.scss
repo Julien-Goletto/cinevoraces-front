@@ -1,0 +1,65 @@
+@use '~styles/var';
+@use '~styles/mixins' as mix;
+
+button {
+  font-family: 'Montserrat', Arial, Helvetica, sans-serif;
+}
+
+.button {
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 14px;
+  border: none;
+  padding: 0.8em 1.5em;
+  box-shadow: inset 0px -2px 3px rgba(48, 48, 48, 0.25);
+}
+
+.button--full {
+  background-color: var.$primary;
+}
+
+.button--empty {
+  color: var.$white;
+  border: 1px solid var.$primary;
+  background-color: transparent;
+}
+
+.button--white {
+  background-color: var.$white;
+}
+
+.button-action {
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 0.6em 1.3em;
+  border: none;
+  border-radius: 20px;
+  box-shadow: inset 0px -2px 3px rgba(48, 48, 48, 0.25);
+}
+
+.button-search {
+  padding: 1.2em 2.1em;
+  border-radius: 20px;
+  border: none;
+  box-shadow: inset 0px -2px 3px rgba(48, 48, 48, 0.25);
+}
+
+@include mix.breakpoint('tablet') {
+  .button { 
+    padding: 0.9em 1.7em;
+  }
+
+  .button-action { 
+    padding: 0.7em 1.5em;
+  }
+}
+
+@include mix.breakpoint('desktop') {
+  .button { 
+    padding: 1em 1.9em;
+  }
+
+  .button-action { 
+    padding: 0.8em 1.7em;
+  }
+}

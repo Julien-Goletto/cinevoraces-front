@@ -14,6 +14,7 @@ const globalSlice = createSlice({
     toggleConnection(state) {
       state.connectionIsOpen = !state.connectionIsOpen;
     },
+
     increment(state) {
       state.value++;
     },

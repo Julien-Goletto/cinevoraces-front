@@ -3,6 +3,7 @@ import { RootState } from '../store';
 
 const initialState = { 
   value: 0,
+  mobileIsOpen: false,
   connectionIsOpen: false
 };
 
@@ -20,11 +21,14 @@ const globalSlice = createSlice({
     },
     decrement(state) {
       state.value--;
+    },
+    mobileIsOpen(state) {
+      state.mobileIsOpen = !state.mobileIsOpen;
     }
   }
 });
 
 export const getCount = (state: RootState) => state.global.value;
 
-export const { increment, decrement, toggleConnection } = globalSlice.actions;
+export const { increment, decrement, toggleConnection, mobileIsOpen } = globalSlice.actions;
 export default globalSlice.reducer;

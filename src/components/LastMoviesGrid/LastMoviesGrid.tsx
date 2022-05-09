@@ -12,12 +12,12 @@ const fake_data: {[key:string]: string}[] = [
 function LastMoviesGrid() {
   return(
     <div className={`${styles['last-movies']} container`}>
-      <h2 className={styles['last-movies__title']}>Les derniers ajouts de la communauté</h2>
-      <div className={styles['last-movies__grid']}>
+      <h2 className={styles.title}>Les derniers ajouts de la communauté</h2>
+      <div className={styles.grid}>
         {fake_data.map(({cover, title}) => 
           <div className={styles.poster}>
             <img 
-              className={styles.poster__img}
+              className={styles.img}
               src={cover} alt={`Affiche du film ${title}`}
             />
           </div>

@@ -24,8 +24,6 @@ const globalSlice = createSlice({
     },
     mobileIsOpen(state) {
       state.mobileIsOpen = !state.mobileIsOpen;
-      console.log('caca');
-      
     }
   }
 });

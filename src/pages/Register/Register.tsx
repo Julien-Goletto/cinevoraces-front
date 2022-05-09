@@ -39,7 +39,7 @@ function Register() {
           />
           <ButtonActions
             // FIXME: Need an 'orange' state
-            state='white'
+            state='full'
             action={sendFormHandler}
           >
             <img src='images/send-icon.svg' alt='' />

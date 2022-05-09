@@ -10,6 +10,7 @@
 }
 .nav {
   position: absolute;
+  z-index: 68;
   top: 0;
   right: 0;
   background-color: var.$secondary-background;
@@ -43,7 +44,7 @@
   height: 40px;
   border: 1px var.$white solid;
   border-radius: 100%;
-  z-index: 12;
+  z-index: 69;
 }
 
 @include mix.breakpoint('tablet') {

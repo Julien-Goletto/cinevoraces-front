@@ -7,6 +7,7 @@ import {
 } from 'react-router-dom';
 
 import Layout from 'components/Layout/Layout';
+import Error from './pages/Error/Error';
 import Home from './pages/Home/Home';
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
       <Router>
         <Routes>
           <Route path='/' element={<Home />}/>
+          <Route path='*' element={<Error />}/>
         </Routes>
       </Router>
       <Toast />

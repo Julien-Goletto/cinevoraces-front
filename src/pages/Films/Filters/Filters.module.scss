@@ -8,7 +8,7 @@
   gap: 1.5em;
   margin: 2em 0;
 }
-.filters-search-bar {
+.search-bar {
   display: flex;
   gap: .5em;
   background-color: var.$secondary-background;
@@ -21,6 +21,14 @@
     border: none;
     background: none;
     color: var.$white;
+  }
+}
+.filters button:nth-child(1) {
+  width: fit-content;
+  display: flex;
+  gap: .5em;
+  & img {
+    width: 1rem;
   }
 }
     

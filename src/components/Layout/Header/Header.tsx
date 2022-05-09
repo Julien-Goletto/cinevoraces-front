@@ -6,13 +6,13 @@ const isLogged = false;
 function Header() {
   return(
     <header className={`container ${styles.header}`}>
-      <div className={styles.header__logo}>
-        <button className={styles['header__nav-mobile']}>
+      <div className={styles.logo}>
+        <button className={styles['nav-mobile']}>
           <img src='images/mobile_menu.svg' alt='' />
         </button>
-        <img className={styles.header__logo__img} src='images/logo_title.svg' alt='Logo du site' />
+        <img className={styles.logo__img} src='images/logo_title.svg' alt='Logo du site' />
       </div>
-      <nav className={styles.header__nav}>
+      <nav className={styles.nav}>
         <a href='#' className={styles.link}>Accueil</a> 
         <div className={styles.dot}></div>
         <a href='#' className={styles.link}>Les films</a>
@@ -34,7 +34,7 @@ function Header() {
       {isLogged &&
       <>
         {/* // TODO : Call drop-down menu here */}
-        <img className={styles.header__user} src='images/user_default.svg' alt='' />
+        <img className={styles.user} src='images/user_default.svg' alt='' />
       </>
       }
     </header>

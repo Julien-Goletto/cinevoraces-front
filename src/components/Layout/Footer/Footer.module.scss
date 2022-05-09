@@ -10,10 +10,10 @@
   align-items: center;
   gap: 1.5em;
 }
-.footer__img {
+.img {
   width: 9.875rem;
 }
-.footer__links {
+.links {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -25,11 +25,11 @@
 }
 
 @include mix.breakpoint('laptop') {
-  .footer__links,
-  .footer__copyright {
+  .links,
+  .copyright {
     font-size: 16px;
   }
-  .footer__img {
+  .img {
     width: 14rem;
   }
 }

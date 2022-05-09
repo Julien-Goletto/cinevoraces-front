@@ -6,7 +6,7 @@ function Filters() {
   const [isDropMenu, SetIsDropMenu] = useState(false);
   
   return(
-    <div className={`container ${styles.filters}`}>
+    <div className={styles.filters}>
       {/* // TODO : Use Button component */}
       <button style={{
         height: '33px', width: '151px', fontSize: '14px', fontWeight: 'medium',

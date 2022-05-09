@@ -54,7 +54,7 @@ const fake_data: {[key:string]: string}[] = [
 function MoviesGrid() {
 
   return(
-    <div className={`container ${styles.grid}`}>
+    <div className={styles.grid}>
       {fake_data.map(({cover, title}) => 
         <div className={styles.poster}>
           <img 

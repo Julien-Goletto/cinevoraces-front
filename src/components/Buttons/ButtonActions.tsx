@@ -1,4 +1,3 @@
-import { MouseEventHandler } from 'react';
 import styles from './Button.module.scss';
 
 function ButtonActions({children, state, action}: Button)  {

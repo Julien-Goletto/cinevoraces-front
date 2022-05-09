@@ -3,6 +3,7 @@ import Presentation from './Presentation';
 import Content from './Content';
 import Description from './Description';
 import styles from './Film.module.scss';
+import AddComment from './AddComment';
 import Comment from './Comment';
 
 function Film() {
@@ -11,6 +12,7 @@ function Film() {
       <Content />
       <Description />
       <Presentation />
+      <AddComment />
       <Comment />
       <div className={styles.button}>
         <Button state='empty'>Voir les commentaires (18)</Button>

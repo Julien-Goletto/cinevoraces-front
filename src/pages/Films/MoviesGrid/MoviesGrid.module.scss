@@ -1,0 +1,28 @@
+@use '~styles/mixins' as mix;
+
+.grid {
+  display: grid;
+  gap: .5em;
+  grid-template-columns: repeat(auto-fit, minmax(115px, 1fr));
+  margin-bottom: 2.5rem;
+}
+.poster {
+  border-radius: 10px;
+  overflow: hidden;
+}
+.img {
+  width: 100%;
+  height: 100%; 
+  object-fit: cover;
+}
+
+@include mix.breakpoint('tablet') {
+  .grid {
+    grid-template-columns: repeat(auto-fit, minmax(175px, 1fr));
+  }
+}
+@include mix.breakpoint('desktop') {
+  .grid {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  }
+}

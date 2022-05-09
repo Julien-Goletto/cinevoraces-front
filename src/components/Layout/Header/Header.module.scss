@@ -5,32 +5,28 @@
   padding: .5em 0;
   display: flex;
   justify-content: space-between;
+  position: relative;
 }
-.header__logo {
+.logo {
   display: flex;
   align-items: center;
   gap: 1.5em;
 }
-.header__logo__img {
+.logo__img {
   width: 10rem;
 }
-.header__nav {
+.nav {
   composes : default-text from global;
   letter-spacing: .04rem;
   display: none;
   align-items: center;
   gap: 1em;
 }
-.header__nav-mobile {
+.nav-mobile {
   background: none;
   border: none;
 }
-.header__user {
-  width: 40px;
-  height: 40px;
-  border: 1px var.$white solid;
-  border-radius: 100%;
-}
+
 
 .link {
   color: var.$white;
@@ -43,18 +39,18 @@
 }
 
 @include mix.breakpoint('tablet') {
-  .header__nav {
+  .nav {
     display: flex;
   }
-  .header__nav-mobile {
+  .nav-mobile {
     display: none;
   }
-  .header__logo__img {
+  .logo__img {
     width: 12.5rem;
   }
 }
 @include mix.breakpoint('laptop') {
-  .header__logo__img {
+  .logo__img {
     width: 13.4rem;
   }
 }

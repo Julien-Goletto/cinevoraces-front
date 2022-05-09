@@ -1,3 +1,4 @@
+import ButtonActions from 'components/Buttons/ButtonActions';
 import styles from './LastMoviesGrid.module.scss';
 
 const fake_data: {[key:string]: string}[] = [
@@ -11,26 +12,19 @@ const fake_data: {[key:string]: string}[] = [
 function LastMoviesGrid() {
   return(
     <div className={`${styles['last-movies']} container`}>
-      <h2 className={styles['last-movies__title']}>Les derniers ajouts de la communauté</h2>
-      <div className={styles['last-movies__grid']}>
+      <h2 className={styles.title}>Les derniers ajouts de la communauté</h2>
+      <div className={styles.grid}>
         {fake_data.map(({cover, title}) => 
           <div className={styles.poster}>
             <img 
-              className={styles.poster__img}
+              className={styles.img}
               src={cover} alt={`Affiche du film ${title}`}
             />
           </div>
         )}
       </div>
 
-      {/* // TODO : Use Button component */}
-      <button style={{
-        height: '34px',
-        width: '190px',
-        margin: 0,
-        right: 0,
-      }}
-      >Voir la liste des films</button>
+      <ButtonActions state='full'>Voir la liste des</ButtonActions>
     </div>
   );
 }

@@ -1,0 +1,58 @@
+@use '~styles/var';
+@use '~styles/mixins' as mix;
+
+.proposal {
+  composes: container from global;
+  margin-top: 3em
+}
+.title {
+  @include mix.h2;
+  margin-bottom: 1.2em
+}
+.episode {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1em;
+  & label {
+    @include mix.h5;
+  }
+}
+.grid {
+  background-color: var.$secondary-background;
+}
+.select {
+  padding: 1.5em 0;
+  & span {
+    color: var.$primary;
+    margin-right: 12px;
+  }
+  & select {
+    border: none;
+    background-color: var.$secondary-background;
+    color: var.$white;
+    padding: 0.3em 1em;
+    border-radius: 4px;
+    & option {
+      color: var.$white;
+      font-weight: 600;
+    }
+  }
+}
+.button {
+  composes: container from global;
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 2em;
+}
+
+
+.subtitle {
+  @include mix.h5;
+  margin-bottom: 8px;
+}
+.description {
+  @include mix.p;
+  & span {
+    color: var.$primary;
+  }
+}

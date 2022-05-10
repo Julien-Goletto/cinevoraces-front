@@ -2,10 +2,12 @@
 @use '~styles/var';
 
 .user-submitted {
-  padding: 1em;
+  padding: 1em 0;
   background-color: var.$secondary-background;
   width: 100vw;
-  & button {
+
+  & button, a {
+    border-radius: 50px;
     width: fit-content;
   }
 }
@@ -28,10 +30,11 @@
   gap: 2em;
 }
 .film {
+  box-sizing: border-box;
   width: 100%;
   background-color: var.$background;
   border-radius: 10px;
-  padding: .5em;
+  padding: 1em;
   display: grid;
   // align-items: end;
   gap: .5em;
@@ -86,7 +89,7 @@
 }
 @media screen and (min-width: 560px) {
   .film {
-    width: fit-content;
+    max-width: 760px;
     grid-template-columns: (1fr 1fr 1fr 170px);
     grid-template-areas: 
     "title title . cover"

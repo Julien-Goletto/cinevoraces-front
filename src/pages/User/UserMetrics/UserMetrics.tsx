@@ -4,7 +4,7 @@ function UserMetrics({ stats }: UserMetrics) {
   const { uploadedMovies, commentedMovies, LikedMovies, watchList, evaluatedMovies } = stats;
   
   return(
-    <div className={`container ${styles['user-metrics']}`}>
+    <div className={styles['user-metrics']}>
       <div className={`${styles['metric']} ${styles['metric--primary']}`}>
         <span className={styles['count']}>{uploadedMovies}</span>
         <span className={styles['type']}>

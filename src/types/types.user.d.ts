@@ -9,6 +9,10 @@ type UserMetrics = {
 type UserSubmittedFilm = {
   film?: submittedMovie
 }
+type user = {
+  username: string,
+  email: string,
+}
 
 type submittedMovie = {
   title: string,

@@ -7,6 +7,7 @@ import styles from './User.module.scss';
 const fake_data = {
   username: 'PrincessJambon59',
   avatar: '',
+  email: 'princessham59@elsass.de',
   createdAt: '2004-10-19 10:23:54+02',
   stats: {
     uploadedMovies: 6,
@@ -15,7 +16,9 @@ const fake_data = {
     watchList: 84,
     evaluatedMovies: 96,
   },
-  submittedMovie: {
+  submittedMovie: 
+  // undefined
+  {
     title: 'Mr. Clean',
     cover: 'fake_data/covers/cover_2.jpg',
     releaseDate: 2020,
@@ -26,7 +29,7 @@ const fake_data = {
 };
 
 function User() {
-  const { username, avatar, createdAt } = fake_data;
+  const { username, avatar, createdAt, email } = fake_data;
   const { stats } = fake_data;
   const { submittedMovie } = fake_data;
 
@@ -48,7 +51,13 @@ function User() {
         <UserSubmittedFilm
           film={ submittedMovie }
         />
-        <UserParams />
+        <h2 className={styles['title-h2']}>
+          Modifier mes <span>paramètres :</span>
+        </h2>
+        <UserParams
+          username={username}
+          email={email}
+        />
       </section>
     </>
   );

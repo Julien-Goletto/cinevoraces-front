@@ -32,7 +32,6 @@ function Register() {
             type='password'
           />
           <Input
-            label='confirm'
             name='confirm'
             placeholder='Confirmez votre mot de passe'
             type='password'

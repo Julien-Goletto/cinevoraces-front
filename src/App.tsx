@@ -8,7 +8,8 @@ import {
 
 import Layout from 'components/Layout/Layout';
 import Error from './pages/Error/Error';
-import Films from 'pages/Films/Films';
+import Films from './pages/Films/Films';
+import User from './pages/User/User';
 import Home from './pages/Home/Home';
 import Register from './pages/Register/Register';
 import Proposal from 'pages/Proposal/Proposal';
@@ -23,7 +24,6 @@ function App() {
           <Route path='/' element={<Home />}/>
           <Route path='/register' element={<Register />}/>
           <Route path='/films' element={<Films />}/>
-          <Route path='/proposal' element={<Proposal />}/>
           <Route path='*' element={<Error />}/>
         </Routes>
       </Router>

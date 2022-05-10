@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import styles from './Film.module.scss';
+import styles from './StarRating.module.scss';
 
 function StarRating({state} : StarRating) {
   const [rating, setRating] = useState(0);

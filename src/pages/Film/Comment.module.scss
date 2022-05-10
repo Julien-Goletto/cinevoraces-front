@@ -1,0 +1,81 @@
+@use '~styles/mixins' as mix;
+@use '~styles/var';
+
+.comment {
+  background: #565676;
+  padding: 1em;
+  border-radius: 10px;
+  margin: 2em 0;
+}
+
+.profil {
+  display: flex;
+  flex-direction: row;
+  gap: 0.7em;
+  margin-bottom: 1em;
+}
+
+.picture {
+  border: 2px solid var.$white;
+  display: inline-block; 
+  position: relative; 
+  width: 50px; 
+  height: 50px; 
+  overflow: hidden; 
+  border-radius: 50%;
+}
+
+.pic {
+  border-radius: 100%;
+  width: auto; 
+  height: 175%; 
+  margin-left: -20px;
+  margin-top: -15px;
+}
+
+.box {
+  padding-top: 0.3em;
+}
+
+.name {
+  padding-bottom: 0.5em;
+  @include mix.h5;
+}
+
+.date {
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.note {
+  width: fit-content;
+  background: var.$background;
+  border-radius: 1em;
+  padding: 0.05em 0.25em;
+  font-size: 1.2em;
+  letter-spacing: 0.2em;
+  & button {
+    user-select: none;
+  }
+  & button:hover {
+    cursor: pointer;
+  }
+}
+
+.text {
+  font-weight: 400;
+  padding: 1em 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  line-height: 1.5em;
+}
+
+.more {
+  border: none;
+  background: none;
+  padding-left: inherit;
+  font-weight: 700;
+  font-size: 1em;
+  color: var.$primary;
+}

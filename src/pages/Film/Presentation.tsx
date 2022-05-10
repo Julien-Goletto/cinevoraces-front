@@ -1,4 +1,4 @@
-import styles from './Film.module.scss';
+import styles from './Presentation.module.scss';
 import StarRating from './StarRating';
 
 const fake_data: {[key:string]: string} =

@@ -1,0 +1,13 @@
+@use '~styles/var';
+
+.on {
+  color: var.$primary;
+}
+
+.off {
+  color: var.$secondary-background;
+}
+
+.active {
+  color: var.$secondary;
+}

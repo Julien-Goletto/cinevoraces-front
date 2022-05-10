@@ -1,0 +1,30 @@
+@use '~styles/var';
+@use '~styles/mixins' as mix;
+
+
+.search-form {
+  display: flex;
+  margin: 0em auto 1em auto;
+  align-items: center;
+  gap: 1.5em;
+  & button {
+    padding: 0;
+    margin-top: 5px;
+    width: 60px;
+    height: 45px;
+    text-align: center;
+    & path {
+      fill: var.$background;
+    }
+  }
+}
+
+@include mix.breakpoint('tablet') {
+  .search-form {
+    justify-content: flex-start;
+    & div {
+      
+      max-width: 500px;
+    }
+  }
+}

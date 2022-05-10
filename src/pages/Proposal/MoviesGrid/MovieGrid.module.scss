@@ -3,6 +3,7 @@
 
 .grid {
   composes: container from global;
+  box-sizing: border-box;
   border-radius: 4px;
   background-color: var.$secondary-background;
   padding-top: 1em;
@@ -11,6 +12,7 @@
   display: grid;
   grid-template-columns: 1fr;
   gap: 1em;
+  width: calc(100% - 2em);
 }
 
 @include mix.breakpoint('tablet') {

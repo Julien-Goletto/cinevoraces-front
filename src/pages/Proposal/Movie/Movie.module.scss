@@ -1,11 +1,17 @@
 @use '~styles/var';
 @use '~styles/mixins' as mix;
+@use 'sass:color';
 
 .movie {
   background-color: var.$background;
   border-radius: 10px;
   padding: 1em;
   display: flex;
+  transition: 0.2s;
+}
+.selected {
+  background-color: rgba($color: var.$secondary, $alpha: 1);
+  color: var.$background;
 }
 .img {
   flex:1 ;

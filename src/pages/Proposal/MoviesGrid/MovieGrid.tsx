@@ -2,6 +2,9 @@ import Movie from '../Movie/Movie';
 import styles from './MovieGrid.module.scss';
 
 function MovieGrid() {
+
+
+
   return (
     <div className={styles.grid}>
       <Movie french_title='Mr Clean, The Movie' genres={['Action', 'Super-Hero']} release='2015' directors={['Dan']} poster_url='fake_data/covers/cover_2.jpg'/>

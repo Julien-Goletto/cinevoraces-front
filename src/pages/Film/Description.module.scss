@@ -1,8 +1,6 @@
 @use '~styles/mixins' as mix;
 @use '~styles/var';
 
-//Description
-
 .description {
   box-sizing: border-box;
 }
@@ -96,7 +94,6 @@
 }
 
 @include mix.breakpoint('desktop') {
-  // REA NOTE ACTEUR
   .description {
     flex: 3;
     padding-right: 3em;

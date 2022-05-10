@@ -1,6 +1,6 @@
 import Metrics from 'components/Metrics/Metrics';
 import Input from 'components/Input/Input';
-import ButtonActions from 'components/Buttons/ButtonActions';
+import { Button } from 'components/Buttons/Button';
 import styles from './Register.module.scss';
 
 function Register() {
@@ -36,14 +36,13 @@ function Register() {
             placeholder='Confirmez votre mot de passe'
             type='password'
           />
-          <ButtonActions
-            // FIXME: Need an 'orange' state
-            state='full'
-            action={sendFormHandler}
+          <Button
+            styleMod='fill-rounded'
+            handler={sendFormHandler}
           >
             <img src='images/send-icon.svg' alt='' />
             Envoyer
-          </ButtonActions>
+          </Button>
         </form>
         <img className={styles.img} src='images/register-img.png' alt='' />
       </section>

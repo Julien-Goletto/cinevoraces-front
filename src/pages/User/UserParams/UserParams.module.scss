@@ -4,8 +4,7 @@
   width: 100%;
   display: flex;
   flex-direction: column;
-  & button, a {
-    border-radius: 50px;
+  & button {
     width: fit-content;
     margin-top: .5em;
     align-self: end;

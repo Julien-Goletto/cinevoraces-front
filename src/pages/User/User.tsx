@@ -17,15 +17,15 @@ const fake_data = {
     evaluatedMovies: 96,
   },
   submittedMovie: 
-  // undefined
-  {
-    title: 'Mr. Clean',
-    cover: 'fake_data/covers/cover_2.jpg',
-    releaseDate: 2020,
-    director: ['Dwayne Johnson'],
-    genres: ['Humour', 'Suspense insoutenable'],
-    publishDate: '02/05/2077'
-  },
+  undefined
+  // {
+  //   title: 'Mr. Clean',
+  //   cover: 'fake_data/covers/cover_2.jpg',
+  //   releaseDate: 2020,
+  //   director: ['Dwayne Johnson'],
+  //   genres: ['Humour', 'Suspense insoutenable'],
+  //   publishDate: '02/05/2077'
+  // },
 };
 
 function User() {

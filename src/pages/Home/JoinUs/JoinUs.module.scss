@@ -8,7 +8,6 @@
 }
 
 .wrapper {
-  composes: container from global;
   padding-top: 2em;
   padding-bottom:  2em;
 }
@@ -20,6 +19,10 @@
   & span {
     @include mix.h4;
   }
+}
+
+.wrapper a {
+  width: fit-content;
 }
 
 @media (max-width: 550px) {

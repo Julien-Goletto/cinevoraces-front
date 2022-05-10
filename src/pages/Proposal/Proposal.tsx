@@ -4,7 +4,7 @@ import Description from './Description/Description';
 import Search from './Search/Search';
 import { useAppDispatch, useAppSelector } from 'redux/hooks';
 import { getProposalData, setEpisode } from 'redux/slices/proposal';
-import ButtonActions from 'components/Buttons/ButtonActions';
+import { Button } from 'components/Buttons/Button';
 
 function Proposal() {
 
@@ -18,12 +18,9 @@ function Proposal() {
     e.preventDefault();
     console.log(data);
   };
-
-  
-  
   return (
     <>
-      <section className={styles.proposal}>
+      <section className={`container ${styles.proposal}`}>
         <h1 className={styles.title}>Ajouter un film</h1>
         <form onChange={handleSelect} className={styles.episode}>
           <label htmlFor='episode'>Selectionez un épisode</label>
@@ -43,8 +40,14 @@ function Proposal() {
       </section>
       <MovieGrid />
       <Description />
-      <div className={styles.button}>
-        <ButtonActions action={handleSubmit} state='full'>Envoyer</ButtonActions>
+      <div className={`container ${styles.button}`}>
+        <Button
+          handler={handleSubmit}
+          styleMod='fill-rounded'
+        >
+          <img src='images/send-icon.svg' alt=''/>
+          Envoyer
+        </Button>
       </div>
     </>
   );

@@ -2,10 +2,12 @@
 @use '~styles/var';
 
 .error {
+  display: flex;
+  flex-direction: column;
   width: fit-content;
   margin: 5rem auto;
-  button:last-child {
-    margin-bottom: 2.5rem;
+  a:last-child {
+    align-self: center!important;
   }
 }
 .title {
@@ -29,6 +31,20 @@
 .pathname {
   color: var.$primary;
   margin: 0 .15rem;
+}
+.last-movies {
+  margin-bottom: 5rem;
+  & a {
+    width: 100%;
+  }
+}
+
+@media (min-width: 430px) {
+  .last-movies {
+    & a {
+      width: fit-content;
+    }
+  }
 }
 
 

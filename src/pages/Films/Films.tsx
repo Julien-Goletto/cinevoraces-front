@@ -1,4 +1,4 @@
-import Button from 'components/Buttons/Button';
+import { Button } from 'components/Buttons/Button';
 import styles from './Films.module.scss';
 import Filters from './Filters/Filters';
 import MoviesGrid from './MoviesGrid/MoviesGrid';
@@ -9,7 +9,9 @@ function Films() {
       <Filters/>
       <MoviesGrid/>
       <div className={styles.button}>
-        <Button state='empty'>Voir les films suivants (77)</Button>
+        <Button>
+          Voir les films suivants (77)
+        </Button>
       </div>
     </section>
   );

@@ -1,4 +1,4 @@
-import Button from 'components/Buttons/Button';
+import { Button } from 'components/Buttons/Button';
 import userStyles from '../User.module.scss';
 import styles from './UserSubmittedFilm.module.scss';
 
@@ -13,7 +13,8 @@ function UserSubmittedFilm({ film }: UserSubmittedFilm) {
             . Une idée? C’est par ici!
           </p>
           <Button
-            state='full'
+            styleMod='fill'
+            href='/proposal'
           >
             Proposer un film
           </Button>
@@ -69,7 +70,7 @@ function UserSubmittedFilm({ film }: UserSubmittedFilm) {
             </div>
           </div>
           <Button
-            state='full'
+            styleMod='fill'
           >
             Modifier ma proposition
           </Button>

@@ -6,8 +6,7 @@
   background-color: var.$secondary-background;
   width: 100vw;
 
-  & button, a {
-    border-radius: 50px;
+  & button {
     width: fit-content;
   }
 }
@@ -36,7 +35,6 @@
   border-radius: 10px;
   padding: 1em;
   display: grid;
-  // align-items: end;
   gap: .5em;
   grid-template-columns: (1fr 1fr 120px);
   grid-template-areas: 

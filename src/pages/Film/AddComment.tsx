@@ -1,4 +1,4 @@
-import ButtonActions from 'components/Buttons/ButtonActions';
+import { Button } from 'components/Buttons/Button';
 import styles from './AddComment.module.scss';
 
 const fake_data: {[key:string]: string} =
@@ -24,7 +24,12 @@ function AddComment() {
               <textarea placeholder='Ajouter un commentaire' className={styles['textarea']} />
             </label>
             <div className={styles['submit']}>
-              <ButtonActions state='full'>Poster les modifications</ButtonActions>
+              <Button 
+                styleMod='fill-rounded'
+              >
+                <img src='images/send-icon.svg' alt=''/>
+                Poster les modifications
+              </Button>
             </div>
           </form>
         </div>

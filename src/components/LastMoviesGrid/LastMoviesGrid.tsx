@@ -1,4 +1,4 @@
-import ButtonActions from 'components/Buttons/ButtonActions';
+import { Button } from 'components/Buttons/Button';
 import styles from './LastMoviesGrid.module.scss';
 
 const fake_data: {[key:string]: string}[] = [
@@ -24,7 +24,12 @@ function LastMoviesGrid() {
         )}
       </div>
 
-      <ButtonActions href='/films' state='full'>Voir la liste des films</ButtonActions>
+      <Button
+        href='/films'
+        styleMod='fill-rounded'
+      >
+        Voir la liste des films
+      </Button>
     </div>
   );
 }

@@ -30,15 +30,7 @@
   object-fit: cover;
 }
 
-@include mix.breakpoint('tablet') {
-  .title {
-    //@include mix.h2;
-  }
-}
 @include mix.breakpoint('laptop') {
-  .title {
-    //@include mix.h2;
-  }
   .grid {
     grid-template-columns: repeat(4, 1fr);
   }

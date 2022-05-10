@@ -1,4 +1,4 @@
-import ButtonActions from 'components/Buttons/ButtonActions';
+import { Button } from 'components/Buttons/Button';
 import Connection from 'components/Modal/Connection/Connection';
 import Modal from 'components/Modal/Modal';
 import { useAppDispatch, useAppSelector } from 'redux/hooks';
@@ -13,6 +13,9 @@ const isLogged = false;
 function Header() {
   const dispatch = useAppDispatch();
   const connectionIsOpen = useAppSelector(state => state.global.connectionIsOpen );
+  const connectionHandler = () => {
+    dispatch(toggleConnection());
+  };
   return(
     <>
       { connectionIsOpen && 
@@ -35,7 +38,12 @@ function Header() {
 
         {!isLogged &&
           <>
-            <ButtonActions state='full' action={()=> {dispatch(toggleConnection());}}>Se connecter</ButtonActions>
+            <Button
+              styleMod='fill'
+              handler={connectionHandler}
+            >
+              Se connecter
+            </Button>
           </>
         }
         {isLogged &&

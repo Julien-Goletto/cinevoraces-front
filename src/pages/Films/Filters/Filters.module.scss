@@ -23,14 +23,6 @@
     color: var.$white;
   }
 }
-.filters button:nth-child(1) {
-  width: fit-content;
-  display: flex;
-  gap: .5em;
-  & img {
-    width: 1rem;
-  }
-}
     
 @include mix.breakpoint('tablet') {
   .filters {

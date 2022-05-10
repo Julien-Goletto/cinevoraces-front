@@ -8,10 +8,15 @@
 .button {
   display: flex;
   justify-content: center;
+  & button {
+    width: 100%;
+  }
 }
 
 @media (min-width: 430px) {
   .button {
-    width: auto;
+    & button {
+      width: fit-content;
+    }
   }
 }

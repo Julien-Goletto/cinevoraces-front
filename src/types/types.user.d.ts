@@ -14,7 +14,7 @@ type submittedMovie = {
   title: string,
   cover: string,
   releaseDate: number,
-  director: string,
+  director: string[],
   genres: string[],
   publishDate: string
 }

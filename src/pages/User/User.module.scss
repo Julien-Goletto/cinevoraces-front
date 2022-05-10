@@ -20,3 +20,26 @@
     white-space: nowrap;
   }
 }
+.title-h3 {
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+.title-h4 {
+  font-size: 1rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  color: var.$input-text;
+  & span {
+    white-space: nowrap;
+  }
+}
+
+@include mix.breakpoint('tablet') {
+  .title-h3 {
+    font-size: 1.75rem;
+    font-weight: 600;
+  }
+  .title-h4 {
+    font-size: 1.2rem;
+  }
+}

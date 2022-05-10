@@ -18,7 +18,7 @@ const fake_data = {
     title: 'Mr. Clean',
     cover: 'fake_data/covers/cover_2.jpg',
     releaseDate: 2020,
-    director: 'Dwayne Johnson',
+    director: ['Dwayne Johnson'],
     genres: ['Humour', 'Suspense insoutenable'],
     publishDate: '02/05/2077'
   },

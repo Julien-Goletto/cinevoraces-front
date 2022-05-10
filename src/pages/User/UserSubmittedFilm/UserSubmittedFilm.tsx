@@ -23,7 +23,50 @@ function UserSubmittedFilm({ film }: UserSubmittedFilm) {
         <div className={`container ${styles['pending-proposal']}`}>
           <h2 className={userStyles['title-h2']}>Ma proposition en <span>attente :</span></h2>
           <div className={styles['film']}>
+            <h3 className={`${styles['grid-title']} ${userStyles['title-h3']}`}>
+              {film.title}
+              &nbsp;&#40;{film.releaseDate}&#41;
+            </h3>
 
+            <div className={styles['grid-direc']}>
+              <h4 className={userStyles['title-h4']}>
+                réalisateur{(film.director.length > 1) && 's'}
+              </h4>
+              <div>
+                {film.director.map((director, index) => 
+                  <span>
+                    {director}
+                    {(index + 1 !== film.director.length) && ', '}
+                  </span>
+                )}
+              </div>
+            </div>
+
+            <div className={styles['grid-genre']}>
+              <h4 className={userStyles['title-h4']}>
+              genre{(film.genres.length > 1) && 's'}
+              </h4>
+              <div>
+                {film.genres.map((genres, index) => 
+                  <span>
+                    {genres}
+                    {(index + 1 !== film.genres.length) && ', '}
+                  </span>
+                )}
+              </div>
+            </div>
+
+            <div className={styles['grid-pDate']}>
+              <h4 className={userStyles['title-h4']}>
+                date de
+                <span>&nbsp;publication :</span>
+                <span className={styles['publish-date']}>&nbsp;{film.publishDate}</span>
+              </h4>
+            </div>
+
+            <div className={`${styles['grid-cover']} ${styles['cover']}`}>
+              <img src={film.cover} alt='Affiche du film' />
+            </div>
           </div>
           <Button
             state='full'

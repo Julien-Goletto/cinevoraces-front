@@ -11,6 +11,9 @@
   font-size: 14px;
   font-weight: 500;
 }
+.label[for='confirm'] {
+  display: none;
+}
 .input {
   background-color: var.$secondary-background;
   color: var.$white;
@@ -22,8 +25,21 @@
   border: none;
   border-radius: 10px;
 
-  &--username{
-    background: url('user.svg') var.$secondary-background;;
+  &--username {
+    background: url('user.svg') var.$secondary-background;
+    background-position: 1em center;
+    background-repeat: no-repeat;
+  }
+  &--password, &--confirm {
+    background: url('password.svg') var.$secondary-background;
+    background-position: 1em center;
+    background-repeat: no-repeat;
+  }
+  &--confirm {
+    margin-top: -1em;
+  }
+  &--email {
+    background: url('mail.svg') var.$secondary-background;
     background-position: 1em center;
     background-repeat: no-repeat;
   }

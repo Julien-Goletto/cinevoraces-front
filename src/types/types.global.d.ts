@@ -9,5 +9,6 @@ type Button = {
   state: string
   children: React.ReactNode
   action?: MouseEventHandler; 
+  href?: string
 }
 type ButtonSearch = { children: React.ReactNode };

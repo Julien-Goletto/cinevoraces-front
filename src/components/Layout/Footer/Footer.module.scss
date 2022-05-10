@@ -1,9 +1,11 @@
 @use '~styles/var';
 @use '~styles/mixins' as mix;
-
+.upper {
+  background-color: var.$secondary-background;
+}
 .footer {
   composes : category-link from global;
-  background-color: var.$secondary-background;
+
   padding: 1.7em 0;
   display: flex;
   flex-direction: column;

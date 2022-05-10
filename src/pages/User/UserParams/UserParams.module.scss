@@ -1,0 +1,34 @@
+@use '~styles/var';
+
+.user-params {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  & button, a {
+    border-radius: 50px;
+    width: fit-content;
+    margin-top: .5em;
+    align-self: end;
+    display: flex;
+    gap: .5em;
+  }
+}
+.action {
+  margin-bottom: 1em;
+}
+.user-info {
+  display: flex;
+  flex-direction: column;
+  gap: 3em;
+  margin-bottom: 2em;
+}
+.info {
+  text-transform: initial;
+  color: var.$white;
+}
+
+@media screen and (min-width: 560px) {
+  .user-params {
+    max-width: 760px;
+  }
+}

@@ -9,6 +9,8 @@ button {
   font-size: 1rem;
   font-weight: 600;
   border-radius: 14px;
+  vertical-align: center;
+  display: inline-block;
   border: none;
   padding: 0.8em 1.5em;
   box-shadow: inset 0px -2px 3px rgba(48, 48, 48, 0.25);
@@ -16,6 +18,7 @@ button {
 
 .button--full {
   background-color: var.$primary;
+  color: var.$background;
 }
 
 .button--empty {

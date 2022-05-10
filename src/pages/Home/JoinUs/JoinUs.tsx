@@ -10,7 +10,7 @@ function JoinUs() {
           <span>Régalez-vous.</span>
           <span>Régalez-nous</span>
         </div>
-        <Button state='full'>S'inscrire</Button>
+        <Button href='/register' state='full'>S'inscrire</Button>
       </div>
 
     </section>

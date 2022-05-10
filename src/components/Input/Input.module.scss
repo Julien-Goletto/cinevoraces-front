@@ -22,8 +22,26 @@
   border: none;
   border-radius: 10px;
 
-  &--username{
-    background: url('user.svg') var.$secondary-background;;
+  &--username {
+    background: url('user.svg') var.$secondary-background;
+    background-position: 1em center;
+    background-repeat: no-repeat;
+  }
+  &--password, &--confirm {
+    background: url('password.svg') var.$secondary-background;
+    background-position: 1em center;
+    background-repeat: no-repeat;
+  }
+  &--confirm {
+    margin-top: -1em;
+  }
+  &--email {
+    background: url('mail.svg') var.$secondary-background;
+    background-position: 1em center;
+    background-repeat: no-repeat;
+  }
+  &--search {
+    background: url('input_search.svg') var.$secondary-background;
     background-position: 1em center;
     background-repeat: no-repeat;
   }

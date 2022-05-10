@@ -1,0 +1,31 @@
+@use '~styles/var';
+@use '~styles/mixins' as mix;
+.description {
+  composes: container from global;
+
+}
+
+.title {
+  @include mix.h5;
+  margin: 2em auto 1em auto;
+}
+.text {
+  margin: 1em auto;
+  @include mix.p;
+   & span {
+     color: var.$primary
+   }
+}
+.input { 
+  margin-bottom: 2em;
+  display: flex;
+  box-sizing: border-box;
+  background-color: var.$white;
+  color: var.$background;
+  width: 100%;
+  max-width: 100%;
+  padding: 1em;
+  font-family: 'Montserrat', Arial, Helvetica, sans-serif;
+  font-weight: 500;
+  resize: none;
+}

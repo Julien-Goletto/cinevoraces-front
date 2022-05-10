@@ -5,7 +5,7 @@
   flex-direction: column;
   gap: 2em;
 }
-.last-movies button:nth-last-child(1) {
+.last-movies a:nth-last-child(1) {
   align-self: flex-end;
 }
 .title {

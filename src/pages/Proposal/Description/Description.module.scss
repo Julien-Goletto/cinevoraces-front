@@ -1,10 +1,9 @@
 @use '~styles/var';
 @use '~styles/mixins' as mix;
+
 .description {
-  composes: container from global;
-
+  @include mix.container;
 }
-
 .title {
   @include mix.h5;
   margin: 2em auto 1em auto;

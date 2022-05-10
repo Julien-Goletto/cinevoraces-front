@@ -6,7 +6,7 @@ import Comment from './Comment';
 
 function Film() {
   return (
-    <section className={`${styles.film} container`}>
+    <section className={styles.film}>
       <Content />
       <AddComment />
       <Comment />

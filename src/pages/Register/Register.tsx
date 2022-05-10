@@ -10,7 +10,7 @@ function Register() {
 
   return(
     <>
-      <section className={`container ${styles.register}`}>
+      <section className={styles.register}>
         <form className={styles.form}>
           <h1 className={styles.title}>Créer un compte</h1>
           <Input

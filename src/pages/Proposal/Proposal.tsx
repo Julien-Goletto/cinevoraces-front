@@ -20,7 +20,7 @@ function Proposal() {
   };
   return (
     <>
-      <section className={`container ${styles.proposal}`}>
+      <section className={styles.proposal}>
         <h1 className={styles.title}>Ajouter un film</h1>
         <form onChange={handleSelect} className={styles.episode}>
           <label htmlFor='episode'>Selectionez un épisode</label>
@@ -40,7 +40,7 @@ function Proposal() {
       </section>
       <MovieGrid />
       <Description />
-      <div className={`container ${styles.button}`}>
+      <div className={styles.button}>
         <Button
           handler={handleSubmit}
           styleMod='fill-rounded'

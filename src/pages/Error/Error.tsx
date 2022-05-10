@@ -7,7 +7,7 @@ function Error() {
   const { pathname } = useLocation();
   return(
     <>
-      <section className={`${styles.error} container`}>
+      <section className={styles.error}>
         <div>
           <div className={styles.title}>
             <img className={styles.img} src='images/error_icon.svg' alt='' />

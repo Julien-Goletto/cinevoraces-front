@@ -3,6 +3,7 @@
 
 .film {
   margin: 2em auto;
+  @include mix.container;
 }
 
 .button {

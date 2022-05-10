@@ -3,7 +3,7 @@ import styles from './Hero.module.scss';
 
 function Hero() {
   return (
-    <section className={`container ${styles.hero}`}>
+    <section className={styles.hero}>
       <div className={styles.text}>
         <h1 className={styles.title}>Bienvenue dans le <span>ciné-club</span> virtuel !</h1>
         <p className={styles.subtitle}>Chaque semaine, un film à découvrir</p>

@@ -23,7 +23,7 @@ function Header() {
         <Connection />
       </Modal>
       }
-      <header className={`container ${styles.header}`}>
+      <header className={styles.header}>
         <div className={styles.logo}>
           <MenuMobile />
           <img className={styles.logo__img} src='images/logo_title.svg' alt='Logo du site' />

@@ -5,7 +5,7 @@ import MoviesGrid from './MoviesGrid/MoviesGrid';
 
 function Films() {
   return(
-    <section className={`container ${styles.films}`}>
+    <section className={styles.films}>
       <Filters/>
       <MoviesGrid/>
       <div className={styles.button}>

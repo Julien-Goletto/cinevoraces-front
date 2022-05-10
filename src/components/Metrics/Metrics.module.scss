@@ -3,7 +3,7 @@
 
 .metrics {
     margin: 5em auto;
-    composes: container from global;
+    @include mix.container;
 }
 
 .metrics__title {

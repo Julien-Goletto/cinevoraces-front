@@ -1,5 +1,8 @@
+@use '~styles/mixins' as mix;
+
 .button {
   display: flex;
   justify-content: center;
   margin-bottom: 2.5rem;
+  @include mix.container;
 }

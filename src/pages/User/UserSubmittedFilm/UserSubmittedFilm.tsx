@@ -6,7 +6,7 @@ function UserSubmittedFilm({ film }: UserSubmittedFilm) {
   return(
     <div className={styles['user-submitted']}>
       { !film &&
-        <div className={`container ${styles['no-film-submitted']}`}>
+        <div className={styles['no-film-submitted']}>
           <p>
             Vous n’avez
             <span>&nbsp;pas de proposition de film en attente</span>
@@ -21,7 +21,7 @@ function UserSubmittedFilm({ film }: UserSubmittedFilm) {
         </div>
       }
       { film &&
-        <div className={`container ${styles['pending-proposal']}`}>
+        <div className={styles['pending-proposal']}>
           <h2 className={userStyles['title-h2']}>Ma proposition en <span>attente :</span></h2>
           <div className={styles['film']}>
             <h3 className={`${styles['grid-title']} ${userStyles['title-h3']}`}>

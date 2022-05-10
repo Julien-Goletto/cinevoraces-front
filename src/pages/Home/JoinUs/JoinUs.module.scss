@@ -1,13 +1,13 @@
 @use '~styles/var';
 @use '~styles/mixins' as mix;
 
-
 .join {
   margin: 4em auto;
   background-color: var.$secondary-background;
 }
 
 .wrapper {
+  @include mix.container;
   padding-top: 2em;
   padding-bottom:  2em;
 }

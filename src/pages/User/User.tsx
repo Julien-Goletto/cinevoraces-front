@@ -35,7 +35,7 @@ function User() {
 
   return(
     <>
-      <section className={`container ${styles['user']}`}>
+      <section className={styles['user']}>
         <h1 className={styles['title']}>Mon compte</h1>
         <UserHeader
           username={username}

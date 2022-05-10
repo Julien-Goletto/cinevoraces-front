@@ -6,6 +6,7 @@
   display: flex;
   justify-content: space-between;
   position: relative;
+  @include mix.container;
 }
 .logo {
   display: flex;
@@ -16,7 +17,6 @@
   width: 10rem;
 }
 .nav {
-  composes : default-text from global;
   letter-spacing: .04rem;
   display: none;
   align-items: center;

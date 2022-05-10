@@ -1,8 +1,8 @@
 @use '~styles/var';
 @use '~styles/mixins' as mix;
 
-
 .hero {
+  @include mix.container;
   margin: 5em auto 6em auto;
   & span {
     color: var.$primary;

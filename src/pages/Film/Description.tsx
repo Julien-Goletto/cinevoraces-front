@@ -1,4 +1,5 @@
 import styles from './Film.module.scss';
+import StarRating from './StarRating';
 
 const fake_data: {[key:string]: string} =
   { 
@@ -15,9 +16,13 @@ function Description() {
   return (
     <div className={styles.description}>
       <h1 className={styles.title}>{fake_data.title}<span className={styles.year}>({fake_data.year})</span></h1>
-      <div className={styles.element}>
-          Note des membres
-        <span className={styles.elm}>****</span> 
+      <div className={`${styles.element} ${styles['element--flex']}`}>
+          Note des membres :
+        <span className={styles.star}><StarRating state='primary'/></span> 
+      </div>
+      <div className={`${styles.element} ${styles['element--flex']}`}>
+          Ma note :
+        <span className={styles.star}><StarRating state='secondary'/></span> 
       </div>
       <div className={styles.element}>
           Réalisateur :

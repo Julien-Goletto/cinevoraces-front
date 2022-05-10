@@ -1,4 +1,5 @@
 import Interactions from 'components/Interactions/Interactions';
+import Description from './Description';
 import styles from './Film.module.scss';
 
 const fake_data: {[key:string]: string} =
@@ -17,6 +18,7 @@ function Content() {
         <Interactions type='like' count={0}/>
         <Interactions type='star' count={0}/>
       </div>
+      <Description />
     </div>
   );
 };

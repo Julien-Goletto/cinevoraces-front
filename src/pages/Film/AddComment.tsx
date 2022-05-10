@@ -1,5 +1,6 @@
 import ButtonActions from 'components/Buttons/ButtonActions';
 import styles from './Film.module.scss';
+import StarRating from './StarRating';
 
 const fake_data: {[key:string]: string} =
   { 
@@ -18,7 +19,7 @@ function AddComment() {
             <div className={styles.date}>Le 7 février 2022</div>
           </div>
         </div>
-        <div className={styles.note}>****</div>
+        <div className={styles.note}><StarRating state='secondary'/></div>
         <div className={styles.form}>
           <form>
             <label>

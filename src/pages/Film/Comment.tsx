@@ -1,4 +1,5 @@
 import styles from './Film.module.scss';
+import StarRating from './StarRating';
 
 const fake_data: {[key:string]: string} =
   { 
@@ -15,7 +16,7 @@ function Comment() {
           <div className={styles.date}>Le 7 février 2022</div>
         </div>
       </div>
-      <div className={styles.note}>****</div>
+      <div className={styles.note}><StarRating state='secondary'/></div>
       <p className={styles.text}>
       Le film commence fort, avec une belle baston reprenant les bruits typiques d’un Bud Spencer et Terence Hill, avec l’air de musique de la Cantina de Star Wars, hilarité totale pour ma part ! Par la suite, j’ai finalement trouvé la musique assez bonne, variée, rythmée et originale. Les chants et chorégraphie sympa (même si j’en ai passés certains vers la fin en accélérée). Les cascades improbables m’ont...
         <button className={styles.more}>Voir plus</button>

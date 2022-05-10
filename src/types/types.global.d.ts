@@ -10,4 +10,7 @@ type Button = {
   children: React.ReactNode
   action?: MouseEventHandler; 
 }
+type StarRating = {
+  state: string
+}
 type ButtonSearch = { children: React.ReactNode };

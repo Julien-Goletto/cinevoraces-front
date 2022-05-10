@@ -10,7 +10,7 @@ function Film() {
   return (
     <section className={`${styles.movie} container`}>
       <Content />
-      <Description />
+      {/* <Description /> */}
       <Presentation />
       <AddComment />
       <Comment />

@@ -7,6 +7,9 @@
   flex-direction: column;
   gap: 1.5em;
   margin: 2em 0;
+  & button {
+    width: fit-content;
+  }
 }
 .search-bar {
   display: flex;
@@ -17,11 +20,6 @@
   max-width: 400px;
   font-size: 0.875rem;
   font-weight: 500;
-  & input {
-    border: none;
-    background: none;
-    color: var.$white;
-  }
 }
     
 @include mix.breakpoint('tablet') {

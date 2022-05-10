@@ -1,6 +1,5 @@
 @use './var.scss';
 @use './reset.scss';
-@use './global.scss';
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap');
 
 html {
@@ -13,4 +12,10 @@ body {
 }
 p {
   letter-spacing: 1%;
+  font-weight: 400 ;
+  font-size: 1rem;
+  line-height: 1.5em;
+}
+h1, h2, h3, h4, h4 {
+  line-height: 1.2em;
 }

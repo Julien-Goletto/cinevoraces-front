@@ -1,5 +1,6 @@
 @use '~styles/var';
 @use '~styles/mixins' as mix;
+
 .upper {
   background-color: var.$secondary-background;
 }

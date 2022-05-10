@@ -1,6 +1,7 @@
 import UserHeader from './UserHeader/UserHeader';
 import UserMetrics from './UserMetrics/UserMetrics';
 import UserSubmittedFilm from './UserSubmittedFilm/UserSubmittedFilm';
+import UserParams from './UserParams/UserParams';
 import styles from './User.module.scss';
 
 const fake_data = {
@@ -47,6 +48,7 @@ function User() {
         <UserSubmittedFilm
           film={ submittedMovie }
         />
+        <UserParams />
       </section>
     </>
   );

@@ -1,5 +1,5 @@
 type FieldsetTextInput = { 
-  label: string,
+  label?: string,
   name: string,
   placeholder: string,
   type: string

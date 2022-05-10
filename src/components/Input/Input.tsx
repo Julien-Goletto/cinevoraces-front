@@ -5,7 +5,9 @@ function Input({label, name, type, placeholder}: FieldsetTextInput) {
 
   return (
     <div className={styles.container}>
-      <label className= {styles.label} htmlFor={name}>{label}</label>
+      { label &&
+        <label className= {styles.label} htmlFor={name}>{label}</label>
+      }
       <input className={`${styles.input} ${styles[`input--${name}`]} `} type={type} placeholder={placeholder} name={name} />
     </div>
   );

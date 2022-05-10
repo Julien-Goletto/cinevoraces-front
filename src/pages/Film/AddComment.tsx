@@ -1,6 +1,5 @@
 import ButtonActions from 'components/Buttons/ButtonActions';
 import styles from './AddComment.module.scss';
-import StarRating from './StarRating';
 
 const fake_data: {[key:string]: string} =
   { 

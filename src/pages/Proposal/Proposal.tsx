@@ -3,6 +3,7 @@ import Input from 'components/Input/Input';
 import styles from './Proposal.module.scss';
 import { ReactComponent as Search } from './input_search.svg';
 import MovieGrid from './MoviesGrid/MovieGrid';
+import Description from './Description/Description';
 
 function Proposal() {
   return (
@@ -29,6 +30,7 @@ function Proposal() {
         </form>
       </section>
       <MovieGrid />
+      <Description />
     </>
   );
 }

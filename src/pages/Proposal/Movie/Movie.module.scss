@@ -1,0 +1,25 @@
+@use '~styles/var';
+@use '~styles/mixins' as mix;
+
+.movie {
+  background-color: var.$background;
+  border-radius: 10px;
+  padding: 1em;
+  display: flex;
+}
+.img {
+  flex:1 ;
+  & img {
+    max-width: 100%;
+  }
+}
+.description {
+  flex:4 ;
+}
+.title {
+  @include mix.h4;
+  margin-bottom: 1em;
+}
+.rea, .genres {
+  margin: 16px 0;
+}

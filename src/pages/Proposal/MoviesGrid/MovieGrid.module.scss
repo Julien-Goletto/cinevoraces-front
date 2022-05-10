@@ -1,0 +1,25 @@
+@use '~styles/var';
+@use '~styles/mixins' as mix;
+
+.grid {
+  composes: container from global;
+  border-radius: 4px;
+  background-color: var.$secondary-background;
+  padding-top: 1em;
+  padding-bottom: 1em;
+  margin: 1em auto;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1em;
+}
+
+@include mix.breakpoint('tablet') {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@include mix.breakpoint('desktop') {
+  .grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}

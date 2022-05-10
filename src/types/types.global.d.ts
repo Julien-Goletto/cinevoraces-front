@@ -3,9 +3,8 @@ interface Layout {
 };
 
 type mouseEvent = import('react').MouseEvent<HTMLButtonElement | HTMLInputElement>;
-type onChangeEvent = import('react').ChangeEvent<HTMLInputElement>
-type onChangeFormEvent = import('react').FormEvent<HTMLFormElement>
 type onChangeEventHandler = import('react').ChangeEventHandler<HTMLInputElement>
+type onChangeFormEvent = import('react').FormEvent<HTMLFormElement>
 type Button = {
   state: string
   children: React.ReactNode

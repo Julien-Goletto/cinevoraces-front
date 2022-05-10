@@ -40,6 +40,11 @@
     background-position: 1em center;
     background-repeat: no-repeat;
   }
+  &--search {
+    background: url('input_search.svg') var.$secondary-background;
+    background-position: 1em center;
+    background-repeat: no-repeat;
+  }
 }
 .input::placeholder {
   color: var.$input-text;

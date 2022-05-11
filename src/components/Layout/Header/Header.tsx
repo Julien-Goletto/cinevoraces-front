@@ -7,7 +7,6 @@ import styles from './Header.module.scss';
 import MenuMobile from './MenuMobile/MenuMobile';
 import UserMenu from './UserMenu/UserMenu';
 
-// TODO : Use Redux
 const isLogged = false;
 
 function Header() {
@@ -26,7 +25,7 @@ function Header() {
       <header className={styles.header}>
         <div className={styles.logo}>
           <MenuMobile />
-          <img className={styles.logo__img} src='images/logo_title.svg' alt='Logo du site' />
+          <img className={styles.img} src='images/logo_title.svg' alt='Logo du site' />
         </div>
         <nav className={styles.nav}>
           <a href='/' className={styles.link}>Accueil</a> 

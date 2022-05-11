@@ -13,7 +13,7 @@
   align-items: center;
   gap: 1.5em;
 }
-.logo__img {
+.img {
   width: 10rem;
 }
 .nav {
@@ -45,12 +45,12 @@
   .nav-mobile {
     display: none;
   }
-  .logo__img {
+  .img {
     width: 12.5rem;
   }
 }
 @include mix.breakpoint('laptop') {
-  .logo__img {
+  .img {
     width: 13.4rem;
   }
 }

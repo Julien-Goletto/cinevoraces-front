@@ -5,6 +5,9 @@ import { ReactComponent as Eye } from './ico/eye.svg';
 import { ReactComponent as Bookmark } from './ico/bookmark.svg';
 import { toggle } from 'redux/slices/interaction';
 import { useAppDispatch, useAppSelector } from 'redux/hooks';
+import { addNoteIsOpen } from 'redux/slices/interaction';
+import Modal from 'components/Modal/Modal';
+import AddNote from 'components/Modal/AddNote/AddNote';
 
 type InteractionsProps = {
   type: string,
@@ -23,8 +26,9 @@ function Interactions({type, count}: InteractionsProps) {
     let entrie = Object.entries(state.interaction).find(el => el[0] === `is${type.charAt(0).toUpperCase() + type.slice(1)}`);
     if(entrie) return entrie[1];
   });
-  
+  const noteIsOpen = useAppSelector(addNoteIsOpen);
 
+  
   function selectedType() {
     switch(type) {
     case 'like':
@@ -41,12 +45,19 @@ function Interactions({type, count}: InteractionsProps) {
   }
 
   return (
-    <button onClick={() => dispatch(toggle(type))} className={
-      `${styles.wrapper} ${active ? styles.active : ''}`
-    }>
-      {selectedType()}
-      <span className={styles.count}>{count}</span>
-    </button>
+    <>
+      { noteIsOpen && 
+        <Modal>
+          <AddNote />
+        </Modal>
+      }
+      <button onClick={() => dispatch(toggle(type))} className={
+        `${styles.wrapper} ${active ? styles.active : ''}`
+      }>
+        {selectedType()}
+        <span className={styles.count}>{count}</span>
+      </button>
+    </>
   );
 };
 

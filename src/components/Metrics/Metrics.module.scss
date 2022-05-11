@@ -2,7 +2,7 @@
 @use '~styles/var';
 
 .metrics {
-    composes: container from 'styles/index.scss';
+    composes: container from global;
     margin: 5em auto;
 }
 

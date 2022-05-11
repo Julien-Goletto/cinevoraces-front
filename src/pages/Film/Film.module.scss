@@ -2,7 +2,7 @@
 @use '~styles/var';
 
 .film {
-  composes: container from 'styles/index.scss';
+  composes: container from global;
   margin: 2em auto;
 }
 

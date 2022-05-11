@@ -6,7 +6,7 @@
   margin: 4em auto;
 }
 .wrapper {
-  composes: container from 'styles/index.scss';
+  composes: container from global;
   padding-top: 2em;
   padding-bottom:  2em;
 }

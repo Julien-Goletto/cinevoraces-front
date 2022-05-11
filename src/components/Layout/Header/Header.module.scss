@@ -2,7 +2,7 @@
 @use '~styles/var';
 
 .header {
-  composes: container from 'styles/index.scss';
+  composes: container from global;
   padding: .5em 0;
   display: flex;
   justify-content: space-between;

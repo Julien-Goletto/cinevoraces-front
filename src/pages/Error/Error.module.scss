@@ -2,7 +2,7 @@
 @use '~styles/var';
 
 .error {
-  composes: container from 'styles/index.scss';
+  composes: container from global;
   display: flex;
   flex-direction: column;
   width: fit-content;

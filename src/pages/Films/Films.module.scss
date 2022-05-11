@@ -1,7 +1,7 @@
 @use '~styles/mixins' as mix;
 
 .films {
-  composes: container from 'styles/index.scss';
+  composes: container from global;
 }
 
 .button {

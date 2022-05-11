@@ -2,7 +2,7 @@
 @use '~styles/mixins' as mix;
 
 .hero {
-  composes: container from 'styles/index.scss';
+  composes: container from global;
   margin: 5em auto 6em auto;
   & span {
     color: var.$primary;

@@ -8,6 +8,9 @@
   justify-content: space-between;
   position: relative;
 }
+.mobile-sentence { display: none; }
+.desktop-sentence { display: block; }
+
 .logo {
   display: flex;
   align-items: center;
@@ -38,6 +41,19 @@
   background-color: var.$primary;
 }
 
+@media screen and (max-width: 450px) {
+  .img { width: 8.5rem; }
+}
+@media screen and (max-width: 450px) {
+  .header button {
+    content:'Connexion';
+    font-size: 14px;
+    padding: .7em;
+    & span.mobile-sentence { display: block; }
+    & span.desktop-sentence { display: none; }
+  }
+  .logo { gap: .5em; }
+}
 @include mix.breakpoint('tablet') {
   .nav {
     display: flex;

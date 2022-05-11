@@ -20,7 +20,6 @@ function Home() {
         <Share />
       </About>
       <JoinUs />
-      
     </>
   );
 };

@@ -1,4 +1,4 @@
-import Button from 'components/Buttons/Button';
+import { Button } from 'components/Buttons/Button';
 import Content from './Content';
 import styles from './Film.module.scss';
 import AddComment from './AddComment';
@@ -6,12 +6,14 @@ import Comment from './Comment';
 
 function Film() {
   return (
-    <section className={`${styles.film} container`}>
+    <section className={styles.film}>
       <Content />
       <AddComment />
       <Comment />
       <div className={styles.button}>
-        <Button state='empty'>Voir les commentaires (18)</Button>
+        <Button>
+          Voir les commentaires (18)
+        </Button>
       </div>
     </section>
   );

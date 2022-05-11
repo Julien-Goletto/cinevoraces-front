@@ -62,3 +62,15 @@
   margin-left: auto;
   margin-right: auto;
 }
+
+@mixin container {
+  padding-left: var.$container-padding;
+  padding-right: var.$container-padding;
+  @each $name, $value in var.$breakpoints {
+    @include breakpoint($name) {
+      margin-left: auto;
+      margin-right: auto;
+      max-width: $value;
+    }
+  } 
+}

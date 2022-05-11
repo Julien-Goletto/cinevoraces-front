@@ -13,8 +13,7 @@ import User from './pages/User/User';
 import Home from './pages/Home/Home';
 import Film from './pages/Film/Film';
 import Register from './pages/Register/Register';
-import Proposal from 'pages/Proposal/Proposal';
-
+import Proposal from './pages/Proposal/Proposal';
 
 function App() {
 
@@ -26,6 +25,8 @@ function App() {
           <Route path='/register' element={<Register />}/>
           <Route path='/films' element={<Films />}/>
           <Route path='/film' element={<Film />}/>
+          <Route path='/user' element={<User />}/>
+          <Route path='/proposal' element={<Proposal />}/>
           <Route path='*' element={<Error />}/>
         </Routes>
       </Router>

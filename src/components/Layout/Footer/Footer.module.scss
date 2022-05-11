@@ -1,16 +1,17 @@
 @use '~styles/var';
 @use '~styles/mixins' as mix;
+
 .upper {
   background-color: var.$secondary-background;
 }
 .footer {
-  composes : category-link from global;
-
+  composes: container from global;
   padding: 1.7em 0;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 1.5em;
+  @include mix.category-link;
 }
 .img {
   width: 9.875rem;

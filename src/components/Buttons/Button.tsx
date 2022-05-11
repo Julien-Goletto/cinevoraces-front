@@ -1,13 +1,49 @@
 import styles from './Button.module.scss';
 
-function Button({children, state, action, href}: Button)  {
-  if(state === 'full' || state === null) {
-    return <a onClick={action} href={href} className={`${styles.button} ${styles['button--full']}`}>{children}</a>;
-  }
-  if(state === 'empty') {
-    return <a onClick={action} href={href} className={`${styles.button} ${styles['button--empty']}`}>{children}</a>;
-  } 
-  return null;
+function Button({children, styleMod, handler, href}: ButtonTest)  {
+  const styleResolver = (searchedString: string) => {
+    if (RegExp(`\\b${searchedString}\\b`).test(styleMod!)) {
+      return searchedString;
+    } else {
+      return null;
+    }
+  };
+  const isFilled = styleResolver('fill');
+  const isRounded = styleResolver('rounded');
+  const isWhite = styleResolver('white');
+  const className = `
+    ${styles['button']}
+    ${(isFilled) ? styles['button--full'] : styles['button--empty']}
+    ${(isRounded) && styles['button--rounded']}
+    ${(isWhite) && styles['button--white']}
+  `;
+  return(
+    <>
+      { href &&
+        <a
+          className={className}
+          onClick={handler}
+          href={href}
+        >
+          {children}
+        </a>
+      }
+      { !href &&
+        <button
+          className={className}
+          onClick={handler}
+        >
+          {children}
+        </button>
+      }
+    </>
+  );
 };
 
-export default Button;
+function ButtonSearch({children}: ButtonSearch)  {
+  return (
+    <button className={`${styles['button-search']} ${styles['button--full']}`}>{children}</button>
+  );
+};
+
+export { ButtonSearch , Button };

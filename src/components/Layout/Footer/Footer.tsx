@@ -3,7 +3,7 @@ import styles from './Footer.module.scss';
 function Footer() {
   return(
     <div className={styles.upper}>
-      <footer className={`container ${styles.footer}`}>
+      <footer className={styles.footer}>
         <img className={styles.img} src='images/logo_title.svg' alt='Logo du site' />
         <div className={styles.links}>
           <a href='#' className={styles.link}>Politique de confidentialité</a>

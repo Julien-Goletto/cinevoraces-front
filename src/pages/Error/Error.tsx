@@ -1,4 +1,5 @@
 import LastMoviesGrid from 'components/LastMoviesGrid/LastMoviesGrid';
+import { Button } from 'components/Buttons/Button';
 import { useLocation } from 'react-router-dom';
 import styles from './Error.module.scss';
 
@@ -6,7 +7,7 @@ function Error() {
   const { pathname } = useLocation();
   return(
     <>
-      <section className={`${styles.error} container`}>
+      <section className={styles.error}>
         <div>
           <div className={styles.title}>
             <img className={styles.img} src='images/error_icon.svg' alt='' />
@@ -19,16 +20,16 @@ function Error() {
           <br /> Essayez d'ouvrir les yeux en tapant votre requête.
         </p>
 
-        {/* // TODO : Use Button component */}
-        <button style={{
-          height: '2.5rem',
-          width: 'fit-content',
-          margin: 'auto',
-          display: 'block'
-        }}
-        >Retourner à l'acceuil</button>
+        <Button
+          styleMod='rounded'
+          href='/'
+        >
+          Retourner à l'acceuil
+        </Button>
       </section>
-      <LastMoviesGrid/>
+      <div className={styles['last-movies']}>
+        <LastMoviesGrid/>
+      </div>
     </>
   );
 }

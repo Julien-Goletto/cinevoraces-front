@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import DropDownMenu from '../DropDownMenu/DropDownMenu';
-import Button from 'components/Buttons/Button';
+import { Button } from 'components/Buttons/Button';
 import styles from './Filters.module.scss';
 
 function Filters() {
@@ -12,8 +12,7 @@ function Filters() {
   return(
     <div className={styles.filters}>
       <Button 
-        state='empty'
-        action={handleDropDownState}
+        handler={handleDropDownState}
       >
         Filtrer
         { (isDropMenu) ?

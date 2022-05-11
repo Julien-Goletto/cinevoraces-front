@@ -1,4 +1,4 @@
-import ButtonActions from 'components/Buttons/ButtonActions';
+import { Button } from 'components/Buttons/Button';
 import styles from './LastMoviesGrid.module.scss';
 
 const fake_data: {[key:string]: string}[] = [
@@ -11,7 +11,7 @@ const fake_data: {[key:string]: string}[] = [
 
 function LastMoviesGrid() {
   return(
-    <div className={`${styles['last-movies']} container`}>
+    <div className={styles['last-movies']}>
       <h2 className={styles.title}>Les derniers ajouts de la communauté</h2>
       <div className={styles.grid}>
         {fake_data.map(({cover, title}) => 
@@ -24,7 +24,12 @@ function LastMoviesGrid() {
         )}
       </div>
 
-      <ButtonActions href='/films' state='full'>Voir la liste des films</ButtonActions>
+      <Button
+        href='/films'
+        styleMod='fill-rounded'
+      >
+        Voir la liste des films
+      </Button>
     </div>
   );
 }

@@ -3,8 +3,8 @@
 
 .drop-down-menu {
   position: absolute;
-  top: 3em;
-  left: var.$container-padding; right: var.$container-padding;
+  top: 3.5em;
+  left: 0; right: var.$container-padding;
   border-radius: 2px;
   background-color: var.$secondary-background;
   padding: 0 1.5em;
@@ -46,8 +46,6 @@
   }
   & button {
     gap: 3rem;
-    // width: 55%;
-    // justify-content: space-between;
   }
   & li {
     display: flex;

@@ -1,7 +1,6 @@
 @use '~styles/var';
 @use '~styles/mixins' as mix;
 
-
 .join {
   margin: 4em auto;
   background-color: var.$secondary-background;
@@ -20,6 +19,10 @@
   & span {
     @include mix.h4;
   }
+}
+
+.wrapper a {
+  width: fit-content;
 }
 
 @media (max-width: 550px) {

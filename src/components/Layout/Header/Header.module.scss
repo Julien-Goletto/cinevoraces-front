@@ -2,6 +2,7 @@
 @use '~styles/var';
 
 .header {
+  composes: container from global;
   padding: .5em 0;
   display: flex;
   justify-content: space-between;
@@ -12,11 +13,10 @@
   align-items: center;
   gap: 1.5em;
 }
-.logo__img {
+.img {
   width: 10rem;
 }
 .nav {
-  composes : default-text from global;
   letter-spacing: .04rem;
   display: none;
   align-items: center;
@@ -45,12 +45,12 @@
   .nav-mobile {
     display: none;
   }
-  .logo__img {
+  .img {
     width: 12.5rem;
   }
 }
 @include mix.breakpoint('laptop') {
-  .logo__img {
+  .img {
     width: 13.4rem;
   }
 }

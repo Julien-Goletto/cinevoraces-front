@@ -6,7 +6,6 @@ const initialState = {
   userIsOpen: false
 };
 
-
 const globalSlice = createSlice({
   name: 'global',
   initialState,

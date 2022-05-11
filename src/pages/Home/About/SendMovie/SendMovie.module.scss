@@ -6,7 +6,7 @@
   margin: 4em auto;
 }
 .wrapper {
-  @include mix.container;
+  composes: container from 'styles/index.scss';
   padding-top: 2em;
   padding-bottom:  2em;
 }

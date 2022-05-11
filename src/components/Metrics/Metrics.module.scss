@@ -2,8 +2,8 @@
 @use '~styles/var';
 
 .metrics {
+    composes: container from 'styles/index.scss';
     margin: 5em auto;
-    @include mix.container;
 }
 
 .title {

@@ -2,7 +2,7 @@
 @use '~styles/var';
 
 .user {
-  @include mix.container;
+  composes: container from 'styles/index.scss';
   display: flex;
   flex-direction: column;
   align-items: center;

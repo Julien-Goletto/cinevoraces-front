@@ -2,11 +2,11 @@
 @use '~styles/var';
 
 .header {
+  composes: container from 'styles/index.scss';
   padding: .5em 0;
   display: flex;
   justify-content: space-between;
   position: relative;
-  @include mix.container;
 }
 .logo {
   display: flex;

@@ -2,7 +2,7 @@
 @use '~styles/mixins' as mix;
 
 .grid {
-  @include mix.container;
+  composes: container from 'styles/index.scss';
   box-sizing: border-box;
   border-radius: 4px;
   background-color: var.$secondary-background;

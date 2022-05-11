@@ -11,7 +11,7 @@
   }
 }
 .no-film-submitted {
-  @include mix.container;
+  composes: container from 'styles/index.scss';
   display: flex;
   flex-direction: column;
     align-items: center;
@@ -24,7 +24,7 @@
     }
   }
 .pending-proposal {
-  @include mix.container;
+  composes: container from 'styles/index.scss';
   display: flex;
   flex-direction: column;
   align-items: center;

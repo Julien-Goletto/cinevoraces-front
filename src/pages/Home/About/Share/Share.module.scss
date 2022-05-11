@@ -2,7 +2,7 @@
 @use '~styles/mixins' as mix;
 
 .share {
-  @include mix.container;
+  composes: container from 'styles/index.scss';
   margin: 4em auto;
   display: flex;
   flex-direction: column;

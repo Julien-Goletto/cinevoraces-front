@@ -2,8 +2,8 @@
 @use '~styles/var';
 
 .film {
+  composes: container from 'styles/index.scss';
   margin: 2em auto;
-  @include mix.container;
 }
 
 .button {

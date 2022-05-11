@@ -1,6 +1,11 @@
 @use '~styles/mixins' as mix;
 @use '~styles/var';
 
+
+.title {
+  @include mix.h3;
+}
+
 .film {
   composes: container from global;
   margin: 2em auto;

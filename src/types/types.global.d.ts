@@ -6,5 +6,5 @@ type mouseEvent = import('react').MouseEvent<HTMLButtonElement | HTMLInputElemen
 type onChangeEvent = import('react').ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
 type onChangeEventHandler = import('react').ChangeEventHandler<HTMLInputElement>
 type onChangeFormEvent = import('react').FormEvent<HTMLFormElement>
-type StarRating = { state: string }
+type StarRating = { state: string, alt?: boolean }
 type ButtonSearch = { children: React.ReactNode };

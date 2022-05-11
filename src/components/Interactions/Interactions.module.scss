@@ -1,27 +1,73 @@
 @use '~styles/var';
 @use '~styles/mixins' as mix;
 
-.wrapper {
-  background-color: transparent;
+@keyframes slide {
+  from {
+    right: -300px;
+  }
+  to {
+    right: 0px;
+  }
+}
+
+.wrapper, .star-menu{
+  background-color: var.$secondary-background;
   border: none;
   color: var.$white;
   font-family: 'Montserrat', Arial, Helvetica, sans-serif;
   font-weight: 500;
   font-size: 1em;
   display: flex;
-  flex-direction: column;
   align-items: center;
-  background-color: var.$secondary-background;
+  justify-content: center;
+  height: 63px;
   padding: 10px 16px;
-  border-radius: 10px;
+  box-sizing: border-box;
+  user-select: none;
+  cursor: pointer;
+}
+.wrapper {
+  position: relative;
+  flex-direction: column;
   gap: 4px;
+  border-radius: 10px;
   margin-top: 10px;
   max-width: 55px;
   min-width: 55px;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25), 0px -2px 0px #FC9A3F;
-  box-sizing: border-box;
 }
-
+.wrapper-star-menu {
+  box-sizing: border-box;
+  overflow: hidden;
+  top: -3px;
+  right: 46px;
+  height: 73px;
+  width: 400%;
+  position: absolute;
+  z-index: 2;
+  & .star-menu {
+    overflow: hidden;
+    position: absolute;
+    top: 3px;
+    flex-direction: row;
+    gap: .5em;
+    border-radius: 10px 0 0 10px;
+    box-shadow: -4px 4px 4px rgba(0, 0, 0, 0.25), 0px -2px 0px #FC9A3F;
+    &--is-closed { right: -300px; }
+    &--is-open { right: 0px; }
+    &--is-openning {
+      animation: .2s slide;
+      -webkit-animation: 1s slide ;
+    }
+    &--is-closing {
+      animation: .2s slide reverse;
+      -webkit-animation: 1s slide reverse;
+    }
+    & button {
+      font-size: 34px;
+    }
+  }
+}
 .active {
   path {
     fill: var.$white;
@@ -34,10 +80,16 @@
     max-width: 62px;
     min-width: 62px;
   }
+  .wrapper-star-menu {
+    right: 52px;
+  }
 }
 @include mix.breakpoint('desktop'){
   .wrapper {
     max-width: 70px;
     min-width: 70px;
+  }
+  .wrapper-star-menu {
+    right: 62px;
   }
 }

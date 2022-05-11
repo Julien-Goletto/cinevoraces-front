@@ -1,0 +1,18 @@
+@use '~styles/var';
+
+.star {
+  user-select: none;
+  cursor: pointer;
+}
+.on {
+  color: var.$primary;
+}
+.off {
+  color: var.$secondary-background;
+}
+.off--alt {
+  color: var.$input-text;
+}
+.active {
+  color: var.$secondary;
+}

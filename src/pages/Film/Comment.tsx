@@ -1,5 +1,5 @@
 import styles from './Comment.module.scss';
-import StarRating from './StarRating';
+import StarRating from 'components/StarRating/StarRating';
 
 const fake_data: {[key:string]: string} =
   { 

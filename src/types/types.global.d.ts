@@ -8,3 +8,11 @@ type onChangeEventHandler = import('react').ChangeEventHandler<HTMLInputElement>
 type onChangeFormEvent = import('react').FormEvent<HTMLFormElement>
 type StarRating = { state: string }
 type ButtonSearch = { children: React.ReactNode };
+
+type CommentProps = {
+  pic: string,
+  name: string,
+  date: string,
+  text: string,
+  edit?: boolean
+}

@@ -1,5 +1,5 @@
 import styles from './Interactions.module.scss';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { ReactComponent as Heart } from './ico/heart.svg';
 import { ReactComponent as Star } from './ico/star.svg';
 import { ReactComponent as Eye } from './ico/eye.svg';
@@ -42,9 +42,13 @@ function Interactions({type, count}: InteractionsProps) {
     }
   };
   const dispatchType = () => {dispatch(toggle(type));};
-  const starMenuHandler = () => {(starIsOpen) ? setStarIsOpen(false) : setStarIsOpen(true);};
-  const starAnimHandler = () => {(animIsActive) ? setAnimActive(false) : setAnimActive(true);};
-
+  const starMenuHandler = () => {
+    setAnimActive(true);
+    setTimeout(() => { 
+      setAnimActive(false);
+      (starIsOpen) ? setStarIsOpen(false) : setStarIsOpen(true);
+    }, 490);
+  };
   return (
     <>
       {(type !== 'star') &&
@@ -59,16 +63,16 @@ function Interactions({type, count}: InteractionsProps) {
         <>
           <button 
             onClick={starMenuHandler}
-            className={
-              `${styles.wrapper} ${active ? styles.active : ''}`
-            }
+            className={`${styles.wrapper} ${active ? styles.active : ''}`}
           >
             {selectedType()}
             <span className={styles.count}>{count}</span>
             <div className={styles['wrapper-star-menu']}>
               <div className={`
-                ${starIsOpen ? `${styles['star-menu']} ${styles['star-menu--is-open']}` : `${styles['star-menu']} ${styles['star-menu--is-closed']}`}`
-              }>
+                ${styles['star-menu']}
+                ${starIsOpen ? `${styles['is-open']}` : `${styles['is-closed']}`}
+                ${animIsActive && (!starIsOpen ? `${styles['is-opening']}` : `${styles['is-closing']}`)}
+              `}>
                 <StarRating state='primary' alt={true} />
               </div>
             </div>

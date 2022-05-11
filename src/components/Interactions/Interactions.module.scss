@@ -53,21 +53,22 @@
     gap: .5em;
     border-radius: 10px 0 0 10px;
     box-shadow: -4px 4px 4px rgba(0, 0, 0, 0.25), 0px -2px 0px #FC9A3F;
-    &--is-closed { right: -300px; }
-    &--is-open { right: 0px; }
-    &--is-openning {
-      animation: .2s slide;
-      -webkit-animation: 1s slide ;
-    }
-    &--is-closing {
-      animation: .2s slide reverse;
-      -webkit-animation: 1s slide reverse;
-    }
     & button {
       font-size: 34px;
     }
   }
 }
+.is-closed { right: -300px; }
+.is-open { right: 0px; }
+.is-opening {
+  animation: .5s slide;
+  -webkit-animation: .5s slide ; 
+}
+.is-closing { 
+  animation: .5s slide reverse;
+  -webkit-animation: .5s slide reverse;
+}
+
 .active {
   path {
     fill: var.$white;

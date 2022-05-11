@@ -2,12 +2,12 @@
 @use '~styles/mixins' as mix;
 
 @keyframes slide {
-  from {
-    right: -300px;
-  }
-  to {
-    right: 0px;
-  }
+  from { right: -300px; }
+  to { right: 0px; }
+}
+@keyframes slideReversed {
+  from { left: -300px; }
+  to { left: 0px; }
 }
 
 .wrapper, .star-menu{
@@ -76,13 +76,36 @@
   box-shadow: 0px -2px 0px #FC783F, inset 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
+@media screen and (min-width: 640px) {
+  .wrapper-star-menu {
+    right: 0px;
+    left: 46px;
+    & .star-menu {
+      border-radius: 0 10px 10px 0;
+      box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25), 0px -2px 0px #FC9A3F;
+    }
+  }
+  .is-closed { 
+    right: unset; 
+    left: -300px; 
+  }
+  .is-open { 
+    right: unset; 
+    left: 0px; 
+  }
+  .is-opening {
+    animation: .5s slideReversed;
+    -webkit-animation: .5s slideReversed ; 
+  }
+  .is-closing { 
+    animation: .5s slideReversed reverse;
+    -webkit-animation: .5s slideReversed reverse;
+  }
+}
 @include mix.breakpoint('tablet'){
   .wrapper {
     max-width: 62px;
     min-width: 62px;
-  }
-  .wrapper-star-menu {
-    right: 52px;
   }
 }
 @include mix.breakpoint('desktop'){
@@ -91,6 +114,6 @@
     min-width: 70px;
   }
   .wrapper-star-menu {
-    right: 62px;
+    left: 46px;
   }
 }

@@ -37,18 +37,7 @@ const fake_data: {[key:string]: string}[] = [
   { title: 'L.A. Noire', cover: 'fake_data/covers/cover_4.jpg', },
   { title: 'I, Phone', cover: 'fake_data/covers/cover_5.jpg', },
   { title: 'Jawas', cover: 'fake_data/covers/cover_1.jpg', },
-  { title: 'L.A. Noire', cover: 'fake_data/covers/cover_4.jpg', },
-  { title: 'Mr. Clean', cover: 'fake_data/covers/cover_2.jpg', },
-  { title: 'Stay in', cover: 'fake_data/covers/cover_3.jpg', },
-  { title: 'L.A. Noire', cover: 'fake_data/covers/cover_4.jpg', },
-  { title: 'I, Phone', cover: 'fake_data/covers/cover_5.jpg', },
-  { title: 'Mr. Clean', cover: 'fake_data/covers/cover_2.jpg', },
-  { title: 'I, Phone', cover: 'fake_data/covers/cover_5.jpg', },
-  { title: 'Jawas', cover: 'fake_data/covers/cover_1.jpg', },
-  { title: 'Mr. Clean', cover: 'fake_data/covers/cover_2.jpg', },
-  { title: 'Stay in', cover: 'fake_data/covers/cover_3.jpg', },
-  { title: 'L.A. Noire', cover: 'fake_data/covers/cover_4.jpg', },
-  { title: 'I, Phone', cover: 'fake_data/covers/cover_5.jpg', }
+  { title: 'L.A. Noire', cover: 'fake_data/covers/cover_4.jpg', }
 ];
 
 function MoviesGrid() {

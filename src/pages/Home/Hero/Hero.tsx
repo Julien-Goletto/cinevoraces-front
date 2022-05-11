@@ -1,4 +1,4 @@
-import Button from 'components/Buttons/Button';
+import { Button } from 'components/Buttons/Button';
 import styles from './Hero.module.scss';
 
 function Hero() {
@@ -7,9 +7,18 @@ function Hero() {
       <div className={styles.text}>
         <h1 className={styles.title}>Bienvenue dans le <span>ciné-club</span> virtuel !</h1>
         <p className={styles.subtitle}>Chaque semaine, un film à découvrir</p>
-        <div className={styles.btns}>
-          <Button href='/films' state='full'>Découvrir un film</Button>
-          <Button href='/register' state='empty'>S'inscrire</Button>
+        <div className={styles.buttons}>
+          <Button
+            href='/films' 
+            styleMod='fill'
+          >
+            Découvrir un film
+          </Button>
+          <Button
+            href='/register'
+          >
+            S'inscrire
+          </Button>
         </div>
       </div>
       <div className={styles.img}>

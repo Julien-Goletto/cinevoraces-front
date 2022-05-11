@@ -1,7 +1,6 @@
 import { useState } from 'react';
+import { Button } from 'components/Buttons/Button';
 import Input from 'components/Input/Input';
-import Button from 'components/Buttons/Button';
-import ButtonActions from 'components/Buttons/ButtonActions';
 import styles from './UserParams.module.scss';
 import userStyles from '../User.module.scss';
 
@@ -46,7 +45,7 @@ function UserParams({ username, email }: user) {
           placeholder='Confirmez votre nouveau mot de passe'
         />
         <Button
-          state='full'
+          styleMod='fill-rounded'
         >
           <img src='images/send-icon.svg' alt='' />
           Envoyer
@@ -70,12 +69,12 @@ function UserParams({ username, email }: user) {
             </h4>
 
           </div>
-          <ButtonActions
-            state='full'
-            action={handleShowInput}
+          <Button
+            styleMod='fill'
+            handler={handleShowInput}
           >
             Modifier mes paramètres
-          </ButtonActions>
+          </Button>
         </>
       }
       

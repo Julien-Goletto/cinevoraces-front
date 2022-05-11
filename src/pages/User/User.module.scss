@@ -2,6 +2,7 @@
 @use '~styles/var';
 
 .user {
+  composes: container from global;
   display: flex;
   flex-direction: column;
   align-items: center;

@@ -2,11 +2,11 @@
 @use '~styles/var';
 
 .metrics {
-    margin: 5em auto;
     composes: container from global;
+    margin: 5em auto;
 }
 
-.metrics__title {
+.title {
     @include mix.h4;
     text-align: center;
     @include mix.breakpoint('tablet') {
@@ -17,7 +17,7 @@
     } 
 }
 
-.metrics__grid {
+.grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     margin: 3em 0 0 0;
@@ -40,13 +40,13 @@
         color: var.$green;
     }
 }
-.metric__count {
+.count {
     @include mix.h2;
     @include mix.breakpoint('tablet') {
         @include mix.h1;
     }
 }
-.metric__type {
+.type {
     @include mix.h4;
     @include mix.breakpoint('tablet') {
         @include mix.h3;

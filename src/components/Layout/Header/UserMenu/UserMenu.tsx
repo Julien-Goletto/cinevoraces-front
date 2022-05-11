@@ -27,12 +27,15 @@ function Menu() {
 function UserMenu() {
   const dispatch = useAppDispatch();
   const isOpen = useAppSelector(state => state.global.userIsOpen);
+  const userMenuHandler = () => {
+    dispatch(userIsOpen());
+  };
 
   return (
     <>
 
       {isOpen && <Menu/>}
-      <img onClick={() => dispatch(userIsOpen())} className={styles.ico} src='images/user_default.svg' alt='' />
+      <img onClick={userMenuHandler} className={styles.ico} src='images/user_default.svg' alt='' />
     </>
   );
 }

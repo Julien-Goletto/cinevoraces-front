@@ -1,4 +1,4 @@
-import ButtonActions from 'components/Buttons/ButtonActions';
+import { Button } from 'components/Buttons/Button';
 import Connection from 'components/Modal/Connection/Connection';
 import Modal from 'components/Modal/Modal';
 import { useAppDispatch, useAppSelector } from 'redux/hooks';
@@ -7,12 +7,14 @@ import styles from './Header.module.scss';
 import MenuMobile from './MenuMobile/MenuMobile';
 import UserMenu from './UserMenu/UserMenu';
 
-// TODO : Use Redux
 const isLogged = false;
 
 function Header() {
   const dispatch = useAppDispatch();
   const connectionIsOpen = useAppSelector(state => state.global.connectionIsOpen );
+  const connectionHandler = () => {
+    dispatch(toggleConnection());
+  };
   return(
     <>
       { connectionIsOpen && 
@@ -20,10 +22,10 @@ function Header() {
         <Connection />
       </Modal>
       }
-      <header className={`container ${styles.header}`}>
+      <header className={styles.header}>
         <div className={styles.logo}>
           <MenuMobile />
-          <img className={styles.logo__img} src='images/logo_title.svg' alt='Logo du site' />
+          <img className={styles.img} src='images/logo_title.svg' alt='Logo du site' />
         </div>
         <nav className={styles.nav}>
           <a href='/' className={styles.link}>Accueil</a> 
@@ -35,7 +37,12 @@ function Header() {
 
         {!isLogged &&
           <>
-            <ButtonActions state='full' action={()=> {dispatch(toggleConnection());}}>Se connecter</ButtonActions>
+            <Button
+              styleMod='fill'
+              handler={connectionHandler}
+            >
+              Se connecter
+            </Button>
           </>
         }
         {isLogged &&

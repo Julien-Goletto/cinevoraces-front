@@ -1,4 +1,4 @@
-import ButtonActions from 'components/Buttons/ButtonActions';
+import { Button } from 'components/Buttons/Button';
 import Input from 'components/Input/Input';
 import { useAppDispatch } from 'redux/hooks';
 import { toggleConnection } from 'redux/slices/global';
@@ -23,7 +23,11 @@ function Connection() {
         <Input label="Nom d'utilisateur" name='username' type='text' placeholder='Entrez votre nom d’utilisateur'/>
         <Input label='Mot de passe' name='password' type='password' placeholder='Entrez votre mot de passe'/>
         <div className={styles.button}>
-          <ButtonActions state='full'>Se connecter</ButtonActions>
+          <Button 
+            styleMod='fill'
+          >
+            Se connecter
+          </Button>
         </div>
       </form>
 

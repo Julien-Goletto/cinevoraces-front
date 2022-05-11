@@ -1,4 +1,4 @@
-import Button from 'components/Buttons/Button';
+import { Button } from 'components/Buttons/Button';
 import styles from './JoinUs.module.scss';
 
 function JoinUs() {
@@ -10,7 +10,12 @@ function JoinUs() {
           <span>Régalez-vous.</span>
           <span>Régalez-nous</span>
         </div>
-        <Button href='/register' state='full'>S'inscrire</Button>
+        <Button
+          href='/register'
+          styleMod='fill'
+        >
+          S'inscrire
+        </Button>
       </div>
 
     </section>

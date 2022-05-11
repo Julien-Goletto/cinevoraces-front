@@ -1,6 +1,7 @@
 @use '~styles/mixins' as mix;
 
 .register {
+  composes: container from global;
   display: grid;
   grid-template-columns: 1fr;
   justify-content: space-between;

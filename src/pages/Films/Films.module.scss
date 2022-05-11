@@ -1,3 +1,9 @@
+@use '~styles/mixins' as mix;
+
+.films {
+  composes: container from global;
+}
+
 .button {
   display: flex;
   justify-content: center;

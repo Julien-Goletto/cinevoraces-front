@@ -5,8 +5,13 @@ import Search from './Search/Search';
 import { useAppDispatch, useAppSelector } from 'redux/hooks';
 import { getProposalData, setEpisode } from 'redux/slices/proposal';
 import { Button } from 'components/Buttons/Button';
+import useTmdb from 'hooks/useTmdb';
 
 function Proposal() {
+  const {loading, movies} = useTmdb('Men in Black', 5);
+  console.log(movies);
+  console.log(loading);
+  
 
   const dispatch = useAppDispatch();
   const data = useAppSelector(getProposalData);

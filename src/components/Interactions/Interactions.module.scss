@@ -10,6 +10,10 @@
   to { left: 0px; }
 }
 
+.background {
+  position: fixed;
+  left: 0; top: 0; bottom: 0; right: 0;
+}
 .wrapper, .star-menu{
   background-color: var.$secondary-background;
   border: none;
@@ -49,14 +53,14 @@
     overflow: hidden;
     position: absolute;
     top: 3px;
-    flex-direction: row;
-    gap: .5em;
     border-radius: 10px 0 0 10px;
     box-shadow: -4px 4px 4px rgba(0, 0, 0, 0.25), 0px -2px 0px #FC9A3F;
-    & button {
-      font-size: 34px;
-    }
+    & div { gap: .5em; }
+    & button { font-size: 34px; }
   }
+}
+.hidden {
+  display: none;
 }
 .is-closed { right: -300px; }
 .is-open { right: 0px; }

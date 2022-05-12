@@ -1,5 +1,5 @@
 import styles from './Interactions.module.scss';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { ReactComponent as Heart } from './ico/heart.svg';
 import { ReactComponent as Star } from './ico/star.svg';
 import { ReactComponent as Eye } from './ico/eye.svg';
@@ -22,6 +22,7 @@ type InteractionsProps = {
 function Interactions({type, count}: InteractionsProps) {
   const [starIsOpen, setStarIsOpen] = useState(false);
   const [animIsActive, setAnimActive] = useState(false);
+  const [wrapperIsDisplayed, setWrapperIsDisplayed] = useState(false);
   const dispatch = useAppDispatch();
   const active = useAppSelector((state) => {
     let entrie = Object.entries(state.interaction).find(el => el[0] === `is${type.charAt(0).toUpperCase() + type.slice(1)}`);
@@ -43,10 +44,16 @@ function Interactions({type, count}: InteractionsProps) {
   };
   const dispatchType = () => {dispatch(toggle(type));};
   const starMenuHandler = () => {
+    setWrapperIsDisplayed(true);
     setAnimActive(true);
     setTimeout(() => { 
       setAnimActive(false);
-      (starIsOpen) ? setStarIsOpen(false) : setStarIsOpen(true);
+      if (starIsOpen) {
+        setStarIsOpen(false);
+        setWrapperIsDisplayed(false);
+      } else {
+        setStarIsOpen(true);
+      };
     }, 490);
   };
   return (
@@ -61,19 +68,29 @@ function Interactions({type, count}: InteractionsProps) {
       }
       {(type === 'star') &&
         <>
+          <div 
+            className={`
+              ${styles.background}
+              ${!wrapperIsDisplayed && styles['hidden']}
+            `}
+            onClick={starMenuHandler}
+          />
           <button 
             onClick={starMenuHandler}
             className={`${styles.wrapper} ${active ? styles.active : ''}`}
           >
             {selectedType()}
             <span className={styles.count}>{count}</span>
-            <div className={styles['wrapper-star-menu']}>
+            <div className={`${`
+                ${styles['wrapper-star-menu']}
+                ${!wrapperIsDisplayed && styles['hidden']}
+            `}`}>
               <div className={`
                 ${styles['star-menu']}
                 ${starIsOpen ? `${styles['is-open']}` : `${styles['is-closed']}`}
                 ${animIsActive && (!starIsOpen ? `${styles['is-opening']}` : `${styles['is-closing']}`)}
               `}>
-                <StarRating state='primary' alt={true} />
+                <StarRating alt={true} isInput={true}/>
               </div>
             </div>
           </button>

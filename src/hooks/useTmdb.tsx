@@ -1,7 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-//  https://api.themoviedb.org/3/configuration?api_key=319bf20e26c103de9dd61d22f63c0419
-
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react';
 
 /**
  * Hook to call the TMDB API  to get a list of {number} top films whith searchQuery
@@ -14,9 +12,16 @@ function useTmdb(search:string, number:number) {
   const API_PREFIX = 'https://api.themoviedb.org/3';
 
   async function fetchResult(search:string, number:number) {
-    const res = await fetch(`${API_PREFIX}/search/movie?api_key=${API_KEY}&language=fr-FR&include_adult=false&query=${search}`);
-    const { results } = await res.json();
-    return results.slice(0,number);
+    if(search === '') return false;
+    try {
+      const res = await fetch(`${API_PREFIX}/search/movie?api_key=${API_KEY}&language=fr-FR&include_adult=false&query=${search}`);
+      const { results } = await res.json();
+      if(results.length > number) return results.slice(0, number);
+      else return results;
+    } catch (error) {
+      console.log(error);
+      return false;
+    }
   }
   async function getMovieDetails(movie:any) {
     const resDetails = await fetch(`${API_PREFIX}/movie/${movie.id}?api_key=${API_KEY}&language=fr-FR&include_adult=false`);
@@ -73,8 +78,9 @@ function useTmdb(search:string, number:number) {
     return movieWithDetails;
   }
 
-  async function fetchTop5ResultsWithDetails (search: string, number:number) {
+  async function fetchResultsWithDetails (search: string, number:number):Promise<Movie[] | undefined> {
     const movies = await fetchResult(search, number);
+    if(!movies) return;
     const detailledMoviesPromises = [];
     for (const movie of movies){
       const detailledMovie = await getMovieDetails(movie);
@@ -84,11 +90,11 @@ function useTmdb(search:string, number:number) {
     return detailledMovie;
   }
 
-  const [movies, setMovies] = useState({});
+  const [movies, setMovies] = useState<Movie[] | undefined>();
   const [loading, setLoading] = useState(true);
   useEffect(()=>{
     async function setResult(search:string, number:number) {
-      const result = await fetchTop5ResultsWithDetails(search, number);
+      const result = await fetchResultsWithDetails(search, number);
       setMovies(result);
     }
     try {

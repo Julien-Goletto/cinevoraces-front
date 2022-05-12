@@ -3,14 +3,14 @@ import MovieGrid from './MoviesGrid/MovieGrid';
 import Description from './Description/Description';
 import Search from './Search/Search';
 import { useAppDispatch, useAppSelector } from 'redux/hooks';
-import { getProposalData, setEpisode } from 'redux/slices/proposal';
+import { getProposalData, getSearch, setEpisode } from 'redux/slices/proposal';
 import { Button } from 'components/Buttons/Button';
 import useTmdb from 'hooks/useTmdb';
 
 function Proposal() {
-  const {loading, movies} = useTmdb('Men in Black', 5);
+  const search = useAppSelector(getSearch);
+  const {loading, movies} = useTmdb(search, 15);
   console.log(movies);
-  console.log(loading);
   
 
   const dispatch = useAppDispatch();
@@ -43,7 +43,7 @@ function Proposal() {
         <p className={styles.description}>Plus un film est <span>disponible</span>, plus il sera regardé. Surprenez - nous, mais ne négligez pas l’accessibilité !</p>
         <Search />
       </section>
-      <MovieGrid />
+      <MovieGrid movies={movies} loading={loading} />
       <Description />
       <div className={styles.button}>
         <Button

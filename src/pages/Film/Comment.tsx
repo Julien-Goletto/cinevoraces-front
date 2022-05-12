@@ -1,11 +1,8 @@
 import styles from './Comment.module.scss';
-import StarRating from './StarRating';
+import StarRating from 'components/StarRating/StarRating';
 import useSeeMore from 'hooks/useSeeMore';
 import AddComment from './AddComment';
 import { useState } from 'react';
-
-
-
 
 function Comment(props: CommentProps) {
   const {pic, name, date, text, edit} = props;

@@ -41,8 +41,6 @@ const interactionSlice = createSlice({
 });
 
 export const isActive = (state: RootState) => state.interaction.isLike;
-/*
 
-*/
 export const { setInactive, setActive, toggle } = interactionSlice.actions;
 export default interactionSlice.reducer;

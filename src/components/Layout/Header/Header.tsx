@@ -41,7 +41,8 @@ function Header() {
               styleMod='fill'
               handler={connectionHandler}
             >
-              Se connecter
+              <span className={styles['desktop-sentence']}>Se connecter</span>
+              <span className={styles['mobile-sentence']}>Connexion</span>
             </Button>
           </>
         }

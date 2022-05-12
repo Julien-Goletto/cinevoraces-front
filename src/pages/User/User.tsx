@@ -33,6 +33,9 @@ function User() {
   const { stats } = fake_data;
   const { submittedMovie } = fake_data;
 
+
+  
+
   return(
     <>
       <section className={styles['user']}>

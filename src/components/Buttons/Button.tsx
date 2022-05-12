@@ -1,6 +1,6 @@
 import styles from './Button.module.scss';
 
-function Button({children, styleMod, handler, href}: ButtonTest)  {
+function Button({children, styleMod, handler, href }: Button)  {
   const styleResolver = (searchedString: string) => {
     if (RegExp(`\\b${searchedString}\\b`).test(styleMod!)) {
       return searchedString;
@@ -28,7 +28,7 @@ function Button({children, styleMod, handler, href}: ButtonTest)  {
           {children}
         </a>
       }
-      { !href &&
+      { (!href) &&
         <button
           className={className}
           onClick={handler}

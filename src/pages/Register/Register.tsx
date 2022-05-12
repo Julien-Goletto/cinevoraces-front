@@ -2,16 +2,32 @@ import Metrics from 'components/Metrics/Metrics';
 import Input from 'components/Input/Input';
 import { Button } from 'components/Buttons/Button';
 import styles from './Register.module.scss';
+import { useUserRegisterMutation } from 'redux/api';
+import { useNavigate } from 'react-router-dom';
 
 function Register() {
-  const sendFormHandler = () => {
-    // TODO: code-me
+  let navigate = useNavigate();
+  const [addUser, {isLoading, isError}] = useUserRegisterMutation();
+  const sendFormHandler = async (e:any) => {
+    e.preventDefault();
+    const data = new FormData(e.target);
+    const user = {
+      pseudo: data.get('username'),
+      mail: data.get('email'),
+      password: data.get('password')
+    };
+    const res = await addUser(user);
+    console.log(res);
+    if(!isError) {
+      return navigate('/');
+    }
   };
+
 
   return(
     <>
       <section className={styles.register}>
-        <form className={styles.form}>
+        <form onSubmit={sendFormHandler} className={styles.form}>
           <h1 className={styles.title}>Créer un compte</h1>
           <Input
             label='Email'
@@ -36,9 +52,9 @@ function Register() {
             placeholder='Confirmez votre mot de passe'
             type='password'
           />
+
           <Button
             styleMod='fill-rounded'
-            handler={sendFormHandler}
           >
             <img src='images/send-icon.svg' alt='' />
             Envoyer

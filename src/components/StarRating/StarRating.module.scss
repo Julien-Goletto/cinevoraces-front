@@ -1,7 +1,14 @@
 @use '~styles/var';
 
+.container {
+  display: flex;
+  flex-direction: row;
+  gap: .1em;
+}
 .star {
   user-select: none;
+}
+button.star {
   cursor: pointer;
 }
 .on {

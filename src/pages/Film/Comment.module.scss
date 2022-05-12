@@ -50,15 +50,10 @@
 
 .note {
   width: fit-content;
+  display: flex;
   background: var.$background;
   border-radius: 1em;
-  padding: 0.05em 0.25em;
+  padding: 0.05em 0.25em 0.15em 0.50em;
   font-size: 1.2em;
   letter-spacing: 0.2em;
-  & button {
-    user-select: none;
-  }
-  & button:hover {
-    cursor: pointer;
-  }
 }

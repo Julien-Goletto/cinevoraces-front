@@ -18,11 +18,11 @@ function Description() {
       <h1 className={styles.title}>{fake_data.title}<span className={styles.year}>({fake_data.year})</span></h1>
       <div className={`${styles.element} ${styles['element--flex']}`}>
           Note des membres :
-        <span className={styles.star}><StarRating state='primary'/></span> 
+        <span className={styles.star}><StarRating value={1}/></span> 
       </div>
       <div className={`${styles.element} ${styles['element--flex']}`}>
           Ma note :
-        <span className={styles.star}><StarRating state='secondary'/></span> 
+        <span className={styles.star}><StarRating value={4}/></span> 
       </div>
       <div className={styles.element}>
           Réalisateur :

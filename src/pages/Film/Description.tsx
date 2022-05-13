@@ -8,7 +8,7 @@ function Description({ movie }: Description) {
       <h1 className={styles.title}>{movie.french_title}<span className={styles.year}>({date.getFullYear()})</span></h1>
       <div className={`${styles.element} ${styles['element--flex']}`}>
           Note des membres :
-        <span className={styles.star}><StarRating value={1}/></span> 
+        <span className={styles.star}><StarRating value={Number(movie.avg_rating)}/></span> 
       </div>
       <div className={`${styles.element} ${styles['element--flex']}`}>
           Ma note :
@@ -20,20 +20,11 @@ function Description({ movie }: Description) {
       </div>
       <div className={styles.element}>
             Genre :
-        <div>
-          {movie.genres.map((genre:string, index:number) =>
-            <span className={`${styles.elm} ${styles['elm--orange']}`}>
-              {genre}
-              {(index + 1 !== movie.genres.length) && ', '}
-            </span> 
-          )}
-        </div>
+        <span className={`${styles.elm} ${styles['elm--orange']}`}>{movie.genres.join(', ')}</span> 
       </div>
       <div className={styles.element}>
           Pays :
-        {movie.countries.map((country:string, index:number) =>
-          <span className={`${styles.elm} ${styles['elm--orange']}`}>{}</span>
-        )}
+        <span className={`${styles.elm} ${styles['elm--orange']}`}>{movie.countries.join(', ')}</span>
       </div>
       <div className={styles.element}>
           Durée :

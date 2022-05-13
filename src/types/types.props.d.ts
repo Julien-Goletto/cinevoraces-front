@@ -34,7 +34,6 @@ type MovieGrid = {
   movies: DBMovie[],
   isLoading: boolean
 }
-
 type DBMovie = {
   id: number,
   french_title: string,

@@ -1,5 +1,5 @@
+import { Link } from 'react-router-dom';
 import styles from './MoviesGrid.module.scss';
-
 
 function MoviesGrid({ movies, isLoading }: MovieGrid) {
 
@@ -11,12 +11,12 @@ function MoviesGrid({ movies, isLoading }: MovieGrid) {
             className={styles.poster}
             key={movie.id}
           >
-            <a href={`/film/${movie.id}`}>
+            <Link to={`/film/${movie.id}`}>
               <img 
                 className={styles.img}
                 src={movie.poster_url} alt={`Affiche du film ${movie.title}`}
               />
-            </a>
+            </Link>
           </div>
         )}
     </div>

@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from 'redux/hooks';
 import { mobileIsOpen } from 'redux/slices/global';
 import styles from './MenuMobile.module.scss';
@@ -15,13 +16,13 @@ function MenuMobile() {
       <nav className={styles.nav}>
         <ul className={styles.links}>
           <li className={styles.link}>
-            <a href='/'>Accueil</a>
+            <Link to='/'>Accueil</Link>
           </li>
           <li className={styles.link}>
-            <a href='/films'>Les films</a>
+            <Link to='/films'>Les films</Link>
           </li>
           <li className={styles.link}>
-            <a href='/'>La team</a>
+            <Link to='/'>La team</Link>
           </li>
         </ul>
       </nav>

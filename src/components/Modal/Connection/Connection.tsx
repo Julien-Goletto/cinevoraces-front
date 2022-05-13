@@ -4,9 +4,11 @@ import { useAppDispatch } from 'redux/hooks';
 import { useUserLoginMutation } from 'redux/api';
 import { toggleConnection } from 'redux/slices/global';
 import styles from './Connection.module.scss';
+import { setUser } from 'redux/slices/user';
+import { useEffect } from 'react';
 
 function Connection() {
-  const [loginUser, handler] = useUserLoginMutation();
+  const [loginUser, {data, error, isError, isSuccess}] = useUserLoginMutation();
   const dispatch = useAppDispatch();
   const sendForm = async (e:any) => {
     e.preventDefault();
@@ -16,8 +18,20 @@ function Connection() {
       mail: 'dadaz@lol.fr',
       password: form.get('password')
     };   
-    const res = loginUser(user);  
+    loginUser(user);
   };
+
+  useEffect(()=> {
+    if(isSuccess) {
+      dispatch(setUser(data));
+      dispatch(toggleConnection());
+    }
+    if(isError) {
+      console.log(error);
+    }
+  },[data, isError, isSuccess, dispatch, error]);
+
+  
   return (
     <div className={styles.container}> 
       <button className={styles.close} onClick={() => dispatch(toggleConnection())}>X</button>

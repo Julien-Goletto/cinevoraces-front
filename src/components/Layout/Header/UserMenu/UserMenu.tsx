@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from 'redux/hooks';
 import { userIsOpen } from 'redux/slices/global';
 import styles from './UserMenu.module.scss';
@@ -10,13 +11,13 @@ function Menu() {
         <span className={styles.username}>PrincessJambon69</span>
         <ul className={styles.links}>
           <li className={styles.link}>
-            <a href='/'>Mon Profil</a>
+            <Link to='/'>Mon Profil</Link>
           </li>
           <li className={styles.link}>
-            <a href='/'>Proposer un film</a>
+            <Link to='/'>Proposer un film</Link>
           </li>
           <li className={styles.link}>
-            <a href='/'>Se déconnecter</a>
+            <Link to='/'>Se déconnecter</Link>
           </li>
         </ul>
       </nav>

@@ -2,6 +2,7 @@ import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
 import globalSlice from './slices/global';
 import interactionSlice from './slices/interaction';
 import filterSlice from './slices/filter';
+import userSlice from './slices/user';
 import { api } from './api';
 import proposalSlice from './slices/proposal';
 
@@ -11,6 +12,7 @@ export const store = configureStore({
     interaction: interactionSlice,
     filter: filterSlice,
     proposal: proposalSlice,
+    user: userSlice,
     [api.reducerPath]: api.reducer
   },
   middleware: (getDefaultMiddleware) =>

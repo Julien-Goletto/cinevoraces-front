@@ -18,21 +18,23 @@ import Proposal from './pages/Proposal/Proposal';
 function App() {
 
   return (
-    <Layout>
+    <>
       <Router>
-        <Routes>
-          <Route path='/' element={<Home />}/>
-          <Route path='/register' element={<Register />}/>
-          <Route path='/films' element={<Films />}/>
-          <Route path='/film' element={<Film />}/>
-          <Route path='/film/:id' element={<Film />}/>
-          <Route path='/user' element={<User />}/>
-          <Route path='/proposal' element={<Proposal />}/>
-          <Route path='*' element={<Error />}/>
-        </Routes>
+        <Layout>
+          <Routes>
+            <Route path='/' element={<Home />}/>
+            <Route path='/register' element={<Register />}/>
+            <Route path='/films' element={<Films />}/>
+            <Route path='/film' element={<Film />}/>
+            <Route path='/film/:id' element={<Film />}/>
+            <Route path='/user' element={<User />}/>
+            <Route path='/proposal' element={<Proposal />}/>
+            <Route path='*' element={<Error />}/>
+          </Routes>
+        </Layout>
       </Router>
       <Toast />
-    </Layout>
+    </>
   );
 }
 

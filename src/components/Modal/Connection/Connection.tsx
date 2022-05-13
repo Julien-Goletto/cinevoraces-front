@@ -44,6 +44,13 @@ function Connection() {
           >
             Se connecter
           </Button>
+          <Button 
+            href='/register'
+            handler={() => dispatch(toggleConnection())}
+            // styleMod='fill'
+          >
+            S'inscrire
+          </Button>
         </div>
       </form>
 

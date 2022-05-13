@@ -1,7 +1,12 @@
 @use '~styles/var';
 
+.container {
+  display: flex;
+  justify-content: center;
+}
 .modal-background {
   position: fixed;
+  z-index: 1;
   background-color: rgba(0, 0, 0, 0.4);;
   width: 100%;
   height: 100vh;
@@ -10,6 +15,9 @@
   align-items: center;
 }
 .modal {
+  margin-top: 25%;
+  position: fixed;
+  z-index: 2;
   background-color: var.$background;
   width: 26em;
   border-radius: 10px;

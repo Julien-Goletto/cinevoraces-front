@@ -11,6 +11,9 @@ type Content = {
 type Description = {
   movie: DBMovie
 }
+type ErrorPage = {
+  errorNum?: number,
+};
 type FieldsetTextInput = { 
   label?: string,
   name: string,

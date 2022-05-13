@@ -22,7 +22,7 @@ function Hero() {
         </div>
       </div>
       <div className={styles.img}>
-        <img src='images/hero-img.jpg' alt='Affiche de films' />
+        <img src='/images/hero-img.jpg' alt='Affiche de films' />
       </div>
     </section>
   );

@@ -40,7 +40,7 @@ function FieldsetCheckbox({ array, tagName, handler }: FieldsetCheckbox) {
           className={styles['fieldset-element']}
           onClick={handleTagsDropDown}
         >
-          {tagName}<img src='images/arrow-right.svg' alt='' />
+          {tagName}<img src='/images/arrow-right.svg' alt='' />
         </button>
         { isOpen &&
           array.map(({name, isChecked}, key) =>

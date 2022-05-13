@@ -56,11 +56,11 @@ function Register() {
           <Button
             styleMod='fill-rounded'
           >
-            <img src='images/send-icon.svg' alt='' />
+            <img src='/images/send-icon.svg' alt='' />
             Envoyer
           </Button>
         </form>
-        <img className={styles.img} src='images/register-img.png' alt='' />
+        <img className={styles.img} src='/images/register-img.png' alt='' />
       </section>
       <Metrics/>
     </>

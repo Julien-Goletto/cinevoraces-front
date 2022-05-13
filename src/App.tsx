@@ -5,6 +5,9 @@ import {
   Routes,
   Route,
 } from 'react-router-dom';
+import { useAppSelector } from 'redux/hooks';
+import { isOnline } from 'redux/slices/user';
+
 
 import Layout from 'components/Layout/Layout';
 import Error from './pages/Error/Error';
@@ -16,6 +19,7 @@ import Register from './pages/Register/Register';
 import Proposal from './pages/Proposal/Proposal';
 
 function App() {
+  const isLogged = useAppSelector<boolean>(isOnline);
 
   return (
     <>
@@ -23,12 +27,14 @@ function App() {
         <Layout>
           <Routes>
             <Route path='/' element={<Home />}/>
-            <Route path='/register' element={<Register />}/>
-            <Route path='/films' element={<Films />}/>
             <Route path='/film' element={<Film />}/>
             <Route path='/film/:id' element={<Film />}/>
+            <Route path='/films' element={<Films />}/>
+            <Route path='/register' element={<Register />}/>
             <Route path='/user' element={<User />}/>
-            <Route path='/proposal' element={<Proposal />}/>
+            <Route path='/proposal' 
+              element={(isLogged) ? <Proposal /> : <Error errorNum={401}/>}
+            />
             <Route path='*' element={<Error />}/>
           </Routes>
         </Layout>

@@ -36,7 +36,7 @@ function UserMenu() {
     <>
 
       {isOpen && <Menu/>}
-      <img onClick={userMenuHandler} className={styles.ico} src='images/user_default.svg' alt='' />
+      <img onClick={userMenuHandler} className={styles.ico} src='/images/user_default.svg' alt='' />
     </>
   );
 }

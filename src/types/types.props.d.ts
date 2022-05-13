@@ -52,3 +52,12 @@ type DBMovie = {
   createAt: string,
   updatedAt: string | null,
 };
+
+type Metrics = {
+  data: {
+    countries_count: string,
+    movies_count: string,
+    seasons_count: string,
+  }
+  isLoading: boolean,
+}

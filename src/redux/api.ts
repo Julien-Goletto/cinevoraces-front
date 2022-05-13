@@ -14,11 +14,15 @@ export const api = createApi({
   endpoints: (build) => ({
     userRegister: build.mutation<User, any>({
       query: (user:User) => ({ url: '/v1/users/register', method:'POST', body: user })
+    }),
+    userLogin: build.mutation<User, any>({
+      query: (user:User) => ({ url: '/v1/users/register', method:'POST', body: user })
     })
   })
 });
 
 
 export const { 
-  useUserRegisterMutation
+  useUserRegisterMutation,
+  useUserLoginMutation
 } = api;

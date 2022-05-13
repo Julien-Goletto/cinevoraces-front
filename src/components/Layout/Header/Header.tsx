@@ -11,7 +11,7 @@ import { Link } from 'react-router-dom';
 
 function Header() {
   const dispatch = useAppDispatch();
-  const connectionIsOpen = useAppSelector(state => state.global.connectionIsOpen );
+  const connectionIsOpen = useAppSelector(state => state.global.connectionIsOpen);
   const connectionHandler = () => {
     dispatch(toggleConnection());
   };
@@ -31,8 +31,9 @@ function Header() {
         <nav className={styles.nav}>
           <Link to='/' className={styles.link}>Accueil</Link> 
           <div className={styles.dot}></div>
-          <Link to='films' className={styles.link}>Film</Link> 
+          <Link to='films' className={styles.link}>Films</Link> 
           <div className={styles.dot}></div>
+          {/* // TODO: ROUTE LAST MOVIE */}
           <Link to='/' className={styles.link}>Le dernier film</Link>
         </nav>
 

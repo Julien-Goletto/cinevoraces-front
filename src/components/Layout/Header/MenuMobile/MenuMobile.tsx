@@ -16,13 +16,29 @@ function MenuMobile() {
       <nav className={styles.nav}>
         <ul className={styles.links}>
           <li className={styles.link}>
-            <Link to='/'>Accueil</Link>
+            <Link 
+              to='/'
+              onClick={()=> {dispatch(mobileIsOpen());}}
+            >
+              Accueil
+            </Link>
           </li>
           <li className={styles.link}>
-            <Link to='/films'>Les films</Link>
+            <Link 
+              to='/films'
+              onClick={()=> {dispatch(mobileIsOpen());}}
+            >
+              Les films
+            </Link>
           </li>
           <li className={styles.link}>
-            <Link to='/'>La team</Link>
+            <Link 
+              // TODO: ROUTE LAST MOVIE
+              to='/'
+              onClick={()=> {dispatch(mobileIsOpen());}}
+            >
+              Le dernier film
+            </Link>
           </li>
         </ul>
       </nav>

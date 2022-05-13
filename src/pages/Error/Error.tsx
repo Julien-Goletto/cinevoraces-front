@@ -38,7 +38,7 @@ function Error({ errorNum = 404, }: ErrorPage) {
           </p> }
 
         { (errorNum === 401) ?
-          <Button href='/register' handler={() => dispatch(toggleConnection())}>
+          <Button href='/register'>
             S'inscrire
           </Button>
           :

@@ -6,15 +6,13 @@
   box-sizing: border-box;
   border-radius: 4px;
   background-color: var.$secondary-background;
-  padding-top: 1em;
-  padding-bottom: 1em;
   margin: 1em auto;
   display: grid;
   grid-template-columns: 1fr;
   gap: 1em;
   width: calc(100% - 2em);
   overflow-y: auto;
-  height: 350px;
+  height: 585px;
   border: 0.5em solid #ffffff00;
   border-left: none;
 }

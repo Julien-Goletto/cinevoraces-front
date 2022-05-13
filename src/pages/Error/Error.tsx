@@ -1,13 +1,10 @@
 import LastMoviesGrid from 'components/LastMoviesGrid/LastMoviesGrid';
 import { Button } from 'components/Buttons/Button';
 import { useLocation } from 'react-router-dom';
-import { useAppDispatch } from 'redux/hooks';
-import { toggleConnection } from 'redux/slices/global';
 import styles from './Error.module.scss';
 
 function Error({ errorNum = 404, }: ErrorPage) {
   const { pathname } = useLocation();
-  const dispatch = useAppDispatch();
 
   return(
     <>

@@ -26,7 +26,9 @@ function Header() {
       <header className={styles.header}>
         <div className={styles.logo}>
           <MenuMobile />
-          <img className={styles.img} src='/images/logo_title.svg' alt='Logo du site' />
+          <Link to='/'>
+            <img className={styles.img} src='/images/logo_title.svg' alt='Logo du site' />
+          </Link> 
         </div>
         <nav className={styles.nav}>
           <Link to='/' className={styles.link}>Accueil</Link> 

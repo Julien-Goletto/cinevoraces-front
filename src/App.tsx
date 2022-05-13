@@ -8,7 +8,7 @@ import {
 import { useAppSelector } from 'redux/hooks';
 import { isOnline } from 'redux/slices/user';
 
-
+import ResetScroll from 'components/ResetScroll/ResetScroll';
 import Layout from 'components/Layout/Layout';
 import Error from './pages/Error/Error';
 import Films from './pages/Films/Films';
@@ -24,6 +24,7 @@ function App() {
   return (
     <>
       <Router>
+        <ResetScroll />
         <Layout>
           <Routes>
             <Route path='/' element={<Home />}/>

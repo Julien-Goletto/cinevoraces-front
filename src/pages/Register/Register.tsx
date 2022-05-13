@@ -4,8 +4,11 @@ import { Button } from 'components/Buttons/Button';
 import styles from './Register.module.scss';
 import { useUserRegisterMutation } from 'redux/api';
 import { useNavigate } from 'react-router-dom';
+import { useAppDispatch } from 'redux/hooks';
+import { toggleConnection } from 'redux/slices/global';
 
 function Register() {
+  const dispatch = useAppDispatch();
   let navigate = useNavigate();
   const [addUser, {isLoading, isError}] = useUserRegisterMutation();
   const sendFormHandler = async (e:any) => {
@@ -19,6 +22,7 @@ function Register() {
     const res = await addUser(user);
     console.log(res);
     if(!isError) {
+      dispatch(toggleConnection());
       return navigate('/');
     }
   };

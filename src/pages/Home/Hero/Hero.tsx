@@ -1,7 +1,10 @@
-import { Button } from 'components/Buttons/Button';
+import { Button } from 'components/Buttons/Button';import { useAppSelector } from 'redux/hooks';
+import { isOnline } from 'redux/slices/user';
 import styles from './Hero.module.scss';
 
 function Hero() {
+  const isLogged = useAppSelector<boolean>(isOnline);
+
   return (
     <section className={styles.hero}>
       <div className={styles.text}>
@@ -14,11 +17,13 @@ function Hero() {
           >
             Découvrir un film
           </Button>
-          <Button
-            href='/register'
-          >
-            S'inscrire
-          </Button>
+          { !isLogged &&
+            <Button
+              href='/register'
+            >
+              S'inscrire
+            </Button>
+          }
         </div>
       </div>
       <div className={styles.img}>

@@ -31,7 +31,10 @@ function App() {
             <Route path='/film' element={<Film />}/>
             <Route path='/film/:id' element={<Film />}/>
             <Route path='/films' element={<Films />}/>
-            <Route path='/register' element={<Register />}/>
+            <Route path='/register'
+              // Change <User /> to Me-Page
+              element={(!isLogged) ? <Register /> : <User />}
+            />
             <Route path='/user' element={<User />}/>
             <Route path='/proposal' 
               element={(isLogged) ? <Proposal /> : <Error errorNum={401}/>}

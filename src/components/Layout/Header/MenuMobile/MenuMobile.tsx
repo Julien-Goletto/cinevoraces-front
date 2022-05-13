@@ -9,7 +9,7 @@ function MenuMobile() {
   return (
     <>
       <button onClick={()=> {dispatch(mobileIsOpen());}} className={styles['nav-mobile']}>
-        <img src='images/mobile_menu.svg' alt='' />
+        <img src='/images/mobile_menu.svg' alt='' />
       </button>
       {isOpen &&
       <nav className={styles.nav}>

@@ -25,6 +25,7 @@ function App() {
           <Route path='/register' element={<Register />}/>
           <Route path='/films' element={<Films />}/>
           <Route path='/film' element={<Film />}/>
+          <Route path='/film/:id' element={<Film />}/>
           <Route path='/user' element={<User />}/>
           <Route path='/proposal' element={<Proposal />}/>
           <Route path='*' element={<Error />}/>

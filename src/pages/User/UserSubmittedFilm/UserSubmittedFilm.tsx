@@ -33,28 +33,18 @@ function UserSubmittedFilm({ film }: UserSubmittedFilm) {
               <h4 className={userStyles['title-h4']}>
                 réalisateur{(film.director.length > 1) && 's'}
               </h4>
-              <div>
-                {film.director.map((director, index) => 
-                  <span>
-                    {director}
-                    {(index + 1 !== film.director.length) && ', '}
-                  </span>
-                )}
-              </div>
+              <span>
+                {film.director.join(', ')}
+              </span>
             </div>
 
             <div className={styles['grid-genre']}>
               <h4 className={userStyles['title-h4']}>
               genre{(film.genres.length > 1) && 's'}
               </h4>
-              <div>
-                {film.genres.map((genres, index) => 
-                  <span>
-                    {genres}
-                    {(index + 1 !== film.genres.length) && ', '}
-                  </span>
-                )}
-              </div>
+              <span>
+                {film.genres.join(', ')}
+              </span>
             </div>
 
             <div className={styles['grid-pDate']}>

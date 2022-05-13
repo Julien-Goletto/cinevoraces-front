@@ -1,3 +1,4 @@
+/* Filter */
 interface FilterState {
   seasons: radioFilter[],
   isViewed: radioFilter[],

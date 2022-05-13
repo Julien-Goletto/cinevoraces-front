@@ -59,12 +59,12 @@ function Interactions({type, count}: InteractionsProps) {
   return (
     <>
       {(type !== 'star') &&
-        <button onClick={dispatchType} className={
+        <div onClick={dispatchType} className={
           `${styles.wrapper} ${active ? styles.active : ''}`
         }>
           {selectedType()}
           <span className={styles.count}>{count}</span>
-        </button>
+        </div>
       }
       {(type === 'star') &&
         <>

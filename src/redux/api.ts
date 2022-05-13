@@ -9,20 +9,29 @@ type User = {
 export const api = createApi({
   reducerPath: 'api',
   baseQuery: fetchBaseQuery({
-    baseUrl: process.env.REACT_APP_API
+    baseUrl: 'https://cinevoraces-api.herokuapp.com'
   }),
   endpoints: (build) => ({
     userRegister: build.mutation<User, any>({
       query: (user:User) => ({ url: '/v1/users/register', method:'POST', body: user })
     }),
     userLogin: build.mutation<User, any>({
-      query: (user:User) => ({ url: '/v1/users/register', method:'POST', body: user })
-    })
+      query: (user:User) => ({ url: '/v1/users/login', method:'POST', body: user, credentials: 'include' })
+    }),
+    allMovies: build.query<any, void>({
+      query: () =>  ({url: '/v1/movies', method: 'GET'})
+    }),
+    oneMovie: build.query<void, number>({
+      query: (id) => ({url: `/v1/movies/${id}`, method: 'GET'}),
+      transformResponse: (res:any) => res[0]
+    }),
   })
 });
 
 
 export const { 
   useUserRegisterMutation,
-  useUserLoginMutation
+  useUserLoginMutation,
+  useAllMoviesQuery,
+  useOneMovieQuery,
 } = api;

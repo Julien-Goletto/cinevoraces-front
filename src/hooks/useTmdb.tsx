@@ -78,7 +78,7 @@ function useTmdb(search:string, number:number) {
     return movieWithDetails;
   }
 
-  async function fetchResultsWithDetails (search: string, number:number):Promise<Movie[] | undefined> {
+  async function fetchResultsWithDetails (search: string, number:number):Promise<TMDBMovie[] | undefined> {
     const movies = await fetchResult(search, number);
     if(!movies) return;
     const detailledMoviesPromises = [];
@@ -90,7 +90,7 @@ function useTmdb(search:string, number:number) {
     return detailledMovie;
   }
 
-  const [movies, setMovies] = useState<Movie[] | undefined>();
+  const [movies, setMovies] = useState<TMDBMovie[] | undefined>();
   const [loading, setLoading] = useState(true);
   useEffect(()=>{
     async function setResult(search:string, number:number) {

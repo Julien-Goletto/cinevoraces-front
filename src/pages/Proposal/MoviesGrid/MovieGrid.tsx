@@ -9,7 +9,7 @@ function MovieGrid({movies, loading}:any) {
   return (
     <div className={styles.grid}>
       { (!loading && movies && movies.length > 0) &&
-        movies.map((movie: Movie)=> (
+        movies.map((movie: TMDBMovie)=> (
           <Movie title={movie.title} genres={movie.genres} release={movie.release} directors={movie.directors} poster_url={movie.poster_url} />
         ))
       }

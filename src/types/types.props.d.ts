@@ -33,6 +33,9 @@ type FieldsetCheckbox = {
 interface Layout {
   children?: import('react').ReactNode
 };
+type Loader = {
+  isMaxed?: boolean
+}
 type MovieGrid = {
   movies: DBMovie[],
   isLoading: boolean

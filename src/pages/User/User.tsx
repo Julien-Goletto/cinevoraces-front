@@ -1,5 +1,6 @@
 import { userLogged } from 'redux/slices/user';
 import { useAppSelector } from 'redux/hooks';
+import { useParams } from 'react-router-dom';
 import UserHeader from './UserHeader/UserHeader';
 import UserMetrics from './UserMetrics/UserMetrics';
 import UserSubmittedFilm from './UserSubmittedFilm/UserSubmittedFilm';
@@ -29,6 +30,7 @@ const fake_data = {
 };
 
 function User() {
+  const { id }  = useParams();
   const { pseudo, avatar } = useAppSelector<any>(userLogged);
   const { stats, registerDate, mail, submittedMovie } = fake_data;
 

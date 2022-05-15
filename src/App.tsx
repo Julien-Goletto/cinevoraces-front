@@ -36,6 +36,7 @@ function App() {
               element={(!isLogged) ? <Register /> : <User />}
             />
             <Route path='/user' element={<User />}/>
+            <Route path='/user/:id' element={<User />}/>
             <Route path='/proposal' 
               element={(isLogged) ? <Proposal /> : <Error errorNum={401}/>}
             />

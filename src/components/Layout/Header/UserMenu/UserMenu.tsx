@@ -4,19 +4,36 @@ import { useAppDispatch, useAppSelector } from 'redux/hooks';
 import { userIsOpen } from 'redux/slices/global';
 import styles from './UserMenu.module.scss';
 
-
 function Menu() {
-  const { pseudo } = useAppSelector<any>(userLogged);
+  const { pseudo, id } = useAppSelector<any>(userLogged);
+  const dispatch = useAppDispatch();
+  const userMenuHandler = () => {
+    dispatch(userIsOpen());
+  };
   return (
     <>
+      <div 
+        className={styles['background']}
+        onClick={userMenuHandler}
+      />
       <nav className={styles.nav}>
         <span className={styles.username}>{pseudo}</span>
         <ul className={styles.links}>
           <li className={styles.link}>
-            <Link to='/'>Mon Profil</Link>
+            <Link 
+              to={`/user/:${id}`}
+              onClick={userMenuHandler}
+            >
+              Mon Profil
+            </Link>
           </li>
           <li className={styles.link}>
-            <Link to='/'>Proposer un film</Link>
+            <Link 
+              to={`/proposal`}
+              onClick={userMenuHandler}
+            >
+              Proposer un film
+            </Link>
           </li>
           <li className={styles.link}>
             <Link to='/'>Se déconnecter</Link>

@@ -7,6 +7,7 @@ const initialState: UserState = {
   id: null,
   pseudo: '',
   role:'',
+  avatar: '',
   access_jwt: null,
   refresh_jwt: null,
 };

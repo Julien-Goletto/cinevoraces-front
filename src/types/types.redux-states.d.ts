@@ -3,6 +3,7 @@ type UserState = {
   isOnline: boolean,
   id: number | null,
   pseudo: string,
+  avatar: string,
   role: string,
   access_jwt: string | null | undefined,
   refresh_jwt: string | null | undefined,

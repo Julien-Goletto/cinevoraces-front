@@ -4,12 +4,18 @@ import { Button } from 'components/Buttons/Button';
 import styles from './Register.module.scss';
 import { useUserRegisterMutation } from 'redux/api';
 import { useNavigate } from 'react-router-dom';
-import { useAppDispatch } from 'redux/hooks';
+import { useAppDispatch, useAppSelector } from 'redux/hooks';
+import { userLogged, isOnline } from 'redux/slices/user';
 import { toggleConnection } from 'redux/slices/global';
+
+
 
 function Register() {
   const dispatch = useAppDispatch();
   let navigate = useNavigate();
+  const isLogged = useAppSelector<boolean>(isOnline);
+  const { id } = useAppSelector<any>(userLogged);
+  isLogged && navigate(`/user/${id}`);
   const [addUser, {isLoading, isError}] = useUserRegisterMutation();
   const sendFormHandler = async (e:any) => {
     e.preventDefault();

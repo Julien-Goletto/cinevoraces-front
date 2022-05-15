@@ -21,7 +21,7 @@ function Menu() {
         <ul className={styles.links}>
           <li className={styles.link}>
             <Link 
-              to={`/user/:${id}`}
+              to={`/user/${id}`}
               onClick={userMenuHandler}
             >
               Mon Profil

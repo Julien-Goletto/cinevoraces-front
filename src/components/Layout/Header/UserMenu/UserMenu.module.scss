@@ -35,10 +35,12 @@
   & a {
     display: inline-block;
     width: 100%;
-
     padding: 0.5em 0;
     text-decoration: none;
     color: var.$white;
+  }
+  & a:hover {
+    color: var.$primary;
   }
 }
 .link:last-child {
@@ -50,6 +52,7 @@
   border: 1px var.$white solid;
   border-radius: 100%;
   z-index: 69;
+  cursor: pointer;
 }
 
 @include mix.breakpoint('tablet') {

@@ -34,6 +34,10 @@
 .link {
   color: var.$white;
 }
+.link:hover {
+  color: var.$primary;
+}
+
 .dot {
   width: 7px;
   height: 7px;

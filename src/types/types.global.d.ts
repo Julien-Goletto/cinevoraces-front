@@ -54,3 +54,9 @@ type StarRating = {
   value?: number,
   isInput?: boolean
 };
+type GlobalState = {
+  mobileIsOpen: boolean,
+  connectionIsOpen: boolean,
+  userIsOpen: boolean,
+  toasts: object[],
+}

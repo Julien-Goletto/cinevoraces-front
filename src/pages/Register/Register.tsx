@@ -19,7 +19,7 @@ function Register() {
   isLogged && navigate(`/user/${id}`);
 
   const formRegEx = (string: FormDataEntryValue) => {
-    if (RegExp('^((?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[\-~!@#$%^&*_+=/:;."<>?])(?=.{12,}))').test(String(string!))) { 
+    if (RegExp('^((?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[\-~!@#$%^&*_+=/:;."<>?])(?=.{12,}))').test(String(string!))) { // eslint-disable-line
       return true;
     } else {
       return false;

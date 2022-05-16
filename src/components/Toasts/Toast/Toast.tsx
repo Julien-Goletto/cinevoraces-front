@@ -15,20 +15,20 @@ function Toast({id, type, text, duration}: ToastProps) {
 
   useEffect(()=> {
     setTimeout(()=> {
-      dispatch(removeToast(id))
-    }, 30000)
-  }, [])
+      dispatch(removeToast(id));
+    }, 30000);
+  }, []);
 
   function modifier(type:string) {
     switch(type) {
     case 'error': {
-      return styles['wrapper--error']
+      return styles['wrapper--error'];
     }
     case 'success': {
-      return styles['wrapper--success']
+      return styles['wrapper--success'];
     }
     case 'warn': {
-      return styles['wrapper--warn']
+      return styles['wrapper--warn'];
     }
     }
   } 
@@ -38,7 +38,7 @@ function Toast({id, type, text, duration}: ToastProps) {
       {/* <span className={styles.toast_type}>{type}: </span> */}
       <span className={styles.toast_text}>{text}</span>
     </div> 
-  )
+  );
 }
 
 export default Toast;

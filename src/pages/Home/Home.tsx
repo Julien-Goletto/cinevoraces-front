@@ -10,8 +10,7 @@ import { useAppDispatch } from 'redux/hooks';
 import { addToast } from 'redux/slices/global';
 
 function Home() {
-
-  const dispatch = useAppDispatch();
+  
   return (
     <>
       <Hero />

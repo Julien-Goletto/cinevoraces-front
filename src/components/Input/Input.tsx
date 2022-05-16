@@ -1,7 +1,7 @@
 import './Input.module.scss';
 import styles from './Input.module.scss';
 
-function Input({label, name, type, placeholder}: FieldsetTextInput) {
+function Input({label, name, type, placeholder, onChange, value}: FieldsetTextInput) {
   const classResolver = (searchedString: string) => {
     if (RegExp(`\\b${searchedString}\\b`).test(name)) {
       return searchedString;
@@ -21,7 +21,11 @@ function Input({label, name, type, placeholder}: FieldsetTextInput) {
           ${styles.input} 
           ${styles[`input--${className}`]} 
         `} 
-        type={type} placeholder={placeholder} name={name}
+        type={type}
+        placeholder={placeholder}
+        name={name}
+        onChange={onChange}
+        value={value}
       />
     </div>
   );

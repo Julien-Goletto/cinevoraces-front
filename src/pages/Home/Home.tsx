@@ -8,13 +8,9 @@ import About from './About/About';
 import SendMovie from './About/SendMovie/SendMovie';
 import Share from './About/Share/Share';
 import JoinUs from './JoinUs/JoinUs';
-import useTmdb from 'hooks/useTmdb';
 
 function Home() {
   const isLogged = useAppSelector<boolean>(isOnline);
-  const {loading, movies} = useTmdb('halo', 15);
-  console.log(loading);
-  
 
   return (
     <>

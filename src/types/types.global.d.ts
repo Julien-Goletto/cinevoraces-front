@@ -33,16 +33,10 @@ type DBMovie = {
   avg_rating: string
 };
 type TMDBMovie = {
-  casting: string[],
-  countries: string[],
-  directors: string[],
-  genres: string[],
-  languages: string[],
-  original_title: string,
-  poster_url: string,
-  release: string,
-  runtime: number,
+  id: number,
   title: string
+  release_date: string,
+  poster_path: string,
 }
 type Director = {
   job: string,

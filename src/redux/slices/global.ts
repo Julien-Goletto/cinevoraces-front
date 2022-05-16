@@ -22,14 +22,11 @@ const globalSlice = createSlice({
     userIsOpen(state) {
       state.userIsOpen = !state.userIsOpen;
     },
-    addToast(state, action:any) {
-      console.log(action);
-      
+    addToast(state, action:Toast) {
       action.payload.id = Math.floor((Math.random() * 9999) + 1);
       state.toasts.push(action.payload);
     },
     removeToast(state, action:any) {
-      console.log(action.payload);
       state.toasts = state.toasts.filter((el:any) => action.payload.id === el.id);
     }
   }

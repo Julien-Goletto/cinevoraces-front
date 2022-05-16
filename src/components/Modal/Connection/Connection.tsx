@@ -3,7 +3,7 @@ import Input from 'components/Input/Input';
 import Loader from 'components/Loader/Loader';
 import { useAppDispatch } from 'redux/hooks';
 import { useUserLoginMutation } from 'redux/api';
-import { toggleConnection } from 'redux/slices/global';
+import { addToast, toggleConnection } from 'redux/slices/global';
 import styles from './Connection.module.scss';
 import { setUser } from 'redux/slices/user';
 import { useEffect } from 'react';
@@ -27,9 +27,11 @@ function Connection() {
     if(isSuccess) {
       dispatch(setUser(data));
       dispatch(toggleConnection());
+      dispatch(addToast({type:'success', text: 'Bienvenue'}));
     }
     if(isError) {
       console.log(error);
+      dispatch(addToast({type:'error', text: 'Une erreur est survenue'}));
     }
   },[data, isError, isSuccess, dispatch, error, isLoading]);
 

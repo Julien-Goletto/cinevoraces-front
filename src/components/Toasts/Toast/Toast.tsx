@@ -16,7 +16,8 @@ function Toast({id, type, text, duration}: ToastProps) {
   useEffect(()=> {
     setTimeout(()=> {
       dispatch(removeToast(id));
-    }, 30000);
+    }, duration ? duration : 3000);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   function modifier(type:string) {

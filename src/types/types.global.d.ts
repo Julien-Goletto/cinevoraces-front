@@ -60,3 +60,16 @@ type GlobalState = {
   userIsOpen: boolean,
   toasts: object[],
 }
+type Toast = {
+  payload: {
+    type: 'error' | 'warn' | 'success',
+    text: string,
+    duration?: number,
+    id?: number
+  }
+}
+type RemoveToast = {
+  payload: {
+    id:number
+  } | number
+}

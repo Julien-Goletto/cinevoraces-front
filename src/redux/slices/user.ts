@@ -25,11 +25,16 @@ const userSlice = createSlice({
       state.isOnline = true;
     },
     setJwts(state){
-      console.log(state);
-      
+      state.access_jwt = Cookies.get('accessToken');
+      state.refresh_jwt = Cookies.get('refreshToken');
     },
     setConnectedStatus(state, action) {
       state.isOnline = action.payload;
+    },
+    setOffline: () => {
+      Cookies.remove('accessToken');
+      Cookies.remove('refreshToken');
+      return initialState;
     }
   }
 });
@@ -44,7 +49,8 @@ export const userJwts = (state:RootState) => { return {
 export const { 
   setUser,
   setJwts,
-  setConnectedStatus
+  setConnectedStatus,
+  setOffline
 } = userSlice.actions;
 
 export default userSlice.reducer;

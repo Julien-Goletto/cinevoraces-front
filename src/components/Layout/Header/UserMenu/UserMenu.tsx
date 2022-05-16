@@ -1,4 +1,4 @@
-import { userLogged } from 'redux/slices/user';
+import { setOffline, userLogged } from 'redux/slices/user';
 import { Link } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from 'redux/hooks';
 import { userIsOpen } from 'redux/slices/global';
@@ -36,7 +36,7 @@ function Menu() {
             </Link>
           </li>
           <li className={styles.link}>
-            <Link to='/'>Se déconnecter</Link>
+            <Link onClick={()=> dispatch(setOffline())} to='/'>Se déconnecter</Link>
           </li>
         </ul>
       </nav>

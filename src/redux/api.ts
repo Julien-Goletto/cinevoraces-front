@@ -1,3 +1,4 @@
+import { RootState } from './store';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 type User = {
@@ -10,7 +11,14 @@ export const api = createApi({
   reducerPath: 'api',
   baseQuery: fetchBaseQuery({
     // baseUrl: 'http://localhost:3005'
-    baseUrl: 'http://localhost:3005'
+    baseUrl: 'http://localhost:3005',
+    prepareHeaders: (headers, {getState}) => {
+      const token = (getState() as any).user.access_jwt;
+      if (token) {
+        headers.set('authorization', `Bearer ${token}`);
+      }
+      return headers;
+    },
   }),
   endpoints: (build) => ({
     userRegister: build.mutation<User, any>({
@@ -31,6 +39,18 @@ export const api = createApi({
       query: () => ({url: '/v1/metrics', method: 'GET'}),
       transformResponse: (res:any) => res[0]
     }),
+    refreshToken: build.mutation<any, string>({
+      query: (refreshToken?:string) => {
+        return ({url: '/v1/refreshTokens', method: 'GET', credentials: 'include', headers: {
+          authorization: `Bearer ${refreshToken}`
+        },
+        transformResponse: (res:any, meta:any, arg:any) =>{
+          console.log(res.data);
+          
+        }
+        });
+      }
+    })
   })
 });
 
@@ -40,4 +60,5 @@ export const {
   useAllMoviesQuery,
   useOneMovieQuery,
   useAllMetricsQuery,
+  useRefreshTokenMutation
 } = api;

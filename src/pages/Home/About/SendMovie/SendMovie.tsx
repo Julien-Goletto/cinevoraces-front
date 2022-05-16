@@ -7,7 +7,7 @@ function SendMovie() {
         <h2 className={`${styles['title']} ${styles['title--top']}`}>Chaque semaine, une découverte !</h2>
         <div className={styles.content}>
 
-          <img src='images/week-movie.png' alt='' className={styles.img} />
+          <img src='/images/week-movie.png' alt='' className={styles.img} />
           <div className={styles.text}>
             <h2 className={`${styles['title']} ${styles['title--bottom']}`}>Chaque semaine, une découverte !</h2>
             <p style={{marginBottom: '1rem'}}>

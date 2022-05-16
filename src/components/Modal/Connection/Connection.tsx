@@ -1,12 +1,15 @@
 import { Button } from 'components/Buttons/Button';
 import Input from 'components/Input/Input';
+import Loader from 'components/Loader/Loader';
 import { useAppDispatch } from 'redux/hooks';
 import { useUserLoginMutation } from 'redux/api';
 import { toggleConnection } from 'redux/slices/global';
 import styles from './Connection.module.scss';
+import { setUser } from 'redux/slices/user';
+import { useEffect } from 'react';
 
 function Connection() {
-  const [loginUser, handler] = useUserLoginMutation();
+  const [loginUser, {data, error, isError, isSuccess, isLoading}] = useUserLoginMutation();
   const dispatch = useAppDispatch();
   const sendForm = async (e:any) => {
     e.preventDefault();
@@ -16,10 +19,26 @@ function Connection() {
       mail: 'dadaz@lol.fr',
       password: form.get('password')
     };   
-    const res = loginUser(user);  
+    loginUser(user);
   };
+
+  useEffect(()=> {
+    console.log(isLoading);
+    if(isSuccess) {
+      dispatch(setUser(data));
+      dispatch(toggleConnection());
+    }
+    if(isError) {
+      console.log(error);
+    }
+  },[data, isError, isSuccess, dispatch, error, isLoading]);
+
+  
   return (
     <div className={styles.container}> 
+      { isLoading &&
+        <Loader isMaxed={true}/>
+      }
       <button className={styles.close} onClick={() => dispatch(toggleConnection())}>X</button>
       <form onSubmit={sendForm}>
         <Input label="Nom d'utilisateur" name='username' type='text' placeholder='Entrez votre nom d’utilisateur'/>
@@ -29,6 +48,13 @@ function Connection() {
             styleMod='fill'
           >
             Se connecter
+          </Button>
+          <Button 
+            href='/register'
+            handler={() => dispatch(toggleConnection())}
+            // styleMod='fill'
+          >
+            S'inscrire
           </Button>
         </div>
       </form>

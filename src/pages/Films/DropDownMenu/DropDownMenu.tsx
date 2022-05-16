@@ -36,7 +36,7 @@ function DropDownMenu() {
         `}
         onClick={handleReset}
       >
-        <img src='images/arrow-counterclockwise.svg' alt='' />
+        <img src='/images/arrow-counterclockwise.svg' alt='' />
       </button>
       <FieldsetRadio 
         array={seasons}

@@ -3,18 +3,19 @@ import Connection from 'components/Modal/Connection/Connection';
 import Modal from 'components/Modal/Modal';
 import { useAppDispatch, useAppSelector } from 'redux/hooks';
 import { toggleConnection } from 'redux/slices/global';
+import { isOnline } from 'redux/slices/user';
 import styles from './Header.module.scss';
 import MenuMobile from './MenuMobile/MenuMobile';
 import UserMenu from './UserMenu/UserMenu';
-
-const isLogged = false;
+import { Link } from 'react-router-dom';
 
 function Header() {
   const dispatch = useAppDispatch();
-  const connectionIsOpen = useAppSelector(state => state.global.connectionIsOpen );
+  const connectionIsOpen = useAppSelector(state => state.global.connectionIsOpen);
   const connectionHandler = () => {
     dispatch(toggleConnection());
   };
+  const isLogged = useAppSelector<boolean>(isOnline);
   return(
     <>
       { connectionIsOpen && 
@@ -25,14 +26,17 @@ function Header() {
       <header className={styles.header}>
         <div className={styles.logo}>
           <MenuMobile />
-          <img className={styles.img} src='/images/logo_title.svg' alt='Logo du site' />
+          <Link to='/'>
+            <img className={styles.img} src='/images/logo_title.svg' alt='Logo du site' />
+          </Link> 
         </div>
         <nav className={styles.nav}>
-          <a href='/' className={styles.link}>Accueil</a> 
+          <Link to='/' className={styles.link}>Accueil</Link> 
           <div className={styles.dot}></div>
-          <a href='/films' className={styles.link}>Les films</a>
+          <Link to='films' className={styles.link}>Films</Link> 
           <div className={styles.dot}></div>
-          <a href='/' className={styles.link}>Le dernier film</a>
+          {/* // TODO: ROUTE LAST MOVIE */}
+          <Link to='/' className={styles.link}>Le dernier film</Link>
         </nav>
 
         {!isLogged &&

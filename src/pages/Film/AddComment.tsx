@@ -24,7 +24,7 @@ function AddComment(props: any) {
               <Button 
                 styleMod='fill-rounded'
               >
-                <img src='images/send-icon.svg' alt=''/>
+                <img src='/images/send-icon.svg' alt=''/>
                 Poster les modifications
               </Button>
             </div>

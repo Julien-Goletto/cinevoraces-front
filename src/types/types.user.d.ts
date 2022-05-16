@@ -13,7 +13,6 @@ type user = {
   username: string,
   email: string,
 }
-
 type submittedMovie = {
   title: string,
   cover: string,

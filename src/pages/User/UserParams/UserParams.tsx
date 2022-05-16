@@ -47,7 +47,7 @@ function UserParams({ username, email }: user) {
         <Button
           styleMod='fill-rounded'
         >
-          <img src='images/send-icon.svg' alt='' />
+          <img src='/images/send-icon.svg' alt='' />
           Envoyer
         </Button>
       </>

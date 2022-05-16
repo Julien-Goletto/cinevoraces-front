@@ -1,3 +1,21 @@
+/* User */
+type UserState = { 
+  isOnline: boolean,
+  id: number | null,
+  pseudo: string,
+  avatar: string,
+  role: string,
+  access_jwt: string | null | undefined,
+  refresh_jwt: string | null | undefined,
+};
+type loginUser = {
+  data: {
+    id: number | null,
+    pseudo: string,
+    role: string,
+  }
+  isLoading: boolean,
+}
 /* Filter */
 interface FilterState {
   seasons: radioFilter[],

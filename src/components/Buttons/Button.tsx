@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import styles from './Button.module.scss';
 
 function Button({children, styleMod, handler, href }: Button)  {
@@ -20,13 +21,13 @@ function Button({children, styleMod, handler, href }: Button)  {
   return(
     <>
       { href &&
-        <a
+        <Link 
           className={className}
-          onClick={handler}
-          href={href}
+          to={href}
+          onClick={handler}         
         >
           {children}
-        </a>
+        </Link>
       }
       { (!href) &&
         <button

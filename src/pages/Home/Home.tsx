@@ -1,3 +1,5 @@
+import { useAppSelector } from 'redux/hooks';
+import { isOnline } from 'redux/slices/user';
 import styles from './Home.module.scss';
 import Hero from './Hero/Hero';
 import LastMoviesGrid from 'components/LastMoviesGrid/LastMoviesGrid';
@@ -8,6 +10,7 @@ import Share from './About/Share/Share';
 import JoinUs from './JoinUs/JoinUs';
 
 function Home() {
+  const isLogged = useAppSelector<boolean>(isOnline);
   return (
     <>
       <Hero />
@@ -19,7 +22,7 @@ function Home() {
         <SendMovie />
         <Share />
       </About>
-      <JoinUs />
+      { !isLogged && <JoinUs />}
     </>
   );
 };

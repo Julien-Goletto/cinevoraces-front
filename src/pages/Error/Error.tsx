@@ -3,29 +3,45 @@ import { Button } from 'components/Buttons/Button';
 import { useLocation } from 'react-router-dom';
 import styles from './Error.module.scss';
 
-function Error() {
+function Error({ errorNum = 404, }: ErrorPage) {
   const { pathname } = useLocation();
+
   return(
     <>
       <section className={styles.error}>
         <div>
           <div className={styles.title}>
-            <img className={styles.img} src='images/error_icon.svg' alt='' />
-            <h1>Erreur 404</h1>
+            <img className={styles.img} src='/images/error_icon.svg' alt='' />
+            <h1>
+              Erreur&nbsp;
+              {errorNum}
+            </h1>
           </div>
-          <div className={styles.subtitle}>C'est cassé chef...</div>
+          <div className={styles.subtitle}>
+            { errorNum === 404 && 'Mais on est où là..?'} 
+            { errorNum === 401 && 'Comment est-ce que vous êtes arrivé ici?'} 
+          </div>
         </div>
-        <p className={styles.body}>
-          L&apos;URL <span className={styles.pathname}>{pathname}</span> n&apos;a rien donné.
-          <br /> Essayez d'ouvrir les yeux en tapant votre requête.
-        </p>
+        { (errorNum === 404) &&
+          <p className={styles.body}>
+            L&apos;URL <span className={styles.pathname}>{pathname}</span> n&apos;a rien donné.
+            <br /> Essayez d'ouvrir les yeux en tapant votre requête.
+          </p> }
+        { (errorNum === 401) &&
+          <p className={styles.body}>
+            Vous devez être connecté à un compte utilisateur pour acceder à l&apos;URL <span className={styles.pathname}>{pathname}</span>.
+            <br /> Pas encore membre? <span className={styles.pathname}>Inscrivez-vous!</span>
 
-        <Button
-          styleMod='rounded'
-          href='/'
-        >
-          Retourner à l'acceuil
-        </Button>
+          </p> }
+
+        { (errorNum === 401) ?
+          <Button href='/register'>
+            S'inscrire
+          </Button>
+          :
+          <Button styleMod='rounded' href='/'>
+            Retourner à l'acceuil
+          </Button> }
       </section>
       <div className={styles['last-movies']}>
         <LastMoviesGrid/>

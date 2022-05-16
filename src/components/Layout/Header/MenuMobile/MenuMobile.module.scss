@@ -13,12 +13,12 @@
   left: 0;
   width: 100%;
   z-index: 67;
-
 }
 .links {
   background-color: var.$secondary-background;
   border-radius: 10px;
   margin: 0 1em;
+  box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.35);
 }
 .link {
   padding: 0.8em 1em;

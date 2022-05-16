@@ -1,3 +1,6 @@
+import { userLogged } from 'redux/slices/user';
+import { useAppSelector } from 'redux/hooks';
+import { useParams } from 'react-router-dom';
 import UserHeader from './UserHeader/UserHeader';
 import UserMetrics from './UserMetrics/UserMetrics';
 import UserSubmittedFilm from './UserSubmittedFilm/UserSubmittedFilm';
@@ -5,10 +8,8 @@ import UserParams from './UserParams/UserParams';
 import styles from './User.module.scss';
 
 const fake_data = {
-  username: 'PrincessJambon59',
-  avatar: '',
-  email: 'princessham59@elsass.de',
-  createdAt: '2004-10-19 10:23:54+02',
+  mail: 'caroline-du-93@lol.fr',
+  registerDate: '2077-12-10 10:23:54+02',
   stats: {
     uploadedMovies: 6,
     commentedMovies: 77,
@@ -29,21 +30,18 @@ const fake_data = {
 };
 
 function User() {
-  const { username, avatar, createdAt, email } = fake_data;
-  const { stats } = fake_data;
-  const { submittedMovie } = fake_data;
-
-
-  
+  const { id }  = useParams();
+  const { pseudo, avatar } = useAppSelector<any>(userLogged);
+  const { stats, registerDate, mail, submittedMovie } = fake_data;
 
   return(
     <>
       <section className={styles['user']}>
         <h1 className={styles['title']}>Mon compte</h1>
         <UserHeader
-          username={username}
+          username={pseudo}
           avatar={avatar}
-          registerDate={createdAt}
+          registerDate={registerDate}
         />
         <h2 className={styles['title-h2']}>
           Mon récapitulatif en 5 <span>chiffres :</span>
@@ -58,8 +56,8 @@ function User() {
           Modifier mes <span>paramètres :</span>
         </h2>
         <UserParams
-          username={username}
-          email={email}
+          username={pseudo}
+          email={mail}
         />
       </section>
     </>

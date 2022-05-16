@@ -1,22 +1,42 @@
+import { userLogged } from 'redux/slices/user';
+import { Link } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from 'redux/hooks';
 import { userIsOpen } from 'redux/slices/global';
 import styles from './UserMenu.module.scss';
 
-
 function Menu() {
+  const { pseudo, id } = useAppSelector<any>(userLogged);
+  const dispatch = useAppDispatch();
+  const userMenuHandler = () => {
+    dispatch(userIsOpen());
+  };
   return (
     <>
+      <div 
+        className={styles['background']}
+        onClick={userMenuHandler}
+      />
       <nav className={styles.nav}>
-        <span className={styles.username}>PrincessJambon69</span>
+        <span className={styles.username}>{pseudo}</span>
         <ul className={styles.links}>
           <li className={styles.link}>
-            <a href='/'>Mon Profil</a>
+            <Link 
+              to={`/user/:${id}`}
+              onClick={userMenuHandler}
+            >
+              Mon Profil
+            </Link>
           </li>
           <li className={styles.link}>
-            <a href='/'>Proposer un film</a>
+            <Link 
+              to={`/proposal`}
+              onClick={userMenuHandler}
+            >
+              Proposer un film
+            </Link>
           </li>
           <li className={styles.link}>
-            <a href='/'>Se déconnecter</a>
+            <Link to='/'>Se déconnecter</Link>
           </li>
         </ul>
       </nav>
@@ -25,6 +45,7 @@ function Menu() {
 }
 
 function UserMenu() {
+  const { avatar } = useAppSelector<any>(userLogged);
   const dispatch = useAppDispatch();
   const isOpen = useAppSelector(state => state.global.userIsOpen);
   const userMenuHandler = () => {
@@ -33,9 +54,13 @@ function UserMenu() {
 
   return (
     <>
-
       {isOpen && <Menu/>}
-      <img onClick={userMenuHandler} className={styles.ico} src='images/user_default.svg' alt='' />
+      <img 
+        onClick={userMenuHandler} 
+        className={styles.ico} 
+        src={`${(avatar) ? {avatar} : '/images/user_default.svg'}`}
+        alt=''
+      />
     </>
   );
 }

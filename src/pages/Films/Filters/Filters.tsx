@@ -16,13 +16,13 @@ function Filters() {
       >
         Filtrer
         { (isDropMenu) ?
-          <img src='images/filter-open.svg' alt='' />
+          <img src='/images/filter-open.svg' alt='' />
           :
-          <img src='images/filter-closed.svg' alt='' />
+          <img src='/images/filter-closed.svg' alt='' />
         }
       </Button>
       <div className={styles['search-bar']}>
-        <img src='images/input_search.svg' alt='' />
+        <img src='/images/input_search.svg' alt='' />
         <input 
           placeholder='Filtrer par titre'
           type='text'

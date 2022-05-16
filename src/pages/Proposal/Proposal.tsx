@@ -50,7 +50,7 @@ function Proposal() {
           handler={handleSubmit}
           styleMod='fill-rounded'
         >
-          <img src='images/send-icon.svg' alt=''/>
+          <img src='/images/send-icon.svg' alt=''/>
           Envoyer
         </Button>
       </div>

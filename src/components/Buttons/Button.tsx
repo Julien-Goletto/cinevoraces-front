@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import styles from './Button.module.scss';
 
-function Button({children, styleMod, handler, href }: Button)  {
+function Button({ children, styleMod, handler, href }: Button)  {
   const styleResolver = (searchedString: string) => {
     if (RegExp(`\\b${searchedString}\\b`).test(styleMod!)) {
       return searchedString;

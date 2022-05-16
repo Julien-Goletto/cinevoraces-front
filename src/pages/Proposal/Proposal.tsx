@@ -6,22 +6,22 @@ import { useAppDispatch, useAppSelector } from 'redux/hooks';
 import { getProposalData, getSearch, setEpisode } from 'redux/slices/proposal';
 import { Button } from 'components/Buttons/Button';
 import useTmdb from 'hooks/useTmdb';
+import { useEffect } from 'react';
 
 function Proposal() {
   const search = useAppSelector(getSearch);
   const {loading, movies} = useTmdb(search, 15);
-  console.log(movies);
-  
 
   const dispatch = useAppDispatch();
-  const data = useAppSelector(getProposalData);
+  //const data = useAppSelector(getProposalData);
+  
   const handleSelect = (event: onChangeFormEvent) => {
     const selected = (event.target as HTMLSelectElement).value;
     dispatch(setEpisode(selected));
   };
   const handleSubmit = (e:any) => {
     e.preventDefault();
-    console.log(data);
+    // console.log(data);
   };
   return (
     <>

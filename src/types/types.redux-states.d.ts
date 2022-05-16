@@ -8,6 +8,11 @@ type UserState = {
   access_jwt: string | null | undefined,
   refresh_jwt: string | null | undefined,
 };
+type User = {
+  pseudo: string,
+  mail: string,
+  password: string
+}
 type loginUser = {
   data: {
     id: number | null,

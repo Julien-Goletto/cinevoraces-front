@@ -4,8 +4,10 @@ import Input from 'components/Input/Input';
 import { ReactComponent as SearchIco } from '../input_search.svg';
 import { useAppDispatch } from 'redux/hooks';
 import { setSearch } from 'redux/slices/proposal';
+import { useEffect } from 'react';
 
 function Search() {
+
   const dispatch = useAppDispatch();
   const submitSearch = (e:any) => {
     e.preventDefault();
@@ -16,7 +18,7 @@ function Search() {
   return (
     <>
       <form onSubmit={submitSearch} className={styles['search-form']}>
-        <Input label='' name='search' type='text' placeholder='Recherche un film'/>
+        <Input label='' name='search'  type='text' placeholder='Recherche un film'/>
         <ButtonSearch><SearchIco /></ButtonSearch>
       </form>
     </>

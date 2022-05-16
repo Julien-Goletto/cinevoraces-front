@@ -1,5 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from 'react';
+import { useAppDispatch } from 'redux/hooks';
 
 /**
  * Hook to call the TMDB API  to get a list of {number} top films whith searchQuery
@@ -10,6 +11,8 @@ import { useEffect, useState } from 'react';
 function useTmdb(search:string, number:number) {
   const API_KEY = process.env.REACT_APP_TMDB_KEY;
   const API_PREFIX = 'https://api.themoviedb.org/3';
+  const [movies, setMovies] = useState<TMDBMovie[] | undefined>();
+  const [loading, setLoading] = useState(true);
 
   async function fetchResult(search:string, number:number) {
     if(search === '') return false;
@@ -90,23 +93,23 @@ function useTmdb(search:string, number:number) {
     return detailledMovie;
   }
 
-  const [movies, setMovies] = useState<TMDBMovie[] | undefined>();
-  const [loading, setLoading] = useState(true);
+ 
+
+
+  async function setResult(search:string, number:number) {
+    const result = await fetchResultsWithDetails(search, number);
+    setMovies(result);
+  }
+
   useEffect(()=>{
-    async function setResult(search:string, number:number) {
-      const result = await fetchResultsWithDetails(search, number);
-      setMovies(result);
-    }
-    try {
-      setResult(search, number);
+    setResult(search, number);
+    setLoading(false);
+    console.log(loading);
+    
+    
+  }, []);
 
-    } catch (error) {
-      console.error(error);
-    } finally {
-      setLoading(false);
-    }
-  }, [search]);
-
+  
   return {loading, movies};
 }
 

@@ -23,7 +23,6 @@ function Connection() {
   };
 
   useEffect(()=> {
-    console.log(isLoading);
     if(isSuccess) {
       dispatch(setUser(data));
       dispatch(toggleConnection());

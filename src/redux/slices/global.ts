@@ -1,9 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { RootState } from '../store';
 
-const initialState = { 
+
+const initialState : GlobalState = { 
   mobileIsOpen: false,
   connectionIsOpen: false,
-  userIsOpen: false
+  userIsOpen: false,
+  toasts: [],
 };
 
 const globalSlice = createSlice({
@@ -18,9 +21,18 @@ const globalSlice = createSlice({
     },
     userIsOpen(state) {
       state.userIsOpen = !state.userIsOpen;
+    },
+    addToast(state, action:Toast) {
+      action.payload.id = Math.floor((Math.random() * 9999) + 1);
+      state.toasts.push(action.payload);
+    },
+    removeToast(state, action:any) {
+      state.toasts = state.toasts.filter((el:any) => action.payload.id === el.id);
     }
   }
 });
 
-export const { toggleConnection, mobileIsOpen, userIsOpen } = globalSlice.actions;
+export const getToasts = (state: RootState) => state.global.toasts;
+
+export const { toggleConnection, mobileIsOpen, userIsOpen, addToast, removeToast } = globalSlice.actions;
 export default globalSlice.reducer;

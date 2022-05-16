@@ -1,4 +1,4 @@
-import Toast from 'components/Toast/Toast';
+import Toast from 'components/Toasts/Toasts';
 import React from 'react';
 import {
   BrowserRouter as Router,

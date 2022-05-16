@@ -40,11 +40,11 @@ function App() {
   useEffect(()=> {
     if(!isLoading && data && !isError ) {
       dispatch(setUser({
-        id: data.user.id,
-        pseudo: data.user.pseudo,
-        role: data.user.role,
-        access_jwt: data.accessToken,
-        refresh_jwt: data.refresh_jwt,
+        id: data.id,
+        pseudo: data.pseudo,
+        role: data.role,
+        access_jwt: Cookies.get('accessToken'),
+        refresh_jwt: Cookies.get('refreshToken'),
         isOnline: true
       }));
       setReady(true);

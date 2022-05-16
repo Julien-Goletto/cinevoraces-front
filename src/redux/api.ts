@@ -27,6 +27,10 @@ export const api = createApi({
       query: (id) => ({url: `/v1/movies/${id}`, method: 'GET'}),
       transformResponse: (res:any) => res[0]
     }),
+    allMetrics: build.query<any, void>({
+      query: () => ({url: '/v1/metrics', method: 'GET'}),
+      transformResponse: (res:any) => res[0]
+    }),
   })
 });
 
@@ -35,4 +39,5 @@ export const {
   useUserLoginMutation,
   useAllMoviesQuery,
   useOneMovieQuery,
+  useAllMetricsQuery,
 } = api;

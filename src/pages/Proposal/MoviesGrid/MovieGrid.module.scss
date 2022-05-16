@@ -13,6 +13,26 @@
   grid-template-columns: 1fr;
   gap: 1em;
   width: calc(100% - 2em);
+  overflow-y: auto;
+  height: 350px;
+  border: 0.5em solid #ffffff00;
+  border-left: none;
+}
+
+.grid::-webkit-scrollbar {
+  width: 0.8em;
+}
+
+.grid::-webkit-scrollbar-track {
+  background: white;
+  border-radius: 1em;
+}
+
+.grid::-webkit-scrollbar-thumb {
+background: #8A8A92;
+border: 2px solid white;
+border-radius: 1em;
+background-clip: padding-box;
 }
 
 @include mix.breakpoint('tablet') {

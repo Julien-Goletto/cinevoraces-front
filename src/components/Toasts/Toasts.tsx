@@ -6,7 +6,6 @@ import ReactDOM from 'react-dom';
 const portal = document.getElementById('portal') as HTMLElement;
 
 function Toasts()  {
-
   let toastsList = useAppSelector(getToasts);
   
   return ReactDOM.createPortal(

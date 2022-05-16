@@ -10,7 +10,7 @@ export const api = createApi({
   reducerPath: 'api',
   baseQuery: fetchBaseQuery({
     // baseUrl: 'http://localhost:3005'
-    baseUrl: 'http://localhost:3005'
+    baseUrl: 'https://cinevoraces-api.herokuapp.com/'
   }),
   endpoints: (build) => ({
     userRegister: build.mutation<User, any>({

@@ -6,7 +6,7 @@ const initialState: UserState = {
   isOnline: false,
   id: null,
   pseudo: '',
-  role:'',
+  role: '',
   avatar: '',
   access_jwt: null,
   refresh_jwt: null,

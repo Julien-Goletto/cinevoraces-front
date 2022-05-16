@@ -23,13 +23,16 @@ function Register() {
     const user = {
       pseudo: data.get('username'),
       mail: data.get('email'),
-      password: data.get('password')
+      password: data.get('password'),
+      confirm: data.get('confirm'),
     };
-    const res = await addUser(user);
-    console.log(res);
-    if(!isError) {
-      dispatch(toggleConnection());
-      return navigate('/');
+    if (user.password === user.confirm) {
+      const res = await addUser(user);
+      console.log(res);
+      if(!isError) {
+        dispatch(toggleConnection());
+        return navigate('/');
+      }
     }
   };
 

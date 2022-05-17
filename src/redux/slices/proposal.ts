@@ -4,6 +4,7 @@ import { RootState } from '../store';
 const initialState = { 
   episode_selected: null,
   searchMovie: '',
+  controlledInput: '',
   movie_selected: {} ,
   description_movie: ''
 };
@@ -19,6 +20,9 @@ const proposalSlice = createSlice({
     setSearch(state, action) {
       state.searchMovie = action.payload;
     },
+    setInputValue(state, action) {
+      state.controlledInput = action.payload;
+    },
     setDescription(state, action) {
       state.description_movie = action.payload;
     },
@@ -30,6 +34,7 @@ const proposalSlice = createSlice({
 
 export const getEpisode = (state: RootState) => state.proposal.episode_selected;
 export const getSearch = (state: RootState) => state.proposal.searchMovie;
+export const getInputValue = (state: RootState) => state.proposal.controlledInput;
 export const getDescription = (state: RootState) => state.proposal.description_movie;
 export const getSelectedMovie = (state: RootState) => state.proposal.movie_selected;
 export const getProposalData = (state: RootState) => {
@@ -41,5 +46,5 @@ export const getProposalData = (state: RootState) => {
   return data;
 };
 
-export const { setEpisode, setSearch, setDescription, setSelectedMovie } = proposalSlice.actions;
+export const { setEpisode, setSearch, setDescription, setSelectedMovie, setInputValue } = proposalSlice.actions;
 export default proposalSlice.reducer;

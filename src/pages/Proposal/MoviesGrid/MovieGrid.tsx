@@ -1,16 +1,23 @@
 import Movie from '../Movie/Movie';
+import Loader from 'components/Loader/Loader';
 import styles from './MovieGrid.module.scss';
 
+function MovieGrid({movies, isLoading}:any) {
 
-function MovieGrid({movies, loading}:any) {
-  console.log(movies);
-  
-  
   return (
     <div className={styles.grid}>
-      { (!loading && movies && movies.length > 0) &&
+      { (isLoading) && 
+        <Loader />
+      }
+      { (!isLoading && movies && movies.length > 0) &&
         movies.map((movie: TMDBMovie)=> (
-          <Movie title={movie.title} genres={movie.genres} release={movie.release} directors={movie.directors} poster_url={movie.poster_url} />
+          <Movie 
+            key={movie.id}
+            id={movie.id} 
+            title={movie.title} 
+            release_date={movie.release_date} 
+            poster_path={movie.poster_path} 
+          />
         ))
       }
     </div>

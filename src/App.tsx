@@ -27,7 +27,7 @@ function App() {
 
   //wait for refreshToken cycle to be done
   const [ready, setReady] = useState<boolean>(false);
- 
+
 
   useEffect(()=>{
     const token = Cookies.get('refreshToken');
@@ -56,32 +56,27 @@ function App() {
   
   
   return (
-    ready ?
-      <>
-        <Router>
-          <ResetScroll />
-          <Layout>
-            <Routes>
-              <Route path='/' element={<Home />}/>
-              <Route path='/film' element={<Film />}/>
-              <Route path='/film/:id' element={<Film />}/>
-              <Route path='/films' element={<Films />}/>
-              <Route path='/register'
-                // Change <User /> to Me-Page
-                element={(!isLogged) ? <Register /> : <User />}
-              />
-              <Route path='/user' element={<User />}/>
-              <Route path='/user/:id' element={<User />}/>
-              <Route path='/proposal' 
-                element={(isLogged) ? <Proposal /> : <Error errorNum={401}/>}
-              />
-              <Route path='*' element={<Error />}/>
-            </Routes>
-          </Layout>
-        </Router>
-        <Toast />
-      </>
-      : null
+    <>
+      <Router>
+        <ResetScroll />
+        <Layout>
+          <Routes>
+            <Route path='/' element={<Home />}/>
+            <Route path='/film' element={<Film />}/>
+            <Route path='/film/:id' element={<Film />}/>
+            <Route path='/films' element={<Films />}/>
+            <Route path='/register' element={<Register />}/>
+            <Route path='/user' element={<User />}/>
+            <Route path='/user/:id' element={<User />}/>
+            <Route path='/proposal' 
+              element={(isLogged) ? <Proposal /> : <Error errorNum={401}/>}
+            />
+            <Route path='*' element={<Error />}/>
+          </Routes>
+        </Layout>
+      </Router>
+      <Toast />
+    </>
   );
 }
 

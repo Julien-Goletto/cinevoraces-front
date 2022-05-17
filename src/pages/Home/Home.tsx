@@ -11,6 +11,7 @@ import JoinUs from './JoinUs/JoinUs';
 
 function Home() {
   const isLogged = useAppSelector<boolean>(isOnline);
+
   return (
     <>
       <Hero />

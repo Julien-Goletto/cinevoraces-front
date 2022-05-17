@@ -6,6 +6,7 @@ import { useAllMoviesQuery } from 'redux/api';
 
 function Films() {
   const { data, isLoading } = useAllMoviesQuery();
+  console.log(data);
   return(
     <section className={styles.films}>
       <Filters/>

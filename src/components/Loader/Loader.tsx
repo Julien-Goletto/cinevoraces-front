@@ -16,11 +16,11 @@ function Loader({isMaxed}: Loader) {
     <>
       { isMaxed && 
         <div className={styles['lds-container']}>
-          <LoadingAnim/>
+          <LoadingAnim />
         </div>
       }
       { !isMaxed && 
-          <LoadingAnim/>
+        <LoadingAnim />
       }
     </>
   );

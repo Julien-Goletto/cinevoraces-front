@@ -16,6 +16,8 @@ type ErrorPage = {
 };
 type FieldsetTextInput = { 
   label?: string,
+  onChange?: onChangeEventHandler,
+  value?: string,
   name: string,
   placeholder: string,
   type: string

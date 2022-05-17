@@ -29,6 +29,13 @@
   max-width: 299px;
   margin: 2em auto 0;
 }
+.rules {
+  font-size: .8em;
+  font-style: italic;
+  line-height: 1.2em;
+  margin-top: -10px;
+  padding: 0 .5em;
+}
 
 @include mix.breakpoint('tablet') {
   .register {

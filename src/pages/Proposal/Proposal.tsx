@@ -3,25 +3,21 @@ import MovieGrid from './MoviesGrid/MovieGrid';
 import Description from './Description/Description';
 import Search from './Search/Search';
 import { useAppDispatch, useAppSelector } from 'redux/hooks';
-import { getProposalData, getSearch, setEpisode } from 'redux/slices/proposal';
+import { getSearch, setEpisode } from 'redux/slices/proposal';
 import { Button } from 'components/Buttons/Button';
-import useTmdb from 'hooks/useTmdb';
+import { useTmdbQuery } from 'redux/apiTmdb';
 
 function Proposal() {
   const search = useAppSelector(getSearch);
-  const {loading, movies} = useTmdb(search, 15);
-  console.log(movies);
-  
-
+  const { data, isLoading } = useTmdbQuery(search);
   const dispatch = useAppDispatch();
-  const data = useAppSelector(getProposalData);
+  
   const handleSelect = (event: onChangeFormEvent) => {
     const selected = (event.target as HTMLSelectElement).value;
     dispatch(setEpisode(selected));
   };
   const handleSubmit = (e:any) => {
     e.preventDefault();
-    console.log(data);
   };
   return (
     <>
@@ -43,7 +39,7 @@ function Proposal() {
         <p className={styles.description}>Plus un film est <span>disponible</span>, plus il sera regardé. Surprenez - nous, mais ne négligez pas l’accessibilité !</p>
         <Search />
       </section>
-      <MovieGrid movies={movies} loading={loading} />
+      <MovieGrid movies={data} isLoading={isLoading} />
       <Description />
       <div className={styles.button}>
         <Button

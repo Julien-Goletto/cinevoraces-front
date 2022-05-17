@@ -4,6 +4,7 @@ import interactionSlice from './slices/interaction';
 import filterSlice from './slices/filter';
 import userSlice from './slices/user';
 import { api } from './api';
+import { apiTmdb } from './apiTmdb';
 import proposalSlice from './slices/proposal';
 
 export const store = configureStore({
@@ -13,10 +14,11 @@ export const store = configureStore({
     filter: filterSlice,
     proposal: proposalSlice,
     user: userSlice,
-    [api.reducerPath]: api.reducer
+    [api.reducerPath]: api.reducer,
+    [apiTmdb.reducerPath]: apiTmdb.reducer
   },
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(api.middleware)
+    getDefaultMiddleware().concat(api.middleware, apiTmdb.middleware)
 });
 
 export type AppDispatch = typeof store.dispatch;

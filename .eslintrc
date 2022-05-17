@@ -4,6 +4,7 @@
     "semi" : [1,"always"],
     "quotes" : [1, "single"],
     "jsx-quotes": [1, "prefer-single"],
-    "indent": [2, 2]
+    "indent": [2, 2],
+    "array-callback-return": 0
   }
 }

@@ -2,36 +2,35 @@ import { createSlice } from '@reduxjs/toolkit';
 import { RootState } from '../store';
 
 const initialState: FilterState = { 
-  // TODO: Must get data from DB
-  seasons: [
-    {name: 'Tout les films', value: 'all', isChecked: true}, 
-    {name: 'Saison 1', value: '1', isChecked: false}, 
-    {name: 'Saison 2', value: '2', isChecked: false}, 
-    {name: 'Saison 3', value: '3', isChecked: false}, 
-  ],
+  seasons: [],
   isViewed: [
     {name: 'Tous', value: 'all', isChecked: true},
     {name: 'Vus', value: 'viewed', isChecked: false},
     {name: 'À voir', value: 'not-viewed', isChecked: false},
   ],
-  tags: [
-    { 
-      tagName: 'Genres',
-      tags: [{name: 'Action', isChecked: false},{name: 'Épouvante', isChecked: false},{name: 'Historique', isChecked: false}]
-    },
-    { 
-      tagName: 'Pays',
-      tags: [{name: 'Alsace', isChecked: false},{name: 'Allemagne', isChecked: false},{name: 'Corse', isChecked: false},{name: 'États-Unis', isChecked: false}]
-    }
-  ],
-  periode: {baseValues: [1900,2077], stateValues: [1900, 2077]},
-  isDefault: true
+  tags: [],
+  periode: {baseValues: [1900, 2077], stateValues: [1900, 2077]},
+  query: '',
+  isDefault: true,
+  filterState: {
+    season_number: 'all',
+    genres: [],
+    countries: []
+  }
 };
 
 const filterSlice = createSlice({
   name: 'filter',
   initialState,
   reducers: {
+    initFilters(state, action) {
+      const {periode, seasons, tags} = action.payload;
+      state.periode = periode;
+      state.tags = tags;
+      state.seasons = seasons;
+      state.filterState.season_number = seasons[0].value;
+      // state.filterState.season_number = 3;
+    },
     resetAllFilters(state) {
       state.seasons.forEach((el, i) => {
         (i === 0) ? el.isChecked = true : el.isChecked = false;
@@ -48,7 +47,12 @@ const filterSlice = createSlice({
     },
     setSeasonFilter(state, action) {
       state.seasons.forEach((el) => {
-        (el.value === action.payload) ? el.isChecked = true : el.isChecked = false;
+        if (el.value === action.payload) {
+          el.isChecked = true;
+          state.filterState.season_number = Number(el);
+        } else {
+          el.isChecked = false;
+        }
       });
       state.isDefault = false;
     },
@@ -64,6 +68,16 @@ const filterSlice = createSlice({
           el.tags.forEach((el) => {
             if (el.name === action.payload.tag) {
               el.isChecked = !el.isChecked;
+              switch (action.payload.tagName) {
+              case 'Genres':
+                if (el.isChecked) {
+                  state.filterState.genres.push(el.name);
+                } else {
+                  let i = state.filterState.genres.indexOf(el.name);
+                  state.filterState.genres.splice(i, 1);
+                }
+                break;
+              }
             }});
         }});
       state.isDefault = false;
@@ -76,20 +90,27 @@ const filterSlice = createSlice({
       state.periode.stateValues[1] = action.payload;
       state.isDefault = false;
     },
+    setQuery(state, action) {
+      state.query = action.payload;
+    }
   }
 });
 
 export const filters = (state: RootState) => state.filter;
+export const filterState = (state: RootState) => state.filter.filterState;
+export const getQuery = (state: RootState) => state.filter.query;
 export const periodeBaseValues = (state: RootState) => state.filter.periode.baseValues;
 export const periodeStateValues = (state: RootState) => state.filter.periode.stateValues;
 
 export const { 
+  initFilters,
   resetAllFilters,
   setSeasonFilter,
   setIsViewedFilter,
   setTagFilter,
   setPeriodeMinVal, 
-  setPeriodeMaxVal 
+  setPeriodeMaxVal,
+  setQuery
 } = filterSlice.actions;
 
 export default filterSlice.reducer;

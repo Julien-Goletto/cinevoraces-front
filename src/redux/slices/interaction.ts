@@ -18,8 +18,6 @@ const interactionSlice = createSlice({
     setInactive(state) {
     },
     toggle(state, action) {
-      console.log(action.payload);
-      
       switch(action.payload) {
       case 'view':
         state.isView = !state.isView;

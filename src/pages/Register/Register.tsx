@@ -63,7 +63,7 @@ function Register() {
       return navigate('/');
     }
     if(isError) {
-      console.log(error);
+      console.error(error);
       dispatch(addToast({type:'error', text: 'Une erreur est survenue'}));
     }
   },[error, isLoading, isError, isSuccess, dispatch, navigate]);

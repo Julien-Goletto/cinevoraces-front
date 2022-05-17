@@ -9,21 +9,16 @@
   margin: 2em 0;
   & button {
     width: fit-content;
+    
   }
 }
 .search-bar {
-  display: flex;
-  gap: .5em;
-  background-color: var.$secondary-background;
-  border-radius: 10px;
-  padding: .8em 1em;
   max-width: 400px;
-  font-size: 0.875rem;
-  font-weight: 500;
 }
     
 @include mix.breakpoint('tablet') {
   .filters {
+    align-items: center;
     flex-direction: row;
     justify-content: space-between;
   }

@@ -43,11 +43,12 @@ function DropDownMenu() {
         label='season'
         handler={handleSeasonFilter}
       />
-      <FieldsetRadio 
+      {/* TODO: Make this work */}
+      {/* <FieldsetRadio 
         array={isViewed}
         label='isViewed'
         handler={handleIsViewedFilter}
-      />
+      /> */}
       { tags.map(({tagName, tags}, key) => 
         <FieldsetCheckbox
           key={key}

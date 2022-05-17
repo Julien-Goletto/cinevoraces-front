@@ -3,10 +3,10 @@ import Presentation from './Presentation';
 import Description from './Description';
 import styles from './Content.module.scss';
 
-// C CASSE
+// FIXME:
 
 function Content({ movie, isLoading }: Content) {
-  console.log(movie);
+  // console.log(movie);
   
   if (!isLoading) {
     return (

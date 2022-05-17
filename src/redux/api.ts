@@ -5,7 +5,7 @@ export const api = createApi({
   reducerPath: 'api',
   baseQuery: fetchBaseQuery({
     // baseUrl: 'http://localhost:3005'
-    baseUrl: 'http://localhost:3005',
+    baseUrl: process.env.REACT_APP_API,
     prepareHeaders: (headers, {getState}) => {
       const token = (getState() as any).user.access_jwt;
       if (token) {
@@ -35,9 +35,7 @@ export const api = createApi({
     }),
     metricsById: build.query<any, number>({
       query: (id:number) => {
-        console.log(id);
         return ({url: `/v1/metrics/${id}`, method: 'GET', credentials: 'include'});
-        
       }
     }),
     refreshToken: build.mutation<any, string>({

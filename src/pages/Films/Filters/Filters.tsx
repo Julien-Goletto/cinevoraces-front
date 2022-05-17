@@ -1,12 +1,22 @@
 import { useState } from 'react';
 import DropDownMenu from '../DropDownMenu/DropDownMenu';
 import { Button } from 'components/Buttons/Button';
+import Input from 'components/Input/Input';
+import { getQuery, setQuery } from 'redux/slices/filter';
 import styles from './Filters.module.scss';
+import { useAppSelector, useAppDispatch } from 'redux/hooks';
 
 function Filters() {
   const [isDropMenu, SetIsDropMenu] = useState(false);
+  const dispatch = useAppDispatch();
+  const query = useAppSelector(getQuery);
+
   const handleDropDownState = () => {
     (isDropMenu) ? SetIsDropMenu(false) : SetIsDropMenu(true);
+  };
+  const onChangeHandler = (event: onChangeEvent) => {
+    const value = event.target.value;
+    dispatch(setQuery(value));
   };
   
   return(
@@ -22,10 +32,13 @@ function Filters() {
         }
       </Button>
       <div className={styles['search-bar']}>
-        <img src='/images/input_search.svg' alt='' />
-        <input 
-          placeholder='Filtrer par titre'
+        <Input 
+          label='' 
+          name='search'
           type='text'
+          placeholder='Recherche un film'
+          value={query}
+          onChange={onChangeHandler}
         />
       </div>
       { isDropMenu && <DropDownMenu/> }

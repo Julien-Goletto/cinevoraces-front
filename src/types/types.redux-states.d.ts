@@ -27,7 +27,14 @@ interface FilterState {
   isViewed: radioFilter[],
   tags: checkboxFilter[],
   periode: periodeFilter,
-  isDefault: boolean
+  query: string,
+  isDefault: boolean,
+  filterState: DBMovieFilter
+}
+interface FilterStateConstructor {
+  seasons: radioFilter[],
+  tags: checkboxFilter[],
+  periode: periodeFilterConstructor,
 }
 type radioFilter = { 
   name: string,
@@ -42,4 +49,5 @@ type tag = {
   name: string,
   isChecked: boolean
 }
-type periodeFilter = { [key: string]: [number, number] }
+type periodeFilter = { [key: string]: [number , number] }
+type periodeFilterConstructor = { [key: string]: number[] }

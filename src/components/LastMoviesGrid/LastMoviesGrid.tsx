@@ -1,36 +1,45 @@
 import { Button } from 'components/Buttons/Button';
+import { useAllMoviesQuery } from 'redux/api';
 import styles from './LastMoviesGrid.module.scss';
-
-const fake_data: {[key:string]: any}[] = [
-  { title: 'Jawas', cover: 'fake_data/covers/cover_1.jpg', id: 1},
-  { title: 'Mr. Clean', cover: 'fake_data/covers/cover_2.jpg', id: 2},
-  { title: 'Stay in', cover: 'fake_data/covers/cover_3.jpg', id: 3},
-  { title: 'L.A. Noire', cover: 'fake_data/covers/cover_4.jpg', id: 4},
-  { title: 'I, Phone', cover: 'fake_data/covers/cover_5.jpg', id: 5}
-];
+import { useEffect, useState } from 'react';
+import Loader from 'components/Loader/Loader';
 
 function LastMoviesGrid() {
-  return(
-    <div className={styles['last-movies']}>
-      <h2 className={styles.title}>Les derniers ajouts de la communauté</h2>
-      <div className={styles.grid}>
-        {fake_data.map(({cover, title, id}) => 
-          <div className={styles.poster} key={id}>
-            <img 
-              className={styles.img}
-              src={cover} alt={`Affiche du film ${title}`}
-            />
-          </div>
-        )}
-      </div>
 
-      <Button
-        href='/films'
-        styleMod='fill-rounded'
-      >
-        Voir la liste des films
-      </Button>
-    </div>
+  const {data, isLoading} = useAllMoviesQuery();
+  const [lastMovies, setLastMovies] = useState<DBMovie[]>();
+
+  useEffect(()=> {
+    if(!isLoading && data) {
+      setLastMovies([...data].reverse().slice(0,5));
+    }
+  }, [data, isLoading]);
+  
+
+  return(
+    (lastMovies && !isLoading) ?
+      <div className={styles['last-movies']}>
+        <h2 className={styles.title}>Les derniers ajouts de la communauté</h2>
+        <div className={styles.grid}>
+          {lastMovies.map(({poster_url, french_title, id}) => 
+            <div className={styles.poster} key={id}>
+              <a href={`/film/${id}`}>
+                <img 
+                  className={styles.img}
+                  src={poster_url} alt={`Affiche du film ${french_title}`}
+                />
+              </a>
+            </div>
+          )}
+        </div>
+
+        <Button
+          href='/films'
+          styleMod='fill-rounded'
+        >
+          Voir la liste des films
+        </Button>
+      </div> : <Loader />
   );
 }
 

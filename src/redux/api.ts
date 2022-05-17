@@ -33,16 +33,18 @@ export const api = createApi({
       query: () => ({url: '/v1/metrics', method: 'GET'}),
       transformResponse: (res:any) => res[0]
     }),
+    metricsById: build.query<any, number>({
+      query: (id:number) => {
+        console.log(id);
+        return ({url: `/v1/metrics/${id}`, method: 'GET', credentials: 'include'});
+        
+      }
+    }),
     refreshToken: build.mutation<any, string>({
       query: (refreshToken?:string) => {
         return ({url: '/v1/refreshTokens', method: 'GET', credentials: 'include', headers: {
           authorization: `Bearer ${refreshToken}`
-        },
-        transformResponse: (res:any, meta:any, arg:any) =>{
-          console.log(res.data);
-          
-        }
-        });
+        }});
       }
     })
   })
@@ -54,5 +56,6 @@ export const {
   useAllMoviesQuery,
   useOneMovieQuery,
   useAllMetricsQuery,
-  useRefreshTokenMutation
+  useRefreshTokenMutation,
+  useMetricsByIdQuery
 } = api;

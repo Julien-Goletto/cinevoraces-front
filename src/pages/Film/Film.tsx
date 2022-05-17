@@ -2,10 +2,8 @@ import { Button } from 'components/Buttons/Button';
 import Content from './Content';
 import styles from './Film.module.scss';
 import Comment from './Comment';
-import fake_data from './fakedata.js';
 import { useOneMovieQuery, useMovieReviewsQuery } from 'redux/api';
 import { useParams } from 'react-router-dom';
-import { useEffect } from 'react';
 import Loader from 'components/Loader/Loader';
 
 

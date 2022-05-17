@@ -37,14 +37,14 @@ export const api = createApi({
       query: (refreshToken?:string) => {
         return ({url: '/v1/refreshTokens', method: 'GET', credentials: 'include', headers: {
           authorization: `Bearer ${refreshToken}`
-        },
-        transformResponse: (res:any, meta:any, arg:any) =>{
-          console.log(res.data);
-          
         }
         });
       }
+    }),
+    movieReviews: build.query<any, number>({
+      query: (id) => ({url: `v1/reviews/${id}`, method: 'GET', credentials: 'include'}),
     })
+
   })
 });
 
@@ -54,5 +54,6 @@ export const {
   useAllMoviesQuery,
   useOneMovieQuery,
   useAllMetricsQuery,
-  useRefreshTokenMutation
+  useRefreshTokenMutation,
+  useMovieReviewsQuery,
 } = api;

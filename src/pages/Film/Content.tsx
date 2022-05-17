@@ -6,8 +6,6 @@ import styles from './Content.module.scss';
 // C CASSE
 
 function Content({ movie, isLoading }: Content) {
-  console.log(movie);
-  
   if (!isLoading) {
     return (
       <>
@@ -34,7 +32,7 @@ function Content({ movie, isLoading }: Content) {
           </div>
           <Description movie={movie} />
           <Presentation pic={'/fake_data/pictures/profilpic.png'} name={'Jean Cule'} date='7 janvier 2022'
-            text={movie.presentation}/>
+            text={movie.presentation} rating={2}/>
         </div>
       </>
     );

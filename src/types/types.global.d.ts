@@ -6,7 +6,8 @@ type CommentProps = {
   name: string,
   date: string,
   text: string,
-  edit?: boolean
+  edit?: boolean,
+  rating: number
 };
 type DBMovie = {
   id: number,

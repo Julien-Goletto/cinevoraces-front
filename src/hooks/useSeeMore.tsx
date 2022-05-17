@@ -2,10 +2,11 @@ import { useState } from 'react';
 import styles from './useSeeMore.module.scss';
 
 export default function useSeeMore(text:string, max:number = 500) {
-  const textLenght = text.length;
+
   const [maxChar, setMaxChar] = useState<number>(max);
   const [see, setSee] = useState<string>('Voir plus');
-  
+  if(!text) return null;
+  const textLenght = text.length;
   const seeMore = () => {
     if(maxChar <= max) {
       setMaxChar(textLenght);

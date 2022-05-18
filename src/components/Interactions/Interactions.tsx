@@ -7,6 +7,8 @@ import { ReactComponent as Bookmark } from './ico/bookmark.svg';
 import { toggle } from 'redux/slices/interaction';
 import { useAppDispatch, useAppSelector } from 'redux/hooks';
 import StarRating from 'components/StarRating/StarRating';
+import { isOnline } from 'redux/slices/user';
+import { addToast } from 'redux/slices/global';
 
 type InteractionsProps = {
   type: string,
@@ -23,6 +25,7 @@ function Interactions({type, count}: InteractionsProps) {
   const [starIsOpen, setStarIsOpen] = useState(false);
   const [animIsActive, setAnimActive] = useState(false);
   const [wrapperIsDisplayed, setWrapperIsDisplayed] = useState(false);
+  const isLogged = useAppSelector(isOnline);
   const dispatch = useAppDispatch();
   const active = useAppSelector((state) => {
     let entrie = Object.entries(state.interaction).find(el => el[0] === `is${type.charAt(0).toUpperCase() + type.slice(1)}`);
@@ -42,7 +45,13 @@ function Interactions({type, count}: InteractionsProps) {
       return null;
     }
   };
-  const dispatchType = () => {dispatch(toggle(type));};
+  const dispatchType = () => {
+    if (isLogged) {
+      dispatch(toggle(type));
+    } else {
+      dispatch(addToast({type: 'warn', text: 'Vous devez être connecté pour intéragir.'}));
+    }
+  };
   const starMenuHandler = () => {
     setWrapperIsDisplayed(true);
     setAnimActive(true);

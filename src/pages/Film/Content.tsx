@@ -2,8 +2,10 @@ import Interactions from 'components/Interactions/Interactions';
 import Presentation from './Presentation';
 import Description from './Description';
 import styles from './Content.module.scss';
+import { useEffect } from 'react';
 
 function Content({ movie, isLoading }: Content) {
+
   if (!isLoading) {
     return (
       <>

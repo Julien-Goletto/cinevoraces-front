@@ -42,6 +42,7 @@ function Register() {
     } else if (user.password !== user.confirm) {
       dispatchToastError('Le mot de passe ne correspond pas au champ de confirmation.');
     } else {
+      delete user.confirm;
       const res = await addUser(user); // eslint-disable-line
     }
   };

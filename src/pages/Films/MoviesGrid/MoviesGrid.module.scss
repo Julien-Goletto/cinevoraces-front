@@ -3,7 +3,7 @@
 .grid {
   display: grid;
   gap: .5em;
-  grid-template-columns: repeat(auto-fit, minmax(115px, 1fr));
+  grid-template-columns: repeat(3, minmax(115px, 1fr));
   margin-bottom: 2.5rem;
   min-height: 5em;
 }
@@ -26,13 +26,18 @@
   display: none;
 }
 
+@media screen and (max-width: 420px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
 @include mix.breakpoint('tablet') {
   .grid {
-    grid-template-columns: repeat(auto-fit, minmax(175px, 1fr));
+    grid-template-columns: repeat(4, minmax(175px, 1fr));
   }
 }
 @include mix.breakpoint('desktop') {
   .grid {
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-template-columns: repeat(6, minmax(200px, 1fr));
   }
 }

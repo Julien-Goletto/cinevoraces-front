@@ -31,6 +31,9 @@ const filterSlice = createSlice({
       state.filterState.season_number = seasons[0].value;
     },
     resetAllFilters(state) {
+      const initialFilter = initialState.filterState;
+      state.filterState = initialFilter;
+      
       state.seasons.forEach((el, i) => {
         (i === 0) ? el.isChecked = true : el.isChecked = false;
       });

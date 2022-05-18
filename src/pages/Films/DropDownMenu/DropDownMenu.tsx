@@ -2,9 +2,10 @@ import { useAppDispatch, useAppSelector } from 'redux/hooks';
 import { filters, resetAllFilters, setSeasonFilter, setIsViewedFilter, setTagFilter } from 'redux/slices/filter';
 import { FieldsetRadio, FieldsetCheckbox, FieldsetDate } from './Fieldsets';
 import styles from './DropDownMenu.module.scss';
+import { useEffect } from 'react';
 
 function DropDownMenu() {
-  const { seasons, isViewed, tags, isDefault } = useAppSelector(filters);
+  const {seasons, isViewed, tags, isDefault, filterState } = useAppSelector(filters);
   const dispatch = useAppDispatch();
   
   const handleReset = (e:mouseEvent) =>  {
@@ -27,17 +28,23 @@ function DropDownMenu() {
     };
     dispatch(setTagFilter(object));
   };
+  useEffect(()=> {
+    console.log('caca');
+    
+  },[seasons, isViewed, tags, isDefault, filterState]);
+  
 
   return(
     <form className={styles['drop-down-menu']}>
-      <button
+      {/* TODO: Make this work */}
+      {/* <button
         className={`
         ${(isDefault) ? styles['fieldset-reset--hidden'] : styles['fieldset-reset']}
         `}
         onClick={handleReset}
       >
         <img src='/images/arrow-counterclockwise.svg' alt='' />
-      </button>
+      </button> */}
       <FieldsetRadio 
         array={seasons}
         label='season'

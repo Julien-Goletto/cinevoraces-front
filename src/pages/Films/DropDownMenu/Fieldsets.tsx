@@ -29,6 +29,8 @@ function FieldsetRadio({array, label, handler}: FieldsetRadio) {
 
 function FieldsetCheckbox({ array, tagName, handler }: FieldsetCheckbox) {
   const [isOpen, setIsOpen] = useState(false);
+  console.log(tagName);
+  
   const handleTagsDropDown = (e:mouseEvent) => {
     e.preventDefault();
     (isOpen) ? setIsOpen(false) : setIsOpen(true);

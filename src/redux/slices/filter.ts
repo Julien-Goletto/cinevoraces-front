@@ -106,6 +106,7 @@ const filterSlice = createSlice({
 
 export const filters = (state: RootState) => state.filter;
 export const filterState = (state: RootState) => state.filter.filterState;
+export const filterYearState = (state: RootState) => state.filter.periode.stateValues;
 export const getQuery = (state: RootState) => state.filter.query;
 export const periodeBaseValues = (state: RootState) => state.filter.periode.baseValues;
 export const periodeStateValues = (state: RootState) => state.filter.periode.stateValues;

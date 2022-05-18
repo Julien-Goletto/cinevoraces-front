@@ -22,20 +22,29 @@ function Films() {
     if (data && filters) {
       let filteredMovies: DBMovie[] = [...data];
       if (filters.season_number !== 'all') {
-        filteredMovies.forEach((movie: DBMovie, i: number) => {
-          (movie.season_number !== filters.season_number) && filteredMovies.splice(i, 1);
-        });
+        filteredMovies = filteredMovies.filter(
+          (movie:DBMovie)=> movie.season_number === filters.season_number
+        );
       }
-      filteredMovies.forEach((movie: DBMovie, i: number) => {
-        const intersection = filters.genres.filter( (genre) => movie.genres.includes(genre));
-        (intersection.length < 0) && filteredMovies.splice(i, 1);
-      });
-      filteredMovies.forEach((movie: DBMovie, i: number) => {
-        const intersection = filters.countries.filter( (country) => movie.countries.includes(country));
-        (intersection.length > 0) && filteredMovies.splice(i, 1);
-      });
+      if(filters.genres.length > 0) {
+        filteredMovies = filteredMovies.filter((movie:DBMovie) => {
+          let check = true;
+          for(let genre of movie.genres) {
+            check = filters.genres.includes(genre);
+          }
+          return check;
+        });
+      } 
+      if(filters.countries.length > 0) {
+        filteredMovies = filteredMovies.filter((movie:DBMovie) => {
+          let check = true;
+          for(let country of movie.countries) {
+            check = filters.countries.includes(country);
+          }
+          return check;
+        });
+      } 
       setMovies(filteredMovies);
-      console.log(filteredMovies);
     }
   }, [data, filters]);
   

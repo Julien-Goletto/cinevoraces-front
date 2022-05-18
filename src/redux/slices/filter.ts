@@ -29,7 +29,6 @@ const filterSlice = createSlice({
       state.tags = tags;
       state.seasons = seasons;
       state.filterState.season_number = seasons[0].value;
-      // state.filterState.season_number = 3;
     },
     resetAllFilters(state) {
       state.seasons.forEach((el, i) => {
@@ -47,9 +46,10 @@ const filterSlice = createSlice({
     },
     setSeasonFilter(state, action) {
       state.seasons.forEach((el) => {
+        
         if (el.value === action.payload) {
           el.isChecked = true;
-          state.filterState.season_number = Number(el);
+          state.filterState.season_number = el.value === 'all' ? 'all' : Number(el.value);
         } else {
           el.isChecked = false;
         }
@@ -75,6 +75,14 @@ const filterSlice = createSlice({
                 } else {
                   let i = state.filterState.genres.indexOf(el.name);
                   state.filterState.genres.splice(i, 1);
+                }
+                break;
+              case 'Pays':
+                if (el.isChecked) {
+                  state.filterState.countries.push(el.name);
+                } else {
+                  let i = state.filterState.countries.indexOf(el.name);
+                  state.filterState.countries.splice(i, 1);
                 }
                 break;
               }

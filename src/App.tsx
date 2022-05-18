@@ -4,6 +4,7 @@ import {
   BrowserRouter as Router,
   Routes,
   Route,
+  Navigate
 } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from 'redux/hooks';
 import { isOnline, setUser } from 'redux/slices/user';
@@ -21,11 +22,13 @@ import Proposal from './pages/Proposal/Proposal';
 import { useRefreshTokenMutation } from 'redux/api';
 
 function App() {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const isLogged = useAppSelector<boolean>(isOnline);
   const dispatch = useAppDispatch();
   const [refreshToken, {data, isLoading, isError}] = useRefreshTokenMutation();
 
   //wait for refreshToken cycle to be done
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [ready, setReady] = useState<boolean>(false);
 
 
@@ -67,8 +70,15 @@ function App() {
             <Route path='/register' element={<Register />}/>
             <Route path='/user' element={<User />}/>
             <Route path='/user/:id' element={<User />}/>
-            <Route path='/proposal' 
+            {/* <Route path='/proposal' 
               element={(isLogged) ? <Proposal /> : <Error errorNum={401}/>}
+            /> */}
+            <Route path='/proposal' 
+              element={
+                <RequireAuth redirectTo={'/'}>
+                  <Proposal /> 
+                </RequireAuth>
+              }
             />
             <Route path='*' element={<Error />}/>
           </Routes>
@@ -77,6 +87,14 @@ function App() {
       <Toast />
     </>
   );
+}
+
+function RequireAuth({ children, redirectTo }:{ children:any, redirectTo:any }) {
+  const [resfreshToken, {isError}] = useRefreshTokenMutation();
+  useEffect(()=> {
+    resfreshToken();
+  }, []);
+  return !isError ? children : <Navigate to={redirectTo} />;
 }
 
 export default App;

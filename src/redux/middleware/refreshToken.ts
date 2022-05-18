@@ -11,8 +11,6 @@ export const rtkQueryErrorLogger: Middleware =
     
     // RTK Query uses `createAsyncThunk` from redux-toolkit under the hood, so we're able to utilize these matchers!
     if (isRejectedWithValue(action)) {
-      console.log(action.meta.arg.endpointName);
-      console.log(action.payload.originalStatus);
 
       if(action.meta.arg.endpointName !== 'refreshToken' && action.payload.originalStatus === 401) {
         apiAction.dispatch((api.endpoints.refreshToken.initiate() as any))

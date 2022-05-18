@@ -80,7 +80,6 @@ export const apiTmdb = createApi({
 
           const mov:any = 
           {
-            publishing_date: '1964-01-20',
             season_id: 3,
             french_title: movie.title,
             original_title: movie.original_title,

@@ -3,6 +3,7 @@ import { RootState } from '../store';
 
 const initialState = { 
   episode_selected: null,
+  episode_publish_date: null,
   searchMovie: '',
   controlledInput: '',
   movie_selected: {
@@ -29,7 +30,8 @@ const proposalSlice = createSlice({
   initialState,
   reducers: {
     setEpisode(state, action) {
-      state.episode_selected = action.payload;
+      state.episode_selected = action.payload.episode_selected;
+      state.episode_publish_date = action.payload.episode_publish_date;
     },
     setSearch(state, action) {
       state.searchMovie = action.payload;

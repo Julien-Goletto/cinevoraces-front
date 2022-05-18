@@ -8,7 +8,6 @@ import { Button } from 'components/Buttons/Button';
 import { useTmbdCustomDetailsQuery } from 'redux/apiTmdb';
 import { addToast } from 'redux/slices/global';
 import { usePostMovieMutation, useRefreshTokenMutation } from 'redux/api';
-import { userLogged } from 'redux/slices/user';
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 
@@ -16,7 +15,7 @@ function Proposal() {
   const search = useAppSelector(getSearch);
   const navigate = useNavigate();
   const { data, isLoading } = useTmbdCustomDetailsQuery(search);
-  const [triger, {data: res, isError, error}] = usePostMovieMutation();
+  const [triger, postHandle] = usePostMovieMutation();
   const [refreshToken, {error: tokenError, isError: isTokenError, isSuccess: isSuccessToken}] = useRefreshTokenMutation();
   const proposalMovie = useAppSelector(getProposalData);
   const dispatch = useAppDispatch();
@@ -42,7 +41,14 @@ function Proposal() {
     if(isTokenError) {
       navigate('/');
     }
-  }, [isTokenError]);
+    if(postHandle.isSuccess) {
+      dispatch(addToast({type: 'success', text: 'Votre film à bien été enregistrer'}));
+      setTimeout(()=> {
+        navigate('/');
+      },1000);
+    }
+    
+  }, [isTokenError,postHandle]);
 
   
   return (

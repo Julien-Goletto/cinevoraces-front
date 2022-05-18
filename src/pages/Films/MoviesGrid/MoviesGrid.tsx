@@ -5,6 +5,7 @@ import { useState } from 'react';
 
 function MoviesGrid({ movies, isLoading }: MovieGrid) {
   const [isImgLoading, setIsImgLoading] = useState(true);
+  
   const onLoadHandler = () => {
     setTimeout(() => {setIsImgLoading(false);}, 1000);
   };

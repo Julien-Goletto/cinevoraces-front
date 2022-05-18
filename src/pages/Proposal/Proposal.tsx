@@ -3,22 +3,47 @@ import MovieGrid from './MoviesGrid/MovieGrid';
 import Description from './Description/Description';
 import Search from './Search/Search';
 import { useAppDispatch, useAppSelector } from 'redux/hooks';
-import { getSearch, setEpisode } from 'redux/slices/proposal';
+import { getProposalData, getSearch, setEpisode } from 'redux/slices/proposal';
 import { Button } from 'components/Buttons/Button';
-import { useTmdbQuery } from 'redux/apiTmdb';
+import { useTmbdCustomDetailsQuery } from 'redux/apiTmdb';
+import { addToast } from 'redux/slices/global';
+import { usePostMovieMutation, useRefreshTokenMutation } from 'redux/api';
+import { userLogged } from 'redux/slices/user';
+import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
 
 function Proposal() {
   const search = useAppSelector(getSearch);
-  const { data, isLoading } = useTmdbQuery(search);
+  const navigate = useNavigate();
+  const { data, isLoading } = useTmbdCustomDetailsQuery(search);
+  const [triger, {data: res, isError, error}] = usePostMovieMutation();
+  const [refreshToken, {error: tokenError, isError: isTokenError, isSuccess: isSuccessToken}] = useRefreshTokenMutation();
+  const proposalMovie = useAppSelector(getProposalData);
   const dispatch = useAppDispatch();
   
   const handleSelect = (event: onChangeFormEvent) => {
     const selected = (event.target as HTMLSelectElement).value;
     dispatch(setEpisode(selected));
   };
-  const handleSubmit = (e:any) => {
+  const handleSubmit = async (e:any) => {
     e.preventDefault();
+    const { presentation, user_id } = proposalMovie;
+    if(!presentation || !user_id) {
+      dispatch(addToast({type: 'error', text:'Formulaire invalide'}));
+      console.log(proposalMovie); 
+      return;
+    }
+    await refreshToken();
+    await triger(proposalMovie);
   };
+
+  useEffect(()=> {    
+    if(isTokenError) {
+      navigate('/');
+    }
+  }, [isTokenError]);
+
+  
   return (
     <>
       <section className={styles.proposal}>

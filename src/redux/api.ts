@@ -33,18 +33,16 @@ export const api = createApi({
       query: () => ({url: '/v1/metrics', method: 'GET'}),
       transformResponse: (res:any) => res[0]
     }),
-    refreshToken: build.mutation<any, string>({
-      query: (refreshToken?:string) => {
-        return ({url: '/v1/refreshTokens', method: 'GET', credentials: 'include', headers: {
-          authorization: `Bearer ${refreshToken}`
-        }
-        });
-      }
+    refreshToken: build.mutation<any, void>({
+      query: () => {
+        return ({url: '/v1/refreshTokens', method: 'GET', credentials: 'include'});
+      },
     }),
     movieReviews: build.query<any, number>({
       query: (id) => ({url: `v1/reviews/${id}`, method: 'GET', credentials: 'include'}),
-    })
-
+    }),
+    postMovie: build.mutation<any, any>({
+      query: ((proposal) => ({url: 'v1/movies/newmovie/', method: 'POST', credentials: 'include', body: proposal}))})
   })
 });
 
@@ -53,6 +51,7 @@ export const {
   useUserLoginMutation,
   useAllMoviesQuery,
   useOneMovieQuery,
+  usePostMovieMutation,
   useAllMetricsQuery,
   useRefreshTokenMutation,
   useMovieReviewsQuery,

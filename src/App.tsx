@@ -32,7 +32,7 @@ function App() {
   useEffect(()=>{
     const token = Cookies.get('refreshToken');
     if(token) {
-      refreshToken(token);
+      refreshToken();
     } else return;
 
   }, [refreshToken]);

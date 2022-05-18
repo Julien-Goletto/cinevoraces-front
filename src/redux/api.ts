@@ -1,4 +1,3 @@
-import { RootState } from './store';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 export const api = createApi({
@@ -42,7 +41,14 @@ export const api = createApi({
       query: (id) => ({url: `v1/reviews/${id}`, method: 'GET', credentials: 'include'}),
     }),
     postMovie: build.mutation<any, any>({
-      query: ((proposal) => ({url: 'v1/movies/newmovie/', method: 'POST', credentials: 'include', body: proposal}))})
+      query: ((proposal) => ({url: 'v1/movies/newmovie/', method: 'POST', credentials: 'include', body: proposal}))}), 
+    metricsById: build.query<any, number>({
+      query: (id:number) => {
+        console.log(id);
+        return ({url: `/v1/metrics/${id}`, method: 'GET', credentials: 'include'});
+        
+      }
+    })
   })
 });
 
@@ -55,4 +61,5 @@ export const {
   useAllMetricsQuery,
   useRefreshTokenMutation,
   useMovieReviewsQuery,
+  useMetricsByIdQuery
 } = api;

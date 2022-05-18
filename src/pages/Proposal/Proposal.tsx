@@ -25,9 +25,10 @@ function Proposal() {
     const selected = (event.target as HTMLSelectElement).value;
     dispatch(setEpisode(selected));
   };
+  
   const handleSubmit = async (e:any) => {
     e.preventDefault();
-    const { presentation, user_id } = proposalMovie;
+    const { presentation, user_id }: any = proposalMovie;
     if(!presentation || !user_id) {
       dispatch(addToast({type: 'error', text:'Formulaire invalide'}));
       console.log(proposalMovie); 

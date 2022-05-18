@@ -62,7 +62,6 @@ function App() {
         <Layout>
           <Routes>
             <Route path='/' element={<Home />}/>
-            <Route path='/film' element={<Film />}/>
             <Route path='/film/:id' element={<Film />}/>
             <Route path='/films' element={<Films />}/>
             <Route path='/register' element={<Register />}/>

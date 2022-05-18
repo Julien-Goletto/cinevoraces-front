@@ -1,4 +1,3 @@
-import { RootState } from './store';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 export const api = createApi({
@@ -33,18 +32,21 @@ export const api = createApi({
       query: () => ({url: '/v1/metrics', method: 'GET'}),
       transformResponse: (res:any) => res[0]
     }),
+    refreshToken: build.mutation<any, void>({
+      query: () => {
+        return ({url: '/v1/refreshTokens', method: 'GET', credentials: 'include'});
+      },
+    }),
+    movieReviews: build.query<any, number>({
+      query: (id) => ({url: `v1/reviews/${id}`, method: 'GET', credentials: 'include'}),
+    }),
+    postMovie: build.mutation<any, any>({
+      query: ((proposal) => ({url: 'v1/movies/newmovie/', method: 'POST', credentials: 'include', body: proposal}))}), 
     metricsById: build.query<any, number>({
       query: (id:number) => {
         console.log(id);
         return ({url: `/v1/metrics/${id}`, method: 'GET', credentials: 'include'});
         
-      }
-    }),
-    refreshToken: build.mutation<any, string>({
-      query: (refreshToken?:string) => {
-        return ({url: '/v1/refreshTokens', method: 'GET', credentials: 'include', headers: {
-          authorization: `Bearer ${refreshToken}`
-        }});
       }
     })
   })
@@ -55,7 +57,9 @@ export const {
   useUserLoginMutation,
   useAllMoviesQuery,
   useOneMovieQuery,
+  usePostMovieMutation,
   useAllMetricsQuery,
   useRefreshTokenMutation,
+  useMovieReviewsQuery,
   useMetricsByIdQuery
 } = api;

@@ -5,8 +5,22 @@ const initialState = {
   episode_selected: null,
   searchMovie: '',
   controlledInput: '',
-  movie_selected: {} ,
-  description_movie: ''
+  movie_selected: {
+    french_title: null,
+    original_title: null,
+    poster_url: null,
+    directors: null,
+    release_date: null,
+    runtime: null,
+    casting: null,
+    presentation: null,
+    publishing_date: null,
+    user_id: null,
+    season_id: null,
+    movie_genres: null,
+    movie_languages: null,
+    movie_countries: null
+  }
 };
 
 
@@ -24,7 +38,7 @@ const proposalSlice = createSlice({
       state.controlledInput = action.payload;
     },
     setDescription(state, action) {
-      state.description_movie = action.payload;
+      state.movie_selected.presentation = action.payload;
     },
     setSelectedMovie(state, action) {
       state.movie_selected = action.payload;
@@ -35,13 +49,13 @@ const proposalSlice = createSlice({
 export const getEpisode = (state: RootState) => state.proposal.episode_selected;
 export const getSearch = (state: RootState) => state.proposal.searchMovie;
 export const getInputValue = (state: RootState) => state.proposal.controlledInput;
-export const getDescription = (state: RootState) => state.proposal.description_movie;
+export const getDescription = (state: RootState) => state.proposal.movie_selected.presentation;
 export const getSelectedMovie = (state: RootState) => state.proposal.movie_selected;
 export const getProposalData = (state: RootState) => {
   const data = {
     ...state.proposal.movie_selected,
-    episode: state.proposal.episode_selected,
-    presentation: state.proposal.description_movie
+    presentation: state.proposal.movie_selected.presentation,
+    user_id: state.user.id
   };
   return data;
 };

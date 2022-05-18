@@ -5,7 +5,6 @@ import Loader from 'components/Loader/Loader';
 
 function MoviesGrid({ movies, isLoading }: MovieGrid) {
   const [isImgLoading, setIsImgLoading] = useState(true);
-
   const onLoadHandler = () => {
     setTimeout(() => {setIsImgLoading(false);}, 1000);
   };

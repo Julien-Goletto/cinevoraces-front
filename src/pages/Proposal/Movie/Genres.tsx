@@ -1,16 +1,11 @@
 import styles from './Movie.module.scss';
-import { useTmdbDetailsQuery } from 'redux/apiTmdb';
 
-function Genres ({id}: {id: number}) {
-  const { data } = useTmdbDetailsQuery(String(id));
+function Genres ({genres}: {genres: string[]}) {
   return(
     <div className={styles.genres}>
-      { data &&
+      { genres &&
       <>
-        Genre{(data.length > 1) && 's'} :
-        { data.map(({name, id}: {name: string, id: number}, index: number) => {
-          return <span key={id}> {name}{(index + 1 < data.length) && ', '}</span>;
-        })}
+        Genre{genres.length > 0 ? 's' : ''} : {genres.join(', ')}
       </>
       }
     </div>

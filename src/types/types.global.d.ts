@@ -6,7 +6,8 @@ type CommentProps = {
   name: string,
   date: string,
   text: string,
-  edit?: boolean
+  edit?: boolean,
+  rating: number
 };
 type DBMovie = {
   id: number,
@@ -42,7 +43,28 @@ type TMDBMovie = {
   title: string
   release_date: string,
   poster_path: string,
+  original_title?: string
+  poster_url?: string
 }
+type ProposalMovie = {
+  id?: number,
+  episode?: string
+  french_title: string,
+  original_title: string,
+  poster_url: string,
+  directors: string[],
+  release_date: string,
+  runtime: number,
+  casting: string[],
+  presentation?: string,
+  publishing_date?: string,
+  user_id?: number,
+  season_id?: number,
+  movie_genres: string[],
+  movie_languages: string[],
+  movie_countries: string[],
+}
+
 type Director = {
   job: string,
   name: string,

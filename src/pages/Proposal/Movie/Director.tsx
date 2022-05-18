@@ -1,25 +1,17 @@
 import styles from './Movie.module.scss';
-import { useTmdbCrewQuery } from 'redux/apiTmdb';
 
-function Director ({id}: {id: number}) {
-  const { data } = useTmdbCrewQuery(String(id));
-  const directors: string[] = [];
-  if (data) {
-    data.forEach(({job, name}: {[key: string]: string}) => {
-      (job === 'Producer') && directors.push(name);
-    });}
-
+function Director ({directors}: {directors: string[]}) {
+  //SET max director to 3. This avoid large string.
+  if(directors) directors = directors.slice(0,3);
+  
   return(
     <div className={styles.rea}>
-      { data &&
+      { (directors && directors.length > 0) &&
       <>
-        Réalisateur{(directors.length > 1) && 's'} :
-        { (directors.length === 0) && <span> N/C</span> }
-        { directors.map((member, index) => {
-          return <span key={index}> {member}{(index + 1 < directors.length) && ', '}</span>;
-        })}
+        Réalisateur{directors.length > 0 ? 's' : ''} : {directors.join(', ')}
       </>
       }
+      { (directors && directors.length === 0) && 'Réalisateur: N/C'}
     </div>
   );
 }

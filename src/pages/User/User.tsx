@@ -36,7 +36,7 @@ function User() {
   const { stats, registerDate, mail, submittedMovie } = fake_data;
   //en attente de la route par les backeuuu
   const {data, isLoading} = useMetricsByIdQuery(Number(id));
-  console.log(data);
+  // console.log(data);
   
   return(
     <>

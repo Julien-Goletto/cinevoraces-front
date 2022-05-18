@@ -33,6 +33,11 @@ type DBMovie = {
   ratings_count: string,
   avg_rating: string
 };
+type DBMovieFilter = {
+  season_number: number | string,
+  genres: string[],
+  countries: string[],
+};
 type TMDBMovie = {
   id: number,
   title: string

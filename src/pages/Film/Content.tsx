@@ -3,8 +3,6 @@ import Presentation from './Presentation';
 import Description from './Description';
 import styles from './Content.module.scss';
 
-// C CASSE
-
 function Content({ movie, isLoading }: Content) {
   if (!isLoading) {
     return (

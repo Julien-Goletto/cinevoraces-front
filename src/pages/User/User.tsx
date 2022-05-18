@@ -34,9 +34,7 @@ function User() {
   const { id }  = useParams();
   const { pseudo, avatar } = useAppSelector<any>(userLogged);
   const { stats, registerDate, mail, submittedMovie } = fake_data;
-  //en attente de la route par les backeuuu
   const {data, isLoading} = useMetricsByIdQuery(Number(id));
-  // console.log(data);
   
   return(
     <>

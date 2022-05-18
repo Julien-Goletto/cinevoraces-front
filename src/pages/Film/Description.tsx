@@ -1,7 +1,11 @@
 import styles from './Description.module.scss';
 import StarRating from 'components/StarRating/StarRating';
+import { useAppSelector } from 'redux/hooks';
+import { isOnline } from 'redux/slices/user';
 
 function Description({ movie }: Description) {
+  const isLogged = useAppSelector(isOnline);
+
   const date = new Date(movie.release_date);
   return (
     <div className={styles.description}>
@@ -10,10 +14,12 @@ function Description({ movie }: Description) {
           Note des membres :
         <span className={styles.star}><StarRating value={Number(movie.avg_rating)}/></span> 
       </div>
+      {isLogged && 
       <div className={`${styles.element} ${styles['element--flex']}`}>
           Ma note :
         <span className={styles.star}><StarRating value={4}/></span> 
       </div>
+      }
       <div className={styles.element}>
           Réalisateur :
         <span className={styles.elm}>{movie.directors.join(', ')}</span>

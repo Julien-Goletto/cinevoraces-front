@@ -24,10 +24,10 @@ function Content({ movie, isLoading }: Content) {
             </div>
             
             <div className={styles.interactions}> 
-              <Interactions type='bookmark' count={Number(movie.watchlist_count)}/>
-              <Interactions type='view' count={0}/>
-              <Interactions type='like' count={Number(movie.likes_count)}/>
-              <Interactions type='star' count={Number(movie.ratings_count)}/>
+              <Interactions type='bookmarked' count={Number(movie.watchlist_count)}/>
+              <Interactions type='viewed' count={Number(movie.views_count)}/>
+              <Interactions type='liked' count={Number(movie.likes_count)}/>
+              <Interactions type='rating' count={Number(movie.ratings_count)}/>
             </div>
           </div>
           <Description movie={movie} />

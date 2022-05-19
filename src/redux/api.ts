@@ -38,14 +38,16 @@ export const api = createApi({
       },
     }),
     movieReviews: build.query<any, number>({
-      query: (id) => ({url: `v1/reviews/${id}`, method: 'GET', credentials: 'include'}),
+      query: (id) => ({url: `/v1/reviews/${id}/comments`, method: 'GET', credentials: 'include'}),
     }),
     postMovie: build.mutation<any, any>({
-      query: ((proposal) => ({url: 'v1/movies/newmovie/', method: 'POST', credentials: 'include', body: proposal}))}), 
+      query: ((proposal) => ({url: 'v1/movies/newmovie/', method: 'POST', credentials: 'include', body: proposal}))
+    }), 
     metricsById: build.query<any, number>({
-      query: (id:number) => {
-        return ({url: `/v1/metrics/${id}`, method: 'GET', credentials: 'include'});
-      }
+      query: (id:number) => ({url: `/v1/metrics/${id}`, method: 'GET', credentials: 'include'})
+    }),
+    availableSlots: build.query<any, number>({
+      query: (id:number) => ({url: `/v1/propositions/availableSlots/${id}`, method: 'GET', credentials: 'include'})  
     })
   })
 });
@@ -59,5 +61,6 @@ export const {
   useAllMetricsQuery,
   useRefreshTokenMutation,
   useMovieReviewsQuery,
-  useMetricsByIdQuery
+  useMetricsByIdQuery,
+  useAvailableSlotsQuery,
 } = api;

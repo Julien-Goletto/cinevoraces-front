@@ -1,16 +1,43 @@
 import { useState } from 'react';
 import { Button } from 'components/Buttons/Button';
+import { useAppDispatch } from 'redux/hooks';
+import { addToast } from 'redux/slices/global';
+
 import Input from 'components/Input/Input';
 import styles from './UserParams.module.scss';
 import userStyles from '../User.module.scss';
 
 function UserParams({ username, email }: user) {
   const [showInput, setShowInput] = useState(false);
+  const dispatch = useAppDispatch();
+
   const handleShowInput = () => {
     setShowInput(true);
   };
+  const handleFormSubmit = (e: any) => {
+    e.preventDefault();
+    const form = new FormData(e.target);
+    const UpdateRequest = {      
+      pseudo: form.get('username'),
+      mail: form.get('email'),
+      password: form.get('new-password'),
+      confirmPassword: form.get('confirm-new-password'),
+      oldPassword: form.get('old-password')
+    };   
+    console.log(UpdateRequest);
+    dispatch(addToast({type:'error', text: 'Vous devez remplir tout les champs'}));
+    dispatch(addToast({type:'error', text: 'Votre nouveau mot de passe ne correspond pas au mot de passe de confirmation'}));
+    dispatch(addToast({type:'error', text: 'Votre mot de passe actuel ne correspond pas'}));
+    dispatch(addToast({type:'error', text: 'Ce nom d\'utilisateur n\'est pas disponible'}));
+    dispatch(addToast({type:'error', text: 'Cette adresse email est déjà associée à un compte'}));
+    dispatch(addToast({type:'success', text: 'Vos informations ont bien été mises à jour'}));
+  };
+
   return(
-    <div className={styles['user-params']}>
+    <form 
+      className={styles['user-params']}
+      onSubmit={handleFormSubmit}
+    >
       { showInput &&
       <>
         <div className={styles['action']}>
@@ -27,7 +54,6 @@ function UserParams({ username, email }: user) {
           placeholder='Entrez votre nouveau nom d’utilisateur'
         />
         <div className={styles['action']}>
-          Changes mes identifiants
         </div>
         <Input
           name='old-password'
@@ -77,9 +103,7 @@ function UserParams({ username, email }: user) {
           </Button>
         </>
       }
-      
-
-    </div>
+    </form>
   );
 }
 

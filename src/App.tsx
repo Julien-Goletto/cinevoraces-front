@@ -69,7 +69,12 @@ function App() {
             <Route path='/films' element={<Films />}/>
             <Route path='/register' element={<Register />}/>
             <Route path='/user' element={<User />}/>
-            <Route path='/user/:id' element={<User />}/>
+            <Route path='/user/:id' element={
+              // FIXME: Does not redirect when user use the URL manually
+              <RequireAuth redirectTo={'/'}>
+                <User /> 
+              </RequireAuth>
+            }/>
             {/* <Route path='/proposal' 
               element={(isLogged) ? <Proposal /> : <Error errorNum={401}/>}
             /> */}

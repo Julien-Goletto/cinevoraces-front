@@ -6,67 +6,56 @@ import UserMetrics from './UserMetrics/UserMetrics';
 import UserSubmittedFilm from './UserSubmittedFilm/UserSubmittedFilm';
 import UserParams from './UserParams/UserParams';
 import styles from './User.module.scss';
-import { useMetricsByIdQuery } from 'redux/api';
-import { useEffect } from 'react';
+import { useUserByIdQuery } from 'redux/api';
 
 const fake_data = {
-  mail: 'caroline-du-93@lol.fr',
-  registerDate: '2077-12-10 10:23:54+02',
-  stats: {
-    uploadedMovies: 6,
-    commentedMovies: 77,
-    LikedMovies: 185,
-    watchList: 84,
-    evaluatedMovies: 96,
-  },
   submittedMovie: 
-  undefined
-  // {
-  //   title: 'Mr. Clean',
-  //   cover: 'fake_data/covers/cover_2.jpg',
-  //   releaseDate: 2020,
-  //   director: ['Dwayne Johnson'],
-  //   genres: ['Humour', 'Suspense insoutenable'],
-  //   publishDate: '02/05/2077'
-  // },
+  // undefined
+  {
+    title: 'Mr. Clean',
+    cover: 'fake_data/covers/cover_2.jpg',
+    releaseDate: 2020,
+    director: ['Dwayne Johnson'],
+    genres: ['Humour', 'Suspense insoutenable'],
+    publishDate: '02/05/2077'
+  },
 };
 
 function User() {
   const { id }  = useParams();
   const { pseudo, avatar } = useAppSelector<any>(userLogged);
-  const { stats, registerDate, mail, submittedMovie } = fake_data;
-  const { data, isLoading } = useMetricsByIdQuery(Number(id));
-
-  useEffect(() => {
-    console.log(data);
-  });
+  const { submittedMovie } = fake_data;
+  const { data, isLoading } = useUserByIdQuery(Number(id));
   
   return(
     <>
-      <section className={styles['user']}>
-        <h1 className={styles['title']}>Mon compte</h1>
-        <UserHeader
-          username={pseudo}
-          avatar={avatar}
-          registerDate={registerDate}
-        />
-        <h2 className={styles['title-h2']}>
-          Mon récapitulatif en 5 <span>chiffres :</span>
-        </h2>
-        { !isLoading &&
-          <UserMetrics stats={data[0]} />
-        }
-        <UserSubmittedFilm
-          film={ submittedMovie }
-        />
-        <h2 className={styles['title-h2']}>
-          Modifier mes <span>paramètres :</span>
-        </h2>
-        <UserParams
-          username={pseudo}
-          email={mail}
-        />
-      </section>
+      { !isLoading &&
+        <section className={styles['user']}>
+          <h1 className={styles['title']}>Mon compte</h1>
+          <UserHeader
+            username={pseudo}
+            avatar={avatar}
+            registerDate={data.created_at}
+          />
+          <h2 className={styles['title-h2']}>
+            Mon récapitulatif en 5 <span>chiffres :</span>
+          </h2>
+          { id &&
+            <UserMetrics id={id} />
+          }
+          <UserSubmittedFilm
+            id={id}
+            film={ submittedMovie }
+          />
+          <h2 className={styles['title-h2']}>
+            Modifier mes <span>paramètres :</span>
+          </h2>
+          <UserParams
+            username={data.pseudo}
+            email={data.mail}
+          />
+        </section>
+      }
     </>
   );
 }

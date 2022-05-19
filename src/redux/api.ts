@@ -46,6 +46,12 @@ export const api = createApi({
     metricsById: build.query<any, number>({
       query: (id:number) => ({url: `/v1/metrics/${id}`, method: 'GET', credentials: 'include'})
     }),
+    userById: build.query<any, number>({
+      query: (id:number) => ({url: `/v1/users/${id}`, method: 'GET', credentials: 'include'})
+    }),
+    pendingProposalByUser: build.query<any, number>({
+      query: (id:number) => ({url: `/v1/propositions/${id}`, method: 'GET', credentials: 'include'})
+    }),
     availableSlots: build.query<any, number>({
       query: (id:number) => ({url: `/v1/propositions/availableSlots/${id}`, method: 'GET', credentials: 'include'})  
     })
@@ -62,5 +68,7 @@ export const {
   useRefreshTokenMutation,
   useMovieReviewsQuery,
   useMetricsByIdQuery,
+  useUserByIdQuery,
+  usePendingProposalByUserQuery,
   useAvailableSlotsQuery,
 } = api;

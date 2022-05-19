@@ -1,12 +1,17 @@
 import { Button } from 'components/Buttons/Button';
 import userStyles from '../User.module.scss';
 import styles from './UserSubmittedFilm.module.scss';
+import { usePendingProposalByUserQuery } from 'redux/api';
 
-function UserSubmittedFilm({ film }: UserSubmittedFilm) {
+function UserSubmittedFilm({ film, id }: any) {
+  const { data, isLoading } = usePendingProposalByUserQuery(Number(id));
+  data && console.log(data);
+
   return(
     <div className={styles['user-submitted']}>
-      { !film &&
+      { !isLoading && (data) &&
         <div className={styles['no-film-submitted']}>
+          <p>{data}</p>
           <p>
             Vous n’avez
             <span>&nbsp;pas de proposition de film en attente</span>

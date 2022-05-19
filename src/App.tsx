@@ -27,7 +27,7 @@ function App() {
   const dispatch = useAppDispatch();
   const [refreshToken, {data, isLoading, isError}] = useRefreshTokenMutation();
 
-  //wait for refreshToken cycle to be done
+  // wait for refreshToken cycle to be done
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [ready, setReady] = useState<boolean>(false);
 

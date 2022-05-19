@@ -7,6 +7,7 @@ import UserSubmittedFilm from './UserSubmittedFilm/UserSubmittedFilm';
 import UserParams from './UserParams/UserParams';
 import styles from './User.module.scss';
 import { useMetricsByIdQuery } from 'redux/api';
+import { useEffect } from 'react';
 
 const fake_data = {
   mail: 'caroline-du-93@lol.fr',
@@ -34,7 +35,11 @@ function User() {
   const { id }  = useParams();
   const { pseudo, avatar } = useAppSelector<any>(userLogged);
   const { stats, registerDate, mail, submittedMovie } = fake_data;
-  const {data, isLoading} = useMetricsByIdQuery(Number(id));
+  const { data, isLoading } = useMetricsByIdQuery(Number(id));
+
+  useEffect(() => {
+    console.log(data);
+  });
   
   return(
     <>
@@ -48,9 +53,9 @@ function User() {
         <h2 className={styles['title-h2']}>
           Mon récapitulatif en 5 <span>chiffres :</span>
         </h2>
-        <UserMetrics
-          stats={stats}
-        />
+        { !isLoading &&
+          <UserMetrics stats={data[0]} />
+        }
         <UserSubmittedFilm
           film={ submittedMovie }
         />

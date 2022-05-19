@@ -3,15 +3,22 @@ import userStyles from '../User.module.scss';
 import styles from './UserSubmittedFilm.module.scss';
 import { usePendingProposalByUserQuery } from 'redux/api';
 
-function UserSubmittedFilm({ film, id }: any) {
+function UserSubmittedFilm({ id }: any) {
   const { data, isLoading } = usePendingProposalByUserQuery(Number(id));
+  let dataResponseTest = false;
+  if (data) {
+    if (data === 'Cet utilisateur n\'a pas de proposition de film en attente.') {
+      dataResponseTest = false;
+    } else {
+      dataResponseTest = true;
+    }
+  }
   data && console.log(data);
 
   return(
     <div className={styles['user-submitted']}>
-      { !isLoading && (data) &&
+      { !isLoading && !dataResponseTest &&
         <div className={styles['no-film-submitted']}>
-          <p>{data}</p>
           <p>
             Vous n’avez
             <span>&nbsp;pas de proposition de film en attente</span>
@@ -25,30 +32,30 @@ function UserSubmittedFilm({ film, id }: any) {
           </Button>
         </div>
       }
-      { film &&
+      { !isLoading && dataResponseTest &&
         <div className={styles['pending-proposal']}>
           <h2 className={userStyles['title-h2']}>Ma proposition en <span>attente :</span></h2>
           <div className={styles['film']}>
             <h3 className={`${styles['grid-title']} ${userStyles['title-h3']}`}>
-              {film.title}
-              &nbsp;&#40;{film.releaseDate}&#41;
+              {data[0].french_title}
+              &nbsp;&#40;{data[0].release_date.slice(0,4)}&#41;
             </h3>
 
             <div className={styles['grid-direc']}>
               <h4 className={userStyles['title-h4']}>
-                réalisateur{(film.director.length > 1) && 's'}
+                réalisateur{(data[0].directors.length > 1) && 's'}
               </h4>
               <span>
-                {film.director.join(', ')}
+                {data[0].directors.join(', ')}
               </span>
             </div>
 
             <div className={styles['grid-genre']}>
               <h4 className={userStyles['title-h4']}>
-              genre{(film.genres.length > 1) && 's'}
+              genre{(data[0].genres.length > 1) && 's'}
               </h4>
               <span>
-                {film.genres.join(', ')}
+                {data[0].genres.join(', ')}
               </span>
             </div>
 
@@ -56,12 +63,12 @@ function UserSubmittedFilm({ film, id }: any) {
               <h4 className={userStyles['title-h4']}>
                 date de
                 <span>&nbsp;publication :</span>
-                <span className={styles['publish-date']}>&nbsp;{film.publishDate}</span>
+                <span className={styles['publish-date']}>&nbsp;{(data[0].publishing_date).slice(0,10)}</span>
               </h4>
             </div>
 
             <div className={`${styles['grid-cover']} ${styles['cover']}`}>
-              <img src={film.cover} alt='Affiche du film' />
+              <img src={data[0].poster_url} alt='Affiche du film' />
             </div>
           </div>
           <Button

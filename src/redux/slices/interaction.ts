@@ -2,10 +2,10 @@ import { createSlice } from '@reduxjs/toolkit';
 import { RootState } from '../store';
 
 const initialState = { 
-  isView : false,
-  isStar : false,
-  isBookmark : false,
-  isLike : false,
+  viewed : false,
+  rating : false,
+  bookmarked : false,
+  liked : false,
 };
 
 
@@ -13,23 +13,30 @@ const interactionSlice = createSlice({
   name: 'interaction',
   initialState,
   reducers: {
-    setActive(state) {
+    setActive(state, action) {
+      console.log('set active !!');
+      
+      state.viewed = action.payload[0].viewed;
+      state.rating = action.payload[0].rating === null ? false: action.payload[0].rating;
+      state.bookmarked = action.payload[0].bookmarked;
+      state.liked = action.payload[0].liked;
     },
     setInactive(state) {
+      return initialState;
     },
     toggle(state, action) {
       switch(action.payload) {
-      case 'view':
-        state.isView = !state.isView;
+      case 'viewed':
+        state.viewed = !state.viewed;
         break;
-      case 'like':
-        state.isLike = !state.isLike;
+      case 'liked':
+        state.liked = !state.liked;
         break;
-      case 'bookmark':
-        state.isBookmark = !state.isBookmark;
+      case 'bookmarked':
+        state.bookmarked = !state.bookmarked;
         break;
-      case 'star':
-        state.isStar = !state.isStar;
+      case 'rating':
+        state.rating = !state.rating;
         break;
       default: 
         break;
@@ -38,7 +45,8 @@ const interactionSlice = createSlice({
   }
 });
 
-export const isActive = (state: RootState) => state.interaction.isLike;
+export const isActive = (state: RootState) => state.interaction.liked;
+export const interaction = (state: RootState) => state.interaction;
 
 export const { setInactive, setActive, toggle } = interactionSlice.actions;
 export default interactionSlice.reducer;

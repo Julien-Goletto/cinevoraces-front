@@ -47,8 +47,11 @@ export const api = createApi({
     metricsById: build.query<any, number>({
       query: (id:number) => ({url: `/v1/metrics/${id}`, method: 'GET', credentials: 'include'})
     }),
-    availableSlots: build.query<any, number>({
-      query: (id:number) => ({url: `/v1/propositions/availableSlots/${id}`, method: 'GET', credentials: 'include'})  
+    pendingProposition: build.query<any, any>({
+      query: (id:number) => ({url: `/v1/propositions/hasPendingProposition/${id}`, method: 'GET', credentials: 'include'})
+    }),
+    availableSlots: build.query<any, void>({
+      query: () => ({url: `/v1/propositions/availableSlots`, method: 'GET', credentials: 'include'})  
     }),
     bookSlot: build.mutation<any, any>({
       query: (data:any) => ({url: '/v1/propositions/book/', method: 'PUT', credentials: 'include', body: {
@@ -83,4 +86,5 @@ export const {
   useGetReviewsQuery,
   usePostInteractionMutation,
   usePutInteractionMutation,
+  usePendingPropositionQuery
 } = api;

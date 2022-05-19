@@ -18,7 +18,7 @@ function Proposal() {
   const navigate = useNavigate();
   const proposalMovie = useAppSelector(getProposalData);
   const { data, isLoading: isDetailsLoading } = useTmbdCustomDetailsQuery(search);
-  const { data: slots, isSuccess: isSlotsSuccess } = useAvailableSlotsQuery(Number(proposalMovie.user_id));
+  const { data: slots, isSuccess: isSlotsSuccess } = useAvailableSlotsQuery();
   const [sendBook, bookHandle] = useBookSlotMutation();
   const [sendPost, postHandle] = usePostMovieMutation();
   const [refreshToken, {isError: isTokenError}] = useRefreshTokenMutation();

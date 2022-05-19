@@ -7,7 +7,7 @@ import {
   Navigate
 } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from 'redux/hooks';
-import { isOnline, setUser } from 'redux/slices/user';
+import { isOnline, setUser, userLogged } from 'redux/slices/user';
 import Cookies from 'js-cookie';
 
 import ResetScroll from 'components/ResetScroll/ResetScroll';
@@ -19,7 +19,9 @@ import Home from './pages/Home/Home';
 import Film from './pages/Film/Film';
 import Register from './pages/Register/Register';
 import Proposal from './pages/Proposal/Proposal';
-import { useRefreshTokenMutation } from 'redux/api';
+import { usePendingPropositionQuery, useRefreshTokenMutation } from 'redux/api';
+import Loader from 'components/Loader/Loader';
+import { addToast } from 'redux/slices/global';
 
 function App() {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -76,7 +78,9 @@ function App() {
             <Route path='/proposal' 
               element={
                 <RequireAuth redirectTo={'/'}>
-                  <Proposal /> 
+                  <PendingPropositionCheck redirectTo={'/'}>
+                    <Proposal /> 
+                  </PendingPropositionCheck>
                 </RequireAuth>
               }
             />
@@ -90,11 +94,35 @@ function App() {
 }
 
 function RequireAuth({ children, redirectTo }:{ children:any, redirectTo:any }) {
-  const [resfreshToken, {isError}] = useRefreshTokenMutation();
+  const [resfreshToken, {isError, isLoading}] = useRefreshTokenMutation();
   useEffect(()=> {
     resfreshToken();
   }, []);
-  return !isError ? children : <Navigate to={redirectTo} />;
+  if(!isLoading) {
+    return !isError ? children : <Navigate to={redirectTo} />;
+  }
 }
+function PendingPropositionCheck ({ children, redirectTo }:{ children:any, redirectTo:any }) {
+  const user = useAppSelector(userLogged);
+  const dispatch = useAppDispatch();
+  const {data, isError, isLoading} = usePendingPropositionQuery(user.id); 
+
+  useEffect(()=> {
+    if(isError) dispatch(addToast({type:'warn', text: 'Vous avez déja une proposition en attente'}));
+  }, [isError, dispatch]);
+
+
+  if(isLoading) {
+    return <Loader />;
+  }
+  
+  if(!isLoading){
+    
+    return !isError ? children : <Navigate to={redirectTo} />;
+  }
+}
+
+
+
 
 export default App;

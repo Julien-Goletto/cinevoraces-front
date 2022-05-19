@@ -56,6 +56,7 @@ export const getSelectedMovie = (state: RootState) => state.proposal.movie_selec
 export const getProposalData = (state: RootState) => {
   const data = {
     ...state.proposal.movie_selected,
+    publishing_date: state.proposal.episode_publish_date,
     presentation: state.proposal.movie_selected.presentation,
     user_id: state.user.id
   };

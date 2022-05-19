@@ -48,7 +48,12 @@ export const api = createApi({
     }),
     availableSlots: build.query<any, number>({
       query: (id:number) => ({url: `/v1/propositions/availableSlots/${id}`, method: 'GET', credentials: 'include'})  
-    })
+    }),
+    bookSlot: build.mutation<any, any>({
+      query: (data:any) => ({url: 'v1/propositions/book/', method: 'PUT', credentials: 'include', body: {
+        publishing_date: data
+      }})
+    }) ,
   })
 });
 
@@ -63,4 +68,5 @@ export const {
   useMovieReviewsQuery,
   useMetricsByIdQuery,
   useAvailableSlotsQuery,
+  useBookSlotMutation,
 } = api;

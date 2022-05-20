@@ -11,6 +11,7 @@ import { isOnline, userLogged } from 'redux/slices/user';
 import { addToast } from 'redux/slices/global';
 import { useParams } from 'react-router-dom';
 import { usePostInteractionMutation, usePostMovieMutation, usePutInteractionMutation, useRefreshTokenMutation } from 'redux/api';
+import Loader from 'components/Loader/Loader';
 
 type InteractionsProps = {
   type: string,
@@ -94,7 +95,7 @@ function Interactions({type, count}: InteractionsProps) {
         <div onClick={dispatchType} className={
           `${styles.wrapper} ${active ? styles.active : ''}`
         }>
-          {selectedType()}
+          {putHandle.isLoading ? <span className={styles.loader}><Loader /></span> : selectedType()}
           <span className={styles.count}>{count}</span>
         </div>
       }

@@ -9,6 +9,14 @@
   from { left: -300px; }
   to { left: 0px; }
 }
+.loader {
+  width: 10%;
+  display: inline-block; 
+  & div {
+    height: 15px;
+    transform: translate(-35px, -20px) scale(0.6);
+  }
+}
 
 .background {
   position: fixed;

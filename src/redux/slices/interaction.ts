@@ -14,8 +14,6 @@ const interactionSlice = createSlice({
   initialState,
   reducers: {
     setActive(state, action) {
-      console.log('set active !!');
-      
       state.viewed = action.payload[0].viewed;
       state.rating = action.payload[0].rating === null ? false: action.payload[0].rating;
       state.bookmarked = action.payload[0].bookmarked;

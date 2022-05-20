@@ -2,9 +2,12 @@ import styles from './Description.module.scss';
 import StarRating from 'components/StarRating/StarRating';
 import { useAppSelector } from 'redux/hooks';
 import { isOnline } from 'redux/slices/user';
+import { getRating } from 'redux/slices/interaction';
 
 function Description({ movie }: Description) {
   const isLogged = useAppSelector(isOnline);
+  const rating = useAppSelector(getRating);
+  
 
   const date = new Date(movie.release_date);
   return (
@@ -17,7 +20,7 @@ function Description({ movie }: Description) {
       {isLogged && 
       <div className={`${styles.element} ${styles['element--flex']}`}>
           Ma note :
-        <span className={styles.star}><StarRating value={4}/></span> 
+        <span className={styles.star}><StarRating value={typeof rating == 'boolean' ? 0 : rating}/></span> 
       </div>
       }
       <div className={styles.element}>

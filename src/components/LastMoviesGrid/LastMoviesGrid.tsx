@@ -11,7 +11,7 @@ function LastMoviesGrid() {
 
   useEffect(()=> {
     if(!isLoading && data) {
-      setLastMovies([...data].reverse().slice(0,5));
+      setLastMovies([...data].slice(0,5));
     }
   }, [data, isLoading]);
   

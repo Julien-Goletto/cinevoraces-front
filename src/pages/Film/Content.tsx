@@ -2,11 +2,19 @@ import Interactions from 'components/Interactions/Interactions';
 import Presentation from './Presentation';
 import Description from './Description';
 import styles from './Content.module.scss';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 function Content({ movie, isLoading }: Content) {
+  const [date, setDate] = useState<string>();
+  
+  useEffect(()=> {
+    if(!isLoading && movie){
+      let formatDate = new Date(movie.publishing_date);
+      setDate(formatDate.toLocaleDateString('fr-FR', {day:'numeric', month:'long', year:'numeric'}));
+    }
+  }, [movie, isLoading, date]);
 
-  if (!isLoading) {
+  if (!isLoading && date) {
     return (
       <>
         <div className={styles.content}>
@@ -31,7 +39,7 @@ function Content({ movie, isLoading }: Content) {
             </div>
           </div>
           <Description movie={movie} />
-          <Presentation pic={'/fake_data/pictures/profilpic.png'} name={'Jean Cule'} date='7 janvier 2022'
+          <Presentation pic={'/fake_data/pictures/profilpic.png'} name={movie.user_pseudo} date={date}
             text={movie.presentation} rating={2}/>
         </div>
       </>

@@ -7,8 +7,9 @@ import { useParams } from 'react-router-dom';
 import Loader from 'components/Loader/Loader';
 import { useAppDispatch, useAppSelector } from 'redux/hooks';
 import { userLogged } from 'redux/slices/user';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { setActive, setInactive } from 'redux/slices/interaction';
+import AddComment from './AddComment';
 
 
 function Film() {
@@ -17,18 +18,29 @@ function Film() {
   const dispatch = useAppDispatch();
   const { data: movie, isLoading: isMovieLoad } = useOneMovieQuery<any>(Number(id));
   const { data: comment, isLoading: isCommentLoad } = useMovieReviewsQuery<any>(Number(id));
-  const { data: reviews, isLoading: isReviewsLoad, isError: isReviewsError  } = useGetReviewsQuery({userId: user.id, movieId: id });
+  const { data: reviews, isLoading: isReviewsLoad, isError: isReviewsError, isSuccess: isReviewsSuccess  } = useGetReviewsQuery({userId: user.id, movieId: id });
+  const [filteredComment, setFilteredComment] = useState(comment);
   const [refreshToken, handle] = useRefreshTokenMutation();
-  
+
+  function filterComment(userId: number | null, comments:any) {
+    if(!comments) return false;
+    let userComment = comments.find((comment:any) => comment.user_id === userId);
+    let filterComment = comments.filter((comment:any) => comment.user_id !== userId);
+    console.log([{...userComment, edit: true}, ...filterComment]);
+    return [{...userComment, edit: true}, ...filterComment];
+  }
+
   useEffect(()=> {
     dispatch(setInactive());
     refreshToken();
+    console.log(reviews);
+    console.log(comment);
+    setFilteredComment(filterComment(user.id, comment))
     if(typeof reviews !== 'string' && !isReviewsLoad && !isReviewsError) {
-      console.log(reviews);
-      
       dispatch(setActive(reviews));
+       
     }
-  },[refreshToken, reviews, dispatch, isReviewsLoad, isReviewsError] );
+  },[user, refreshToken, reviews, dispatch, isReviewsLoad, isReviewsError, comment, movie] );
   
 
   return (
@@ -40,14 +52,25 @@ function Film() {
       <h3 className={styles['title']}>Commentaires ({comment ? comment.length : '~'})</h3>
       <div className={styles.comments}>
         {
-          (!isCommentLoad && comment) && comment.map((review: any, index:any) => (
-            <Comment key={index} pic={review.avatar_url} name={review.user_pseudo} date={review.created_at} text={review.comment} rating={review.rating} />
+          // SI AUCUN COMMENTAIRE
+          (isReviewsSuccess && !reviews[0].comment) && <AddComment props={{text: reviews.comment, pic:'', date: reviews.updated_at, name: 'Jambon'  }} />
+        }
+        {
+          // SI COMMENTAIRE LOAD, AFFICHE COMMENTAIRES
+          (!isCommentLoad && filteredComment) && filteredComment.map((review: any, index:any) => (
+            <Comment key={index} edit={review.edit} pic={review.avatar_url} name={review.user_pseudo} date={review.created_at} text={review.comment} rating={review.rating} />
           ))
         }
-        {(!comment) && <p style={{textAlign: 'center', margin: '1em 0'}}>Aucun commentaire pour ce film</p>}
-        {(isCommentLoad) &&
-          <div style={{textAlign: 'center'}}><Loader /></div>
+        {
+          //SI AUCUN COMMENTAIRE
+          (!comment) && <p style={{textAlign: 'center', margin: '1em 0'}}>Aucun commentaire pour ce film</p>
         }
+        {
+          // LOADING COMMENT
+          (isCommentLoad) &&
+            <div style={{textAlign: 'center'}}><Loader /></div>
+        }
+
       </div>
 
       {/* <div className={styles.button}>

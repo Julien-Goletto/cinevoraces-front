@@ -2,22 +2,24 @@ import styles from './Comment.module.scss';
 import StarRating from 'components/StarRating/StarRating';
 import useSeeMore from 'hooks/useSeeMore';
 import AddComment from './AddComment';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 function Comment(props: CommentProps) {
-  const { pic, name, date, text, rating } = props;
-  const edit = false;
+  const {edit, pic, name, date, text, rating} = props;
   const sliceText = useSeeMore(text);
   const isLogged = true;
   const [editable, setEditable] = useState(false);
-
+  const pipi = false
   //Parse date
   const customDate = new Date(date);
   const createdAt = customDate.toLocaleDateString('fr-FR', {day: 'numeric', month: 'long', year: 'numeric'});
 
+  useEffect(()=> {
+    console.log(editable);
+    
+  }, [editable])
   
-  
-  if(edit && editable && isLogged) return <AddComment data={props} />;
+  if(edit && editable && isLogged) return <AddComment props={props} setEditable={setEditable} />;
 
   return (
     <>

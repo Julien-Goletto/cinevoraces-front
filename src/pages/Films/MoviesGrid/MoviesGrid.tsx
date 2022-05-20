@@ -8,6 +8,7 @@ function MoviesGrid({ movies, isLoading }: MovieGrid) {
   const onLoadHandler = () => {
     setTimeout(() => {setIsImgLoading(false);}, 1000);
   };
+  
   return(
     <div className={styles.grid}>
       {(isLoading || isImgLoading) &&

@@ -23,6 +23,7 @@ function Films() {
   useEffect(() => {
     if (data && filters) {
       let filteredMovies: DBMovie[] = [...data];
+    
       if (filters.season_number !== 'all') {
         filteredMovies = filteredMovies.filter(
           (movie:DBMovie)=> movie.season_number === filters.season_number
@@ -30,11 +31,18 @@ function Films() {
       }
       if(filters.genres.length > 0) {
         filteredMovies = filteredMovies.filter((movie:DBMovie) => {
-          let check = true;
-          for(let genre of movie.genres) {
-            check = filters.genres.includes(genre);
+        
+          for(let genre of movie.genres) {  
+            console.log(filters.genres.includes(genre));
+               
+            if(filters.genres.includes(genre)) {
+              console.log('ctrue');
+              return true;
+              
+            };
           }
-          return check;
+          
+          return false;
         });
       } 
       if(filters.countries.length > 0) {
@@ -68,11 +76,12 @@ function Films() {
         movies={movies} 
         isLoading={isLoading}
       />
-      <div className={styles.button}>
+
+      {/* <div className={styles.button}>
         <Button>
           Voir les films suivants (77)
         </Button>
-      </div>
+      </div> */}
     </section>
   );
 }

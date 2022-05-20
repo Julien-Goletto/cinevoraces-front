@@ -43,6 +43,7 @@ export const api = createApi({
     }),
     movieReviews: build.query<any, number>({
       query: (id) => ({url: `/v1/reviews/${id}/comments`, method: 'GET', credentials: 'include'}),
+      providesTags: ['Reviews']
     }),
     postMovie: build.mutation<any, any>({
       query: ((proposal) => ({url: 'v1/movies/newmovie/', method: 'POST', credentials: 'include', body: proposal}))
@@ -68,14 +69,15 @@ export const api = createApi({
       }})
     }),
     getReviews: build.query<any, any>({
-      query: (arg:any) => ({url: `/v1/reviews/${arg.userId}/${arg.movieId}`, method: 'GET', credentials: 'include'})
+      query: (arg:any) => ({url: `/v1/reviews/${arg.userId}/${arg.movieId}`, method: 'GET', credentials: 'include'}),
+      providesTags: ['Reviews']
     }),
     postInteraction: build.mutation<any, any>({
       query: (arg:any) => ({url : `/v1/reviews/${arg.userId}/${arg.movieId}`, method: 'POST', credentials: 'include'})   
     }),
     putInteraction: build.mutation<any, any>({
       query: (arg:any) => ({url : `/v1/reviews/${arg.userId}/${arg.movieId}`, method: 'PUT', credentials: 'include', body: arg.body}),
-      invalidatesTags: ['Movie'] 
+      invalidatesTags: ['Movie', 'Reviews'] 
     }),
   })
 });

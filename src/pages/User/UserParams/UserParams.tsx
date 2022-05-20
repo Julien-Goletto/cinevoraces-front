@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { Button } from 'components/Buttons/Button';
 import { useAppDispatch } from 'redux/hooks';
 import { addToast } from 'redux/slices/global';
+import { useUserUpdateMutation } from 'redux/api';
+import { useParams } from 'react-router-dom';
 
 import Input from 'components/Input/Input';
 import styles from './UserParams.module.scss';
@@ -10,27 +12,49 @@ import userStyles from '../User.module.scss';
 function UserParams({ username, email }: user) {
   const [showInput, setShowInput] = useState(false);
   const dispatch = useAppDispatch();
+  const { id }  = useParams();
+  const [updateUser, {data, isLoading}] = useUserUpdateMutation();
 
   const handleShowInput = () => {
     setShowInput(true);
   };
+  const formRegEx = (string: FormDataEntryValue) => {
+    if (RegExp('^((?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[\-~!@#$%^&*_+=/:;."<>?])(?=.{12,}))').test(String(string!))) { // eslint-disable-line
+      return true;
+    } else {
+      return false;
+    }
+  };
   const handleFormSubmit = (e: any) => {
     e.preventDefault();
     const form = new FormData(e.target);
-    const UpdateRequest = {      
-      pseudo: form.get('username'),
-      mail: form.get('email'),
-      password: form.get('new-password'),
+    const updateRequest = {   
+      user: {
+        pseudo: form.get('username'),
+        mail: form.get('email'),
+        oldPassword: form.get('old-password'),
+        password: form.get('new-password')
+      },
       confirmPassword: form.get('confirm-new-password'),
-      oldPassword: form.get('old-password')
-    };   
-    console.log(UpdateRequest);
-    dispatch(addToast({type:'error', text: 'Vous devez remplir tout les champs'}));
-    dispatch(addToast({type:'error', text: 'Votre nouveau mot de passe ne correspond pas au mot de passe de confirmation'}));
-    dispatch(addToast({type:'error', text: 'Votre mot de passe actuel ne correspond pas'}));
-    dispatch(addToast({type:'error', text: 'Ce nom d\'utilisateur n\'est pas disponible'}));
-    dispatch(addToast({type:'error', text: 'Cette adresse email est déjà associée à un compte'}));
-    dispatch(addToast({type:'success', text: 'Vos informations ont bien été mises à jour'}));
+      id: Number(id)
+    };
+    
+    if (
+      updateRequest.user.pseudo === '' || updateRequest.user.mail === '' || 
+      updateRequest.user.oldPassword === '' || updateRequest.user.password === '' || 
+      updateRequest.confirmPassword === '' 
+    ) {
+      dispatch(addToast({type:'error', text: 'Vous devez remplir tout les champs'}));
+    } else if (!formRegEx(updateRequest.user.password!)) {
+      dispatch(addToast({type:'error', text: 'Votre nouveau mot de passe ne correspond est invalide'}));
+    } else if (updateRequest.user.password !== updateRequest.confirmPassword) {
+      dispatch(addToast({type:'error', text: 'Votre nouveau mot de passe ne correspond pas au mot de passe de confirmation'}));
+    } else {
+      updateUser(updateRequest);
+      console.log(updateRequest);
+    }
+    // dispatch(addToast({type:'error', text: 'Mot de passe, adresse mail ou nom d\'utilisateur incorrect'}));
+    // dispatch(addToast({type:'success', text: 'Vos informations ont bien été mises à jour'}));
   };
 
   return(
@@ -70,6 +94,9 @@ function UserParams({ username, email }: user) {
           type='password'
           placeholder='Confirmez votre nouveau mot de passe'
         />
+        <div className={styles.rules}>
+          Votre mot de passe doit contenir au moins une majuscule, une minuscule, un symbôle et un chiffre et doit contenir au moins 12 caractères.
+        </div>
         <Button
           styleMod='fill-rounded'
         >

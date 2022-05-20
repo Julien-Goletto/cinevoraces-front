@@ -21,6 +21,9 @@ export const api = createApi({
       query: (user:User) => ({ url: '/v1/users/login', method:'POST', body: user, credentials: 'include' }),
       transformResponse: (res:any) => res
     }),
+    userUpdate: build.mutation<void, any>({
+      query: (data) => ({url: `v1/users/${data.id}`, method: 'PUT', credentials: 'include', body: data.user})
+    }), 
     allMovies: build.query<any, void>({
       query: () =>  ({url: '/v1/movies', method: 'GET'})
     }),
@@ -61,6 +64,7 @@ export const api = createApi({
 export const { 
   useUserRegisterMutation,
   useUserLoginMutation,
+  useUserUpdateMutation,
   useAllMoviesQuery,
   useOneMovieQuery,
   usePostMovieMutation,

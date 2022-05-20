@@ -22,7 +22,7 @@ export const api = createApi({
       transformResponse: (res:any) => res
     }),
     userUpdate: build.mutation<void, any>({
-      query: (data) => ({url: `v1/users/${data.id}`, method: 'PUT', credentials: 'include', body: data.user})
+      query: (data) => ({url: `v1/users/modify/${data.userId}`, method: 'PUT', credentials: 'include', body: data.user})
     }), 
     allMovies: build.query<any, void>({
       query: () =>  ({url: '/v1/movies', method: 'GET'})
@@ -56,8 +56,8 @@ export const api = createApi({
     pendingProposalByUser: build.query<any, number>({
       query: (id:number) => ({url: `/v1/propositions/${id}`, method: 'GET', credentials: 'include'})
     }),
-    availableSlots: build.query<any, number>({
-      query: (id:number) => ({url: `/v1/propositions/availableSlots/${id}`, method: 'GET', credentials: 'include'})  
+    availableSlots: build.query<any, void>({
+      query: () => ({url: '/v1/propositions/availableSlots', method: 'GET', credentials: 'include'})  
     }),
     pendingProposition: build.query<any, any>({
       query: (id:number) => ({url: `/v1/propositions/hasPendingProposition/${id}`, method: 'GET', credentials: 'include'})

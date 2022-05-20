@@ -30,13 +30,15 @@ function UserParams({ username, email }: user) {
     const form = new FormData(e.target);
     const updateRequest = {   
       user: {
+        oldPassword: form.get('old-password'),
         pseudo: form.get('username'),
         mail: form.get('email'),
-        oldPassword: form.get('old-password'),
-        password: form.get('new-password')
+        password: form.get('new-password'),
+        avatar_url: 'jambon',
+        role: 'user'
       },
       confirmPassword: form.get('confirm-new-password'),
-      id: Number(id)
+      userId: Number(id)
     };
     
     if (

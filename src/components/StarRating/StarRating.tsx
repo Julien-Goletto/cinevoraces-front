@@ -1,22 +1,40 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styles from './StarRating.module.scss';
-import { isOnline } from 'redux/slices/user';
+import { isOnline, userLogged } from 'redux/slices/user';
 import { useAppDispatch, useAppSelector } from 'redux/hooks';
 import { addToast } from 'redux/slices/global';
+import { useParams } from 'react-router-dom';
+import { usePostInteractionMutation, usePutInteractionMutation, useRefreshTokenMutation } from 'redux/api';
+import { getRating, setRating } from 'redux/slices/interaction';
 
 function StarRating({ alt=false, value = 0, isInput = false } : StarRating) {
-  const [rating, setRating] = useState(0);
+  const rating = useAppSelector(getRating);
   const [hover, setHover] = useState(0);
   const isLogged = useAppSelector(isOnline);
+  const [refreshToken, tokenHandle] = useRefreshTokenMutation();
+  const [postInteraction, postHandle] = usePostInteractionMutation();
+  const [putInteraction, putHandle] = usePutInteractionMutation();
+  const user = useAppSelector(userLogged);
   const dispatch = useAppDispatch();
+  const { id } = useParams();
   
-  const handleSetRating = (index: number) => {
+  const handleSetRating = async (index: number) => {
     if (isLogged) {
-      setRating(index);
-    } else {
-      dispatch(addToast({type: 'warn', text: 'Vous devez être connecté pour intéragir.'}));
+      try {
+        if (isLogged) {
+          await refreshToken();
+          await postInteraction({userId: user.id, movieId: id});
+          await putInteraction({userId: user.id, movieId: id, body: {rating: index}});
+        }
+      } catch (error) {
+        dispatch(addToast({type: 'error', text: 'Vous devez être connecté pour intéragir.'}));
+        return;
+      }
+      dispatch(setRating({rating: index}));
     }
   };
+
+
 
   return (
     <>
@@ -29,12 +47,11 @@ function StarRating({ alt=false, value = 0, isInput = false } : StarRating) {
                 type='button' key={index} 
                 className={`
                   ${styles.star} 
-                  ${index <= (hover || rating) ? `${styles.on}` : alt ? `${styles['off--alt']}` : `${styles.off}`}`
+                  ${index <= (hover || value) ? `${styles.on}` : alt ? `${styles['off--alt']}` : `${styles.off}`}`
                 }
-                //ICI GINO OOO !!!! FAUT CHANGER LA FONCTION ONCLICK !!!
                 onClick={() => handleSetRating(index)}
                 onMouseEnter={() => setHover(index)}
-                onMouseLeave={() => setHover(rating)}
+                onMouseLeave={() => setHover(typeof rating === 'boolean' ? 0 : rating)}
               >&#9733;
               </button>
             );

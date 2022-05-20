@@ -13,7 +13,7 @@ function UserParams({ username, email }: user) {
   const [showInput, setShowInput] = useState(false);
   const dispatch = useAppDispatch();
   const { id }  = useParams();
-  const [updateUser, {data, isLoading}] = useUserUpdateMutation();
+  const [updateUser, {data, isLoading, isSuccess, isError}] = useUserUpdateMutation();
 
   const handleShowInput = () => {
     setShowInput(true);
@@ -53,10 +53,9 @@ function UserParams({ username, email }: user) {
       dispatch(addToast({type:'error', text: 'Votre nouveau mot de passe ne correspond pas au mot de passe de confirmation'}));
     } else {
       updateUser(updateRequest);
-      console.log(updateRequest);
+      isError && dispatch(addToast({type:'error', text: 'Mot de passe, adresse mail ou nom d\'utilisateur incorrect'}));
+      isSuccess && dispatch(addToast({type:'success', text: 'Vos informations ont bien été mises à jour'}));
     }
-    // dispatch(addToast({type:'error', text: 'Mot de passe, adresse mail ou nom d\'utilisateur incorrect'}));
-    // dispatch(addToast({type:'success', text: 'Vos informations ont bien été mises à jour'}));
   };
 
   return(

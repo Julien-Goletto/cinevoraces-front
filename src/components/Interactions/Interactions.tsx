@@ -1,14 +1,16 @@
 import styles from './Interactions.module.scss';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { ReactComponent as Heart } from './ico/heart.svg';
 import { ReactComponent as Star } from './ico/star.svg';
 import { ReactComponent as Eye } from './ico/eye.svg';
 import { ReactComponent as Bookmark } from './ico/bookmark.svg';
-import { toggle } from 'redux/slices/interaction';
+import interaction, { toggle } from 'redux/slices/interaction';
 import { useAppDispatch, useAppSelector } from 'redux/hooks';
 import StarRating from 'components/StarRating/StarRating';
-import { isOnline } from 'redux/slices/user';
+import { isOnline, userLogged } from 'redux/slices/user';
 import { addToast } from 'redux/slices/global';
+import { useParams } from 'react-router-dom';
+import { usePostInteractionMutation, usePostMovieMutation, usePutInteractionMutation, useRefreshTokenMutation } from 'redux/api';
 
 type InteractionsProps = {
   type: string,
@@ -26,31 +28,50 @@ function Interactions({type, count}: InteractionsProps) {
   const [animIsActive, setAnimActive] = useState(false);
   const [wrapperIsDisplayed, setWrapperIsDisplayed] = useState(false);
   const isLogged = useAppSelector(isOnline);
+  const user = useAppSelector(userLogged);
   const dispatch = useAppDispatch();
+  const { id } = useParams();
+  const [refreshToken, tokenHandle] = useRefreshTokenMutation();
+  const [postInteraction, postHandle] = usePostInteractionMutation();
+  const [putInteraction, putHandle] = usePutInteractionMutation();
   const active = useAppSelector((state) => {
-    let entrie = Object.entries(state.interaction).find(el => el[0] === `is${type.charAt(0).toUpperCase() + type.slice(1)}`);
+    let entrie = Object.entries(state.interaction).find(el => el[0] === `${type}`);
     if(entrie) return entrie[1];
   });
+  const actualType = useAppSelector((state) => {
+    return Object.entries(state.interaction).find(el => el[0] === type); 
+  });
+
   const selectedType = () => {
     switch(type) {
-    case 'like':
-      return <Heart />;
-    case 'star':
+    case 'liked':
+      return <Heart />;                                                  
+    case 'rating':
       return <Star />;
-    case 'view':
+    case 'viewed':
       return <Eye />;
-    case 'bookmark':
+    case 'bookmarked':
       return <Bookmark />;
     default:
       return null;
     }
   };
-  const dispatchType = () => {
-    if (isLogged) {
-      dispatch(toggle(type));
-    } else {
-      dispatch(addToast({type: 'warn', text: 'Vous devez être connecté pour intéragir.'}));
+  const dispatchType = async () => {
+    try {
+      if (isLogged && type && actualType) {
+        let obj = {
+          [type] : !actualType[1]
+        };
+        await refreshToken();
+        await postInteraction({userId: user.id, movieId: id});
+        await putInteraction({userId: user.id, movieId: id, body: obj});
+      }
+    } catch (error) {
+      dispatch(addToast({type: 'error', text: 'Vous devez être connecté pour intéragir.'}));
+      return;
     }
+  
+    dispatch(toggle(type)); 
   };
   const starMenuHandler = () => {
     setWrapperIsDisplayed(true);
@@ -67,7 +88,7 @@ function Interactions({type, count}: InteractionsProps) {
   };
   return (
     <>
-      {(type !== 'star') &&
+      {(type !== 'rating') &&
         <div onClick={dispatchType} className={
           `${styles.wrapper} ${active ? styles.active : ''}`
         }>
@@ -75,7 +96,7 @@ function Interactions({type, count}: InteractionsProps) {
           <span className={styles.count}>{count}</span>
         </div>
       }
-      {(type === 'star') &&
+      {(type === 'rating') &&
         <>
           <div 
             className={`

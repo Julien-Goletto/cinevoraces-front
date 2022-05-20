@@ -31,6 +31,7 @@ type DBMovie = {
   watchlist_count: string,
   likes_count: string,
   ratings_count: string,
+  views_count: string,
   avg_rating: string
 };
 type DBMovieFilter = {

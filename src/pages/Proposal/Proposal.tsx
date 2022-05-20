@@ -8,7 +8,7 @@ import { getProposalData, getSearch, setEpisode } from 'redux/slices/proposal';
 import { Button } from 'components/Buttons/Button';
 import { useTmbdCustomDetailsQuery } from 'redux/apiTmdb';
 import { addToast } from 'redux/slices/global';
-import { usePostMovieMutation, useRefreshTokenMutation, useAvailableSlotsQuery } from 'redux/api';
+import { usePostMovieMutation, useRefreshTokenMutation, useAvailableSlotsQuery, useBookSlotMutation } from 'redux/api';
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 
@@ -18,7 +18,8 @@ function Proposal() {
   const navigate = useNavigate();
   const proposalMovie = useAppSelector(getProposalData);
   const { data, isLoading: isDetailsLoading } = useTmbdCustomDetailsQuery(search);
-  const { data: slots, isSuccess: isSlotsSuccess } = useAvailableSlotsQuery(Number(proposalMovie.user_id));
+  const { data: slots, isSuccess: isSlotsSuccess } = useAvailableSlotsQuery();
+  const [sendBook, bookHandle] = useBookSlotMutation();
   const [sendPost, postHandle] = usePostMovieMutation();
   const [refreshToken, {isError: isTokenError}] = useRefreshTokenMutation();
   const dispatch = useAppDispatch();
@@ -43,6 +44,7 @@ function Proposal() {
     await refreshToken();
     console.log(proposalMovie);
     await sendPost(proposalMovie);
+    await sendBook(proposalMovie.publishing_date);
   };
   
   useEffect(()=> {  
@@ -56,7 +58,14 @@ function Proposal() {
         navigate('/');
       },1000);
     }
+    if(typeof slots === 'string') {
+      dispatch(addToast({type: 'warn', text:`${slots}`, duration:6000}));
+      setTimeout(()=> {
+        navigate('/');
+      }, 100);
+    }
   }, [isTokenError,postHandle, slots]);
+
 
   
   return (
@@ -69,7 +78,7 @@ function Proposal() {
             <span>Saison 2</span>
             <select name='episode' id='episode'>
               <option value=''>--- Choissisez votre épisode ---</option>
-              {(slots && isSlotsSuccess) && slots.map((slot:any) => (
+              {(slots && isSlotsSuccess && typeof slots !== 'string') && slots.map((slot:any) => (
                 <Option slot={slot} key={slot.id} />
               ))}
             </select>

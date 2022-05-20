@@ -46,7 +46,7 @@ function UserParams({ username, email }: user) {
     ) {
       dispatch(addToast({type:'error', text: 'Vous devez remplir tout les champs'}));
     } else if (!formRegEx(updateRequest.user.password!)) {
-      dispatch(addToast({type:'error', text: 'Votre nouveau mot de passe ne correspond est invalide'}));
+      dispatch(addToast({type:'error', text: 'Votre nouveau mot de passe est invalide'}));
     } else if (updateRequest.user.password !== updateRequest.confirmPassword) {
       dispatch(addToast({type:'error', text: 'Votre nouveau mot de passe ne correspond pas au mot de passe de confirmation'}));
     } else {

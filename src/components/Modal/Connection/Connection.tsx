@@ -29,8 +29,7 @@ function Connection() {
       dispatch(addToast({type:'success', text: 'Bienvenue'}));
     }
     if(isError) {
-      console.log(error);
-      dispatch(addToast({type:'error', text: 'Une erreur est survenue'}));
+      dispatch(addToast({type:'error', text: 'Mauvais identifiant ou mot de passe'}));
     }
   },[data, isError, isSuccess, dispatch, error, isLoading]);
 

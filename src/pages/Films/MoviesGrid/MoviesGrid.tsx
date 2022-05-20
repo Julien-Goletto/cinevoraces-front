@@ -21,13 +21,13 @@ function MoviesGrid({ movies, isLoading }: MovieGrid) {
             className={styles.poster}
             key={movie.id}
           >
-            <Link to={`/film/${movie.id}`}>
+            <a href={`/film/${movie.id}`}>
               <img 
                 className={`${styles.img} ${isImgLoading && styles.hidden}`}
                 src={movie.poster_url} alt={`Affiche du film ${movie.title}`}
                 onLoad={onLoadHandler}
               />
-            </Link>
+            </a>
           </div>
         )}
     </div>

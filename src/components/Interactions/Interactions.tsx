@@ -1,5 +1,5 @@
 import styles from './Interactions.module.scss';
-import { useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ReactComponent as Heart } from './ico/heart.svg';
 import { ReactComponent as Star } from './ico/star.svg';
 import { ReactComponent as Eye } from './ico/eye.svg';
@@ -86,6 +86,8 @@ function Interactions({type, count}: InteractionsProps) {
       };
     }, 490);
   };
+
+
   return (
     <>
       {(type !== 'rating') &&
@@ -96,7 +98,7 @@ function Interactions({type, count}: InteractionsProps) {
           <span className={styles.count}>{count}</span>
         </div>
       }
-      {(type === 'rating') &&
+      {(type === 'rating' && actualType) &&
         <>
           <div 
             className={`
@@ -120,7 +122,7 @@ function Interactions({type, count}: InteractionsProps) {
                 ${starIsOpen ? `${styles['is-open']}` : `${styles['is-closed']}`}
                 ${animIsActive && (!starIsOpen ? `${styles['is-opening']}` : `${styles['is-closing']}`)}
               `}>
-                <StarRating alt={true} isInput={true}/>
+                <StarRating alt={true} value={typeof actualType[1] === 'number' ? actualType[1] : 0} isInput={true}/>
               </div>
             </div>
           </button>

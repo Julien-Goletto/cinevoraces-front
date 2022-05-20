@@ -21,6 +21,9 @@ const interactionSlice = createSlice({
       state.bookmarked = action.payload[0].bookmarked;
       state.liked = action.payload[0].liked;
     },
+    setRating(state,action) {
+      state.rating = action.payload.rating;
+    },
     setInactive(state) {
       return initialState;
     },
@@ -47,6 +50,7 @@ const interactionSlice = createSlice({
 
 export const isActive = (state: RootState) => state.interaction.liked;
 export const interaction = (state: RootState) => state.interaction;
+export const getRating = (state: RootState) => state.interaction.rating;
 
-export const { setInactive, setActive, toggle } = interactionSlice.actions;
+export const { setInactive, setActive, setRating, toggle } = interactionSlice.actions;
 export default interactionSlice.reducer;

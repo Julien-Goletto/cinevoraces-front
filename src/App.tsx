@@ -19,6 +19,7 @@ import Home from './pages/Home/Home';
 import Film from './pages/Film/Film';
 import Register from './pages/Register/Register';
 import Proposal from './pages/Proposal/Proposal';
+import Team from './pages/Team/Team';
 import { usePendingPropositionQuery, useRefreshTokenMutation } from 'redux/api';
 import Loader from 'components/Loader/Loader';
 import { addToast } from 'redux/slices/global';
@@ -89,6 +90,7 @@ function App() {
                 </RequireAuth>
               }
             />
+            <Route path='/team' element={<Team />}/>
             <Route path='*' element={<Error />}/>
           </Routes>
         </Layout>

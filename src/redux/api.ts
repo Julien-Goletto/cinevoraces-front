@@ -21,6 +21,9 @@ export const api = createApi({
       query: (user:User) => ({ url: '/v1/users/login', method:'POST', body: user, credentials: 'include' }),
       transformResponse: (res:any) => res
     }),
+    userUpdate: build.mutation<void, any>({
+      query: (data) => ({url: `v1/users/modify/${data.userId}`, method: 'PUT', credentials: 'include', body: data.user})
+    }), 
     allMovies: build.query<any, void>({
       query: () =>  ({url: '/v1/movies', method: 'GET'})
     }),
@@ -47,11 +50,17 @@ export const api = createApi({
     metricsById: build.query<any, number>({
       query: (id:number) => ({url: `/v1/metrics/${id}`, method: 'GET', credentials: 'include'})
     }),
-    pendingProposition: build.query<any, any>({
-      query: (id:number) => ({url: `/v1/propositions/hasPendingProposition/${id}`, method: 'GET', credentials: 'include'})
+    userById: build.query<any, number>({
+      query: (id:number) => ({url: `/v1/users/${id}`, method: 'GET', credentials: 'include'})
+    }),
+    pendingProposalByUser: build.query<any, number>({
+      query: (id:number) => ({url: `/v1/propositions/${id}`, method: 'GET', credentials: 'include'})
     }),
     availableSlots: build.query<any, void>({
-      query: () => ({url: `/v1/propositions/availableSlots`, method: 'GET', credentials: 'include'})  
+      query: () => ({url: '/v1/propositions/availableSlots', method: 'GET', credentials: 'include'})  
+    }),
+    pendingProposition: build.query<any, any>({
+      query: (id:number) => ({url: `/v1/propositions/hasPendingProposition/${id}`, method: 'GET', credentials: 'include'})
     }),
     bookSlot: build.mutation<any, any>({
       query: (data:any) => ({url: '/v1/propositions/book/', method: 'PUT', credentials: 'include', body: {
@@ -74,6 +83,7 @@ export const api = createApi({
 export const { 
   useUserRegisterMutation,
   useUserLoginMutation,
+  useUserUpdateMutation,
   useAllMoviesQuery,
   useOneMovieQuery,
   usePostMovieMutation,
@@ -81,6 +91,8 @@ export const {
   useRefreshTokenMutation,
   useMovieReviewsQuery,
   useMetricsByIdQuery,
+  useUserByIdQuery,
+  usePendingProposalByUserQuery,
   useAvailableSlotsQuery,
   useBookSlotMutation,
   useGetReviewsQuery,

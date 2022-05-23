@@ -25,6 +25,7 @@ function Film() {
   function filterComment(userId: number | null, comments:any) {
     if(!comments) return false;
     let userComment = comments.find((comment:any) => comment.user_id === userId);
+    if(!user.isOnline || !userComment) return comments;
     let filterComment = comments.filter((comment:any) => comment.user_id !== userId);
     console.log([{...userComment, edit: true}, ...filterComment]);
     return [{...userComment, edit: true}, ...filterComment];
@@ -34,8 +35,7 @@ function Film() {
     dispatch(setInactive());
     refreshToken();
     console.log(reviews);
-    console.log(comment);
-    setFilteredComment(filterComment(user.id, comment))
+    setFilteredComment(filterComment(user.id, comment));
     if(typeof reviews !== 'string' && !isReviewsLoad && !isReviewsError) {
       dispatch(setActive(reviews));
        
@@ -62,7 +62,7 @@ function Film() {
           ))
         }
         {
-          //SI AUCUN COMMENTAIRE
+          // SI AUCUN COMMENTAIRE
           (!comment) && <p style={{textAlign: 'center', margin: '1em 0'}}>Aucun commentaire pour ce film</p>
         }
         {

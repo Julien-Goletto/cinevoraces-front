@@ -3,16 +3,16 @@ import styles from './UserMetrics.module.scss';
 
 function UserMetrics({ id }: { id: string }) {
   const { data, isLoading } = useMetricsByIdQuery(Number(id));
-  
+  console.log(data)
   return(
     <>
       { !isLoading &&
         <div className={styles['user-metrics']}>
           <div className={`${styles['metric']} ${styles['metric--primary']}`}>
-            <span className={styles['count']}>{data[0].proposed_movies_count}</span>
+            <span className={styles['count']}>{data[0].propositions_count}</span>
             <span className={styles['type']}>
-              Film{(data[0].proposed_movies_count > 1) && 's'}
-              <br/>proposé{(data[0].proposed_movies_count > 1) && 's'}
+              Film{(data[0].propositions_count > 1) && 's'}
+              <br/>proposé{(data[0].propositions_count > 1) && 's'}
             </span>
           </div>
           <div className={`${styles['metric']} ${styles['metric--secondary']}`}>

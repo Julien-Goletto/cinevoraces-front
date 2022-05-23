@@ -71,8 +71,9 @@ function Interactions({type, count}: InteractionsProps) {
       dispatch(addToast({type: 'error', text: 'Vous devez être connecté pour intéragir.'}));
       return;
     }
-  
     dispatch(toggle(type)); 
+  
+    
   };
   const starMenuHandler = () => {
     setWrapperIsDisplayed(true);

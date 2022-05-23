@@ -1,6 +1,7 @@
 @use '~styles/var';
 
 .user-params {
+  composes: container from global;
   width: 100%;
   display: flex;
   flex-direction: column;

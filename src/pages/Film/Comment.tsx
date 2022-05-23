@@ -5,6 +5,7 @@ import AddComment from './AddComment';
 import { useState } from 'react';
 import { useAppSelector } from 'redux/hooks';
 import { isOnline } from 'redux/slices/user';
+import { Button } from 'components/Buttons/Button';
 
 function Comment(props: CommentProps) {
   const {edit, pic, name, date, text, rating} = props;
@@ -14,13 +15,14 @@ function Comment(props: CommentProps) {
   //Parse date
   const customDate = new Date(date);
   const createdAt = customDate.toLocaleDateString('fr-FR', {day: 'numeric', month: 'long', year: 'numeric'});
+  const editButtonHandler = () => { setEditable(!editable); };
 
   if(edit && editable && isLogged) return <AddComment props={props} setEditable={setEditable} />;
 
   return (
     <>
       <div className={styles.comment}>
-        {(edit && isLogged) && <button onClick={()=> {setEditable(!editable);}}>EDIT</button>}
+        {(edit && isLogged) &&  <Button handler={editButtonHandler} styleMod='rounded-fill'>Editer</Button>}
         <div className={styles.profil}>
           {pic
             ? <div className={styles.picture}><img src={pic} alt={`Avatar de ${name}`} className={styles.pic} /></div>

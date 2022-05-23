@@ -2,6 +2,7 @@
 @use '~styles/var';
 
 .user-metrics {
+  composes: container from global;
   display: grid;
   gap: 1.5em;
   grid-template-columns: repeat(5, minmax(1px, 1fr));

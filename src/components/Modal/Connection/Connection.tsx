@@ -7,6 +7,7 @@ import { addToast, toggleConnection } from 'redux/slices/global';
 import styles from './Connection.module.scss';
 import { setUser } from 'redux/slices/user';
 import { useEffect } from 'react';
+import Cookies from 'js-cookie';
 
 function Connection() {
   const [loginUser, {data, error, isError, isSuccess, isLoading}] = useUserLoginMutation();
@@ -23,7 +24,10 @@ function Connection() {
   };
 
   useEffect(()=> {
+    
     if(isSuccess) {
+      console.log(Cookies.get('accessToken'));
+      
       dispatch(setUser(data));
       dispatch(toggleConnection());
       dispatch(addToast({type:'success', text: 'Bienvenue'}));

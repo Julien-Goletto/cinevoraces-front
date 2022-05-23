@@ -20,20 +20,20 @@ function Menu() {
         <span className={styles.username}>{pseudo}</span>
         <ul className={styles.links}>
           <li className={styles.link}>
-            <a
-              href={`/user/${id}`}
+            <Link
+              to={`/user/${id}`}
               onClick={userMenuHandler}
             >
               Mon Profil
-            </a>
+            </Link>
           </li>
           <li className={styles.link}>
-            <a 
-              href='/proposal'
+            <Link reloadDocument 
+              to='/proposal'
               onClick={userMenuHandler}
             >
               Proposer un film
-            </a>
+            </Link>
           </li>
           <li className={styles.link}>
             <Link onClick={()=> dispatch(setOffline())} to='/'>Se déconnecter</Link>

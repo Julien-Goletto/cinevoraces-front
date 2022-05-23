@@ -3,6 +3,7 @@ import { useAllMoviesQuery } from 'redux/api';
 import styles from './LastMoviesGrid.module.scss';
 import { useEffect, useState } from 'react';
 import Loader from 'components/Loader/Loader';
+import { Link } from 'react-router-dom';
 
 function LastMoviesGrid() {
 
@@ -23,12 +24,12 @@ function LastMoviesGrid() {
         <div className={styles.grid}>
           {lastMovies.map(({poster_url, french_title, id}) => 
             <div className={styles.poster} key={id}>
-              <a href={`/film/${id}`}>
+              <Link to={`/film/${id}`}>
                 <img 
                   className={styles.img}
                   src={poster_url} alt={`Affiche du film ${french_title}`}
                 />
-              </a>
+              </Link>
             </div>
           )}
         </div>

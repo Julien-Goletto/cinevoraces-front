@@ -33,14 +33,11 @@ function Film() {
 
   useEffect(()=> {
     dispatch(setInactive());
-    refreshToken();
-    console.log(reviews);
     setFilteredComment(filterComment(user.id, comment));
     if(typeof reviews !== 'string' && !isReviewsLoad && !isReviewsError) {
       dispatch(setActive(reviews));
-       
     }
-  },[user, refreshToken, reviews, dispatch, isReviewsLoad, isReviewsError, comment, movie] );
+  },[user, reviews, dispatch, isReviewsLoad, isReviewsError, comment] );
   
 
   return (

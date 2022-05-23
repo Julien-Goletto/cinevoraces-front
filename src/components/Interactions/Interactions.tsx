@@ -66,12 +66,14 @@ function Interactions({type, count}: InteractionsProps) {
         await refreshToken();
         await postInteraction({userId: user.id, movieId: id});
         await putInteraction({userId: user.id, movieId: id, body: obj});
+        dispatch(toggle(type)); 
+      } else {
+        dispatch(addToast({type: 'warn', text: 'Vous devez être connecté pour intéragir.'}));
       }
     } catch (error) {
-      dispatch(addToast({type: 'error', text: 'Vous devez être connecté pour intéragir.'}));
+      console.log(error);
       return;
     }
-    dispatch(toggle(type)); 
   
     
   };

@@ -36,10 +36,6 @@
   align-items: center;
 }
 
-.name {
-  margin: 1em 0;
-}
-
 .img {
   width: 150px;
   height: 150px;
@@ -50,3 +46,25 @@
 .img:hover {
   border: 1px var.$primary solid;
 }
+
+.name {
+  margin: 1em 0;
+}
+
+.role {
+  @include mix.p;
+  font-size: 0.8em;
+  color: var.$input-text;
+}
+
+.link {
+  margin: 1em 0;
+  width: 20px;
+  height: 20px;
+  fill: var.$white;
+}
+
+.link:hover {
+  fill: var.$primary;
+}
+

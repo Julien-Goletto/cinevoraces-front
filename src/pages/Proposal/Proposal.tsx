@@ -24,7 +24,6 @@ function Proposal() {
   const [refreshToken, {isError: isTokenError}] = useRefreshTokenMutation();
   const dispatch = useAppDispatch();
   
-  
   const handleSelect = (event: onChangeFormEvent) => {
     const selected = (event.target as HTMLSelectElement).value;
     const publish = slots.find((slot:any) => slot.episode == selected).publishing_date;
@@ -33,6 +32,7 @@ function Proposal() {
       episode_publish_date: publish
     }));
   };
+
   
   const handleSubmit = async (e:any) => {
     e.preventDefault();
@@ -55,7 +55,7 @@ function Proposal() {
     if(postHandle.isSuccess) {
       dispatch(addToast({type: 'success', text: 'Votre film à bien été enregistrer'}));
       setTimeout(()=> {
-        navigate('/');
+        navigate('/', {state: {}, replace: true});
       },1000);
     }
     if(typeof slots === 'string') {

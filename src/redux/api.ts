@@ -4,7 +4,7 @@ export const api = createApi({
   reducerPath: 'api',
   baseQuery: retry(fetchBaseQuery({
     // baseUrl: 'http://localhost:3005'
-    baseUrl: 'http://localhost:3005',
+    baseUrl: process.env.REACT_APP_API,
     prepareHeaders: (headers, {getState}) => {
       const token = (getState() as any).user.access_jwt;
       if (token) {

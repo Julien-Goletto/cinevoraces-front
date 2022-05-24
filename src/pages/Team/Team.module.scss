@@ -1,0 +1,70 @@
+@use '~styles/mixins' as mix;
+@use '~styles/var';
+
+.team {
+  composes: container from global;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3rem;
+  margin: 4rem auto;
+}
+
+.title {
+  @include mix.h3;
+}
+
+.pictures {
+  background-color: var.$secondary-background;
+  border-radius: 10px;
+  padding: 1em;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: .5em;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  margin-top: 1em;
+}
+
+.card {
+  margin: 0 1em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.img {
+  width: 150px;
+  height: 150px;
+  border: 1px var.$white solid;
+  border-radius: 100%;
+}
+
+.img:hover {
+  border: 1px var.$primary solid;
+}
+
+.name {
+  margin: 1em 0;
+}
+
+.role {
+  @include mix.p;
+  font-size: 0.8em;
+  color: var.$input-text;
+}
+
+.link {
+  margin: 1em 0;
+  width: 20px;
+  height: 20px;
+  fill: var.$white;
+}
+
+.link:hover {
+  fill: var.$primary;
+}
+

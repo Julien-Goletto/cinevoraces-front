@@ -9,7 +9,7 @@ function Footer() {
         <div className={styles.links}>
           {/* TODO: Issue #61 - #62 */}
           {/* <Link to='' className={styles.link}>Politique de confidentialité</Link> */}
-          {/* <Link to='' className={styles.link}>L'équipe</Link> */}
+          <Link to='/team' className={styles.link}>L'équipe</Link>
         </div>
         <div className={styles.copyright}>© Aucun droit réservé - 2022</div>
       </footer>

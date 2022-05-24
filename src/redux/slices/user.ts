@@ -23,7 +23,6 @@ const userSlice = createSlice({
       state.access_jwt = action.payload.accessToken;
       state.refresh_jwt = action.payload.refreshToken;
       state.isOnline = true;
-      console.log(action.payload);
       
       Cookies.set('accessToken',action.payload.accessToken);
       Cookies.set('refreshToken',action.payload.refreshToken);

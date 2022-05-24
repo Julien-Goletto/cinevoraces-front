@@ -19,7 +19,7 @@ export const store = configureStore({
     [apiTmdb.reducerPath]: apiTmdb.reducer
   },
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(api.middleware, apiTmdb.middleware, rtkQueryErrorLogger)
+    getDefaultMiddleware().concat(api.middleware, apiTmdb.middleware)
 });
 
 export type AppDispatch = typeof store.dispatch;

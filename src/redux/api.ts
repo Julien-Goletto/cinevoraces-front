@@ -1,26 +1,56 @@
-import { createApi, fetchBaseQuery, retry } from '@reduxjs/toolkit/query/react';
+import { createApi, fetchBaseQuery, retry, FetchBaseQueryError, FetchArgs, BaseQueryFn } from '@reduxjs/toolkit/query/react';
 import Cookies from 'js-cookie';
+import { setUser } from './slices/user';
+
+const baseQuery = retry(fetchBaseQuery({
+  // baseUrl: 'http://localhost:3005'
+  baseUrl: process.env.REACT_APP_API,
+  prepareHeaders: (headers, {getState, endpoint}) => {
+    const accessToken = (getState() as any).user.access_jwt;
+    const refreshToken = Cookies.get('refreshToken');
+    
+    if(headers.get('authorization')) {
+      return headers;
+    }
+    
+    if(endpoint === 'refreshToken') {
+      headers.set('authorization', `Bearer ${refreshToken}`);
+    }
+
+    if (accessToken && endpoint !== 'refreshToken') {
+      headers.set('authorization', `Bearer ${accessToken}`);
+    }
+    return headers;
+  },
+}), {maxRetries: 1});
+
+const baseQueryWithReauth = async (args:any, api:any, extraOptions:any) => {
+    
+  let result = await baseQuery(args, api, extraOptions);
+  
+  if (result.error && 'originalStatus' in result.error && result.error.originalStatus === 401) {
+    // try to get a new token
+    const refreshToken = Cookies.get('refreshToken');
+    const refreshResult = await baseQuery({url: 'v1/refreshTokens', headers: {
+      'authorization': `Bearer ${refreshToken}`
+    }}, api, extraOptions);
+    
+    if (refreshResult.data) {
+      // store the new token
+      api.dispatch(setUser(refreshResult.data));
+      
+      // retry the initial query
+      result = await baseQuery(args, api, extraOptions);
+    } else {
+      // logout
+    }
+  }
+  return result;
+};
 
 export const api = createApi({
   reducerPath: 'api',
-  baseQuery: retry(fetchBaseQuery({
-    // baseUrl: 'http://localhost:3005'
-    baseUrl: process.env.REACT_APP_API,
-    prepareHeaders: (headers, {getState, endpoint}) => {
-      const accessToken = (getState() as any).user.access_jwt;
-      const refreshToken = Cookies.get('refreshToken');
-      
-      if(endpoint === 'refreshToken') {
-        console.log(refreshToken);
-        headers.set('authorization', `Bearer ${refreshToken}`);
-      }
-
-      if (accessToken && endpoint !== 'refreshToken') {
-        headers.set('authorization', `Bearer ${accessToken}`);
-      }
-      return headers;
-    },
-  }), {maxRetries: 1}), tagTypes: ['Movie', 'Reviews'],
+  baseQuery: baseQueryWithReauth, tagTypes: ['Movie', 'Reviews'],
   endpoints: (build) => ({
     userRegister: build.mutation<User, any>({
       query: (user:User) => ({ url: '/v1/users/register', method:'POST', body: user })
@@ -90,6 +120,9 @@ export const api = createApi({
     }),
   })
 });
+
+
+
 
 export const { 
   useUserRegisterMutation,

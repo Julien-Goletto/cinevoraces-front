@@ -27,7 +27,7 @@ function Connection() {
     if(isSuccess) {
       dispatch(setUser(data));
       dispatch(toggleConnection());
-      dispatch(addToast({type:'success', text: 'Bienvenue'}));
+      dispatch(addToast({type:'success', text: `Bienvenue ${data && data.pseudo}`}));
     }
     if(isError) {
       dispatch(addToast({type:'error', text: 'Mauvais identifiant ou mot de passe'}));

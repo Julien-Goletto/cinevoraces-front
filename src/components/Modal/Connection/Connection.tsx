@@ -1,12 +1,12 @@
-import { Button } from 'components/Buttons/Button';
 import Input from 'components/Input/Input';
 import Loader from 'components/Loader/Loader';
+import { Button } from 'components/Buttons/Button';
 import { useAppDispatch } from 'redux/hooks';
 import { useUserLoginMutation } from 'redux/api';
 import { addToast, toggleConnection } from 'redux/slices/global';
-import styles from './Connection.module.scss';
 import { setUser } from 'redux/slices/user';
 import { useEffect } from 'react';
+import styles from './Connection.module.scss';
 
 function Connection() {
   const [loginUser, {data, error, isError, isSuccess, isLoading}] = useUserLoginMutation();

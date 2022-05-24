@@ -12,7 +12,7 @@ import { useLastMovieQuery } from 'redux/api';
 
 function Header() {
   const dispatch = useAppDispatch();
-  const {data, isLoading} = useLastMovieQuery();
+  const {data} = useLastMovieQuery();
   const connectionIsOpen = useAppSelector(state => state.global.connectionIsOpen);
   const connectionHandler = () => {
     dispatch(toggleConnection());
@@ -39,7 +39,6 @@ function Header() {
           <div className={styles.dot}></div>
           <Link to='films' className={styles.link}>Films</Link> 
           <div className={styles.dot}></div>
-          {/* // TODO: ROUTE LAST MOVIE */}
           <Link to={`film/${data ? data[0].id : ''}`} className={styles.link}>Le dernier film</Link>
         </nav>
 

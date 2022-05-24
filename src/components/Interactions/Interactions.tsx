@@ -57,21 +57,16 @@ function Interactions({type, count}: InteractionsProps) {
   const dispatchType = async () => {
     try {
       if (user.isOnline && type && actualType) {
-        let obj = {
-          [type] : !actualType[1]
-        };
+        let obj = { [type] : !actualType[1] };
         if(!reviews) await postInteraction({userId: user.id, movieId: id});
         await putInteraction({userId: user.id, movieId: id, body: obj});
         dispatch(toggle(type)); 
       } else {
-        dispatch(addToast({type: 'warn', text: 'Vous devez être connecté pour intéragir.'}));
+        throw new Error('Vous devez être connecté pour intéragir.');
       }
-    } catch (error) {
-      console.log(error);
-      return;
-    }
-  
-    
+    } catch (error: any) {
+      dispatch(addToast({type: 'warn', text: error.message}));
+    }    
   };
 
   // Star Menu handler

@@ -26,14 +26,14 @@ function Comment(props: CommentProps) {
         <div className={styles.profil}>
           {pic
             ? <div className={styles.picture}><img src={pic} alt={`Avatar de ${name}`} className={styles.pic} /></div>
-            : <div className={styles.picture}><img src={'/images/user_default.svg'} alt={`Avatar par default`} className={styles.pic__default} /></div>
+            : <div className={styles.picture}><img src={'/images/user_default.svg'} alt={'Avatar par default'} className={styles.pic__default} /></div>
           }
           <div className={styles.box}>
             <h5 className={styles.name}>{name}</h5>
             <div className={styles.date}>{createdAt}</div>
           </div>
         </div>
-        <div className={styles.note}><StarRating value={rating} /></div>
+        <div className={styles.note}><StarRating value={rating}/></div>
         {sliceText}
       </div>
     </>

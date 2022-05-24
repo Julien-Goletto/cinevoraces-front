@@ -19,7 +19,7 @@ function UserParams({ username, email }: user) {
     setShowInput(true);
   };
   const formRegEx = (string: FormDataEntryValue) => {
-    if (RegExp('^((?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[\-~!@#$%^&*_+=/:;."<>?])(?=.{12,}))').test(String(string!))) { // eslint-disable-line
+    if (RegExp('^((?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[\-~!@#$%^*_+=/:;.?])(?=.{8,}))').test(String(string!))) { // eslint-disable-line
       return true;
     } else {
       return false;
@@ -96,7 +96,7 @@ function UserParams({ username, email }: user) {
           placeholder='Confirmez votre nouveau mot de passe'
         />
         <div className={styles.rules}>
-          Votre mot de passe doit contenir au moins une majuscule, une minuscule, un symbôle et un chiffre et doit contenir au moins 12 caractères.
+          Votre mot de passe doit contenir au moins une majuscule, une minuscule, un symbôle et un chiffre et doit contenir au moins 8 caractères.
         </div>
         <Button
           styleMod='fill-rounded'

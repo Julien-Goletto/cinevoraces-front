@@ -3,6 +3,7 @@
 .toast {
   position: fixed;
   display: block;
+  font-size: 0.9em;
   bottom: 10px;
   left: 10px;
   display: flex;
@@ -13,7 +14,14 @@
 }
 
 @include mix.breakpoint('tablet') {
-
+  .toast {
+    font-size: 1.1em;
+  }
+}
+@include mix.breakpoint('laptop') {
+  .toast {
+    font-size: 1.15em;
+  }
 }
 
 

@@ -1,14 +1,13 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
-import styles from './MoviesGrid.module.scss';
+import { Link     } from 'react-router-dom';
 import Loader from 'components/Loader/Loader';
+import styles from './MoviesGrid.module.scss';
 
 function MoviesGrid({ movies, isLoading }: MovieGrid) {
   const [isImgLoading, setIsImgLoading] = useState(true);
   const onLoadHandler = () => {
     setTimeout(() => {setIsImgLoading(false);}, 1000);
   };
-  
   return(
     <div className={styles.grid}>
       {(isLoading || isImgLoading) &&

@@ -4,7 +4,7 @@ import { useAppDispatch, useAppSelector } from 'redux/hooks';
 import { addToast } from 'redux/slices/global';
 import { useParams } from 'react-router-dom';
 import { usePostInteractionMutation, usePutInteractionMutation } from 'redux/api';
-import { getRating, setRating } from 'redux/slices/interaction';
+import { getRating, isReviews, setRating } from 'redux/slices/interaction';
 import styles from './StarRating.module.scss';
 
 /**
@@ -19,6 +19,7 @@ function StarRating({ alt=false, value = 0, isInput = false } : StarRating) {
   const rating   = useAppSelector(getRating);
   const isLogged = useAppSelector(isOnline);
   const user     = useAppSelector(userLogged);
+  const reviews  = useAppSelector(isReviews);
   const [hover, setHover] = useState<number>(0);
   const [postInteraction] = usePostInteractionMutation();
   const [putInteraction]  = usePutInteractionMutation();
@@ -26,7 +27,7 @@ function StarRating({ alt=false, value = 0, isInput = false } : StarRating) {
   const handleSetRating = async (index: number) => {
     try {
       if (isLogged) {
-        await postInteraction({userId: user.id, movieId: id});
+        !reviews && await postInteraction({userId: user.id, movieId: id});
         await putInteraction({userId: user.id, movieId: id, body: {rating: index}});
         dispatch(setRating({rating: index}));
       } else {

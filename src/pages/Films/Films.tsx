@@ -1,20 +1,23 @@
 import { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from 'redux/hooks';
-import { useAllMoviesQuery } from 'redux/api';
-import { Button } from 'components/Buttons/Button';
-import { initFilters, filterState, filterYearState, getQuery } from 'redux/slices/filter';
 import { formatDataFilters } from './formatData';
-import styles from './Films.module.scss';
+import { useAllMoviesQuery } from 'redux/api';
+import { 
+  initFilters, 
+  filterState, 
+  filterYearState, 
+  getQuery } from 'redux/slices/filter';
 import Filters from './Filters/Filters';
 import MoviesGrid from './MoviesGrid/MoviesGrid';
+import styles from './Films.module.scss';
 
 function Films() {
-  const { data, isLoading } = useAllMoviesQuery();
-  const [ movies, setMovies ] = useState<DBMovie[]>([]);
-  const filters = useAppSelector(filterState);
-  const yearFilter = useAppSelector(filterYearState);
-  const query = useAppSelector(getQuery);
   const dispatch = useAppDispatch();
+  const { data, isLoading }   = useAllMoviesQuery();
+  const [ movies, setMovies ] = useState<DBMovie[]>([]);
+  const filters     = useAppSelector(filterState);
+  const yearFilter  = useAppSelector(filterYearState);
+  const query       = useAppSelector(getQuery);
 
   useEffect(() => {
     data && dispatch(initFilters(formatDataFilters(data)));
@@ -22,8 +25,7 @@ function Films() {
 
   useEffect(() => {
     if (data && filters) {
-      let filteredMovies: DBMovie[] = [...data];
-    
+      let filteredMovies: DBMovie[] = [...data];    
       if (filters.season_number !== 'all') {
         filteredMovies = filteredMovies.filter(
           (movie:DBMovie)=> movie.season_number === filters.season_number
@@ -31,15 +33,12 @@ function Films() {
       }
       if(filters.genres.length > 0) {
         filteredMovies = filteredMovies.filter((movie:DBMovie) => {
-        
           for(let genre of movie.genres) {   
             if(filters.genres.includes(genre)) {
               console.log('ctrue');
               return true;
-              
             };
           }
-          
           return false;
         });
       } 
@@ -57,12 +56,10 @@ function Films() {
         const year = date.getFullYear();
         if(year > yearFilter[0] && year < yearFilter[1]) {
           return true;
-        }
-      });
+        }});
       filteredMovies = filteredMovies.filter((movie:DBMovie) => {
         return movie.french_title.toLowerCase().includes(query.toLowerCase());
       });
-
       setMovies(filteredMovies);
     }
   }, [data, filters, yearFilter, query]);
@@ -74,12 +71,6 @@ function Films() {
         movies={movies} 
         isLoading={isLoading}
       />
-
-      {/* <div className={styles.button}>
-        <Button>
-          Voir les films suivants (77)
-        </Button>
-      </div> */}
     </section>
   );
 }

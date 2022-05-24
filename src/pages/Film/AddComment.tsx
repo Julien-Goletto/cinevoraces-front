@@ -2,33 +2,34 @@ import { Button } from 'components/Buttons/Button';
 import { useAppSelector } from 'redux/hooks';
 import { userLogged } from 'redux/slices/user';
 import styles from './AddComment.module.scss';
-import { usePostInteractionMutation, usePutInteractionMutation, useRefreshTokenMutation } from 'redux/api';
+import { usePostInteractionMutation, usePutInteractionMutation } from 'redux/api';
 import { useParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { addToast } from 'redux/slices/global';
+import { isReviews } from 'redux/slices/interaction';
 
 function AddComment(props: any) {
   const { id } = useParams();
-  const { setEditable } = props;
-  const { date, text } = props.props;
+  const { setEditable, text } = props;
+  const reviews = useAppSelector(isReviews);
   const dispatch = useDispatch();
   const user = useAppSelector(userLogged);
-  const [refreshToken, tokenHandle] = useRefreshTokenMutation();
-  const [postInteraction, postHandle] = usePostInteractionMutation();
-  const [putInteraction, putHandle] = usePutInteractionMutation();
+  const [postInteraction] = usePostInteractionMutation();
+  const [putInteraction] = usePutInteractionMutation();
 
   async function sendComment(e:any) {
     e.preventDefault();
     let comment = e.target.comment.value;
     try {
       if (user.isOnline) {
-        await refreshToken();
-        await postInteraction({userId: user.id, movieId: id});
+        !reviews && await postInteraction({userId: user.id, movieId: id});
         await putInteraction({userId: user.id, movieId: id, body: {comment: comment}});
-        
+        dispatch(addToast({type: 'success', text: 'Commentaire ajouté / modifié'}));
+      } else {
+        throw new Error('Une erreur est survenue, veuillez réssayé plus tard ou contact un administrateur.');
       }
     } catch (error) {
-      dispatch(addToast({type: 'error', text: 'Une erreur est survenue, veuillez réssayé plus tard ou contact un administrateur.', duration: 6000}));
+      dispatch(addToast({type: 'error', text: (error as {message:string}).message, duration: 6000}));
       return;
     }
     setEditable(false);
@@ -42,7 +43,7 @@ function AddComment(props: any) {
             <div className={styles['picture']}><img src={'/images/user_default.svg'} alt='Avatar' className={styles['pic']} /></div>
             <div className={styles['box']}>
               <h5 className={styles['name']}>{user.pseudo}</h5>
-              <div className={styles['date']}>{date}</div>
+              <div className={styles['date']}>{props.date ? props.date : ''}</div>
             </div>
           </div>
           <div className={styles['form']}>

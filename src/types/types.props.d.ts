@@ -1,3 +1,6 @@
+type AboutProps = {
+  children?: React.ReactNode
+}
 type Button = {
   children?: React.ReactNode,
   styleMod?: string,

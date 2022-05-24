@@ -1,12 +1,10 @@
-import styles from './Team.module.scss';
 import { useState } from 'react';
 import { ReactComponent as LinkedIn } from './ico/linkedin.svg';
+import styles from './Team.module.scss';
 
 function Team() {
-
   const [zoomedBenouit, setZoomedBenouit] = useState('/images/team/benoit.png');
   const [roleBenouit, setRoleBenouit] = useState('Front Dev');
-  
   return (
     <section className={styles.team}>
       <h1 className={styles.title}>L'équipe</h1>

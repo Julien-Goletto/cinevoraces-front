@@ -17,7 +17,8 @@ function Comment(props: CommentProps) {
   const createdAt = customDate.toLocaleDateString('fr-FR', {day: 'numeric', month: 'long', year: 'numeric'});
   const editButtonHandler = () => { setEditable(!editable); };
 
-  if(edit && editable && isLogged) return <AddComment props={props} setEditable={setEditable} />;
+  // IF mode editable true
+  if(edit && editable && isLogged) return <AddComment text={text} date={createdAt} setEditable={setEditable} />;
 
   return (
     <>

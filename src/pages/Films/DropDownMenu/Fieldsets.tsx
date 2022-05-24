@@ -1,8 +1,18 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { useAppDispatch, useAppSelector } from 'redux/hooks';
-import { periodeBaseValues, periodeStateValues, setPeriodeMinVal, setPeriodeMaxVal } from 'redux/slices/filter';
+import { 
+  periodeBaseValues, 
+  periodeStateValues, 
+  setPeriodeMinVal, 
+  setPeriodeMaxVal } from 'redux/slices/filter';
 import styles from './DropDownMenu.module.scss';
 
+/**
+ * @return            list of radio inputs
+ * @param   array     array of tags
+ * @param   label     name tag, return a \<label\>
+ * @param   handler   input handler
+ */
 function FieldsetRadio({array, label, handler}: FieldsetRadio) {
   return(
     <fieldset className={styles['fieldset']}>
@@ -27,10 +37,14 @@ function FieldsetRadio({array, label, handler}: FieldsetRadio) {
   );
 }
 
+/**
+ * @return            list of checkbox inputs
+ * @param   array     array of tags
+ * @param   tagName   name of tags categorie, return a \<label\>
+ * @param   handler   input handler
+ */
 function FieldsetCheckbox({ array, tagName, handler }: FieldsetCheckbox) {
   const [isOpen, setIsOpen] = useState(false);
-  console.log(tagName);
-  
   const handleTagsDropDown = (e:mouseEvent) => {
     e.preventDefault();
     (isOpen) ? setIsOpen(false) : setIsOpen(true);
@@ -67,7 +81,7 @@ function FieldsetCheckbox({ array, tagName, handler }: FieldsetCheckbox) {
 }
 
 function FieldsetDate() {
-  const [baseValueMin, baseValueMax] = useAppSelector(periodeBaseValues);
+  const [baseValueMin, baseValueMax]   = useAppSelector(periodeBaseValues);
   const [stateValueMin, stateValueMax] = useAppSelector(periodeStateValues);
   const dispatch = useAppDispatch();
   const minValRef = useRef(baseValueMin);

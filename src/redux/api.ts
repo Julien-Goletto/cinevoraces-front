@@ -65,7 +65,7 @@ export const api = createApi({
     allMovies: build.query<any, void>({
       query: () =>  ({url: '/v1/movies', method: 'GET'})
     }),
-    oneMovie: build.query<void, number>({
+    oneMovie: build.query<DBMovie, number>({
       query: (id) => ({url: `/v1/movies/${id}`, method: 'GET'}),
       transformResponse: (res:any) => res[0],
       providesTags: ['Movie']
@@ -83,7 +83,7 @@ export const api = createApi({
       },
     }),
     //const token = (getState() as any).user.access_jwt;
-    movieReviews: build.query<any, number>({
+    movieReviews: build.query<Comment[], number>({
       query: (id) => ({url: `/v1/reviews/${id}/comments`, method: 'GET'}),
       providesTags: ['Reviews']
     }),
@@ -110,8 +110,8 @@ export const api = createApi({
         publishing_date: data
       }})
     }),
-    getReviews: build.query<any, any>({
-      query: (arg:any) => ({url: `/v1/reviews/${arg.userId}/${arg.movieId}`, method: 'GET'}),
+    getUserReview: build.query<Reviews, object>({
+      query: (arg:{userId: number, movieId:number}) => ({url: `/v1/reviews/${arg.userId}/${arg.movieId}`, method: 'GET'}),
       providesTags: ['Reviews']
     }),
     postInteraction: build.mutation<any, any>({
@@ -143,7 +143,7 @@ export const {
   usePendingProposalByUserQuery,
   useAvailableSlotsQuery,
   useBookSlotMutation,
-  useGetReviewsQuery,
+  useGetUserReviewQuery,
   usePostInteractionMutation,
   usePutInteractionMutation,
   usePendingPropositionQuery

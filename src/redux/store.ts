@@ -6,7 +6,6 @@ import userSlice from './slices/user';
 import { api } from './api';
 import { apiTmdb } from './apiTmdb';
 import proposalSlice from './slices/proposal';
-import { rtkQueryErrorLogger } from './middleware/refreshToken';
 
 export const store = configureStore({
   reducer: {

@@ -14,6 +14,7 @@ export const rtkQueryErrorLogger: Middleware =
       if(action.meta.arg.endpointName !== 'refreshToken' && action.payload.originalStatus === 401) {
         apiAction.dispatch((api.endpoints.refreshToken.initiate() as any))
           .then((res:any) => {
+            console.log(res);
             
             if(res.error) {
               apiAction.dispatch(setOffline());

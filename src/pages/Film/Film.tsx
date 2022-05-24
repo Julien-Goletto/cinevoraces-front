@@ -20,7 +20,6 @@ function Film() {
   const { data: comment, isLoading: isCommentLoad } = useMovieReviewsQuery<any>(Number(id));
   const { data: reviews, isLoading: isReviewsLoad, isError: isReviewsError, isSuccess: isReviewsSuccess  } = useGetReviewsQuery({userId: user.id, movieId: id });
   const [filteredComment, setFilteredComment] = useState(comment);
-  const [refreshToken, handle] = useRefreshTokenMutation();
 
   function filterComment(userId: number | null, comments:any) {
     if(!comments) return false;

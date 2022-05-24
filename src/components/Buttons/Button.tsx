@@ -28,12 +28,6 @@ function Button({ children, styleMod, handler, href }: Button)  {
   `;
   return(
     <>
-      <div>
-        <Button
-          styleMod=''
-        >
-        </Button>  
-      </div>
       { href &&
         <Link 
           className={className}

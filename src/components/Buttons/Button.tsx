@@ -1,7 +1,14 @@
 import { Link } from 'react-router-dom';
 import styles from './Button.module.scss';
 
+/**
+ * @return          either \<button\> or \<Link\>
+ * @param href      return \<Link\> if used
+ * @param handler   onClick handler
+ * @param styleMod  'fill' | 'rounded' | 'white' (joinded with '-')
+ */
 function Button({ children, styleMod, handler, href }: Button)  {
+  // Get styleMod and look for keywords in string
   const styleResolver = (searchedString: string) => {
     if (RegExp(`\\b${searchedString}\\b`).test(styleMod!)) {
       return searchedString;
@@ -12,6 +19,7 @@ function Button({ children, styleMod, handler, href }: Button)  {
   const isFilled = styleResolver('fill');
   const isRounded = styleResolver('rounded');
   const isWhite = styleResolver('white');
+  // Set the correct classname
   const className = `
     ${styles['button']}
     ${(isFilled) ? styles['button--full'] : styles['button--empty']}
@@ -20,6 +28,12 @@ function Button({ children, styleMod, handler, href }: Button)  {
   `;
   return(
     <>
+      <div>
+        <Button
+          styleMod=''
+        >
+        </Button>  
+      </div>
       { href &&
         <Link 
           className={className}

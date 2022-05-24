@@ -26,7 +26,6 @@ function Film() {
     let userComment = comments.find((comment:any) => comment.user_id === userId);
     if(!user.isOnline || !userComment) return comments;
     let filterComment = comments.filter((comment:any) => comment.user_id !== userId);
-    console.log([{...userComment, edit: true}, ...filterComment]);
     return [{...userComment, edit: true}, ...filterComment];
   }
 
@@ -36,6 +35,7 @@ function Film() {
     if(typeof reviews !== 'string' && !isReviewsLoad && !isReviewsError) {
       dispatch(setActive(reviews));
     }
+    
   },[user, reviews, dispatch, isReviewsLoad, isReviewsError, comment] );
   
 

@@ -5,17 +5,16 @@ import { useEffect, useState } from 'react';
 import Loader from 'components/Loader/Loader';
 import { Link } from 'react-router-dom';
 
+/**
+ * @return grid with the last 5 movies posted
+ */
 function LastMoviesGrid() {
-
   const {data, isLoading} = useAllMoviesQuery();
   const [lastMovies, setLastMovies] = useState<DBMovie[]>();
 
   useEffect(()=> {
-    if(!isLoading && data) {
-      setLastMovies([...data].slice(0,5));
-    }
+    (!isLoading && data) && setLastMovies([...data].slice(0,5));
   }, [data, isLoading]);
-  
 
   return(
     (lastMovies && !isLoading) ?
@@ -27,7 +26,8 @@ function LastMoviesGrid() {
               <Link to={`/film/${id}`}>
                 <img 
                   className={styles.img}
-                  src={poster_url} alt={`Affiche du film ${french_title}`}
+                  src={poster_url} 
+                  alt={`Affiche du film ${french_title}`}
                 />
               </Link>
             </div>

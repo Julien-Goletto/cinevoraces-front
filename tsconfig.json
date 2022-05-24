@@ -17,6 +17,6 @@
     "baseUrl": "./src",
     "plugins": [{ "name": "typescript-plugin-css-modules" }]
   },
-  "include": ["react-app-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "include": ["react-app-env.d.ts", "**/*.ts", "**/*.tsx", "src/pages/Team/Team.jsx"],
   "exclude": ["node_modules"]
 }

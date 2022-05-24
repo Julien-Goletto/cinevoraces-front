@@ -25,8 +25,6 @@ function Connection() {
   useEffect(()=> {
     
     if(isSuccess) {
-      console.log(data?.refreshToken);
-      
       dispatch(setUser(data));
       dispatch(toggleConnection());
       dispatch(addToast({type:'success', text: 'Bienvenue'}));

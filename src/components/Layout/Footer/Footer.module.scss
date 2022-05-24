@@ -27,6 +27,10 @@
   color: var.$primary;
 }
 
+.link:hover {
+  text-decoration: underline;
+}
+
 @include mix.breakpoint('laptop') {
   .links,
   .copyright {

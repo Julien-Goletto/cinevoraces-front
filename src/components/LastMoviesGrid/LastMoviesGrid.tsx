@@ -18,7 +18,7 @@ function LastMoviesGrid() {
 
   return(
     (lastMovies && !isLoading) ?
-      <div className={styles['last-movies']}>
+      <div id='last-movie' className={styles['last-movies']}>
         <h2 className={styles.title}>Les derniers ajouts de la communauté</h2>
         <div className={styles.grid}>
           {lastMovies.map(({poster_url, french_title, id}) => 

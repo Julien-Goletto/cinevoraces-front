@@ -22,3 +22,6 @@
   width: 26em;
   border-radius: 10px;
 }
+
+
+.scale-up-center{animation:scale-up-center 0.4s; } @keyframes scale-up-center{ 0%{transform:scale(.5)} 100%{transform:scale(1)} }

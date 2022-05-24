@@ -70,6 +70,9 @@ export const api = createApi({
       transformResponse: (res:any) => res[0],
       providesTags: ['Movie']
     }),
+    lastMovie: build.query<DBMovie[], void>({
+      query: () => ({url: 'v1/movies/lastmovie', method: 'GET'})
+    }),
     allMetrics: build.query<any, void>({
       query: () => ({url: '/v1/metrics', method: 'GET'}),
       transformResponse: (res:any) => res[0]
@@ -130,6 +133,7 @@ export const {
   useUserUpdateMutation,
   useAllMoviesQuery,
   useOneMovieQuery,
+  useLastMovieQuery,
   usePostMovieMutation,
   useAllMetricsQuery,
   useRefreshTokenMutation,

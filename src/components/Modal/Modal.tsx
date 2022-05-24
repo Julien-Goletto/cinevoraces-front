@@ -19,7 +19,7 @@ function Modal({children} : {children : React.ReactNode}) {
         className={styles['modal-background']}
         onClick={handleCloseModal}
       />
-      <div className={styles.modal}>
+      <div className={`${styles.modal} ${styles['scale-up-center']}`}>
         { children }
       </div>
     </div>

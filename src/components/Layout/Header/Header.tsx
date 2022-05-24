@@ -8,14 +8,18 @@ import styles from './Header.module.scss';
 import MenuMobile from './MenuMobile/MenuMobile';
 import UserMenu from './UserMenu/UserMenu';
 import { Link } from 'react-router-dom';
+import { useLastMovieQuery } from 'redux/api';
 
 function Header() {
   const dispatch = useAppDispatch();
+  const {data, isLoading} = useLastMovieQuery();
   const connectionIsOpen = useAppSelector(state => state.global.connectionIsOpen);
   const connectionHandler = () => {
     dispatch(toggleConnection());
   };
   const isLogged = useAppSelector<boolean>(isOnline);
+  
+
   return(
     <>
       { connectionIsOpen && 
@@ -36,7 +40,7 @@ function Header() {
           <Link to='films' className={styles.link}>Films</Link> 
           <div className={styles.dot}></div>
           {/* // TODO: ROUTE LAST MOVIE */}
-          <Link to='/' className={styles.link}>Le dernier film</Link>
+          <Link to={`film/${data ? data[0].id : ''}`} className={styles.link}>Le dernier film</Link>
         </nav>
 
         {!isLogged &&

@@ -1,13 +1,11 @@
-const getFrenchCountries = () => {
-
-};
-
 const formatDataFilters = (data: DBMovie[]) => {
+  // Init object to return
   const formatedData: FilterStateConstructor = {
     seasons: [{name: 'Tous les films', value: 'all', isChecked: true}],
     tags: [{tagName: 'Genres', tags: []},{tagName: 'Pays', tags: []}],
     periode: {baseValues: [], stateValues: []}
   };
+  // Init filters containers
   const seasonArr: string[] = [];
   const release_dateArr: number[] = [];
   const genreArr: string[] = [];
@@ -18,7 +16,9 @@ const formatDataFilters = (data: DBMovie[]) => {
     countries,
     release_date,
   }) => {
-    !(seasonArr.includes(String(season_number))) && seasonArr.push(String(season_number));
+    // Push in filter container if not already present
+    !(seasonArr.includes(String(season_number))) && 
+        seasonArr.push(String(season_number));
     !(release_dateArr.includes(Number(release_date.slice(0,4)))) && release_dateArr.push(Number(release_date.slice(0,4)));
     genres.forEach((genre) => {
       !(genreArr.includes(genre)) && genreArr.push(genre);
@@ -27,7 +27,7 @@ const formatDataFilters = (data: DBMovie[]) => {
       !(countryArr.includes(country)) && countryArr.push(country);
     }); 
   });
-
+  // Format and push each occurence in return object
   seasonArr.forEach((season) => {
     formatedData.seasons.push({ name: `Saison ${season}`, value: season, isChecked: false });
   });
@@ -44,4 +44,4 @@ const formatDataFilters = (data: DBMovie[]) => {
   return formatedData;
 };
 
-export { formatDataFilters, getFrenchCountries };
+export { formatDataFilters };

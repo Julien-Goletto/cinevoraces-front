@@ -9,7 +9,7 @@ function Toasts()  {
   let toastsList = useAppSelector(getToasts);
   
   return ReactDOM.createPortal(
-    (toastsList.length > 0) && <div className={styles.toast}>
+    (toastsList.length > 0) && <div className={`${styles.toast} ${styles['scale-up-left']}`}>
       { toastsList.map((toast:any)=> (
         <Toast key={toast.id} id={toast.id} type={toast.type} text={toast.text} duration={toast.duration} />
       ))}

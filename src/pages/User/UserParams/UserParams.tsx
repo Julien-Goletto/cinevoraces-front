@@ -13,13 +13,13 @@ function UserParams({ username, email }: user) {
   const [showInput, setShowInput] = useState(false);
   const dispatch = useAppDispatch();
   const { id }  = useParams();
-  const [updateUser, {data, isLoading, isSuccess, isError}] = useUserUpdateMutation();
+  const [updateUser, {isSuccess, isError}] = useUserUpdateMutation();
 
   const handleShowInput = () => {
     setShowInput(true);
   };
   const formRegEx = (string: FormDataEntryValue) => {
-    if (RegExp('^((?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[\-~!@#$%^&*_+=/:;."<>?])(?=.{12,}))').test(String(string!))) { // eslint-disable-line
+    if (RegExp('^((?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[\-~!@#$%^*_+=/:;.?])(?=.{8,}))').test(String(string!))) { // eslint-disable-line
       return true;
     } else {
       return false;
@@ -72,11 +72,13 @@ function UserParams({ username, email }: user) {
           name='email'
           type='email'
           placeholder='Entrez votre nouveau email'
+          value={email}
         />
         <Input
           name='username'
           type='text'
           placeholder='Entrez votre nouveau nom d’utilisateur'
+          value={username}
         />
         <div className={styles['action']}>
         </div>
@@ -96,7 +98,7 @@ function UserParams({ username, email }: user) {
           placeholder='Confirmez votre nouveau mot de passe'
         />
         <div className={styles.rules}>
-          Votre mot de passe doit contenir au moins une majuscule, une minuscule, un symbôle et un chiffre et doit contenir au moins 12 caractères.
+          Votre mot de passe doit contenir au moins une majuscule, une minuscule, un symbôle et un chiffre et doit contenir au moins 8 caractères.
         </div>
         <Button
           styleMod='fill-rounded'
@@ -109,18 +111,18 @@ function UserParams({ username, email }: user) {
       { !showInput &&
         <>
           <div className={styles['user-info']}>
-            <h4 className={userStyles['title-h4']}>
+            <div className={userStyles['title-h4']}>
               <span>email :</span>
               <span className={styles['info']}>&nbsp;{email}</span>
-            </h4>
-            <h4 className={userStyles['title-h4']}>
+            </div>
+            <div className={userStyles['title-h4']}>
               <span>nom :</span>
               <span className={styles['info']}>&nbsp;{username}</span>
-            </h4>
-            <h4 className={userStyles['title-h4']}>
+            </div>
+            <div className={userStyles['title-h4']}>
               <span>mot de passe :</span>
               <span className={styles['info']}>&nbsp;**********</span>
-            </h4>
+            </div>
 
           </div>
           <Button

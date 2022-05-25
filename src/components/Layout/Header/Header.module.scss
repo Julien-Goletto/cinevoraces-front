@@ -17,7 +17,7 @@
   gap: 1.5em;
 }
 .img {
-  width: 10rem;
+  width: 12rem;
 }
 .nav {
   letter-spacing: .04rem;
@@ -45,8 +45,11 @@
   background-color: var.$primary;
 }
 
-@media screen and (max-width: 450px) {
-  .img { width: 8.5rem; }
+@media screen and (max-width: 370px) {
+  .img { width: 10rem; }
+}
+@media screen and (max-width: 300px) {
+  .img { width: 8rem; }
 }
 @media screen and (max-width: 450px) {
   .header button {
@@ -71,6 +74,6 @@
 }
 @include mix.breakpoint('laptop') {
   .img {
-    width: 13.4rem;
+    width: 14rem;
   }
 }

@@ -80,7 +80,6 @@ export const apiTmdb = createApi({
 
           const mov:any = 
           {
-            season_id: 3,
             french_title: movie.title,
             original_title: movie.original_title,
             poster_url: 'https://image.tmdb.org/t/p/original' + movie.poster_path,

@@ -3,7 +3,6 @@ import styles from './UserMetrics.module.scss';
 
 function UserMetrics({ id }: { id: string }) {
   const { data, isLoading } = useMetricsByIdQuery(Number(id));
-  console.log(data)
   return(
     <>
       { !isLoading &&

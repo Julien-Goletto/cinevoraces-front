@@ -111,18 +111,18 @@ function UserParams({ username, email }: user) {
       { !showInput &&
         <>
           <div className={styles['user-info']}>
-            <h4 className={userStyles['title-h4']}>
+            <div className={userStyles['title-h4']}>
               <span>email :</span>
               <span className={styles['info']}>&nbsp;{email}</span>
-            </h4>
-            <h4 className={userStyles['title-h4']}>
+            </div>
+            <div className={userStyles['title-h4']}>
               <span>nom :</span>
               <span className={styles['info']}>&nbsp;{username}</span>
-            </h4>
-            <h4 className={userStyles['title-h4']}>
+            </div>
+            <div className={userStyles['title-h4']}>
               <span>mot de passe :</span>
               <span className={styles['info']}>&nbsp;**********</span>
-            </h4>
+            </div>
 
           </div>
           <Button

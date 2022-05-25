@@ -33,7 +33,7 @@ function User() {
             id={id!}
           />
           <h2 className={styles['title-h2']}>
-            Modifier mes <span>paramètres :</span>
+            Mes paramètres :
           </h2>
           <UserParams
             username={data.pseudo}

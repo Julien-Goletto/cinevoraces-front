@@ -40,7 +40,11 @@ function LastMoviesGrid() {
         >
           Voir la liste des films
         </Button>
-      </div> : <Loader />
+      </div> 
+      :
+      <div id='last-movie' className={styles.loader}>
+        <Loader />
+      </div>
   );
 }
 

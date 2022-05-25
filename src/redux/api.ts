@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery, retry, FetchBaseQueryError, FetchArgs, BaseQueryFn } from '@reduxjs/toolkit/query/react';
 import Cookies from 'js-cookie';
-import { setUser } from './slices/user';
+import { setOffline, setUser } from './slices/user';
 
 const baseQuery = retry(fetchBaseQuery({
   // baseUrl: 'http://localhost:3005'
@@ -34,15 +34,13 @@ const baseQueryWithReauth = async (args:any, api:any, extraOptions:any) => {
     const refreshResult = await baseQuery({url: 'v1/refreshTokens', headers: {
       'authorization': `Bearer ${refreshToken}`
     }}, api, extraOptions);
-    
+
     if (refreshResult.data) {
       // store the new token
       api.dispatch(setUser(refreshResult.data));
-      
-      // retry the initial query
       result = await baseQuery(args, api, extraOptions);
     } else {
-      // logout
+      api.dispatch(setOffline());
     }
   }
   return result;

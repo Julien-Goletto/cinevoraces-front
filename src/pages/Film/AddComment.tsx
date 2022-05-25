@@ -10,7 +10,7 @@ import { isReviews } from 'redux/slices/interaction';
 
 function AddComment(props: any) {
   const { id } = useParams();
-  const { setEditable, text } = props;
+  const { setEditable, editable, text } = props;
   const reviews = useAppSelector(isReviews);
   const dispatch = useDispatch();
   const user = useAppSelector(userLogged);
@@ -56,7 +56,7 @@ function AddComment(props: any) {
                   styleMod='fill-rounded'
                 >
                   <img src='/images/send-icon.svg' alt=''/>
-                  Poster votre commentaire / modification
+                  {editable ? 'Poster votre modification' : 'Poster votre commentaire'}
                 </Button>
               </div>
             </form>

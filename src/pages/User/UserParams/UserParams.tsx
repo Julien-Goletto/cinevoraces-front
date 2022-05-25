@@ -13,7 +13,7 @@ function UserParams({ username, email }: user) {
   const [showInput, setShowInput] = useState(false);
   const dispatch = useAppDispatch();
   const { id }  = useParams();
-  const [updateUser, {data, isLoading, isSuccess, isError}] = useUserUpdateMutation();
+  const [updateUser, {isSuccess, isError}] = useUserUpdateMutation();
 
   const handleShowInput = () => {
     setShowInput(true);
@@ -72,11 +72,13 @@ function UserParams({ username, email }: user) {
           name='email'
           type='email'
           placeholder='Entrez votre nouveau email'
+          value={email}
         />
         <Input
           name='username'
           type='text'
           placeholder='Entrez votre nouveau nom d’utilisateur'
+          value={username}
         />
         <div className={styles['action']}>
         </div>

@@ -9,7 +9,8 @@
   margin: 2em 0;
   & button {
     width: fit-content;
-    
+    font-family: 'Montserrat', Arial, Helvetica, sans-serif;
+    color: var.$white;
   }
 }
 .search-bar {

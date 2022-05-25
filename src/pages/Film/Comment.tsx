@@ -18,7 +18,7 @@ function Comment(props: CommentProps) {
   const editButtonHandler = () => { setEditable(!editable); };
 
   // IF mode editable true
-  if(edit && editable && isLogged) return <AddComment text={text} date={createdAt} setEditable={setEditable} />;
+  if(edit && editable && isLogged) return <AddComment text={text} date={createdAt} editable={editable} setEditable={setEditable} />;
 
   return (
     <>

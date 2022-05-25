@@ -9,7 +9,7 @@ function Footer() {
         <div className={styles.links}>
           <Link to='/team' className={styles.link}>L'équipe</Link>
         </div>
-        <div className={styles.copyright}>© Aucun droit réservé - 2022</div>
+        <div className={styles.copyright}>© Tout droit réservé - 2022</div>
       </footer>
     </div>
   );

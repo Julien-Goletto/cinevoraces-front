@@ -35,7 +35,6 @@ function Films() {
         filteredMovies = filteredMovies.filter((movie:DBMovie) => {
           for(let genre of movie.genres) {   
             if(filters.genres.includes(genre)) {
-              console.log('ctrue');
               return true;
             };
           }

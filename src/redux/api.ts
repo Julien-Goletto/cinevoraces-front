@@ -12,7 +12,7 @@ export const api = createApi({
       }
       return headers;
     },
-  }), {maxRetries: 1}), tagTypes: ['Movie', 'Reviews'],
+  }), {maxRetries: 1}), tagTypes: ['Movie', 'Reviews', 'Propositions', 'Users'],
   endpoints: (build) => ({
     userRegister: build.mutation<User, any>({
       query: (user:User) => ({ url: '/v1/users/register', method:'POST', body: user })
@@ -79,10 +79,30 @@ export const api = createApi({
       query: (arg:any) => ({url : `/v1/reviews/${arg.userId}/${arg.movieId}`, method: 'PUT', credentials: 'include', body: arg.body}),
       invalidatesTags: ['Movie', 'Reviews'] 
     }),
+    adminGetPropositions: build.query<any, void>({
+      query: () => ({url : '/v1/propositions/pendingPropositions', method: 'GET'}),
+      providesTags: ['Propositions']
+    }),
+    adminPublishMovie: build.mutation<any, any>({
+      query: (arg:any) => ({url : `/v1/movies/publishing/${arg.movieId}`, method: 'PUT', body: arg.body}),
+      invalidatesTags: ['Propositions'] 
+    }),
+    adminGetUsers: build.query<any, void>({
+      query: () => ({url : '/v1/users', method: 'GET'}),
+      providesTags: ['Users']
+    }),
+    adminPutUser: build.mutation<any, any>({
+      query: (arg:any) => ({url : `/v1/users/modify/${arg.userId}`, method: 'PUT', body: arg.body}),
+      invalidatesTags: ['Users'] 
+    }),
   })
 });
 
 export const { 
+  useAdminGetPropositionsQuery,
+  useAdminPublishMovieMutation,
+  useAdminGetUsersQuery,
+  useAdminPutUserMutation,
   useUserRegisterMutation,
   useUserLoginMutation,
   useUserUpdateMutation,

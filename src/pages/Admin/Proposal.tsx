@@ -36,7 +36,7 @@ function Proposal ({movie}: {[key: string]: any}) {
           >Présentation</Button>
         </div>
         <div className={styles['cover']}>
-          <img src='https://image.tmdb.org/t/p/original/qjyqR1KkGmHPNs4zA4KICDWSxfX.jpg' alt=''/>
+          <img src='https://image.tmdb.org/t/p/original/wM87JtxQqD0bq8xyAvlmuNbI66B.jpg' alt=''/>
         </div>
       </div>
     </>

@@ -2,6 +2,13 @@ import { Button } from 'components/Buttons/Button';
 import styles from './Admin.module.scss';
 import Proposal from './Proposal';
 import User from './User';
+import { 
+  useAdminGetPropositionsQuery,
+  useAdminPublishMovieMutation,
+  useAdminGetUsersQuery,
+  useAdminPutUserMutation,
+} from 'redux/api';
+import { useEffect } from 'react';
 
 const fake_data = {
   movie: {
@@ -19,6 +26,12 @@ const fake_data = {
 };
 
 function Admin () {
+  const { data } = useAdminGetUsersQuery();
+
+  useEffect(() => {
+    data && console.log(data)
+  })
+  
   return(
     <section className={styles['admin-panel']}>
       <form className={styles['proposal-form']}>

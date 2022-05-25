@@ -1,3 +1,16 @@
+
+type Reviews = [{
+  bookmarked: boolean,
+  comment: string,
+  created_at: string,
+  liked: boolean,
+  movie_id: number,
+  rating: null | number,
+  updated_at: string,
+  user_id: number,
+  viewed: boolean
+}]
+
 type ButtonSearch = {
   children: React.ReactNode
 };
@@ -94,4 +107,12 @@ type RemoveToast = {
   payload: {
     id:number
   } | number
+}
+type Comment = {
+  avatar_url: null | string,
+  comment: string,
+  movie_id: number,
+  rating: null | number,
+  user_id: number,
+  user_pseudo: string
 }

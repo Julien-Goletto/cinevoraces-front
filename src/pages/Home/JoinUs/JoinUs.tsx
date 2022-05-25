@@ -17,7 +17,6 @@ function JoinUs() {
           S'inscrire
         </Button>
       </div>
-
     </section>
   );
 }

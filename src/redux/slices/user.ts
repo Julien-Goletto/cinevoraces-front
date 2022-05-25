@@ -20,13 +20,16 @@ const userSlice = createSlice({
       state.id = action.payload.id;
       state.pseudo = action.payload.pseudo;
       state.role = action.payload.role;
-      state.access_jwt = Cookies.get('accessToken');
-      state.refresh_jwt = Cookies.get('refreshToken');
+      state.access_jwt = action.payload.accessToken;
+      state.refresh_jwt = action.payload.refreshToken;
       state.isOnline = true;
+      
+      Cookies.set('accessToken',action.payload.accessToken);
+      Cookies.set('refreshToken',action.payload.refreshToken);
     },
-    setJwts(state){
-      state.access_jwt = Cookies.get('accessToken');
-      state.refresh_jwt = Cookies.get('refreshToken');
+    setJwts(state, action){
+      state.access_jwt = action.payload.accessToken;
+      state.refresh_jwt = action.payload.refreshToken;
     },
     setConnectedStatus(state, action) {
       state.isOnline = action.payload;

@@ -3,7 +3,7 @@ import userStyles from '../User.module.scss';
 import styles from './UserSubmittedFilm.module.scss';
 import { usePendingProposalByUserQuery } from 'redux/api';
 
-function UserSubmittedFilm({ id }: any) {
+function UserSubmittedFilm({ id }: {id: string}) {
   const { data, isLoading } = usePendingProposalByUserQuery(Number(id));
   let dataResponseTest = false;
   if (data) {
@@ -13,7 +13,6 @@ function UserSubmittedFilm({ id }: any) {
       dataResponseTest = true;
     }
   }
-  data && console.log(data);
 
   return(
     <div className={styles['user-submitted']}>
@@ -71,11 +70,11 @@ function UserSubmittedFilm({ id }: any) {
               <img src={data[0].poster_url} alt='Affiche du film' />
             </div>
           </div>
-          <Button
+          {/* <Button
             styleMod='fill'
           >
             Modifier ma proposition
-          </Button>
+          </Button> */}
         </div>
       }
     </div>

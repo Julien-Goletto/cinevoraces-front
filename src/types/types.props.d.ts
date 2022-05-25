@@ -1,3 +1,6 @@
+type AboutProps = {
+  children?: React.ReactNode
+}
 type Button = {
   children?: React.ReactNode,
   styleMod?: string,
@@ -59,7 +62,6 @@ type DBMovie = {
   createAt: string,
   updatedAt: string | null,
 };
-
 type Metrics = {
   data: {
     countries_count: string,
@@ -67,4 +69,10 @@ type Metrics = {
     seasons_count: string,
   }
   isLoading: boolean,
+}
+type ToastProps = {
+  type: string,
+  text: string,
+  duration?: number,
+  id: number
 }

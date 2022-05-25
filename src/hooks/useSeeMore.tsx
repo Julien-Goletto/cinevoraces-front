@@ -1,8 +1,14 @@
 import { useState } from 'react';
 import styles from './useSeeMore.module.scss';
 
-export default function useSeeMore(text:string, max:number = 500) {
 
+/**
+ * 
+ * @param text Text content
+ * @param max  Max character alowed
+ * @returns Slice text and add 'Voir plus'/'Voir moins' action
+ */
+export default function useSeeMore(text:string, max:number = 500) {
   const [maxChar, setMaxChar] = useState<number>(max);
   const [see, setSee] = useState<string>('Voir plus');
   if(!text) return null;

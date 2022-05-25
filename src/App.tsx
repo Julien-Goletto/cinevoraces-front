@@ -34,7 +34,7 @@ function App() {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [ready, setReady] = useState<boolean>(false);
 
-
+  
   useEffect(()=>{
     const token = Cookies.get('refreshToken');
     if(token) {
@@ -45,58 +45,50 @@ function App() {
 
   useEffect(()=> {
     if(!isLoading && data && !isError ) {
-      dispatch(setUser({
-        id: data.id,
-        pseudo: data.pseudo,
-        role: data.role,
-        access_jwt: Cookies.get('accessToken'),
-        refresh_jwt: Cookies.get('refreshToken'),
-        isOnline: true
-      }));
+      dispatch(setUser(data));
       setReady(true);
     }
     setReady(true);
   }, [data, isLoading, isError, dispatch]);
-
+  
   
   
   
   return (
-    <>
-      <Router>
-        <ResetScroll />
-        <Layout>
-          <Routes>
-            <Route path='/' element={<Home />}/>
-            <Route path='/film/:id' element={<Film />}/>
-            <Route path='/films' element={<Films />}/>
-            <Route path='/register' element={<Register />}/>
-            <Route path='/user' element={<User />}/>
-            <Route path='/user/:id' element={
-              // FIXME: Does not redirect when user use the URL manually
-              <RequireAuth redirectTo={'/'}>
-                <User /> 
-              </RequireAuth>
-            }/>
-            {/* <Route path='/proposal' 
-              element={(isLogged) ? <Proposal /> : <Error errorNum={401}/>}
-            /> */}
-            <Route path='/proposal' 
-              element={
+    ready ?
+      <>
+        <Router>
+          <ResetScroll />
+          <Layout>
+            <Routes>
+              <Route path='/' element={<Home />}/>
+              <Route path='/film/:id' element={<Film />}/>
+              <Route path='/films' element={<Films />}/>
+              <Route path='/register' element={<Register />}/>
+              <Route path='/user' element={<User />}/>
+              <Route path='/user/:id' element={
+                // FIXME: Does not redirect when user use the URL manually
                 <RequireAuth redirectTo={'/'}>
-                  <PendingPropositionCheck redirectTo={'/'}>
-                    <Proposal /> 
-                  </PendingPropositionCheck>
+                  <User /> 
                 </RequireAuth>
-              }
-            />
-            <Route path='/team' element={<Team />}/>
-            <Route path='*' element={<Error />}/>
-          </Routes>
-        </Layout>
-      </Router>
-      <Toast />
-    </>
+              }/>
+              <Route path='/proposal' 
+                element={
+                  <RequireAuth redirectTo={'/'}>
+                    <PendingPropositionCheck redirectTo={'/'}>
+                      <Proposal /> 
+                    </PendingPropositionCheck>
+                  </RequireAuth>
+                }
+              />
+              <Route path='/team' element={<Team />}/>
+              <Route path='*' element={<Error />}/>
+            </Routes>
+          </Layout>
+        </Router>
+        <Toast />
+      </>
+      : null
   );
 }
 

@@ -1,24 +1,22 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useAppDispatch } from 'redux/hooks';
 import { removeToast } from 'redux/slices/global';
 import styles from './Toast.module.scss';
 
-type ToastProps = {
-    type: string,
-    text: string,
-    duration?: number,
-    id: number
-}
-
 function Toast({id, type, text, duration}: ToastProps) {
   const dispatch = useAppDispatch();
+  const [fadeout, setFadeout] = useState<any>(null);
 
   useEffect(()=> {
+
+    setTimeout(()=> {
+      setFadeout(styles['blur-out']);
+    }, 2900);
+
     setTimeout(()=> {
       dispatch(removeToast(id));
     }, duration ? duration : 3000);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [duration, id, dispatch]);
 
   function modifier(type:string) {
     switch(type) {
@@ -35,8 +33,7 @@ function Toast({id, type, text, duration}: ToastProps) {
   } 
 
   return (
-    <div className={`${styles.wrapper} ${modifier(type)}`}>
-      {/* <span className={styles.toast_type}>{type}: </span> */}
+    <div className={`${styles.wrapper} ${fadeout} ${modifier(type)}`}>
       <span className={styles.toast_text}>{text}</span>
     </div> 
   );

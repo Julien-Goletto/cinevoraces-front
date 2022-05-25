@@ -9,7 +9,6 @@ function Description() {
     dispatch(setDescription(e.target?.value));
   };
 
-
   return (
     <section className={styles.description}>
       <h2 className={styles.title}>Motivez votre choix</h2>

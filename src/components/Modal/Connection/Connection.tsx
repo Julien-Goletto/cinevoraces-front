@@ -1,12 +1,12 @@
-import { Button } from 'components/Buttons/Button';
 import Input from 'components/Input/Input';
 import Loader from 'components/Loader/Loader';
+import { Button } from 'components/Buttons/Button';
 import { useAppDispatch } from 'redux/hooks';
 import { useUserLoginMutation } from 'redux/api';
 import { addToast, toggleConnection } from 'redux/slices/global';
-import styles from './Connection.module.scss';
 import { setUser } from 'redux/slices/user';
 import { useEffect } from 'react';
+import styles from './Connection.module.scss';
 
 function Connection() {
   const [loginUser, {data, error, isError, isSuccess, isLoading}] = useUserLoginMutation();
@@ -23,10 +23,11 @@ function Connection() {
   };
 
   useEffect(()=> {
+    
     if(isSuccess) {
       dispatch(setUser(data));
       dispatch(toggleConnection());
-      dispatch(addToast({type:'success', text: 'Bienvenue'}));
+      dispatch(addToast({type:'success', text: `Bienvenue ${data && data.pseudo}`}));
     }
     if(isError) {
       dispatch(addToast({type:'error', text: 'Mauvais identifiant ou mot de passe'}));

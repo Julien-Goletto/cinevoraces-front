@@ -30,6 +30,11 @@
   height: 100%; 
   object-fit: cover;
 }
+.loader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
 @include mix.breakpoint('laptop') {
   .grid {

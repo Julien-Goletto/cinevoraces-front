@@ -19,7 +19,7 @@ function Register() {
   isLogged && navigate(`/user/${id}`);
 
   const formRegEx = (string: FormDataEntryValue) => {
-    if (RegExp('^((?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[\-~!@#$%^&*_+=/:;."<>?])(?=.{12,}))').test(String(string!))) { // eslint-disable-line
+    if (RegExp('^((?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[\-~!@#$%^*_+=/:;.?])(?=.{8,}))').test(String(string!))) { // eslint-disable-line
       return true;
     } else {
       return false;
@@ -64,7 +64,6 @@ function Register() {
       return navigate('/');
     }
     if(isError) {
-      console.error(error);
       dispatch(addToast({type:'error', text: 'Une erreur est survenue'}));
     }
   },[error, isLoading, isError, isSuccess, dispatch, navigate]);
@@ -102,7 +101,7 @@ function Register() {
             type='password'
           />
           <div className={styles.rules}>
-            Votre mot de passe doit contenir au moins une majuscule, une minuscule, un symbôle et un chiffre et doit contenir au moins 12 caractères.
+            Votre mot de passe doit contenir au moins une majuscule, une minuscule, un symbôle et un chiffre et doit contenir au moins 8 caractères.
           </div>
 
           <Button

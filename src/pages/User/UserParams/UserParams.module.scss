@@ -1,14 +1,16 @@
 @use '~styles/var';
+@use '~styles/mixins' as mix;
 
 .user-params {
   composes: container from global;
+  box-sizing: border-box;
   width: 100%;
   display: flex;
   flex-direction: column;
   & button {
     width: fit-content;
     margin-top: .5em;
-    align-self: end;
+    align-self: center;
     display: flex;
     gap: .5em;
   }

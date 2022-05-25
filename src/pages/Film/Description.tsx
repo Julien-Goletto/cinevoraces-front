@@ -7,9 +7,8 @@ import { getRating } from 'redux/slices/interaction';
 function Description({ movie }: Description) {
   const isLogged = useAppSelector(isOnline);
   const rating = useAppSelector(getRating);
-  
-
   const date = new Date(movie.release_date);
+  
   return (
     <div className={styles.description}>
       <h1 className={styles.title}>{movie.french_title}<span className={styles.year}>({date.getFullYear()})</span></h1>

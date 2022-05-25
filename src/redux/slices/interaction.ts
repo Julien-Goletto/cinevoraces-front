@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import { RootState } from '../store';
 
 const initialState = { 
+  reviews: false,
   viewed : false,
   rating : false,
   bookmarked : false,
@@ -18,6 +19,7 @@ const interactionSlice = createSlice({
       state.rating = action.payload[0].rating === null ? false: action.payload[0].rating;
       state.bookmarked = action.payload[0].bookmarked;
       state.liked = action.payload[0].liked;
+      state.reviews = true;
     },
     setRating(state,action) {
       state.rating = action.payload.rating;
@@ -46,7 +48,9 @@ const interactionSlice = createSlice({
   }
 });
 
-export const isActive = (state: RootState) => state.interaction.liked;
+
+
+export const isReviews = (state: RootState) => state.interaction.reviews;
 export const interaction = (state: RootState) => state.interaction;
 export const getRating = (state: RootState) => state.interaction.rating;
 

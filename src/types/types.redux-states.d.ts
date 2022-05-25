@@ -11,7 +11,9 @@ type UserState = {
 type User = {
   pseudo: string,
   mail: string,
-  password: string
+  password: string,
+  accessToken: string,
+  refreshToken: string
 }
 type loginUser = {
   data: {

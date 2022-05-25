@@ -12,7 +12,7 @@ function Option(props: OptionProps) {
   const { slot } = props;
   return (
     <>
-      <option value={slot.episode}>Episode {slot.episode}</option>
+      <option value={slot.episode}>Episode {slot.episode} - {slot.publishing_date}</option>
     </>
   );
 }

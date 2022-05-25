@@ -5,21 +5,20 @@ import { useEffect, useState } from 'react';
 import Loader from 'components/Loader/Loader';
 import { Link } from 'react-router-dom';
 
+/**
+ * @return grid with the last 5 movies posted
+ */
 function LastMoviesGrid() {
-
   const {data, isLoading} = useAllMoviesQuery();
   const [lastMovies, setLastMovies] = useState<DBMovie[]>();
 
   useEffect(()=> {
-    if(!isLoading && data) {
-      setLastMovies([...data].slice(0,5));
-    }
+    (!isLoading && data) && setLastMovies([...data].slice(0,5));
   }, [data, isLoading]);
-  
 
   return(
     (lastMovies && !isLoading) ?
-      <div className={styles['last-movies']}>
+      <div id='last-movie' className={styles['last-movies']}>
         <h2 className={styles.title}>Les derniers ajouts de la communauté</h2>
         <div className={styles.grid}>
           {lastMovies.map(({poster_url, french_title, id}) => 
@@ -27,7 +26,8 @@ function LastMoviesGrid() {
               <Link to={`/film/${id}`}>
                 <img 
                   className={styles.img}
-                  src={poster_url} alt={`Affiche du film ${french_title}`}
+                  src={poster_url} 
+                  alt={`Affiche du film ${french_title}`}
                 />
               </Link>
             </div>
@@ -40,7 +40,11 @@ function LastMoviesGrid() {
         >
           Voir la liste des films
         </Button>
-      </div> : <Loader />
+      </div> 
+      :
+      <div id='last-movie' className={styles.loader}>
+        <Loader />
+      </div>
   );
 }
 

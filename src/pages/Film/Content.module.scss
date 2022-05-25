@@ -9,18 +9,31 @@
   width: 100%;
   display: flex;
   flex-wrap: wrap;
+  align-items: start;
   margin-bottom: 1em;
 }
 .poster {
   width: 70%;
-  & img {
-    max-width: 100%;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+  box-sizing: border-box;
+  position: relative;
+  border-radius: 10px;
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0; right: 0; bottom: 0; left: 0;
+    z-index: -1;
+    margin: -2px; /* !importanté */
+    border-radius: inherit; /* !importanté */
+    background: linear-gradient(30.76deg, rgba(0, 0, 0, 0) 34.12%, #FC9A3F 86.37%);
   }
 }
 
 .img {
   max-width: 100%;
   border-radius: 10px;
+
 }
 
 .interactions {
@@ -77,5 +90,8 @@
   //PARENT POSTER
   .wrapper {
     flex: 2;
+  }
+  .content {
+    align-items: start;
   }
 }

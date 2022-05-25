@@ -27,7 +27,9 @@ const globalSlice = createSlice({
       state.toasts.push(action.payload);
     },
     removeToast(state, action:any) {
-      state.toasts = state.toasts.filter((el:any) => action.payload.id === el.id);
+
+      state.toasts = state.toasts.filter((el:any) => action.payload !== el.id);
+      
     }
   }
 });

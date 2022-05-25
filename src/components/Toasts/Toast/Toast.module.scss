@@ -14,3 +14,6 @@
         background-color: rgb(198, 168, 21);
     }
 }
+
+
+.blur-out{animation:blur-out 0.2s linear both} @keyframes blur-out{0%{filter:blur(.01px);}100%{filter:blur(8px);opacity:0}}

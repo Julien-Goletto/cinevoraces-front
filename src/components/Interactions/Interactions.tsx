@@ -1,48 +1,43 @@
 import styles from './Interactions.module.scss';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { ReactComponent as Heart } from './ico/heart.svg';
 import { ReactComponent as Star } from './ico/star.svg';
 import { ReactComponent as Eye } from './ico/eye.svg';
 import { ReactComponent as Bookmark } from './ico/bookmark.svg';
-import interaction, { toggle } from 'redux/slices/interaction';
+import { isReviews, toggle } from 'redux/slices/interaction';
 import { useAppDispatch, useAppSelector } from 'redux/hooks';
 import StarRating from 'components/StarRating/StarRating';
 import { isOnline, userLogged } from 'redux/slices/user';
 import { addToast } from 'redux/slices/global';
 import { useParams } from 'react-router-dom';
-import { usePostInteractionMutation, usePostMovieMutation, usePutInteractionMutation, useRefreshTokenMutation } from 'redux/api';
+import { usePostInteractionMutation,usePutInteractionMutation, useRefreshTokenMutation } from 'redux/api';
 import Loader from 'components/Loader/Loader';
 
 type InteractionsProps = {
   type: string,
   count: number
 }
-
 /**
- * 
- * @param {string} type Can be (like - star - view - bookmark)
- * @param {number} count Counter value
+ * @param type    liked | rating | viewed | bookmarked
+ * @param count   count value
  * @returns React Component with SVG & Counter + Interaction onClick for active state management
  */
 function Interactions({type, count}: InteractionsProps) {
-  const [starIsOpen, setStarIsOpen] = useState(false);
-  const [animIsActive, setAnimActive] = useState(false);
-  const [wrapperIsDisplayed, setWrapperIsDisplayed] = useState(false);
-  const isLogged = useAppSelector(isOnline);
-  const user = useAppSelector(userLogged);
   const dispatch = useAppDispatch();
-  const { id } = useParams();
-  const [refreshToken, tokenHandle] = useRefreshTokenMutation();
-  const [postInteraction, postHandle] = usePostInteractionMutation();
+  const { id } = useParams<string>();
+  const [starIsOpen, setStarIsOpen] = useState<boolean>(false);
+  const [animIsActive, setAnimActive] = useState<boolean>(false);
+  const [wrapperIsDisplayed, setWrapperIsDisplayed] = useState<boolean>(false);
+  const user = useAppSelector(userLogged);
+  const reviews = useAppSelector(isReviews);
+  const [postInteraction] = usePostInteractionMutation();
   const [putInteraction, putHandle] = usePutInteractionMutation();
-  const active = useAppSelector((state) => {
-    let entrie = Object.entries(state.interaction).find(el => el[0] === `${type}`);
-    if(entrie) return entrie[1];
-  });
+  // Resolve interaction
   const actualType = useAppSelector((state) => {
     return Object.entries(state.interaction).find(el => el[0] === type); 
   });
 
+  // return current Type
   const selectedType = () => {
     switch(type) {
     case 'liked':
@@ -57,27 +52,25 @@ function Interactions({type, count}: InteractionsProps) {
       return null;
     }
   };
+
+  // POST -> PUT -> Dispatch
   const dispatchType = async () => {
     try {
-      if (isLogged && type && actualType) {
-        let obj = {
-          [type] : !actualType[1]
-        };
-        await refreshToken();
-        await postInteraction({userId: user.id, movieId: id});
+      if (user.isOnline && type && actualType) {
+        let obj = { [type] : !actualType[1] };
+        if(!reviews) await postInteraction({userId: user.id, movieId: id});
         await putInteraction({userId: user.id, movieId: id, body: obj});
         dispatch(toggle(type)); 
       } else {
-        dispatch(addToast({type: 'warn', text: 'Vous devez être connecté pour intéragir.'}));
+        throw new Error('Vous devez être connecté pour intéragir.');
       }
-    } catch (error) {
-      console.log(error);
-      return;
-    }
-  
-    
+    } catch (error: any) {
+      dispatch(addToast({type: 'warn', text: error.message}));
+    }    
   };
-  const starMenuHandler = () => {
+
+  // Star Menu handler
+  const ratingMenuHandler = () => {
     setWrapperIsDisplayed(true);
     setAnimActive(true);
     setTimeout(() => { 
@@ -94,14 +87,16 @@ function Interactions({type, count}: InteractionsProps) {
 
   return (
     <>
-      {(type !== 'rating') &&
+      {/* IF type isn't rating */}
+      {(type !== 'rating' && actualType) && 
         <div onClick={dispatchType} className={
-          `${styles.wrapper} ${active ? styles.active : ''}`
+          `${styles.wrapper} ${actualType[1] ? styles.active : ''}`
         }>
           {putHandle.isLoading ? <span className={styles.loader}><Loader /></span> : selectedType()}
           <span className={styles.count}>{count}</span>
         </div>
       }
+      {/* IF type rating */}
       {(type === 'rating' && actualType) &&
         <>
           <div 
@@ -109,11 +104,11 @@ function Interactions({type, count}: InteractionsProps) {
               ${styles.background}
               ${!wrapperIsDisplayed && styles['hidden']}
             `}
-            onClick={starMenuHandler}
+            onClick={ratingMenuHandler}
           />
           <button 
-            onClick={starMenuHandler}
-            className={`${styles.wrapper} ${active ? styles.active : ''}`}
+            onClick={ratingMenuHandler}
+            className={`${styles.wrapper} ${actualType[1] ? styles.active : ''}`}
           >
             {selectedType()}
             <span className={styles.count}>{count}</span>
@@ -122,6 +117,7 @@ function Interactions({type, count}: InteractionsProps) {
                 ${!wrapperIsDisplayed && styles['hidden']}
             `}`}>
               <div className={`
+                ${actualType[1] ? styles.active : ''}
                 ${styles['star-menu']}
                 ${starIsOpen ? `${styles['is-open']}` : `${styles['is-closed']}`}
                 ${animIsActive && (!starIsOpen ? `${styles['is-opening']}` : `${styles['is-closing']}`)}

@@ -24,6 +24,19 @@ button {
   font-family: 'Montserrat', Arial, Helvetica, sans-serif;
 }
 
+body::-webkit-scrollbar {
+  width: 5px;
+  height: 100%;
+  background: transparent;
+  border-radius: 5px;
+  position: fixed
+}
+
+body::-webkit-scrollbar-thumb {
+  background: hsla(0, 0%, 100%, .3);
+  border-radius: 5px
+}
+
 .container {
   padding-left: var.$container-padding;
   padding-right: var.$container-padding;

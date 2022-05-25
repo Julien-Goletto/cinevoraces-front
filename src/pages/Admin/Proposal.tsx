@@ -3,8 +3,9 @@ import AdminModal from './AdminModal';
 import styles from './Admin.module.scss';
 import { useState } from 'react';
 
-function Proposal ({movie}: {[key: string]: any}) {
+function Proposal ({movie, handleSelect}: {[key: string]: any}) {
   const [modalIsOpen, setModalIsOpen] = useState(false);
+  
   const handleModal = (e: any) => {
     e.preventDefault();
     setModalIsOpen(!modalIsOpen);
@@ -19,16 +20,20 @@ function Proposal ({movie}: {[key: string]: any}) {
           {movie.presentation}
         </AdminModal>
       }
-      <div className={styles['proposal-container']}>
+      <div 
+        className={styles['proposal-container']}
+        id={movie.id}
+        onClick={handleSelect}
+      >
         <div className={styles['film-info']}>
           <div className={styles['title']}>
             {movie.french_title}
           </div>
           <div>
-            {movie.publishing_date}
+            {movie.publishing_date.slice(0, 10)}
           </div>
           <div>
-            {movie.user_pseudo}
+            (Id: {movie.user_id}) {movie.user_pseudo}
           </div>
           <Button
             styleMod='rounded'
@@ -36,7 +41,7 @@ function Proposal ({movie}: {[key: string]: any}) {
           >Présentation</Button>
         </div>
         <div className={styles['cover']}>
-          <img src='https://image.tmdb.org/t/p/original/wM87JtxQqD0bq8xyAvlmuNbI66B.jpg' alt=''/>
+          <img src={movie.poster_url} alt=''/>
         </div>
       </div>
     </>

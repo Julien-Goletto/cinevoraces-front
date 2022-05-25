@@ -3,6 +3,7 @@
 
 .admin-panel{
   composes: container from global;
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -12,8 +13,7 @@
   width: 100%;
   & button {
     width: fit-content;
-  }
-}
+  }}
 .proposal-form {
   padding: 1em 0;
   & .proposals-container {
@@ -29,6 +29,7 @@
   }
   & .proposal-container {
     background-color: var.$background;
+    justify-content: space-between;
     padding: .5rem;
     display: flex;
     gap: 1em;
@@ -59,16 +60,27 @@
 
 .user-form {
   padding: 1em 0;
-  flex-direction: column;
+  width: 100%;
   background-color: var.$background;
   border-radius : 10px;
+  & table {
+    width: 100%;
+  }
   & .table-case {
     text-align: left;
     padding: .5em 1em;
-    // border: 1px solid white;
     & button {
       font-size: .95rem;
+      white-space: nowrap;
       padding: .5em 1em !important;
-    }
+    }}}
+
+.proposal-container.selected {
+  background-color: rgba($color: var.$secondary, $alpha: 1);
+  color: var.$background;
+  & button {
+    background-color: var.$white;
+    border: var.$white 1px solid;
+    color: var.$background;
   }
 }

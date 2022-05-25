@@ -119,33 +119,42 @@ export const api = createApi({
       query: (arg:any) => ({url : `/v1/reviews/${arg.userId}/${arg.movieId}`, method: 'PUT', body: arg.body}),
       invalidatesTags: ['Movie', 'Reviews'] 
     }),
-    adminGetPropositions: build.query<any, void>({
-      query: () => ({url : '/v1/propositions/pendingPropositions', method: 'GET'}),
-      providesTags: ['Propositions']
-    }),
     adminPublishMovie: build.mutation<any, any>({
       query: (arg:any) => ({url : `/v1/movies/publishing/${arg.movieId}`, method: 'PUT', body: arg.body}),
       invalidatesTags: ['Propositions'] 
     }),
-    adminGetUsers: build.query<any, void>({
-      query: () => ({url : '/v1/users', method: 'GET'}),
-      providesTags: ['Users']
+    adminRevokeMovie: build.mutation<any, any>({
+      query: (arg:any) => ({url : `/v1/movies/${arg.movieId}`, method: 'DELETE'}),
+      invalidatesTags: ['Propositions'] 
     }),
     adminPutUser: build.mutation<any, any>({
       query: (arg:any) => ({url : `/v1/users/modify/${arg.userId}`, method: 'PUT', body: arg.body}),
       invalidatesTags: ['Users'] 
     }),
+    adminDeleteUser: build.mutation<any, any>({
+      query: (arg:any) => ({url : `/v1/users/${arg.userId}`, method: 'DELETE'}),
+      invalidatesTags: ['Users'] 
+    }),
+    adminGetData: build.query<any, void>({
+      async queryFn(_arg, _queryApi, _extraOptions, fetchWithBQ) {
+        const propositions = await fetchWithBQ('/v1/propositions/pendingPropositions');
+        const users = await fetchWithBQ('/v1/users');
+        return {data : {
+          users: users.data,
+          propositions: propositions.data
+        }};
+      },
+      providesTags: ['Users', 'Propositions']
+    })
   })
 });
 
-
-
-
 export const { 
-  useAdminGetPropositionsQuery,
   useAdminPublishMovieMutation,
-  useAdminGetUsersQuery,
+  useAdminRevokeMovieMutation,
+  useAdminGetDataQuery,
   useAdminPutUserMutation,
+  useAdminDeleteUserMutation,
   useUserRegisterMutation,
   useUserLoginMutation,
   useUserUpdateMutation,

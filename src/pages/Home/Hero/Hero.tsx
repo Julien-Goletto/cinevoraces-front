@@ -8,7 +8,7 @@ function Hero() {
   return (
     <section className={styles.hero}>
       <div className={styles.text}>
-        <h1 className={styles.title}>Bienvenue dans le <span>ciné-club</span> virtuel !</h1>
+        <h1 className={styles.title}><span className={styles.bvn}>Bienvenue</span> dans votre <span>ciné-club</span> virtuel !</h1>
         <p className={styles.subtitle}>Chaque semaine, un film à découvrir</p>
         <div className={styles.buttons}>
           <Button

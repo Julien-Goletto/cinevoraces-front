@@ -1,3 +1,7 @@
+type AdminModal = {
+  children?: import('react').ReactNode,
+  handler: MouseEventHandler
+};
 type Button = {
   children?: React.ReactNode,
   styleMod?: string,

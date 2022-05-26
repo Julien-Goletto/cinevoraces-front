@@ -23,7 +23,8 @@ type FieldsetTextInput = {
   value?: string,
   name: string,
   placeholder: string,
-  type: string
+  type: string,
+  defaultValue?: string | number
 }
 type FieldsetRadio = {
   array: radioFilter[],

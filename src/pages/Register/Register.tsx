@@ -14,7 +14,7 @@ function Register() {
   const dispatch = useAppDispatch();
   const isLogged = useAppSelector<boolean>(isOnline);
   const { id } = useAppSelector<any>(userLogged);
-  const [addUser, {error, isLoading, isError, isSuccess}] = useUserRegisterMutation();
+  const [addUser, {error, isLoading, isError, isSuccess}] = useUserRegisterMutation<any>();
   let navigate = useNavigate();
   isLogged && navigate(`/user/${id}`);
 
@@ -64,7 +64,7 @@ function Register() {
       return navigate('/');
     }
     if(isError) {
-      dispatch(addToast({type:'error', text: 'Une erreur est survenue'}));
+      (error.originalStatus === 400) && dispatch(addToast({type:'error', text: 'Ce nom d\'utilisateur ou cette adresse mail n\'est pas disponible.'}));
     }
   },[error, isLoading, isError, isSuccess, dispatch, navigate]);
 

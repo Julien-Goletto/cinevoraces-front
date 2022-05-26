@@ -9,7 +9,7 @@ function Share() {
         CinéVoraces est avant tout un site <span>communautaire</span>, rejoignez la communauté et <span>intéragissez</span> avec les films : on veut savoir ce que vous en avez pensé.
         </p>
       </div>
-      <img src='' alt='' className={styles.img} />
+      <img src='/images/dec.jpg' alt='' className={styles.img} />
     </section>
   );
 }

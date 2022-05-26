@@ -72,13 +72,13 @@ function UserParams({ username, email }: user) {
           name='email'
           type='email'
           placeholder='Entrez votre nouveau email'
-          value={email}
+          defaultValue={email}
         />
         <Input
           name='username'
           type='text'
           placeholder='Entrez votre nouveau nom d’utilisateur'
-          value={username}
+          defaultValue={username}
         />
         <div className={styles['action']}>
         </div>

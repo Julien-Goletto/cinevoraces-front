@@ -1,0 +1,75 @@
+import { Button } from 'components/Buttons/Button';
+import { useEffect, useState } from 'react';
+import styles from './UserParams.module.scss';
+
+function UserPicUploader () {
+  const [ isUpdateOpen, setIsUpdateOpen ] = useState(false);
+  const [ image, setImage ]               = useState<any>('');
+  const [ preview, setPreview ]           = useState<any>(undefined);
+
+  const uploadImage = () => {
+  };
+  const onChangeHandler = (e: any) => {
+    const [file] = e.target.files;
+    setImage(file);
+    setPreview(URL.createObjectURL(file));
+  };
+  const openUpdateHandler = () => {
+    setIsUpdateOpen(!isUpdateOpen);
+  };
+  
+  useEffect(() => {
+    console.log(image);
+    console.log(preview);
+  }, [image, preview]);
+
+  return (
+    <>
+      { isUpdateOpen &&
+      <div className={styles['upload-img']}>
+        <div className={styles['preview']}>
+          <img 
+            src={preview} 
+            alt=''
+          />
+          <input 
+            type='file'
+            onChange={onChangeHandler} 
+          />
+        </div>
+        <Button 
+          handler={openUpdateHandler}
+          styleMod='fill-rounded'
+        >
+          Annuler
+        </Button>
+        <Button 
+          handler={uploadImage}
+          styleMod='fill-rounded'
+        >
+          <img src='/images/send-icon.svg' alt='' />
+          Valider
+        </Button>
+      </div>
+      }
+      { !isUpdateOpen &&
+      <div className={styles['upload-img']}>
+        <div className={styles['preview']}>
+          <img 
+            src={preview} 
+            alt=''
+          />
+        </div>
+        <Button 
+          handler={openUpdateHandler}
+          styleMod='fill-rounded'
+        >
+          Modifier
+        </Button>
+      </div>
+      }
+    </>
+  );
+}
+
+export default UserPicUploader;

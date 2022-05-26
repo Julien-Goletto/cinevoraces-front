@@ -6,11 +6,12 @@ import { useUserUpdateMutation } from 'redux/api';
 import { useParams } from 'react-router-dom';
 
 import Input from 'components/Input/Input';
+import UserPicUploader from './UserPicUploader';
 import styles from './UserParams.module.scss';
 import userStyles from '../User.module.scss';
 
 function UserParams({ username, email }: user) {
-  const [showInput, setShowInput] = useState(false);
+  const [showInput, setShowInput]           = useState(false);
   const dispatch = useAppDispatch();
   const { id }  = useParams();
   const [updateUser, {isSuccess, isError}] = useUserUpdateMutation();
@@ -62,7 +63,8 @@ function UserParams({ username, email }: user) {
     <form 
       className={styles['user-params']}
       onSubmit={handleFormSubmit}
-    >
+    > 
+      <UserPicUploader />
       { showInput &&
       <>
         <div className={styles['action']}>

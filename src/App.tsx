@@ -103,20 +103,17 @@ function RequireAuth({ children, redirectTo }:{ children:any, redirectTo:any }) 
 }
 function PendingPropositionCheck ({ children, redirectTo }:{ children:any, redirectTo:any }) {
   const user = useAppSelector(userLogged);
-  const dispatch = useAppDispatch();
   const {data, isError, isLoading} = usePendingPropositionQuery(user.id); 
 
-  useEffect(()=> {
-    if(isError) dispatch(addToast({type:'warn', text: 'Vous avez déja une proposition en attente'}));
-  }, [isError, dispatch]);
-
-
   if(isLoading) {
-    return <Loader />;
+    return (
+      <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+        <Loader />
+      </div>
+    );
   }
   
   if(!isLoading){
-    
     return !isError ? children : <Navigate to={redirectTo} />;
   }
 }

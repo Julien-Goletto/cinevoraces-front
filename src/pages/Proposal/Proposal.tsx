@@ -10,7 +10,7 @@ import { useTmbdCustomDetailsQuery } from 'redux/apiTmdb';
 import { addToast } from 'redux/slices/global';
 import { usePostMovieMutation, useRefreshTokenMutation, useAvailableSlotsQuery, useBookSlotMutation } from 'redux/api';
 import { useNavigate } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 
 function Proposal() {
@@ -20,7 +20,7 @@ function Proposal() {
   const [seasonSelect, setSeasonSelect] = useState<number | string>('~');
   const { data, isLoading: isDetailsLoading } = useTmbdCustomDetailsQuery(search);
   const { data: slots, isSuccess: isSlotsSuccess } = useAvailableSlotsQuery();
-  const [sendBook] = useBookSlotMutation();
+  const [sendBook, bookHandle] = useBookSlotMutation();
   const [sendPost, postHandle] = usePostMovieMutation();
   const dispatch = useAppDispatch();
   
@@ -46,12 +46,15 @@ function Proposal() {
       dispatch(addToast({type: 'error', text:'Formulaire invalide'}));
       return;
     }
-    await sendPost(proposalMovie);
-    await sendBook(proposalMovie.publishing_date);
+    const res:any = await sendPost(proposalMovie);
+    if(res.data === 'Film ajouté en base') {
+      await sendBook(proposalMovie.publishing_date);
+    }
   };
+
   
   useEffect(()=> {  
-    if(postHandle.isSuccess) {
+    if(postHandle.isSuccess && bookHandle.isSuccess) {
       dispatch(addToast({type: 'success', text: 'Votre film à bien été enregistrer'}));
       setTimeout(()=> {
         navigate('/', {state: {}, replace: true});
@@ -63,7 +66,7 @@ function Proposal() {
         navigate('/');
       }, 100);
     }
-  }, [postHandle, slots]);
+  }, [postHandle, bookHandle, slots]);
 
 
   

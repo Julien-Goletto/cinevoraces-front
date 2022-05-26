@@ -22,13 +22,13 @@ const baseQuery = retry(fetchBaseQuery({
     }
     return headers;
   },
-}), {maxRetries: 1});
+}), {maxRetries: 0});
 
 const baseQueryWithReauth = async (args:any, api:any, extraOptions:any) => {
     
   let result = await baseQuery(args, api, extraOptions);
-  
-  if (result.error && 'originalStatus' in result.error && result.error.originalStatus === 401) {
+
+  if (result.error && 'status' in result.error && result.error.status === 401) {
     // try to get a new token
     const refreshToken = Cookies.get('refreshToken');
     const refreshResult = await baseQuery({url: 'v1/refreshTokens', headers: {

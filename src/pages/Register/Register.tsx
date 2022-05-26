@@ -14,7 +14,7 @@ function Register() {
   const dispatch = useAppDispatch();
   const isLogged = useAppSelector<boolean>(isOnline);
   const { id } = useAppSelector<any>(userLogged);
-  const [addUser, {error, isLoading, isError, isSuccess}] = useUserRegisterMutation();
+  const [addUser, {error, isLoading, isError, isSuccess}] = useUserRegisterMutation<any>();
   let navigate = useNavigate();
   isLogged && navigate(`/user/${id}`);
 
@@ -58,6 +58,8 @@ function Register() {
     validateRequest(user);
   };
   useEffect(()=> {
+    console.log(error?.data);
+    
     if(isSuccess) {
       dispatch(addToast({type:'success', text: 'Votre compte à été créé, vous pouvez vous connecter'}));
       dispatch(toggleConnection());

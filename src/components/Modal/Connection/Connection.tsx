@@ -23,14 +23,12 @@ function Connection() {
   };
 
   useEffect(()=> {
+    console.log(error);
     
     if(isSuccess) {
       dispatch(setUser(data));
       dispatch(toggleConnection());
       dispatch(addToast({type:'success', text: `Bienvenue ${data && data.pseudo}`}));
-    }
-    if(isError) {
-      dispatch(addToast({type:'error', text: 'Mauvais identifiant ou mot de passe'}));
     }
   },[data, isError, isSuccess, dispatch, error, isLoading]);
 

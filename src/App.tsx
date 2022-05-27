@@ -23,6 +23,7 @@ import Team from './pages/Team/Team';
 import { usePendingPropositionQuery, useRefreshTokenMutation } from 'redux/api';
 import Loader from 'components/Loader/Loader';
 import { addToast } from 'redux/slices/global';
+import AnimationLayout from 'hooks/AnimationRouter';
 
 function App() {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -61,28 +62,30 @@ function App() {
           <ResetScroll />
           <Layout>
             <Routes>
-              <Route path='/' element={<Home />}/>
-              <Route path='/film/:id' element={<Film />}/>
-              <Route path='/films' element={<Films />}/>
-              <Route path='/register' element={<Register />}/>
-              <Route path='/user' element={<User />}/>
-              <Route path='/user/:id' element={
-                // FIXME: Does not redirect when user use the URL manually
-                <RequireAuth redirectTo={'/'}>
-                  <User /> 
-                </RequireAuth>
-              }/>
-              <Route path='/proposal' 
-                element={
+              <Route element={<AnimationLayout />}>
+                <Route path='/' element={<Home />}/>
+                <Route path='/film/:id' element={<Film />}/>
+                <Route path='/films' element={<Films />}/>
+                <Route path='/register' element={<Register />}/>
+                <Route path='/user' element={<User />}/>
+                <Route path='/user/:id' element={
+                  // FIXME: Does not redirect when user use the URL manually
                   <RequireAuth redirectTo={'/'}>
-                    <PendingPropositionCheck redirectTo={'/'}>
-                      <Proposal /> 
-                    </PendingPropositionCheck>
+                    <User /> 
                   </RequireAuth>
-                }
-              />
-              <Route path='/team' element={<Team />}/>
-              <Route path='*' element={<Error />}/>
+                }/>
+                <Route path='/proposal' 
+                  element={
+                    <RequireAuth redirectTo={'/'}>
+                      <PendingPropositionCheck redirectTo={'/'}>
+                        <Proposal /> 
+                      </PendingPropositionCheck>
+                    </RequireAuth>
+                  }
+                />
+                <Route path='/team' element={<Team />}/>
+                <Route path='*' element={<Error />}/>
+              </Route>
             </Routes>
           </Layout>
         </Router>

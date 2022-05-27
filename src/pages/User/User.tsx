@@ -16,6 +16,8 @@ function User() {
         <section className={styles['user']}>
           <h1 className={styles['title']}>Mon compte</h1>
           <UserHeader
+            username={data.pseudo}
+            avatar={data.avatar_url}
             registerDate={data.created_at}
           />
           <h2 className={styles['title-h2']}>
@@ -33,7 +35,7 @@ function User() {
           <UserParams
             username={data.pseudo}
             email={data.mail}
-            avatar={avatar}
+            avatar={data.avatar_url}
           />
         </section>
       }

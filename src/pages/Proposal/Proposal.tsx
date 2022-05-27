@@ -10,7 +10,8 @@ import { useTmbdCustomDetailsQuery } from 'redux/apiTmdb';
 import { addToast } from 'redux/slices/global';
 import { usePostMovieMutation, useRefreshTokenMutation, useAvailableSlotsQuery, useBookSlotMutation } from 'redux/api';
 import { useNavigate } from 'react-router-dom';
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
+import { apiTmdb } from 'redux/apiTmdb';
 
 
 function Proposal() {
@@ -18,7 +19,7 @@ function Proposal() {
   const navigate = useNavigate();
   const proposalMovie = useAppSelector(getProposalData);
   const [seasonSelect, setSeasonSelect] = useState<number | string>('~');
-  const { data, isLoading: isDetailsLoading } = useTmbdCustomDetailsQuery(search);
+  const [searchTrigger, { data, isFetching: isDetailsFetching, ...rest }] = apiTmdb.endpoints.tmbdCustomDetails.useLazyQuery();
   const { data: slots, isSuccess: isSlotsSuccess } = useAvailableSlotsQuery();
   const [sendBook, bookHandle] = useBookSlotMutation();
   const [sendPost, postHandle] = usePostMovieMutation();
@@ -37,7 +38,6 @@ function Proposal() {
       }));
     } else dispatch(unsetEpisode());
   };
-
   
   const handleSubmit = async (e:any) => {
     e.preventDefault();
@@ -66,7 +66,7 @@ function Proposal() {
         navigate('/');
       }, 100);
     }
-  }, [postHandle, bookHandle, slots]);
+  }, [postHandle, bookHandle, slots ]);
 
 
   
@@ -88,9 +88,9 @@ function Proposal() {
         </form>
         <h2 className={styles.subtitle}>Recherche un film</h2>
         <p className={styles.description}>Plus un film est <span>disponible</span>, plus il sera regardé. Surprenez - nous, mais ne négligez pas l’accessibilité !</p>
-        <Search />
+        <Search searchTrigger={searchTrigger} />
       </section>
-      <MovieGrid movies={data} isLoading={isDetailsLoading} />
+      <MovieGrid movies={data} isFetching={isDetailsFetching} />
       <Description />
       <div className={styles.button}>
         <Button

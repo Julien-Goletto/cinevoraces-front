@@ -2,20 +2,23 @@ import Movie from '../Movie/Movie';
 import Loader from 'components/Loader/Loader';
 import styles from './MovieGrid.module.scss';
 
-function MovieGrid({movies, isLoading}:any) {
-
+function MovieGrid({movies, isFetching}:any) {
   return (
     <div className={styles.grid}>
-      { (isLoading) && 
+      { (isFetching) && 
         <Loader />
       }
-      { (!isLoading && movies && movies.length > 0) &&
+      { (!isFetching && movies && movies.length > 0) &&
         movies.map((movie:ProposalMovie)=> 
           (
             <Movie 
               key={movie.id}
               movie={movie}
             />))
+      }
+      {
+        (movies && movies.length <= 0 && !isFetching ) &&
+        <div className={styles.empty}>Aucun film trouvé</div>
       }
     </div>
   );

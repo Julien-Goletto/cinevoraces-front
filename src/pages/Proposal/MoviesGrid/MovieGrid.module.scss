@@ -32,6 +32,9 @@ border: 2px solid white;
 border-radius: 1em;
 background-clip: padding-box;
 }
+.empty {
+  padding: 1em;
+}
 
 @include mix.breakpoint('tablet') {
   .grid {

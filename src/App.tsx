@@ -20,9 +20,10 @@ import Film from './pages/Film/Film';
 import Register from './pages/Register/Register';
 import Proposal from './pages/Proposal/Proposal';
 import Team from './pages/Team/Team';
+import Admin from './pages/Admin/Admin';
 import { usePendingPropositionQuery, useRefreshTokenMutation } from 'redux/api';
 import Loader from 'components/Loader/Loader';
-import { addToast } from 'redux/slices/global';
+import AnimationLayout from 'hooks/AnimationRouter';
 
 function App() {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -61,28 +62,31 @@ function App() {
           <ResetScroll />
           <Layout>
             <Routes>
-              <Route path='/' element={<Home />}/>
-              <Route path='/film/:id' element={<Film />}/>
-              <Route path='/films' element={<Films />}/>
-              <Route path='/register' element={<Register />}/>
-              <Route path='/user' element={<User />}/>
-              <Route path='/user/:id' element={
-                // FIXME: Does not redirect when user use the URL manually
-                <RequireAuth redirectTo={'/'}>
-                  <User /> 
-                </RequireAuth>
-              }/>
-              <Route path='/proposal' 
-                element={
+              <Route element={<AnimationLayout />}>
+                <Route path='/' element={<Home />}/>
+                <Route path='/film/:id' element={<Film />}/>
+                <Route path='/films' element={<Films />}/>
+                <Route path='/register' element={<Register />}/>
+                <Route path='/user' element={<User />}/>
+                <Route path='/user/:id' element={
+                  // FIXME: Does not redirect when user use the URL manually
                   <RequireAuth redirectTo={'/'}>
-                    <PendingPropositionCheck redirectTo={'/'}>
-                      <Proposal /> 
-                    </PendingPropositionCheck>
+                    <User /> 
                   </RequireAuth>
-                }
-              />
-              <Route path='/team' element={<Team />}/>
-              <Route path='*' element={<Error />}/>
+                }/>
+                <Route path='/proposal' 
+                  element={
+                    <RequireAuth redirectTo={'/'}>
+                      <PendingPropositionCheck redirectTo={'/'}>
+                        <Proposal /> 
+                      </PendingPropositionCheck>
+                    </RequireAuth>
+                  }
+                />
+                <Route path='/team' element={<Team />}/>
+                <Route path='/admin' element={<Admin />}/>
+                <Route path='*' element={<Error />}/>
+              </Route>
             </Routes>
           </Layout>
         </Router>
@@ -103,25 +107,19 @@ function RequireAuth({ children, redirectTo }:{ children:any, redirectTo:any }) 
 }
 function PendingPropositionCheck ({ children, redirectTo }:{ children:any, redirectTo:any }) {
   const user = useAppSelector(userLogged);
-  const dispatch = useAppDispatch();
   const {data, isError, isLoading} = usePendingPropositionQuery(user.id); 
 
-  useEffect(()=> {
-    if(isError) dispatch(addToast({type:'warn', text: 'Vous avez déja une proposition en attente'}));
-  }, [isError, dispatch]);
-
-
   if(isLoading) {
-    return <Loader />;
+    return (
+      <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+        <Loader />
+      </div>
+    );
   }
   
   if(!isLoading){
-    
     return !isError ? children : <Navigate to={redirectTo} />;
   }
 }
-
-
-
 
 export default App;

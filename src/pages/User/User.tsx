@@ -12,8 +12,13 @@ function User() {
   const { id }  = useParams();
   const { pseudo, avatar } = useAppSelector<any>(userLogged);
   const { data, isLoading } = useUserByIdQuery(Number(id));
+<<<<<<< HEAD
   data && console.log(data);
   
+=======
+  console.log(data);
+    
+>>>>>>> dev
   return(
     <>
       { !isLoading &&

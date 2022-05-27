@@ -6,6 +6,9 @@
   padding: 1em;
   border-radius: 10px;
   margin: 2em 0;
+  min-width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
 .profil {
@@ -78,5 +81,11 @@
   .presentation {
     flex: 2;
     align-self: start;
+  }
+}
+@include mix.breakpoint('desktop') {
+  .presentation {
+    min-width: auto;
+    max-width: auto;
   }
 }

@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom';
 import styles from './Button.module.scss';
-
 /**
  * @return          either \<button\> or \<Link\>
  * @param href      return \<Link\> if used

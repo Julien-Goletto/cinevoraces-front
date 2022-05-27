@@ -11,6 +11,7 @@ import { addToast } from 'redux/slices/global';
 import { usePostMovieMutation, useRefreshTokenMutation, useAvailableSlotsQuery, useBookSlotMutation } from 'redux/api';
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+import { apiTmdb } from 'redux/apiTmdb';
 
 
 function Proposal() {
@@ -18,9 +19,9 @@ function Proposal() {
   const navigate = useNavigate();
   const proposalMovie = useAppSelector(getProposalData);
   const [seasonSelect, setSeasonSelect] = useState<number | string>('~');
-  const { data, isLoading: isDetailsLoading } = useTmbdCustomDetailsQuery(search);
+  const [searchTrigger, { data, isFetching: isDetailsFetching, ...rest }] = apiTmdb.endpoints.tmbdCustomDetails.useLazyQuery();
   const { data: slots, isSuccess: isSlotsSuccess } = useAvailableSlotsQuery();
-  const [sendBook] = useBookSlotMutation();
+  const [sendBook, bookHandle] = useBookSlotMutation();
   const [sendPost, postHandle] = usePostMovieMutation();
   const dispatch = useAppDispatch();
   
@@ -37,7 +38,6 @@ function Proposal() {
       }));
     } else dispatch(unsetEpisode());
   };
-
   
   const handleSubmit = async (e:any) => {
     e.preventDefault();
@@ -46,13 +46,16 @@ function Proposal() {
       dispatch(addToast({type: 'error', text:'Formulaire invalide'}));
       return;
     }
-    await sendPost(proposalMovie);
-    await sendBook(proposalMovie.publishing_date);
+    const res:any = await sendPost(proposalMovie);
+    if(res.data === 'Film ajouté en base') {
+      await sendBook(proposalMovie.publishing_date);
+    }
   };
+
   
   useEffect(()=> {  
-    if(postHandle.isSuccess) {
-      dispatch(addToast({type: 'success', text: 'Votre film à bien été enregistrer'}));
+    if(postHandle.isSuccess && bookHandle.isSuccess) {
+      dispatch(addToast({type: 'success', text: 'Votre film à bien été enregistré'}));
       setTimeout(()=> {
         navigate('/', {state: {}, replace: true});
       },1000);
@@ -63,7 +66,7 @@ function Proposal() {
         navigate('/');
       }, 100);
     }
-  }, [postHandle, slots]);
+  }, [postHandle, bookHandle, slots ]);
 
 
   
@@ -85,9 +88,9 @@ function Proposal() {
         </form>
         <h2 className={styles.subtitle}>Recherche un film</h2>
         <p className={styles.description}>Plus un film est <span>disponible</span>, plus il sera regardé. Surprenez - nous, mais ne négligez pas l’accessibilité !</p>
-        <Search />
+        <Search searchTrigger={searchTrigger} />
       </section>
-      <MovieGrid movies={data} isLoading={isDetailsLoading} />
+      <MovieGrid movies={data} isFetching={isDetailsFetching} />
       <Description />
       <div className={styles.button}>
         <Button

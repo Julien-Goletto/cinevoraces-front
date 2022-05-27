@@ -14,7 +14,7 @@ function SendMovie() {
             Une fois par semaine, un membre du ciné-club propose un film à la communauté.
             </p>
             <p>
-            Plus un film est disponible, plus il sera regardé. Surprenez - nous, mais ne négligez pas l’accessibilité !
+            Plus un film est disponible, plus il sera regardé. Surprenez-nous, mais ne négligez pas l’accessibilité !
             </p>
           </div>
         </div>

@@ -5,7 +5,7 @@ import { ReactComponent as SearchIco } from '../input_search.svg';
 import { useAppDispatch, useAppSelector } from 'redux/hooks';
 import { setSearch, getInputValue, setInputValue } from 'redux/slices/proposal';
 
-function Search() {
+function Search({searchTrigger}: {searchTrigger: any}) {
   const dispatch = useAppDispatch();
   const value = useAppSelector(getInputValue);
   const onChangeHandler = (event: onChangeEvent) => {
@@ -15,6 +15,7 @@ function Search() {
   const submitSearch = (e:any) => {
     e.preventDefault();
     dispatch(setSearch(value));
+    searchTrigger(value, {preferCacheValue: false});
   };
   
   return (

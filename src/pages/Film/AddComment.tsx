@@ -20,17 +20,12 @@ function AddComment(props: any) {
   async function sendComment(e:any) {
     e.preventDefault();
     let comment = e.target.comment.value;
-    try {
-      if (user.isOnline) {
-        !reviews && await postInteraction({userId: user.id, movieId: id});
-        await putInteraction({userId: user.id, movieId: id, body: {comment: comment}});
-        dispatch(addToast({type: 'success', text: 'Commentaire ajouté / modifié'}));
-      } else {
-        throw new Error('Une erreur est survenue, veuillez réssayé plus tard ou contact un administrateur.');
+    if (user.isOnline) {
+      if(reviews === false) {
+        await postInteraction({userId: user.id, movieId: id});
       }
-    } catch (error) {
-      dispatch(addToast({type: 'error', text: (error as {message:string}).message, duration: 6000}));
-      return;
+      await putInteraction({userId: user.id, movieId: id, body: {comment: comment}});
+      dispatch(addToast({type: 'success', text: 'Commentaire ajouté / modifié'}));
     }
     setEditable(false);
   }

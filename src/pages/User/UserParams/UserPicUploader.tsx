@@ -2,7 +2,7 @@ import { Button } from 'components/Buttons/Button';
 import { useEffect, useState } from 'react';
 import styles from './UserParams.module.scss';
 
-function UserPicUploader () {
+function UserPicUploader ({avatar}: {avatar: string}) {
   const [ isUpdateOpen, setIsUpdateOpen ] = useState(false);
   const [ image, setImage ]               = useState<any>('');
   const [ preview, setPreview ]           = useState<any>(undefined);
@@ -29,7 +29,7 @@ function UserPicUploader () {
       <div className={styles['upload-img']}>
         <div className={styles['preview']}>
           <img 
-            src={preview} 
+            src={`${preview ? preview : avatar}`} 
             alt=''
           />
           <input 
@@ -37,26 +37,28 @@ function UserPicUploader () {
             onChange={onChangeHandler} 
           />
         </div>
-        <Button 
-          handler={openUpdateHandler}
-          styleMod='fill-rounded'
-        >
-          Annuler
-        </Button>
-        <Button 
-          handler={uploadImage}
-          styleMod='fill-rounded'
-        >
-          <img src='/images/send-icon.svg' alt='' />
-          Valider
-        </Button>
+        <div className={styles['buttons']}>
+          <Button 
+            handler={openUpdateHandler}
+            styleMod='fill-rounded'
+          >
+            Annuler
+          </Button>
+          <Button 
+            handler={uploadImage}
+            styleMod='fill-rounded'
+          >
+            <img src='/images/send-icon.svg' alt='' />
+            Valider
+          </Button>
+        </div>
       </div>
       }
       { !isUpdateOpen &&
       <div className={styles['upload-img']}>
         <div className={styles['preview']}>
           <img 
-            src={preview} 
+            src={avatar} 
             alt=''
           />
         </div>

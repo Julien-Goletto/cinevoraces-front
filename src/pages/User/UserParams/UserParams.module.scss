@@ -9,14 +9,10 @@
   flex-direction: column;
   & button {
     width: fit-content;
-    margin-top: .5em;
     align-self: center;
     display: flex;
     gap: .5em;
   }}
-.action {
-  margin-bottom: 1em;
-}
 .user-info {
   display: flex;
   flex-direction: column;
@@ -28,19 +24,40 @@
   color: var.$white;
 }
 .rules {
+  display: block;
   font-size: .8em;
   font-style: italic;
   line-height: 1.2em;
   margin-top: -10px;
   padding: 0 .5em;
 }
+.field {
+  display: flex;
+  align-items:flex-start;
+  justify-content: space-between;
+  border: red solid 1px;
+  & .rules {
+    margin: 0 0 -10px 0;
+  }
+  & .buttons {
+    margin-top: .8rem;
+    display: flex;
+    justify-content:flex-start;
+    gap: 1rem;
+  }}
 .upload-img {
   display: flex;
   align-items: center;
   justify-content: space-between;
   margin: 2rem auto;
   width: 100%;
+  & .buttons {
+    margin-top: .8rem;
+    display: flex;
+    gap: 1rem;
+  }
   & .preview {
+    max-width: 25rem;
     display: flex;
     align-items: center;
     gap: 1rem;
@@ -49,10 +66,4 @@
       height: 100px;
       border: 1px var.$white solid;
       border-radius: 100%;
-    }}
-}
-
-@media screen and (min-width: 560px) {
-  .user-params {
-    max-width: 760px;
-  }}
+    }}}

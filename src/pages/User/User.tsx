@@ -12,6 +12,7 @@ function User() {
   const { id }  = useParams();
   const { pseudo, avatar } = useAppSelector<any>(userLogged);
   const { data, isLoading } = useUserByIdQuery(Number(id));
+  data && console.log(data);
   
   return(
     <>
@@ -38,6 +39,7 @@ function User() {
           <UserParams
             username={data.pseudo}
             email={data.mail}
+            avatar={avatar}
           />
         </section>
       }

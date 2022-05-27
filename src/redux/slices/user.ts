@@ -22,6 +22,7 @@ const userSlice = createSlice({
       state.role = action.payload.role;
       state.access_jwt = action.payload.accessToken;
       state.refresh_jwt = action.payload.refreshToken;
+      state.avatar = action.payload.avatar_url;
       state.isOnline = true;
       
       Cookies.set('accessToken',action.payload.accessToken);

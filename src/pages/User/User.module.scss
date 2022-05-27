@@ -30,9 +30,7 @@
   font-weight: 500;
   text-transform: uppercase;
   color: var.$input-text;
-  & span {
-    white-space: nowrap;
-  }
+  white-space: nowrap;
 }
 
 @include mix.breakpoint('tablet') {

@@ -1,8 +1,12 @@
+import { userLogged } from 'redux/slices/user';
+import { useAppSelector } from 'redux/hooks';
 import styles from './UserHeader.module.scss';
 
-function UserHeader({ avatar, username, registerDate }: UserHeader) {
+function UserHeader({ registerDate }: UserHeader) {
+  const { pseudo, avatar } = useAppSelector<any>(userLogged);
   let date = new Date(registerDate);
   let customDate = date.toLocaleDateString('fr-FR', {day: 'numeric', month: 'long', year: 'numeric'});
+
 
   return(
     <div className={styles['user-header']}>

@@ -1,5 +1,3 @@
-import { userLogged } from 'redux/slices/user';
-import { useAppSelector } from 'redux/hooks';
 import { useParams } from 'react-router-dom';
 import { useUserByIdQuery } from 'redux/api';
 import UserHeader from './UserHeader/UserHeader';
@@ -10,23 +8,14 @@ import styles from './User.module.scss';
 
 function User() {
   const { id }  = useParams();
-  const { pseudo, avatar } = useAppSelector<any>(userLogged);
   const { data, isLoading } = useUserByIdQuery(Number(id));
-<<<<<<< HEAD
-  data && console.log(data);
   
-=======
-  console.log(data);
-    
->>>>>>> dev
   return(
     <>
       { !isLoading &&
         <section className={styles['user']}>
           <h1 className={styles['title']}>Mon compte</h1>
           <UserHeader
-            username={pseudo}
-            avatar={avatar}
             registerDate={data.created_at}
           />
           <h2 className={styles['title-h2']}>

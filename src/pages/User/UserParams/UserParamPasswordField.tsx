@@ -4,7 +4,7 @@ import Input from 'components/Input/Input';
 import styles from './UserParams.module.scss';
 import userStyles from '../User.module.scss';
 
-function UserParamPasswordField () {
+function UserParamPasswordField ({onSubmit}: {onSubmit: any}) {
   const [showInput, setShowInput] = useState(false);
   const handleShowInput = (e: any) => { 
     e.preventDefault();

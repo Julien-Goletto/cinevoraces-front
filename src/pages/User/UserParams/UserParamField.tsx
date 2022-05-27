@@ -1,21 +1,27 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Button } from 'components/Buttons/Button';
 import Input from 'components/Input/Input';
 import styles from './UserParams.module.scss';
 import userStyles from '../User.module.scss';
 
-type UserParamField = {
+type ParamField = {
   field: string,
   defaultValue: string,
-  onSubmit: any
+  onSubmit: any,
+  updateIsSuccess: any
 }
 
-function UserParamField ({field, defaultValue, onSubmit}: UserParamField) {
+function UserParamField ({field, defaultValue, onSubmit, updateIsSuccess}: ParamField) {
   const [showInput, setShowInput] = useState(false);
   const handleShowInput = (e: any) => { 
     e.preventDefault();
     setShowInput(!showInput);
   };
+  useEffect(() => {
+    if (updateIsSuccess) {
+      setShowInput(false);
+    }
+  }, [updateIsSuccess]);
 
   return(
     <form 

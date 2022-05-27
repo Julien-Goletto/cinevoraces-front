@@ -23,7 +23,6 @@ import Team from './pages/Team/Team';
 import Admin from './pages/Admin/Admin';
 import { usePendingPropositionQuery, useRefreshTokenMutation } from 'redux/api';
 import Loader from 'components/Loader/Loader';
-import { addToast } from 'redux/slices/global';
 import AnimationLayout from 'hooks/AnimationRouter';
 
 function App() {

@@ -55,7 +55,7 @@ function Proposal() {
   
   useEffect(()=> {  
     if(postHandle.isSuccess && bookHandle.isSuccess) {
-      dispatch(addToast({type: 'success', text: 'Votre film à bien été enregistrer'}));
+      dispatch(addToast({type: 'success', text: 'Votre film à bien été enregistré'}));
       setTimeout(()=> {
         navigate('/', {state: {}, replace: true});
       },1000);

@@ -5,7 +5,7 @@ import { userIsOpen } from 'redux/slices/global';
 import styles from './UserMenu.module.scss';
 
 function Menu() {
-  const { pseudo, id } = useAppSelector<any>(userLogged);
+  const { pseudo, id, role } = useAppSelector<any>(userLogged);
   const dispatch = useAppDispatch();
   const userMenuHandler = () => {
     dispatch(userIsOpen());
@@ -35,6 +35,16 @@ function Menu() {
               Proposer un film
             </Link>
           </li>
+          { role === 'admin' &&
+            <li className={styles.link}>
+              <Link reloadDocument 
+                to='/admin'
+                onClick={userMenuHandler}
+              >
+                Dashboard Admin
+              </Link>
+            </li>
+          }
           <li className={styles.link}>
             <Link onClick={()=> dispatch(setOffline())} to='/'>Se déconnecter</Link>
           </li>

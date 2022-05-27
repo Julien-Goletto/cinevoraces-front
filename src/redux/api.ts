@@ -48,7 +48,7 @@ const baseQueryWithReauth = async (args:any, api:any, extraOptions:any) => {
 
 export const api = createApi({
   reducerPath: 'api',
-  baseQuery: baseQueryWithReauth, tagTypes: ['Movie', 'Reviews'],
+  baseQuery: baseQueryWithReauth, tagTypes: ['Movie', 'Reviews', 'Propositions', 'Users'],
   endpoints: (build) => ({
     userRegister: build.mutation<User, any>({
       query: (user:User) => ({ url: '/v1/users/register', method:'POST', body: user })
@@ -119,13 +119,42 @@ export const api = createApi({
       query: (arg:any) => ({url : `/v1/reviews/${arg.userId}/${arg.movieId}`, method: 'PUT', body: arg.body}),
       invalidatesTags: ['Movie', 'Reviews'] 
     }),
+    adminPublishMovie: build.mutation<any, any>({
+      query: (arg:any) => ({url : `/v1/movies/publishing/${arg.movieId}`, method: 'PUT', body: arg.body}),
+      invalidatesTags: ['Propositions'] 
+    }),
+    adminRevokeMovie: build.mutation<any, any>({
+      query: (arg:any) => ({url : `/v1/movies/${arg.movieId}`, method: 'DELETE'}),
+      invalidatesTags: ['Propositions'] 
+    }),
+    adminPutUser: build.mutation<any, any>({
+      query: (arg:any) => ({url : `/v1/users/modify/${arg.userId}`, method: 'PUT', body: arg.body}),
+      invalidatesTags: ['Users'] 
+    }),
+    adminDeleteUser: build.mutation<any, any>({
+      query: (arg:any) => ({url : `/v1/users/${arg.userId}`, method: 'DELETE'}),
+      invalidatesTags: ['Users'] 
+    }),
+    adminGetData: build.query<any, void>({
+      async queryFn(_arg, _queryApi, _extraOptions, fetchWithBQ) {
+        const propositions = await fetchWithBQ('/v1/propositions/pendingPropositions');
+        const users = await fetchWithBQ('/v1/users');
+        return {data : {
+          users: users.data,
+          propositions: propositions.data
+        }};
+      },
+      providesTags: ['Users', 'Propositions']
+    })
   })
 });
 
-
-
-
 export const { 
+  useAdminPublishMovieMutation,
+  useAdminRevokeMovieMutation,
+  useAdminGetDataQuery,
+  useAdminPutUserMutation,
+  useAdminDeleteUserMutation,
   useUserRegisterMutation,
   useUserLoginMutation,
   useUserUpdateMutation,

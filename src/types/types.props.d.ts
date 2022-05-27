@@ -1,3 +1,7 @@
+type AdminModal = {
+  children?: import('react').ReactNode,
+  handler: MouseEventHandler
+};
 type AboutProps = {
   children?: React.ReactNode
 }

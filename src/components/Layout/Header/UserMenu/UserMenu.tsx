@@ -68,7 +68,7 @@ function UserMenu() {
       <img 
         onClick={userMenuHandler} 
         className={styles.ico} 
-        src={`${(avatar) ? {avatar} : '/images/user_default.svg'}`}
+        src={`${(avatar) ? avatar : '/images/user_default.svg'}`}
         alt=''
       />
     </>

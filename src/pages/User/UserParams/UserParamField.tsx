@@ -4,13 +4,6 @@ import Input from 'components/Input/Input';
 import styles from './UserParams.module.scss';
 import userStyles from '../User.module.scss';
 
-type ParamField = {
-  field: string,
-  defaultValue: string,
-  onSubmit: any,
-  updateIsSuccess: any
-}
-
 function UserParamField ({field, defaultValue, onSubmit, updateIsSuccess}: ParamField) {
   const [showInput, setShowInput] = useState(false);
   const handleShowInput = (e: any) => { 
@@ -35,12 +28,14 @@ function UserParamField ({field, defaultValue, onSubmit, updateIsSuccess}: Param
               {field} :</span>
             <span className={styles['info']}>&nbsp;{defaultValue}</span>
           </div>
-          <Button 
-            handler={handleShowInput}
-            styleMod='fill-rounded'
-          >
-            Modifier
-          </Button>
+          <div className={styles['modif-btn']}>
+            <Button 
+              handler={handleShowInput}
+              styleMod='fill-rounded'
+            >
+              Modifier
+            </Button>
+          </div>
         </>
       }
       { showInput &&

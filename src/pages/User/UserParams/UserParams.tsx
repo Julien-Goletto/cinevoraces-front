@@ -63,6 +63,7 @@ function UserParams({ username, email, avatar }: user) {
     } else {
       updateUser(updateRequest);
     }};
+    
   useEffect(() => {
     if (updateIsSuccess) {
       dispatch(addToast({type: 'success', text: 'Informations mises à jour avec succés.'}));
@@ -88,6 +89,7 @@ function UserParams({ username, email, avatar }: user) {
       />
       <UserParamPasswordField
         onSubmit={handlePasswordSubmit}
+        updateIsSuccess={updateIsSuccess}
       />        
     </div>
   );

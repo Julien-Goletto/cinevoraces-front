@@ -1,5 +1,5 @@
 import { Button } from 'components/Buttons/Button';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import styles from './UserParams.module.scss';
 
 function UserPicUploader ({avatar}: {avatar: string}) {
@@ -18,11 +18,6 @@ function UserPicUploader ({avatar}: {avatar: string}) {
     setIsUpdateOpen(!isUpdateOpen);
   };
   
-  useEffect(() => {
-    console.log(image);
-    console.log(preview);
-  }, [image, preview]);
-
   return (
     <>
       { isUpdateOpen &&

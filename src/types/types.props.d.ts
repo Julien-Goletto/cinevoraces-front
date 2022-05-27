@@ -75,6 +75,16 @@ type Metrics = {
   }
   isLoading: boolean,
 }
+type ParamField = {
+  field: string,
+  defaultValue: string,
+  onSubmit: any,
+  updateIsSuccess: any
+}
+type ParamPasswordField = {
+  onSubmit: any,
+  updateIsSuccess: any
+}
 type ToastProps = {
   type: string,
   text: string,

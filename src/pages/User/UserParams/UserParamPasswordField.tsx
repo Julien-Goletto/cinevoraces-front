@@ -1,46 +1,51 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Button } from 'components/Buttons/Button';
 import Input from 'components/Input/Input';
 import styles from './UserParams.module.scss';
 import userStyles from '../User.module.scss';
 
-function UserParamPasswordField ({onSubmit}: {onSubmit: any}) {
+function UserParamPasswordField ({onSubmit, updateIsSuccess}: ParamPasswordField) {
   const [showInput, setShowInput] = useState(false);
   const handleShowInput = (e: any) => { 
     e.preventDefault();
     setShowInput(!showInput);
   };
 
+  useEffect(() => {
+    if (updateIsSuccess) {
+      setShowInput(false);
+    }
+  }, [updateIsSuccess]);
+
   return(
-    <>
+    <form 
+      className={styles['field']}
+      onSubmit={onSubmit}
+    >
       { !showInput &&
-        <div className={styles['field']}>
+        <>
           <div className={userStyles['title-h4']}>
             <span>mot de passe :</span>
             <span className={styles['info']}>&nbsp;**********</span>
           </div>
-          <Button 
-            handler={handleShowInput}
-            styleMod='fill-rounded'
-          >
-            Modifier
-          </Button>
-        </div>
+          <div className={styles['modif-btn']}>
+            <Button 
+              handler={handleShowInput}
+              styleMod='fill-rounded'
+            >
+              Modifier
+            </Button>
+          </div>
+        </>
       }
       { showInput &&
-        <div className={styles['field']}>
+        <>
           <div className={styles['input']}>
-            {/* <label 
+            <label 
               className={styles['rules']}
-              htmlFor={field}
             >
               Entrez votre nouveau mot de passe :
-            </label> */}
-            <Input
-              name='old-password'
-              type='password'
-              placeholder='Ancien mot de passe'
-            />
+            </label>
             <Input
               name='new-password'
               type='password'
@@ -57,7 +62,7 @@ function UserParamPasswordField ({onSubmit}: {onSubmit: any}) {
             <Input
               name='old-password'
               type='password'
-              placeholder='Entrez votre mot de passe'
+              placeholder='Ancien mot de passe'
             />
           </div>
           <div className={styles['buttons']}>
@@ -74,9 +79,9 @@ function UserParamPasswordField ({onSubmit}: {onSubmit: any}) {
               Valider
             </Button>
           </div>
-        </div>
+        </>
       }
-    </>
+    </form>
   );
 }
 

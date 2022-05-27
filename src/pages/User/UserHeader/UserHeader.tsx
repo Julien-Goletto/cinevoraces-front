@@ -1,20 +1,8 @@
 import styles from './UserHeader.module.scss';
 
 function UserHeader({ avatar, username, registerDate }: UserHeader) {
-  const handleTimestamp = (timestamp: string) => {
-    let date = new Date(timestamp);
-    let month;
-    switch(Number(date.getMonth())) {
-    case 1: month = 'janvier'; break; case 2: month = 'février'; break; 
-    case 3: month = 'mars'; break; case 4: month = 'avril'; break; 
-    case 5: month = 'mai'; break; case 6: month = 'juin'; break; 
-    case 7: month = 'juillet'; break; case 8: month = 'août'; break; 
-    case 9: month = 'septembre'; break; case 10: month = 'octobre'; break; 
-    case 11: month = 'novembre'; break; case 12: month = 'décembre'; break; 
-    } 
-    return `${date.getDate()} ${month} ${date.getFullYear()}`;
-  };
-  const date = handleTimestamp(registerDate); 
+  let date = new Date(registerDate);
+  let customDate = date.toLocaleDateString('fr-FR', {day: 'numeric', month: 'long', year: 'numeric'});
 
   return(
     <div className={styles['user-header']}>
@@ -30,7 +18,7 @@ function UserHeader({ avatar, username, registerDate }: UserHeader) {
       </div>
       <div className={styles['register-date']}>
         Membre depuis le
-        <span>{date}</span>
+        <span>{customDate}</span>
       </div>
     </div>
   );

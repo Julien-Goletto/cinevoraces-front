@@ -2,35 +2,42 @@ import { useState } from 'react';
 import { Link     } from 'react-router-dom';
 import Loader from 'components/Loader/Loader';
 import styles from './MoviesGrid.module.scss';
+import { motion } from 'framer-motion';
 
 function MoviesGrid({ movies, isLoading }: MovieGrid) {
   const [isImgLoading, setIsImgLoading] = useState(true);
   const onLoadHandler = () => {
-    setTimeout(() => {setIsImgLoading(false);}, 1000);
+    setTimeout(() => {setIsImgLoading(false);}, 3000);
   };
   return(
-    <div className={styles.grid}>
-      {(isLoading || isImgLoading) &&
-        <div className={styles['loader-wrapper']}>
-          <Loader />
-        </div>
-      }
-      {!isLoading &&
-        movies.map((movie:any) => 
-          <div 
-            className={styles.poster}
-            key={movie.id}
-          >
-            <Link to={`/film/${movie.id}`}>
-              <img 
-                className={`${styles.img} ${isImgLoading && styles.hidden}`}
-                src={movie.poster_url} alt={`Affiche du film ${movie.title}`}
-                onLoad={onLoadHandler}
-              />
-            </Link>
-          </div>
-        )}
-    </div>
+    !isLoading ?
+      <motion.div
+        className={styles.grid}
+        animate={{ 
+          opacity: [0,1]
+        }}
+        transition= {{delay: 0.2}}
+      >
+        {
+          movies.map((movie:any) => 
+            <motion.div 
+              className={styles.poster}
+              key={movie.id}
+            >
+              <Link to={`/film/${movie.id}`}>
+                <img 
+                  className={`${styles.img}`}
+                  src={movie.poster_url} alt={`Affiche du film ${movie.title}`}
+                  onLoad={onLoadHandler}
+                />
+              </Link>
+            </motion.div>
+          )}
+      </motion.div>
+      : 
+      <div className={styles['loader-wrapper']}>
+        <Loader />
+      </div>
   );
 };
 

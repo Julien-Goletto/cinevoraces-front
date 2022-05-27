@@ -9,7 +9,7 @@ function UserHeader({ avatar, username, registerDate }: UserHeader) {
       <div className={styles['row']}>
         <img 
           className={styles['img']}
-          src={`${(avatar) ? {avatar} : '/images/user_default.svg'}`}
+          src={`${(avatar) ? avatar : '/images/user_default.svg'}`}
           alt=''
         />
         <div className={styles['username']}>

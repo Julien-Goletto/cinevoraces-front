@@ -31,11 +31,11 @@
 }
 
 .pic {
-  border-radius: 100%;
-  width: auto; 
-  height: 175%; 
-  margin-left: -20px;
-  margin-top: -15px;
+  object-fit: cover;
+  display: block;
+  object-position: 50% 50%;
+  max-height: 100%;
+  min-width: 100%;
 }
 .pic__default {
   height: 100%;

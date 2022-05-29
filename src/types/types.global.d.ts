@@ -14,14 +14,6 @@ type Reviews = [{
 type ButtonSearch = {
   children: React.ReactNode
 };
-type CommentProps = {
-  pic: string,
-  name: string,
-  date: string,
-  text: string,
-  edit?: boolean,
-  rating: number
-};
 type DBMovie = {
   id: number,
   french_title: string,

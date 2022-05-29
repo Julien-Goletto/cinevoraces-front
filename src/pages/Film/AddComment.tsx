@@ -35,7 +35,7 @@ function AddComment(props: any) {
       <>
         <div className={styles['add-comment']}>
           <div className={styles['profil']}>
-            <div className={styles['picture']}><img src={'/images/user_default.svg'} alt='Avatar' className={styles['pic']} /></div>
+            <img src={(user.avatar) ? user.avatar : '/images/user_default.svg'} alt='Avatar' className={styles.pic} />
             <div className={styles['box']}>
               <h5 className={styles['name']}>{user.pseudo}</h5>
               <div className={styles['date']}>{props.date ? props.date : ''}</div>

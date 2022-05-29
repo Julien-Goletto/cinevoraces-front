@@ -59,7 +59,7 @@ function Film() {
         <h3 className={styles['title']}>Commentaires ({reviews ? reviews.length : '~'})</h3>
         <div className={styles.comments}>
           {
-            (isUserReviewSuccess && !userReview[0].comment) && <AddComment props={{text: userReview[0].comment, pic:'', date: userReview[0].updated_at}} />
+            (isUserReviewSuccess && !userReview[0].comment) && <AddComment props={{text: userReview[0].comment, date: userReview[0].updated_at}} />
           }
           {
             (!isReviewsLoad && filteredComment) && filteredComment.map((review: any, index:any) => (

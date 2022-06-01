@@ -3,7 +3,6 @@ import Cookies from 'js-cookie';
 import { setOffline, setUser } from './slices/user';
 
 const baseQuery = retry(fetchBaseQuery({
-  // baseUrl: 'http://localhost:3005'
   baseUrl: process.env.REACT_APP_API,
   prepareHeaders: (headers, {getState, endpoint}) => {
     const accessToken = (getState() as any).user.access_jwt;

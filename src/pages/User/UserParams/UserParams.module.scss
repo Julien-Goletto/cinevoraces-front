@@ -69,6 +69,7 @@
     align-items: center;
     gap: 1rem;
     & img {
+      object-fit: contain;
       width: 100px;
       height: 100px;
       border: 1px var.$white solid;

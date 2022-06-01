@@ -21,7 +21,7 @@ import Register from './pages/Register/Register';
 import Proposal from './pages/Proposal/Proposal';
 import Team from './pages/Team/Team';
 import Admin from './pages/Admin/Admin';
-import { usePendingPropositionQuery, useRefreshTokenMutation } from 'redux/api';
+import { usePendingPropositionQuery, useLazyRefreshTokenQuery } from 'redux/api';
 import Loader from 'components/Loader/Loader';
 import AnimationLayout from 'hooks/AnimationRouter';
 
@@ -29,7 +29,7 @@ function App() {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const isLogged = useAppSelector<boolean>(isOnline);
   const dispatch = useAppDispatch();
-  const [refreshToken, {data, isLoading, isError}] = useRefreshTokenMutation();
+  const [refreshToken, {data, isLoading, isError}] = useLazyRefreshTokenQuery();
 
   // wait for refreshToken cycle to be done
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -97,7 +97,7 @@ function App() {
 }
 
 function RequireAuth({ children, redirectTo }:{ children:any, redirectTo:any }) {
-  const [resfreshToken, {isError, isLoading}] = useRefreshTokenMutation();
+  const [resfreshToken, {isError, isLoading}] = useLazyRefreshTokenQuery();
   useEffect(()=> {
     resfreshToken();
   }, []);

@@ -60,6 +60,10 @@ export const api = createApi({
       query: (data) => ({url: `v1/users/modify/${data.userId}`, method: 'PUT', body: data.user}),
       invalidatesTags: ['UserParams'] 
     }), 
+    userUpdatePicture: build.mutation<void, any>({
+      query: (data) => ({url: `v1/users/addProfilePic/${data.userId}`, method: 'PUT', body: data.form}),
+      invalidatesTags: ['UserParams'] 
+    }), 
     allMovies: build.query<any, void>({
       query: () =>  ({url: '/v1/movies', method: 'GET'})
     }),
@@ -75,10 +79,9 @@ export const api = createApi({
       query: () => ({url: '/v1/metrics', method: 'GET'}),
       transformResponse: (res:any) => res[0]
     }),
-    refreshToken: build.mutation<any, void>({
-      query: () => {
-        return ({url: '/v1/refreshTokens', method: 'GET'});
-      },
+    refreshToken: build.query<any, void>({
+      query: () =>  ({url: '/v1/refreshTokens', method: 'GET'}),
+      providesTags: ['UserParams']
     }),
     //const token = (getState() as any).user.access_jwt;
     movieReviews: build.query<Comment[], number>({
@@ -159,12 +162,14 @@ export const {
   useUserRegisterMutation,
   useUserLoginMutation,
   useUserUpdateMutation,
+  useUserUpdatePictureMutation,
   useAllMoviesQuery,
   useOneMovieQuery,
   useLastMovieQuery,
   usePostMovieMutation,
   useAllMetricsQuery,
-  useRefreshTokenMutation,
+  useRefreshTokenQuery,
+  useLazyRefreshTokenQuery,
   useMovieReviewsQuery,
   useMetricsByIdQuery,
   useUserByIdQuery,

@@ -1,35 +1,28 @@
 import { Button } from 'components/Buttons/Button';
-import { timeStamp } from 'console';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import { useUserUpdatePictureMutation } from 'redux/api';
+import Loader from 'components/Loader/Loader';
 import styles from './UserParams.module.scss';
 
 function UserPicUploader ({avatar}: {avatar: string}) {
-  const [ isUpdateOpen, setIsUpdateOpen ] = useState(false);
-  const [ image, setImage ]               = useState<any>('');
-  const [ preview, setPreview ]           = useState<any>(undefined);
-  // const [ url, setUrl ] = useState("");
+  const { id }  = useParams();
+  const [ isUpdateOpen, setIsUpdateOpen ]   = useState(false);
+  const [ imageFormData, setImageFormData ] = useState<any>('');
+  const [ preview, setPreview ]             = useState<any>(undefined);
+  const [updateUserPicture, { isSuccess, isLoading }] = useUserUpdatePictureMutation();
 
-  const uploadImage = () => {};
+  const uploadImage = () => {
+    const formData = new FormData();
+    formData.append('picture', imageFormData, imageFormData.name);
+    const data = {userId: id, form: formData};
+    updateUserPicture(data);
+    setIsUpdateOpen(!isUpdateOpen);
+  };
   const onChangeHandler = (e: any) => {
     const [file] = e.target.files;
-    // const eagerParams = 'c_crop,w_200,h_200,g_faces';
-    // const folder = '';
-    // setImage(file);
-    // setPreview(URL.createObjectURL(file));
-    const data = new FormData();
-    // data.append('timestamp', timeStamp);
-    // data.append('signature', signature);
-    // data.append('api_key', process.env.REACT_APP_CLOUD_API_KEY!);
-    // data.append('eager', eagerParams);
-    // data.append('folder', folder);
-    data.append('file', file);
-    data.append('upload_preset', process.env.REACT_APP_CLOUD_PRESET!);
-    data.append('cloud_name', process.env.REACT_APP_CLOUD_NAME!);
-    fetch(`${process.env.REACT_APP_CLOUD_URL}/${process.env.REACT_APP_CLOUD_NAME}/image/upload`, { method: 'post', body: data })
-      .then(resp => resp.json())
-      .then(data => {setPreview(data.url);})
-      .catch(err => console.log(err)
-      );
+    setPreview(URL.createObjectURL(file));
+    setImageFormData(file);
   };
   const openUpdateHandler = () => {
     setIsUpdateOpen(!isUpdateOpen);
@@ -41,7 +34,7 @@ function UserPicUploader ({avatar}: {avatar: string}) {
       <div className={styles['upload-img']}>
         <div className={styles['preview']}>
           <img 
-            src={`${preview ? preview : avatar}`} 
+            src={`${preview ? preview : avatar ? avatar : '/images/user_default.svg'}`} 
             alt=''
           />
           <input 
@@ -70,16 +63,21 @@ function UserPicUploader ({avatar}: {avatar: string}) {
       <div className={styles['upload-img']}>
         <div className={styles['preview']}>
           <img 
-            src={avatar} 
+            src={`${(avatar) ? avatar : '/images/user_default.svg'}`} 
             alt=''
           />
         </div>
-        <Button 
-          handler={openUpdateHandler}
-          styleMod='fill-rounded'
-        >
-          Modifier
-        </Button>
+        { isLoading &&
+          <Loader/>
+        }
+        { !isLoading &&
+          <Button 
+            handler={openUpdateHandler}
+            styleMod='fill-rounded'
+          >
+            Modifier
+          </Button>
+        }
       </div>
       }
     </>

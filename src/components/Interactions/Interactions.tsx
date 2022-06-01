@@ -10,7 +10,7 @@ import StarRating from 'components/StarRating/StarRating';
 import { isOnline, userLogged } from 'redux/slices/user';
 import { addToast } from 'redux/slices/global';
 import { useParams } from 'react-router-dom';
-import { usePostInteractionMutation,usePutInteractionMutation, useRefreshTokenMutation } from 'redux/api';
+import { usePostInteractionMutation,usePutInteractionMutation } from 'redux/api';
 import Loader from 'components/Loader/Loader';
 
 type InteractionsProps = {

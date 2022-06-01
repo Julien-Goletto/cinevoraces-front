@@ -8,13 +8,13 @@ function Presentation({pic, name, date, text}: CommentProps) {
   return (
     <div className={styles.presentation}>
       <div className={styles.profil}>
-        <div className={styles.picture}><img src={pic} alt='Avatar' className={styles.pic} /></div>
+        <img src={(pic) ? pic : '/images/user_default.svg'} alt='Avatar' className={styles.pic} />
         <div className={styles.box}>
           <h5 className={styles.name}>{name}</h5>
           <div className={styles.date}>{date}</div>
         </div>
       </div>
-      <div className={styles.note}><StarRating/></div>
+      {/* <div className={styles.note}><StarRating/></div> */}
       {sliceText}
     </div>
   );

@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react';
 
 function Content({ movie, isLoading }: Content) {
   const [date, setDate] = useState<string>();
+  console.log(movie)
   
   useEffect(()=> {
     if(!isLoading && movie){
@@ -39,7 +40,7 @@ function Content({ movie, isLoading }: Content) {
             </div>
           </div>
           <Description movie={movie} />
-          <Presentation pic={'/fake_data/pictures/profilpic.png'} name={movie.user_pseudo} date={date}
+          <Presentation pic={movie.user_avatar_url!} name={movie.user_pseudo} date={date}
             text={movie.presentation} rating={2}/>
         </div>
       </>

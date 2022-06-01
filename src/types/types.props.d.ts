@@ -15,6 +15,14 @@ type Content = {
   movie: DBMovie,
   isLoading: boolean
 }
+type CommentProps = {
+  pic: string,
+  name: string,
+  date: string,
+  text: string,
+  edit?: boolean,
+  rating: number
+}
 type Description = {
   movie: DBMovie
 }

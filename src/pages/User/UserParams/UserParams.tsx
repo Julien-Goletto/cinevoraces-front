@@ -1,139 +1,97 @@
-import { useState } from 'react';
-import { Button } from 'components/Buttons/Button';
+import { useEffect } from 'react';
 import { useAppDispatch } from 'redux/hooks';
 import { addToast } from 'redux/slices/global';
 import { useUserUpdateMutation } from 'redux/api';
 import { useParams } from 'react-router-dom';
 
-import Input from 'components/Input/Input';
+import UserParamField from './UserParamField';
+import UserParamPasswordField from './UserParamPasswordField';
+import UserPicUploader from './UserPicUploader';
 import styles from './UserParams.module.scss';
-import userStyles from '../User.module.scss';
 
-function UserParams({ username, email }: user) {
-  const [showInput, setShowInput] = useState(false);
+function UserParams({ username, email, avatar }: user) {
   const dispatch = useAppDispatch();
   const { id }  = useParams();
-  const [updateUser, {isSuccess, isError}] = useUserUpdateMutation();
+  const [updateUser, {
+    isSuccess: updateIsSuccess,
+    reset: updateReset }] = useUserUpdateMutation();
 
-  const handleShowInput = () => {
-    setShowInput(true);
-  };
   const formRegEx = (string: FormDataEntryValue) => {
     if (RegExp('^((?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[\-~!@#$%^*_+=/:;.?])(?=.{8,}))').test(String(string!))) { // eslint-disable-line
       return true;
     } else {
       return false;
-    }
-  };
-  const handleFormSubmit = (e: any) => {
+    }};
+  const handleEmailSubmit = (e: any) => {
+    e.preventDefault();
+    const form = new FormData(e.target);
+    const updateRequest = { 
+      user: { oldPassword: form.get('old-password'), mail: form.get('email') },
+      userId: Number(id) 
+    };
+    if (updateRequest.user.oldPassword === '') {
+      dispatch(addToast({type:'error', text: 'Vous devez renseigner votre mot de passe.'}));
+    } else {
+      updateUser(updateRequest);
+    }};
+  const handleUsernameSubmit = (e: any) => {
     e.preventDefault();
     const form = new FormData(e.target);
     const updateRequest = {   
-      user: {
-        oldPassword: form.get('old-password'),
-        pseudo: form.get('username'),
-        mail: form.get('email'),
-        password: form.get('new-password'),
-        avatar_url: 'jambon',
-        role: 'user'
-      },
+      user: { oldPassword: form.get('old-password'), pseudo: form.get('username')},
+      userId: Number(id)
+    };    
+    if (updateRequest.user.oldPassword === '') {
+      dispatch(addToast({type:'error', text: 'Vous devez renseigner votre mot de passe.'}));
+    } else {
+      updateUser(updateRequest);
+    }};
+  const handlePasswordSubmit = (e: any) => {
+    e.preventDefault();
+    const form = new FormData(e.target);
+    const updateRequest = {   
+      user: { oldPassword: form.get('old-password'), password: form.get('new-password')},
       confirmPassword: form.get('confirm-new-password'),
       userId: Number(id)
-    };
-    
-    if (
-      updateRequest.user.pseudo === '' || updateRequest.user.mail === '' || 
-      updateRequest.user.oldPassword === '' || updateRequest.user.password === '' || 
-      updateRequest.confirmPassword === '' 
-    ) {
-      dispatch(addToast({type:'error', text: 'Vous devez remplir tout les champs'}));
-    } else if (!formRegEx(updateRequest.user.password!)) {
+    };    
+    if (!formRegEx(updateRequest.user.password!)) {
       dispatch(addToast({type:'error', text: 'Votre nouveau mot de passe est invalide'}));
     } else if (updateRequest.user.password !== updateRequest.confirmPassword) {
       dispatch(addToast({type:'error', text: 'Votre nouveau mot de passe ne correspond pas au mot de passe de confirmation'}));
+    } else if (updateRequest.user.oldPassword === '') {
+      dispatch(addToast({type:'error', text: 'Vous devez renseigner votre mot de passe.'}));
     } else {
       updateUser(updateRequest);
-      isError && dispatch(addToast({type:'error', text: 'Mot de passe, adresse mail ou nom d\'utilisateur incorrect'}));
-      isSuccess && dispatch(addToast({type:'success', text: 'Vos informations ont bien été mises à jour'}));
+    }};
+    
+  useEffect(() => {
+    if (updateIsSuccess) {
+      dispatch(addToast({type: 'success', text: 'Informations mises à jour avec succés.'}));
+      updateReset();
     }
-  };
-
+  }, [updateIsSuccess, updateReset, dispatch]);
   return(
-    <form 
-      className={styles['user-params']}
-      onSubmit={handleFormSubmit}
-    >
-      { showInput &&
-      <>
-        <div className={styles['action']}>
-          Changes mes identifiants
-        </div>
-        <Input
-          name='email'
-          type='email'
-          placeholder='Entrez votre nouveau email'
-          defaultValue={email}
-        />
-        <Input
-          name='username'
-          type='text'
-          placeholder='Entrez votre nouveau nom d’utilisateur'
-          defaultValue={username}
-        />
-        <div className={styles['action']}>
-        </div>
-        <Input
-          name='old-password'
-          type='password'
-          placeholder='Ancien mot de passe'
-        />
-        <Input
-          name='new-password'
-          type='password'
-          placeholder='Nouveau mot de passe'
-        />
-        <Input
-          name='confirm-new-password'
-          type='password'
-          placeholder='Confirmez votre nouveau mot de passe'
-        />
-        <div className={styles.rules}>
-          Votre mot de passe doit contenir au moins une majuscule, une minuscule, un symbôle et un chiffre et doit contenir au moins 8 caractères.
-        </div>
-        <Button
-          styleMod='fill-rounded'
-        >
-          <img src='/images/send-icon.svg' alt='' />
-          Envoyer
-        </Button>
-      </>
-      }
-      { !showInput &&
-        <>
-          <div className={styles['user-info']}>
-            <div className={userStyles['title-h4']}>
-              <span>email :</span>
-              <span className={styles['info']}>&nbsp;{email}</span>
-            </div>
-            <div className={userStyles['title-h4']}>
-              <span>nom :</span>
-              <span className={styles['info']}>&nbsp;{username}</span>
-            </div>
-            <div className={userStyles['title-h4']}>
-              <span>mot de passe :</span>
-              <span className={styles['info']}>&nbsp;**********</span>
-            </div>
-
-          </div>
-          <Button
-            styleMod='fill'
-            handler={handleShowInput}
-          >
-            Modifier mes paramètres
-          </Button>
-        </>
-      }
-    </form>
+    <div className={styles['user-params']}> 
+      <UserPicUploader
+        avatar={avatar}
+      />
+      <UserParamField
+        onSubmit={handleEmailSubmit}
+        field='email'
+        defaultValue={email}
+        updateIsSuccess={updateIsSuccess}
+      />
+      <UserParamField
+        onSubmit={handleUsernameSubmit}
+        field='username'
+        defaultValue={username}
+        updateIsSuccess={updateIsSuccess}
+      />
+      <UserParamPasswordField
+        onSubmit={handlePasswordSubmit}
+        updateIsSuccess={updateIsSuccess}
+      />        
+    </div>
   );
 }
 

@@ -9,7 +9,7 @@
 .wrapper {
   composes: container from global;
   padding-top: 2em;
-  padding-bottom:  2em;
+  padding-bottom: 2em;
 }
 
 .text {
@@ -30,7 +30,6 @@
     flex-direction: column;
   }
 }
-
 
 @include mix.breakpoint('tablet') {
   .wrapper {

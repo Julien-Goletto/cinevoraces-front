@@ -9,6 +9,7 @@ type UserSubmittedFilm = {
 type user = {
   username: string,
   email: string,
+  avatar: string
 }
 type submittedMovie = {
   title: string,

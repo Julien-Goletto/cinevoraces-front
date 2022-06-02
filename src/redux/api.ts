@@ -47,7 +47,7 @@ const baseQueryWithReauth = async (args:any, api:any, extraOptions:any) => {
 
 export const api = createApi({
   reducerPath: 'api',
-  baseQuery: baseQueryWithReauth, tagTypes: ['Movie', 'Reviews', 'Propositions', 'Users'],
+  baseQuery: baseQueryWithReauth, tagTypes: ['Movie', 'Reviews', 'Propositions', 'Users', 'UserParams'],
   endpoints: (build) => ({
     userRegister: build.mutation<User, any>({
       query: (user:User) => ({ url: '/v1/users/register', method:'POST', body: user })
@@ -57,7 +57,12 @@ export const api = createApi({
       transformResponse: (res:any) => res
     }),
     userUpdate: build.mutation<void, any>({
-      query: (data) => ({url: `v1/users/modify/${data.userId}`, method: 'PUT', body: data.user})
+      query: (data) => ({url: `v1/users/modify/${data.userId}`, method: 'PUT', body: data.user}),
+      invalidatesTags: ['UserParams'] 
+    }), 
+    userUpdatePicture: build.mutation<void, any>({
+      query: (data) => ({url: `v1/users/addProfilePic/${data.userId}`, method: 'PUT', body: data.form}),
+      invalidatesTags: ['UserParams'] 
     }), 
     allMovies: build.query<any, void>({
       query: () =>  ({url: '/v1/movies', method: 'GET'})
@@ -74,10 +79,9 @@ export const api = createApi({
       query: () => ({url: '/v1/metrics', method: 'GET'}),
       transformResponse: (res:any) => res[0]
     }),
-    refreshToken: build.mutation<any, void>({
-      query: () => {
-        return ({url: '/v1/refreshTokens', method: 'GET'});
-      },
+    refreshToken: build.query<any, void>({
+      query: () =>  ({url: '/v1/refreshTokens', method: 'GET'}),
+      providesTags: ['UserParams']
     }),
     //const token = (getState() as any).user.access_jwt;
     movieReviews: build.query<Comment[], number>({
@@ -91,7 +95,8 @@ export const api = createApi({
       query: (id:number) => ({url: `/v1/metrics/${id}`, method: 'GET'})
     }),
     userById: build.query<any, number>({
-      query: (id:number) => ({url: `/v1/users/${id}`, method: 'GET'})
+      query: (id:number) => ({url: `/v1/users/${id}`, method: 'GET'}),
+      providesTags: ['UserParams']
     }),
     pendingProposalByUser: build.query<any, number>({
       query: (id:number) => ({url: `/v1/propositions/${id}`, method: 'GET'})
@@ -157,12 +162,14 @@ export const {
   useUserRegisterMutation,
   useUserLoginMutation,
   useUserUpdateMutation,
+  useUserUpdatePictureMutation,
   useAllMoviesQuery,
   useOneMovieQuery,
   useLastMovieQuery,
   usePostMovieMutation,
   useAllMetricsQuery,
-  useRefreshTokenMutation,
+  useRefreshTokenQuery,
+  useLazyRefreshTokenQuery,
   useMovieReviewsQuery,
   useMetricsByIdQuery,
   useUserByIdQuery,

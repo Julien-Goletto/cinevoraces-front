@@ -39,6 +39,12 @@ const userSlice = createSlice({
       Cookies.remove('accessToken');
       Cookies.remove('refreshToken');
       return initialState;
+    },
+    setUsername (state,action) {
+      state.pseudo = action.payload.pseudo;
+    },
+    setAvatar (state,action) {
+      state.avatar = action.payload.avatar_url;
     }
   }
 });
@@ -52,6 +58,8 @@ export const userJwts = (state:RootState) => { return {
 
 export const { 
   setUser,
+  setAvatar,
+  setUsername,
   setJwts,
   setConnectedStatus,
   setOffline

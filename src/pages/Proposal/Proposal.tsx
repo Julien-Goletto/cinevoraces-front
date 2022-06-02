@@ -8,7 +8,7 @@ import { getProposalData, getSearch, setEpisode, unsetEpisode } from 'redux/slic
 import { Button } from 'components/Buttons/Button';
 import { useTmbdCustomDetailsQuery } from 'redux/apiTmdb';
 import { addToast } from 'redux/slices/global';
-import { usePostMovieMutation, useRefreshTokenMutation, useAvailableSlotsQuery, useBookSlotMutation } from 'redux/api';
+import { usePostMovieMutation, useAvailableSlotsQuery, useBookSlotMutation } from 'redux/api';
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { apiTmdb } from 'redux/apiTmdb';

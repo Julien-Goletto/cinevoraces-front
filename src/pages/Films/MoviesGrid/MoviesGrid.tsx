@@ -9,6 +9,7 @@ function MoviesGrid({ movies, isLoading }: MovieGrid) {
   const onLoadHandler = () => {
     setTimeout(() => {setIsImgLoading(false);}, 3000);
   };
+
   return(
     !isLoading ?
       <motion.div

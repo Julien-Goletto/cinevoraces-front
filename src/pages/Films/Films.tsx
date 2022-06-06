@@ -53,7 +53,7 @@ function Films() {
       filteredMovies = filteredMovies.filter((movie:DBMovie) => {
         const date = new Date(movie.release_date);
         const year = date.getFullYear();
-        if(year > yearFilter[0] && year < yearFilter[1]) {
+        if(year >= yearFilter[0] && year <= yearFilter[1]) {
           return true;
         }});
       filteredMovies = filteredMovies.filter((movie:DBMovie) => {

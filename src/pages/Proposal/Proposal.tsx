@@ -3,10 +3,11 @@ import MovieGrid from './MoviesGrid/MovieGrid';
 import Description from './Description/Description';
 import Option from './Option/Option';
 import Search from './Search/Search';
+import AnimationLayout from 'components/AnimationRouter';
 import { useAppDispatch, useAppSelector } from 'redux/hooks';
 import { getProposalData, getSearch, setEpisode, unsetEpisode } from 'redux/slices/proposal';
 import { Button } from 'components/Buttons/Button';
-import { useTmbdCustomDetailsQuery } from 'redux/apiTmdb';
+// import { useTmbdCustomDetailsQuery } from 'redux/apiTmdb';
 import { addToast } from 'redux/slices/global';
 import { usePostMovieMutation, useAvailableSlotsQuery, useBookSlotMutation } from 'redux/api';
 import { useNavigate } from 'react-router-dom';
@@ -71,7 +72,7 @@ function Proposal() {
 
   
   return (
-    <>
+    <AnimationLayout>
       <section className={styles.proposal}>
         <h1 className={styles.title}>Ajouter un film</h1>
         <form onChange={handleSelect} className={styles.episode}>
@@ -101,7 +102,7 @@ function Proposal() {
           Envoyer
         </Button>
       </div>
-    </>
+    </AnimationLayout>
   );
 }
 

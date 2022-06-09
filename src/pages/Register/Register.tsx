@@ -1,6 +1,7 @@
 import Metrics from 'components/Metrics/Metrics';
 import Loader from 'components/Loader/Loader';
 import Input from 'components/Input/Input';
+import AnimationLayout from 'components/AnimationRouter';
 import { Button } from 'components/Buttons/Button';
 import styles from './Register.module.scss';
 import { useEffect } from 'react';
@@ -70,7 +71,7 @@ function Register() {
 
 
   return(
-    <>
+    <AnimationLayout>
       { isLoading &&
         <Loader isMaxed={true}/>
       }
@@ -114,7 +115,7 @@ function Register() {
         <img className={styles.img} src='/images/register-img.png' alt='' />
       </section>
       <Metrics/>
-    </>
+    </AnimationLayout>
   );
 }
 

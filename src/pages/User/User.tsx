@@ -4,6 +4,7 @@ import UserHeader from './UserHeader/UserHeader';
 import UserMetrics from './UserMetrics/UserMetrics';
 import UserSubmittedFilm from './UserSubmittedFilm/UserSubmittedFilm';
 import UserParams from './UserParams/UserParams';
+import AnimationLayout from 'components/AnimationRouter';
 import styles from './User.module.scss';
 
 function User() {
@@ -11,7 +12,7 @@ function User() {
   const { data, isLoading } = useUserByIdQuery(Number(id));
   
   return(
-    <>
+    <AnimationLayout>
       { (!isLoading && data) &&
         <section className={styles['user']}>
           <h1 className={styles['title']}>Mon compte</h1>
@@ -39,7 +40,7 @@ function User() {
           />
         </section>
       }
-    </>
+    </AnimationLayout>
   );
 }
 

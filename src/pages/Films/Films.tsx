@@ -7,6 +7,7 @@ import {
   filterState, 
   filterYearState, 
   getQuery } from 'redux/slices/filter';
+import AnimationLayout from 'components/AnimationRouter';
 import Filters from './Filters/Filters';
 import MoviesGrid from './MoviesGrid/MoviesGrid';
 import styles from './Films.module.scss';
@@ -64,13 +65,15 @@ function Films() {
   }, [data, filters, yearFilter, query]);
   
   return(
-    <section className={styles.films}>
-      <Filters/>
-      <MoviesGrid 
-        movies={movies} 
-        isLoading={isLoading}
-      />
-    </section>
+    <AnimationLayout>
+      <section className={styles.films}>
+        <Filters/>
+        <MoviesGrid 
+          movies={movies} 
+          isLoading={isLoading}
+        />
+      </section>
+    </AnimationLayout>
   );
 }
 

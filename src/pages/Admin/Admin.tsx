@@ -4,10 +4,10 @@ import {
   useAdminGetDataQuery,
   useAdminPublishMovieMutation,
   useAdminRevokeMovieMutation,
-  useAdminPutUserMutation,
 } from 'redux/api';
 import { Button } from 'components/Buttons/Button';
 import { addToast } from 'redux/slices/global';
+import AnimationLayout from 'components/AnimationRouter';
 import Loader from 'components/Loader/Loader';
 import Proposal from './Proposal';
 import User from './User';
@@ -69,81 +69,83 @@ function Admin () {
   }, [deleteIsSuccess, publishIsSuccess, dispatch, deleteReset, publishReset]);
 
   return(
-    <section className={styles['admin-panel']}>
-      { isLoading &&
-        <Loader/>
-      }
-      { !isLoading &&
-      <>
-        { data.propositions &&
-          <form className={styles['proposal-form']}>
-            <div className={styles['proposals-container']}>
-              { data.propositions.map((proposition: any) => 
-                <Proposal
-                  key={proposition.id}
-                  movie={proposition}
-                  handleSelect={handleSelect}
-                ></Proposal>
-              )}
-            </div>
-            <div className={styles['button-container']}>
-              { selectedMovieId &&
-                <>
-                  <Button
-                    styleMod='rounded-fill'
-                    handler={handlePublishProposition}
-                  >Publier</Button>
-                  <Button
-                    styleMod='rounded-fill'
-                    handler={handleDeleteProposition}
-                  >Supprimer</Button>
-                </>
-              }
-              { !selectedMovieId &&
-                <>
-                  <Button
-                    styleMod='rounded-fill-white'
-                    handler={handlePublishProposition}
-                  >Publier</Button>
-                  <Button
-                    styleMod='rounded-fill-white'
-                    handler={handleDeleteProposition}
-                  >Supprimer</Button>
-                </>
-              }  
+    <AnimationLayout>
+      <section className={styles['admin-panel']}>
+        { isLoading &&
+          <Loader/>
+        }
+        { !isLoading &&
+        <>
+          { data.propositions &&
+            <form className={styles['proposal-form']}>
+              <div className={styles['proposals-container']}>
+                { data.propositions.map((proposition: any) => 
+                  <Proposal
+                    key={proposition.id}
+                    movie={proposition}
+                    handleSelect={handleSelect}
+                  ></Proposal>
+                )}
+              </div>
+              <div className={styles['button-container']}>
+                { selectedMovieId &&
+                  <>
+                    <Button
+                      styleMod='rounded-fill'
+                      handler={handlePublishProposition}
+                    >Publier</Button>
+                    <Button
+                      styleMod='rounded-fill'
+                      handler={handleDeleteProposition}
+                    >Supprimer</Button>
+                  </>
+                }
+                { !selectedMovieId &&
+                  <>
+                    <Button
+                      styleMod='rounded-fill-white'
+                      handler={handlePublishProposition}
+                    >Publier</Button>
+                    <Button
+                      styleMod='rounded-fill-white'
+                      handler={handleDeleteProposition}
+                    >Supprimer</Button>
+                  </>
+                }  
+              </div>
+            </form>
+          }
+          { !data.propositions &&
+            <div>y'a R frere</div>
+          }
+          <form className={styles['user-form']}>
+            <div>
+              <table>
+                <thead>
+                  <tr>
+                    <th className={styles['table-case']}>Id</th>
+                    <th className={styles['table-case']}>Username</th>
+                    <th className={styles['table-case']}>Email</th>
+                    <th className={styles['table-case']}>Rôle</th>
+                    <th className={styles['table-case']}>Date de création</th>
+                    <th className={styles['table-case']} colSpan={2}>Interaction</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  { data.users.map((user: any) => 
+                    <User
+                      key={user.id}
+                      user={user}
+                    />
+                  )}
+                </tbody>
+              </table>
             </div>
           </form>
+        </>
         }
-        { !data.propositions &&
-          <div>y'a R frere</div>
-        }
-        <form className={styles['user-form']}>
-          <div>
-            <table>
-              <thead>
-                <tr>
-                  <th className={styles['table-case']}>Id</th>
-                  <th className={styles['table-case']}>Username</th>
-                  <th className={styles['table-case']}>Email</th>
-                  <th className={styles['table-case']}>Rôle</th>
-                  <th className={styles['table-case']}>Date de création</th>
-                  <th className={styles['table-case']} colSpan={2}>Interaction</th>
-                </tr>
-              </thead>
-              <tbody>
-                { data.users.map((user: any) => 
-                  <User
-                    key={user.id}
-                    user={user}
-                  />
-                )}
-              </tbody>
-            </table>
-          </div>
-        </form>
-      </>
-      }
-    </section>
+      </section>
+    </AnimationLayout>
   );
 };
 

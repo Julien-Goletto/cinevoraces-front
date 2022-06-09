@@ -2,12 +2,13 @@ import LastMoviesGrid from 'components/LastMoviesGrid/LastMoviesGrid';
 import { Button } from 'components/Buttons/Button';
 import { useLocation } from 'react-router-dom';
 import styles from './Error.module.scss';
+import AnimationLayout from 'components/AnimationRouter';
 
 function Error({ errorNum = 404, }: ErrorPage) {
   const { pathname } = useLocation();
 
   return(
-    <>
+    <AnimationLayout>
       <section className={styles.error}>
         <div>
           <div className={styles.title}>
@@ -46,7 +47,7 @@ function Error({ errorNum = 404, }: ErrorPage) {
       <div className={styles['last-movies']}>
         <LastMoviesGrid/>
       </div>
-    </>
+    </AnimationLayout>
   );
 }
 

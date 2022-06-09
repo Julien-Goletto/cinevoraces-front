@@ -8,6 +8,7 @@ import { useAppDispatch, useAppSelector } from 'redux/hooks';
 import { userLogged } from 'redux/slices/user';
 import { useCallback, useEffect, useState } from 'react';
 import { setActive, setInactive } from 'redux/slices/interaction';
+import AnimationLayout from 'components/AnimationRouter';
 import AddComment from './AddComment';
 
 
@@ -50,32 +51,34 @@ function Film() {
   
 
   return (
-    movie ?
-      <section className={styles.film}>
-        <Content 
-          movie={movie} 
-          isLoading={isMovieLoad}
-        />
-        <h3 className={styles['title']}>Commentaires ({reviews ? reviews.length : '~'})</h3>
-        <div className={styles.comments}>
-          {
-            (isUserReviewSuccess && !userReview[0].comment) && <AddComment props={{text: userReview[0].comment, date: userReview[0].updated_at}} />
-          }
-          {
-            (!isReviewsLoad && filteredComment) && filteredComment.map((review: any, index:any) => (
-              <Comment key={index} edit={review.edit} pic={review.avatar_url} name={review.user_pseudo} date={review.created_at} text={review.comment} rating={review.rating} />
-            ))
-          }
-          {
-            (!reviews) && <p style={{textAlign: 'center', margin: '1em 0'}}>Aucun commentaire pour ce film</p>
-          }
-          {
-            (isReviewsLoad) &&
+    <AnimationLayout>
+      { movie ?
+        <section className={styles.film}>
+          <Content 
+            movie={movie} 
+            isLoading={isMovieLoad}
+          />
+          <h3 className={styles['title']}>Commentaires ({reviews ? reviews.length : '~'})</h3>
+          <div className={styles.comments}>
+            {
+              (isUserReviewSuccess && !userReview[0].comment) && <AddComment props={{text: userReview[0].comment, date: userReview[0].updated_at}} />
+            }
+            {
+              (!isReviewsLoad && filteredComment) && filteredComment.map((review: any, index:any) => (
+                <Comment key={index} edit={review.edit} pic={review.avatar_url} name={review.user_pseudo} date={review.created_at} text={review.comment} rating={review.rating} />
+              ))
+            }
+            {
+              (!reviews) && <p style={{textAlign: 'center', margin: '1em 0'}}>Aucun commentaire pour ce film</p>
+            }
+            {
+              (isReviewsLoad) &&
               <div style={{textAlign: 'center'}}><Loader /></div>
-          }
-        </div>
-      </section>
-      : <Loader />
+            }
+          </div>
+        </section>
+        : <Loader /> }
+    </AnimationLayout>
   );
 };
 

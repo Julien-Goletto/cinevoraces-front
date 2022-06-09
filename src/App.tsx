@@ -1,15 +1,17 @@
-import Toast from 'components/Toasts/Toasts';
 import React, { useEffect, useState } from 'react';
 import {
-  BrowserRouter as Router,
   Routes,
   Route,
-  Navigate
+  Navigate,
+  useLocation
 } from 'react-router-dom';
+import Cookies from 'js-cookie';
+import { AnimatePresence } from 'framer-motion';
 import { useAppDispatch, useAppSelector } from 'redux/hooks';
 import { isOnline, setUser, userLogged } from 'redux/slices/user';
-import Cookies from 'js-cookie';
+import { usePendingPropositionQuery, useLazyRefreshTokenQuery } from 'redux/api';
 
+import Toast from 'components/Toasts/Toasts';
 import ResetScroll from 'components/ResetScroll/ResetScroll';
 import Layout from 'components/Layout/Layout';
 import Error from './pages/Error/Error';
@@ -21,14 +23,14 @@ import Register from './pages/Register/Register';
 import Proposal from './pages/Proposal/Proposal';
 import Team from './pages/Team/Team';
 import Admin from './pages/Admin/Admin';
-import { usePendingPropositionQuery, useLazyRefreshTokenQuery } from 'redux/api';
 import Loader from 'components/Loader/Loader';
-import AnimationLayout from 'hooks/AnimationRouter';
+import AnimationLayout from 'components/AnimationRouter';
 
 function App() {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const isLogged = useAppSelector<boolean>(isOnline);
   const dispatch = useAppDispatch();
+  const location = useLocation();
   const [refreshToken, {data, isLoading, isError}] = useLazyRefreshTokenQuery();
 
   // wait for refreshToken cycle to be done
@@ -52,44 +54,39 @@ function App() {
     setReady(true);
   }, [data, isLoading, isError, dispatch]);
   
-  
-  
-  
   return (
     ready ?
       <>
-        <Router>
-          <ResetScroll />
-          <Layout>
-            <Routes>
-              <Route element={<AnimationLayout />}>
-                <Route path='/' element={<Home />}/>
-                <Route path='/film/:id' element={<Film />}/>
-                <Route path='/films' element={<Films />}/>
-                <Route path='/register' element={<Register />}/>
-                <Route path='/user' element={<User />}/>
-                <Route path='/user/:id' element={
-                  // FIXME: Does not redirect when user use the URL manually
+        <Layout>
+          <AnimatePresence exitBeforeEnter>
+            <ResetScroll />
+            <Routes location={location} key={location.pathname}>
+              <Route path='/' element={<Home />}/>
+              <Route path='/film/:id' element={<Film />}/>
+              <Route path='/films' element={<Films />}/>
+              <Route path='/register' element={<Register />}/>
+              <Route path='/user' element={<User />}/>
+              <Route path='/user/:id' element={
+                // FIXME: Does not redirect when user use the URL manually
+                <RequireAuth redirectTo={'/'}>
+                  <User /> 
+                </RequireAuth>
+              }/>
+              <Route path='/proposal' 
+                element={
                   <RequireAuth redirectTo={'/'}>
-                    <User /> 
+                    <PendingPropositionCheck redirectTo={'/'}>
+                      <Proposal /> 
+                    </PendingPropositionCheck>
                   </RequireAuth>
-                }/>
-                <Route path='/proposal' 
-                  element={
-                    <RequireAuth redirectTo={'/'}>
-                      <PendingPropositionCheck redirectTo={'/'}>
-                        <Proposal /> 
-                      </PendingPropositionCheck>
-                    </RequireAuth>
-                  }
-                />
-                <Route path='/team' element={<Team />}/>
-                <Route path='/admin' element={<Admin />}/>
-                <Route path='*' element={<Error />}/>
-              </Route>
+                }
+              />
+              <Route path='/team' element={<Team />}/>
+              <Route path='/admin' element={<Admin />}/>
+              <Route path='*' element={<Error />}/>
             </Routes>
-          </Layout>
-        </Router>
+          </AnimatePresence>
+        </Layout>
         <Toast />
       </>
       : null

@@ -28,7 +28,7 @@ Commits description should **never be omitted**.
 #### :pencil2: Naming conventions
 Any branch name related to an issue should be prefixed with the issue number. See an example below.
 ```
-#2-code-refactoring
+2-code-refactoring
 ```
 Only **dev** and **master** deviates from this rule.
 #### :books: Pull requests

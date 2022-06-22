@@ -1,11 +1,11 @@
 import { useState } from 'react';
-import { Button } from 'components/Buttons/Button';
+import { Button } from 'components/Inputs/Button';
 import { useAppDispatch } from 'redux/hooks';
 import { addToast } from 'redux/slices/global';
 import { useUserUpdateMutation } from 'redux/api';
 import { useParams } from 'react-router-dom';
 
-import Input from 'components/Input/Input';
+import Input from 'components/Inputs/Input';
 import styles from './UserParams.module.scss';
 import userStyles from '../User.module.scss';
 

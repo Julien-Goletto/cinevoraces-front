@@ -5,7 +5,7 @@ import Option from './Option/Option';
 import Search from './Search/Search';
 import { useAppDispatch, useAppSelector } from 'redux/hooks';
 import { getProposalData, getSearch, setEpisode, unsetEpisode } from 'redux/slices/proposal';
-import { Button } from 'components/Buttons/Button';
+import { Button } from 'components/Inputs/Button';
 import { useTmbdCustomDetailsQuery } from 'redux/apiTmdb';
 import { addToast } from 'redux/slices/global';
 import { usePostMovieMutation, useRefreshTokenMutation, useAvailableSlotsQuery, useBookSlotMutation } from 'redux/api';

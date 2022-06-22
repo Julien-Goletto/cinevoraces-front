@@ -1,6 +1,6 @@
-import Input from 'components/Input/Input';
+import Input from 'components/Inputs/Input';
 import Loader from 'components/Loader/Loader';
-import { Button } from 'components/Buttons/Button';
+import { Button } from 'components/Inputs/Button';
 import { useAppDispatch } from 'redux/hooks';
 import { useUserLoginMutation } from 'redux/api';
 import { addToast, toggleConnection } from 'redux/slices/global';

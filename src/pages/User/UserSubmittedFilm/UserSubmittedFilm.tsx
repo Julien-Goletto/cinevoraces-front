@@ -1,4 +1,4 @@
-import { Button } from 'components/Buttons/Button';
+import { Button } from 'components/Inputs/Button';
 import userStyles from '../User.module.scss';
 import styles from './UserSubmittedFilm.module.scss';
 import { usePendingProposalByUserQuery } from 'redux/api';

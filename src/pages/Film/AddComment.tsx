@@ -1,4 +1,4 @@
-import { Button } from 'components/Buttons/Button';
+import { Button } from 'components/Inputs/Button';
 import { useAppSelector } from 'redux/hooks';
 import { userLogged } from 'redux/slices/user';
 import styles from './AddComment.module.scss';

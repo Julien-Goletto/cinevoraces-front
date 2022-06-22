@@ -1,7 +1,7 @@
 import Metrics from 'components/Metrics/Metrics';
 import Loader from 'components/Loader/Loader';
-import Input from 'components/Input/Input';
-import { Button } from 'components/Buttons/Button';
+import Input from 'components/Inputs/Input';
+import { Button } from 'components/Inputs/Button';
 import styles from './Register.module.scss';
 import { useEffect } from 'react';
 import { useUserRegisterMutation } from 'redux/api';

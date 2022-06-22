@@ -1,9 +1,9 @@
 import { useState } from 'react';
-import { Button } from 'components/Buttons/Button';
+import { Button } from 'components/Inputs/Button';
 import { getQuery, setQuery } from 'redux/slices/filter';
 import { useAppSelector, useAppDispatch } from 'redux/hooks';
 import DropDownMenu from '../DropDownMenu/DropDownMenu';
-import Input from 'components/Input/Input';
+import Input from 'components/Inputs/Input';
 import styles from './Filters.module.scss';
 
 function Filters() {

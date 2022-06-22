@@ -1,4 +1,4 @@
-import { Button } from 'components/Buttons/Button';
+import { Button } from 'components/Inputs/Button';
 import styles from './JoinUs.module.scss';
 
 function JoinUs() {

@@ -1,4 +1,4 @@
-import { Button } from 'components/Buttons/Button';
+import { Button } from 'components/Inputs/Button';
 import { useAllMoviesQuery } from 'redux/api';
 import styles from './LastMoviesGrid.module.scss';
 import { useEffect, useState } from 'react';

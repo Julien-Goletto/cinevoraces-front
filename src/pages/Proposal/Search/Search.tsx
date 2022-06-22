@@ -1,6 +1,6 @@
 import styles from './Search.module.scss';
-import Input from 'components/Input/Input';
-import { ButtonSearch } from 'components/Buttons/Button';
+import Input from 'components/Inputs/Input';
+import { ButtonSearch } from 'components/Inputs/Button';
 import { ReactComponent as SearchIco } from '../input_search.svg';
 import { useAppDispatch, useAppSelector } from 'redux/hooks';
 import { setSearch, getInputValue, setInputValue } from 'redux/slices/proposal';

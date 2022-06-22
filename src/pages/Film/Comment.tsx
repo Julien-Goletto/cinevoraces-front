@@ -5,7 +5,7 @@ import AddComment from './AddComment';
 import { useState } from 'react';
 import { useAppSelector } from 'redux/hooks';
 import { isOnline } from 'redux/slices/user';
-import { Button } from 'components/Buttons/Button';
+import { Button } from 'components/Inputs/Button';
 
 function Comment(props: CommentProps) {
   const {edit, pic, name, date, text, rating} = props;

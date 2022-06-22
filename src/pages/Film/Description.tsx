@@ -1,5 +1,5 @@
 import styles from './Description.module.scss';
-import StarRating from 'components/StarRating/StarRating';
+import InputStar from 'components/Inputs/InputStar';
 import { useAppSelector } from 'redux/hooks';
 import { isOnline } from 'redux/slices/user';
 import { getRating } from 'redux/slices/interaction';
@@ -14,12 +14,12 @@ function Description({ movie }: Description) {
       <h1 className={styles.title}>{movie.french_title}<span className={styles.year}>({date.getFullYear()})</span></h1>
       <div className={`${styles.element} ${styles['element--flex']}`}>
           Note des membres :
-        <span className={styles.star}><StarRating value={Number(movie.avg_rating)}/></span> 
+        <span className={styles.star}><InputStar value={Number(movie.avg_rating)}/></span> 
       </div>
       {isLogged && 
       <div className={`${styles.element} ${styles['element--flex']}`}>
           Ma note :
-        <span className={styles.star}><StarRating value={typeof rating == 'boolean' ? 0 : rating}/></span> 
+        <span className={styles.star}><InputStar value={typeof rating == 'boolean' ? 0 : rating}/></span> 
       </div>
       }
       <div className={styles.element}>

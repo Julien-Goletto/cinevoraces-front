@@ -6,7 +6,7 @@ import { ReactComponent as Eye } from './ico/eye.svg';
 import { ReactComponent as Bookmark } from './ico/bookmark.svg';
 import { isReviews, toggle } from 'redux/slices/interaction';
 import { useAppDispatch, useAppSelector } from 'redux/hooks';
-import StarRating from 'components/StarRating/StarRating';
+import InputStar from 'components/Inputs/InputStar';
 import { isOnline, userLogged } from 'redux/slices/user';
 import { addToast } from 'redux/slices/global';
 import { useParams } from 'react-router-dom';
@@ -122,7 +122,7 @@ function Interactions({type, count}: InteractionsProps) {
                 ${starIsOpen ? `${styles['is-open']}` : `${styles['is-closed']}`}
                 ${animIsActive && (!starIsOpen ? `${styles['is-opening']}` : `${styles['is-closing']}`)}
               `}>
-                <StarRating alt={true} value={typeof actualType[1] === 'number' ? actualType[1] : 0} isInput={true}/>
+                <InputStar isInput value={typeof actualType[1] === 'number' ? actualType[1] : 0}/>
               </div>
             </div>
           </button>

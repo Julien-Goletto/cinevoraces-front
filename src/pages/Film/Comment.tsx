@@ -1,5 +1,5 @@
 import styles from './Comment.module.scss';
-import StarRating from 'components/StarRating/StarRating';
+import InputStar from 'components/Inputs/InputStar';
 import useSeeMore from 'hooks/useSeeMore';
 import AddComment from './AddComment';
 import { useState } from 'react';
@@ -34,7 +34,7 @@ function Comment(props: CommentProps) {
             <div className={styles.date}>{createdAt}</div>
           </div>
         </div>
-        <div className={styles.note}><StarRating value={rating}/></div>
+        <div className={styles.note}><InputStar value={rating}/></div>
         {sliceText}
       </div>
     </>

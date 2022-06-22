@@ -1,5 +1,5 @@
 import styles from './Presentation.module.scss';
-import StarRating from 'components/StarRating/StarRating';
+import InputStar from 'components/Inputs/InputStar';
 import useSeeMore from 'hooks/useSeeMore';
 
 function Presentation({pic, name, date, text}: CommentProps) {
@@ -14,7 +14,7 @@ function Presentation({pic, name, date, text}: CommentProps) {
           <div className={styles.date}>{date}</div>
         </div>
       </div>
-      <div className={styles.note}><StarRating/></div>
+      <div className={styles.note}><InputStar value={0}/></div>
       {sliceText}
     </div>
   );

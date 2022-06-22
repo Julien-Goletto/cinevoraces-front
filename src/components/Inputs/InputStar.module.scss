@@ -27,4 +27,12 @@ $star-checked-box-shadow-value: inset $star-size $star-size var.$primary;
       background-image: $star-checked;
       & ~ input {
         background-image: $star-checked;
-      }}}}
+      }}}
+  & .star {
+    height: $star-size;
+    width: $star-size;
+    background-image: $star-unchecked;
+    background-size: cover;
+    &--checked {
+      background-image: $star-checked;
+    }}}

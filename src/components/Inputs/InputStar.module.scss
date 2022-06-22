@@ -9,13 +9,15 @@ $star-unchecked-box-shadow-value: inset $star-size $star-size var.$input-text;
 $star-checked-box-shadow-value: inset $star-size $star-size var.$primary;
 .input-star {
   display: flex;
+  // Invert direction for input's previous sibling selection on hover
   flex-direction: row-reverse;
   gap: $star-gap;
   & .input {
+    // Reset default CSS
     -webkit-appearance: none;
     appearance: none;
     margin: 0; padding: 0;
-    
+    // Main CSS
     cursor: pointer;
     height: $star-size;
     width: $star-size;

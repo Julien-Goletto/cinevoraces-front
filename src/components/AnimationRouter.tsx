@@ -11,7 +11,7 @@ const variants  = {
   show:   { opacity: 1, transition },
 };
 
-const AnimationLayout = ({children}: {children: React.ReactNode}) => {
+function AnimationLayout({children}: {children: React.ReactNode}) {
   // This method no longer work in React-router-dom v6
   // You need to wrap every page you want to animate with this component
   // const { pathname } = useLocation();

@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from 'redux/hooks';
-import { formatDataFilters } from './formatData';
 import { useAllMoviesQuery } from 'redux/api';
 import { 
   initFilters, 
@@ -21,7 +20,7 @@ function Films() {
   const query       = useAppSelector(getQuery);
 
   useEffect(() => {
-    data && dispatch(initFilters(formatDataFilters(data)));
+    data && dispatch(initFilters((data)));
   }, [data, dispatch]);
 
   useEffect(() => {

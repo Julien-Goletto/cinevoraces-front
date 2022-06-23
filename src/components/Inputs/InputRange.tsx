@@ -23,6 +23,7 @@ type DoubleInputRangeProps = {
  * @param max           set range maximal value 
  * @param stateValue    controlled state
  * @param setter        state setter
+ * @param label         set \<label\> content and 'id' param
  */
 function InputRange({ min, max, stateValue, setter, label }: InputRangeProps) {
   const handleOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -49,9 +50,14 @@ function InputRange({ min, max, stateValue, setter, label }: InputRangeProps) {
 };
 
 /**
- * 
- * @param param0 
- * @returns 
+ * @return              double \<input\> type range
+ * @param min           set range minimal value
+ * @param max           set range maximal value 
+ * @param valueMax      controlled state
+ * @param valueMin      controlled state
+ * @param MaxSetter     state setter
+ * @param MinSetter     state setter
+ * @param label         set \<label\> content and 'id' param
  */
 function DoubleInputRange({ min, max, valueMin, valueMax, maxSetter, minSetter, label}: DoubleInputRangeProps) {
   const handleMinThumb = (event: React.ChangeEvent<HTMLInputElement>) => {

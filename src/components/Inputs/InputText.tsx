@@ -1,5 +1,14 @@
-import './Input.module.scss';
-import styles from './Input.module.scss';
+import styles from './InputText.module.scss';
+
+type InputTextProps = { 
+  label?: string,
+  onChange?: onChangeEventHandler,
+  value?: string,
+  name: string,
+  placeholder: string,
+  type: string,
+  defaultValue?: string | number
+}
 
 /**
  * @return \<input\>
@@ -10,7 +19,7 @@ import styles from './Input.module.scss';
  * @param onChange      set onChange event
  * @param value         set \<input\> value
  */
-function Input({label, name, type, placeholder, onChange, value}: FieldsetTextInput) {
+function InputText({label, name, type, placeholder, onChange, value}: InputTextProps) {
   // Look for type name to setup correct icon
   const classResolver = (searchedString: string) => {
     if (RegExp(`\\b${searchedString}\\b`).test(name)) {
@@ -27,10 +36,7 @@ function Input({label, name, type, placeholder, onChange, value}: FieldsetTextIn
         <label className= {styles.label} htmlFor={name}>{label}</label>
       }
       <input 
-        className={`
-          ${styles.input} 
-          ${styles[`input--${className}`]} 
-        `} 
+        className={`${styles.input} ${styles[`input--${className}`]}`} 
         type={type}
         placeholder={placeholder}
         name={name}
@@ -40,4 +46,4 @@ function Input({label, name, type, placeholder, onChange, value}: FieldsetTextIn
     </div>
   );
 }
-export default Input;
+export default InputText;

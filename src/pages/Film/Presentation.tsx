@@ -1,6 +1,6 @@
-import styles from './Presentation.module.scss';
-import InputStar from 'components/Inputs/InputStar';
 import useSeeMore from 'hooks/useSeeMore';
+import { InputStar } from 'components/Inputs/InputsLib';
+import styles from './Presentation.module.scss';
 
 function Presentation({pic, name, date, text}: CommentProps) {
   const sliceText = useSeeMore(text, 700);

@@ -1,11 +1,9 @@
 import { useState } from 'react';
-import { Button } from 'components/Inputs/Button';
+import { Button, InputText } from 'components/Inputs/InputsLib';
 import { useAppDispatch } from 'redux/hooks';
 import { addToast } from 'redux/slices/global';
 import { useUserUpdateMutation } from 'redux/api';
 import { useParams } from 'react-router-dom';
-
-import Input from 'components/Inputs/Input';
 import styles from './UserParams.module.scss';
 import userStyles from '../User.module.scss';
 
@@ -68,13 +66,13 @@ function UserParams({ username, email }: user) {
         <div className={styles['action']}>
           Changes mes identifiants
         </div>
-        <Input
+        <InputText
           name='email'
           type='email'
           placeholder='Entrez votre nouveau email'
           value={email}
         />
-        <Input
+        <InputText
           name='username'
           type='text'
           placeholder='Entrez votre nouveau nom d’utilisateur'
@@ -82,17 +80,17 @@ function UserParams({ username, email }: user) {
         />
         <div className={styles['action']}>
         </div>
-        <Input
+        <InputText
           name='old-password'
           type='password'
           placeholder='Ancien mot de passe'
         />
-        <Input
+        <InputText
           name='new-password'
           type='password'
           placeholder='Nouveau mot de passe'
         />
-        <Input
+        <InputText
           name='confirm-new-password'
           type='password'
           placeholder='Confirmez votre nouveau mot de passe'

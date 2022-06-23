@@ -1,7 +1,6 @@
 import Metrics from 'components/Metrics/Metrics';
 import Loader from 'components/Loader/Loader';
-import Input from 'components/Inputs/Input';
-import { Button } from 'components/Inputs/Button';
+import { InputText, Button } from 'components/Inputs/InputsLib';
 import styles from './Register.module.scss';
 import { useEffect } from 'react';
 import { useUserRegisterMutation } from 'redux/api';
@@ -77,25 +76,25 @@ function Register() {
       <section className={styles.register}>
         <form onSubmit={sendFormHandler} className={styles.form}>
           <h1 className={styles.title}>Créer un compte</h1>
-          <Input
+          <InputText
             label='Email'
             name='email'
             placeholder='Entrez votre email'
             type='email'
           />
-          <Input
+          <InputText
             label='Nom d’utilisateur'
             name='username'
             placeholder='Entrez votre nom d’utilisateur'
             type='text'
           />
-          <Input
+          <InputText
             label='Mot de passe'
             name='password'
             placeholder='Entrez votre mot de passe'
             type='password'
           />
-          <Input
+          <InputText
             name='confirm'
             placeholder='Confirmez votre mot de passe'
             type='password'

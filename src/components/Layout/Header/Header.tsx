@@ -1,4 +1,4 @@
-import { Button } from 'components/Inputs/Button';
+import { Button } from 'components/Inputs/InputsLib';
 import Connection from 'components/Modal/Connection/Connection';
 import Modal from 'components/Modal/Modal';
 import { useAppDispatch, useAppSelector } from 'redux/hooks';

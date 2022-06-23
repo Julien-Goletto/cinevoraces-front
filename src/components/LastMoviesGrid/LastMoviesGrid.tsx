@@ -1,9 +1,9 @@
-import { Button } from 'components/Inputs/Button';
-import { useAllMoviesQuery } from 'redux/api';
-import styles from './LastMoviesGrid.module.scss';
 import { useEffect, useState } from 'react';
-import Loader from 'components/Loader/Loader';
+import { useAllMoviesQuery } from 'redux/api';
 import { Link } from 'react-router-dom';
+import { Button } from 'components/Inputs/InputsLib';
+import Loader from 'components/Loader/Loader';
+import styles from './LastMoviesGrid.module.scss';
 
 /**
  * @return grid with the last 5 movies posted

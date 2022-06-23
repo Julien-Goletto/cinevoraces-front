@@ -1,11 +1,10 @@
-import styles from './Comment.module.scss';
-import InputStar from 'components/Inputs/InputStar';
 import useSeeMore from 'hooks/useSeeMore';
 import AddComment from './AddComment';
 import { useState } from 'react';
 import { useAppSelector } from 'redux/hooks';
 import { isOnline } from 'redux/slices/user';
-import { Button } from 'components/Inputs/Button';
+import { Button, InputStar } from 'components/Inputs/InputsLib';
+import styles from './Comment.module.scss';
 
 function Comment(props: CommentProps) {
   const {edit, pic, name, date, text, rating} = props;

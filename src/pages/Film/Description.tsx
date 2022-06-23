@@ -1,8 +1,8 @@
-import styles from './Description.module.scss';
-import InputStar from 'components/Inputs/InputStar';
+import { InputStar } from 'components/Inputs/InputsLib';
 import { useAppSelector } from 'redux/hooks';
 import { isOnline } from 'redux/slices/user';
 import { getRating } from 'redux/slices/interaction';
+import styles from './Description.module.scss';
 
 function Description({ movie }: Description) {
   const isLogged = useAppSelector(isOnline);

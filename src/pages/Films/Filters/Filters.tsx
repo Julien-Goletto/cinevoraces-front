@@ -1,9 +1,8 @@
 import { useState } from 'react';
-import { Button } from 'components/Inputs/Button';
+import { Button, InputText } from 'components/Inputs/InputsLib';
 import { getQuery, setQuery } from 'redux/slices/filter';
 import { useAppSelector, useAppDispatch } from 'redux/hooks';
 import DropDownMenu from '../DropDownMenu/DropDownMenu';
-import Input from 'components/Inputs/Input';
 import styles from './Filters.module.scss';
 
 function Filters() {
@@ -31,7 +30,7 @@ function Filters() {
         }
       </Button>
       <div className={styles['search-bar']}>
-        <Input 
+        <InputText 
           label='' 
           name='search'
           type='text'

@@ -1,5 +1,6 @@
-import { Button } from 'components/Inputs/Button';import { useAppSelector } from 'redux/hooks';
+import { useAppSelector } from 'redux/hooks';
 import { isOnline } from 'redux/slices/user';
+import { Button } from 'components/Inputs/InputsLib';
 import styles from './Hero.module.scss';
 
 function Hero() {

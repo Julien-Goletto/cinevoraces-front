@@ -1,9 +1,8 @@
-import styles from './Search.module.scss';
-import Input from 'components/Inputs/Input';
-import { ButtonSearch } from 'components/Inputs/Button';
 import { ReactComponent as SearchIco } from '../input_search.svg';
 import { useAppDispatch, useAppSelector } from 'redux/hooks';
 import { setSearch, getInputValue, setInputValue } from 'redux/slices/proposal';
+import { ButtonSearch, InputText } from 'components/Inputs/InputsLib';
+import styles from './Search.module.scss';
 
 function Search() {
   const dispatch = useAppDispatch();
@@ -20,7 +19,7 @@ function Search() {
   return (
     <>
       <form onSubmit={submitSearch} className={styles['search-form']}>
-        <Input 
+        <InputText
           label='' 
           name='search'
           type='text'

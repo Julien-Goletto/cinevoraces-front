@@ -1,5 +1,5 @@
 import LastMoviesGrid from 'components/LastMoviesGrid/LastMoviesGrid';
-import { Button } from 'components/Inputs/Button';
+import { Button } from 'components/Inputs/InputsLib';
 import { useLocation } from 'react-router-dom';
 import styles from './Error.module.scss';
 

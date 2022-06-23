@@ -6,7 +6,7 @@ import { ReactComponent as Eye } from './ico/eye.svg';
 import { ReactComponent as Bookmark } from './ico/bookmark.svg';
 import { isReviews, toggle, getRating, setRating } from 'redux/slices/interaction';
 import { useAppDispatch, useAppSelector } from 'redux/hooks';
-import InputStar from 'components/Inputs/InputStar';
+import { InputStar } from 'components/Inputs/InputsLib';
 import { isOnline, userLogged } from 'redux/slices/user';
 import { addToast } from 'redux/slices/global';
 import { useParams } from 'react-router-dom';

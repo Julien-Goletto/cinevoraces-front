@@ -55,8 +55,8 @@ function InputRange({ min, max, stateValue, setter, label }: InputRangeProps) {
  * @param max           set range maximal value 
  * @param valueMax      controlled state
  * @param valueMin      controlled state
- * @param MaxSetter     state setter
- * @param MinSetter     state setter
+ * @param maxSetter     state setter
+ * @param minSetter     state setter
  * @param label         set \<label\> content and 'id' param
  */
 function DoubleInputRange({ min, max, valueMin, valueMax, maxSetter, minSetter, label}: DoubleInputRangeProps) {

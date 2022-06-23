@@ -10,7 +10,7 @@ $range-thumb-radius: 100%;
 $range-thumb-color: var.$secondary;
 
 /* Reset */
-.input {
+input[type='range'] {
   &::-webkit-slider-thumb {
     -webkit-appearance: none;
     -webkit-tap-highlight-color: transparent;
@@ -78,7 +78,7 @@ $range-thumb-color: var.$secondary;
         width: 5rem;
       }
     }
-    & .input {
+    & input[type='range'] {
       position: absolute;
       height: 0;
       width: $range-slide-width;

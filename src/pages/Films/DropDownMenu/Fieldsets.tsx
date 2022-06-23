@@ -45,7 +45,7 @@ function FieldsetRadio({array, label, handler}: FieldsetRadio) {
  */
 function FieldsetCheckbox({ array, tagName, handler }: FieldsetCheckbox) {
   const [isOpen, setIsOpen] = useState(false);
-  const handleTagsDropDown = (e:mouseEvent) => {
+  const handleTagsDropDown = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     (isOpen) ? setIsOpen(false) : setIsOpen(true);
   };
@@ -88,12 +88,12 @@ function FieldsetDate() {
   const maxValRef = useRef(baseValueMax);
   const range = useRef<any>(null);
 
-  const handleMinThumb = (event: onChangeEvent) => {
+  const handleMinThumb = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = Math.min(Number(event.target.value), stateValueMax - 1);
     dispatch(setPeriodeMinVal(value));
     minValRef.current = value;
   };
-  const handleMaxThumb = (event: onChangeEvent) => {
+  const handleMaxThumb = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = Math.max(Number(event.target.value), stateValueMin + 1);
     dispatch(setPeriodeMaxVal(value));
     maxValRef.current = value;

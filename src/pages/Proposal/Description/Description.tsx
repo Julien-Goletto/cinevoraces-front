@@ -5,7 +5,7 @@ import styles from './Description.module.scss';
 
 function Description() {
   const dispatch = useAppDispatch();
-  const handlePresentation = (e: onChangeEvent) => {
+  const handlePresentation = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     dispatch(setDescription(e.target?.value));
   };
 

@@ -6,11 +6,11 @@ import styles from './DropDownMenu.module.scss';
 function DropDownMenu() {
   const {seasons, tags, } = useAppSelector(filters);
   const dispatch = useAppDispatch();
-  const handleSeasonFilter = (event: onChangeEvent) => {
+  const handleSeasonFilter = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = String(event.target.value);
     dispatch(setSeasonFilter(value));
   };
-  const handleIsTagsFilter = (event: onChangeEvent) => {
+  const handleIsTagsFilter = (event: React.ChangeEvent<HTMLInputElement>) => {
     const object = {
       tagName: event.target.dataset.set,
       tag: event.target.value

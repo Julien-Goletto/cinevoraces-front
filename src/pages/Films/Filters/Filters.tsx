@@ -12,7 +12,7 @@ function Filters() {
   const handleDropDownState = () => {
     (isDropMenu) ? SetIsDropMenu(false) : SetIsDropMenu(true);
   };
-  const onChangeHandler = (event: onChangeEvent) => {
+  const onChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value;
     dispatch(setQuery(value));
   };

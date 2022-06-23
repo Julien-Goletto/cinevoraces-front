@@ -14,12 +14,12 @@ type ErrorPage = {
 type FieldsetRadio = {
   array: radioFilter[],
   label: string,
-  handler: onChangeEventHandler
+  handler: (e: React.ChangeEvent<HTMLInputElement>) => void
 }
 type FieldsetCheckbox = { 
   array: tag[],
   tagName: string,
-  handler: onChangeEventHandler
+  handler: (e: React.ChangeEvent<HTMLInputElement>) => void
 }
 interface Layout {
   children?: import('react').ReactNode

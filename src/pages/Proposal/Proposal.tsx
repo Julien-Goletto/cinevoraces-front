@@ -10,7 +10,7 @@ import { useTmbdCustomDetailsQuery } from 'redux/apiTmdb';
 import { addToast } from 'redux/slices/global';
 import { usePostMovieMutation, useRefreshTokenMutation, useAvailableSlotsQuery, useBookSlotMutation } from 'redux/api';
 import { useNavigate } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 
 function Proposal() {
@@ -24,7 +24,7 @@ function Proposal() {
   const [sendPost, postHandle] = usePostMovieMutation();
   const dispatch = useAppDispatch();
   
-  const handleSelect = (event: onChangeFormEvent) => {
+  const handleSelect = (event: React.FormEvent<HTMLFormElement>) => {
     const selected = (event.target as HTMLSelectElement).value;
     const episode = slots.find((slot:any) => slot.episode == selected);
     setSeasonSelect(episode ? episode.season_number : '~');

@@ -7,7 +7,7 @@ import styles from './Search.module.scss';
 function Search() {
   const dispatch = useAppDispatch();
   const value = useAppSelector(getInputValue);
-  const onChangeHandler = (event: onChangeEvent) => {
+  const onChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value;
     dispatch(setInputValue(value));
   };

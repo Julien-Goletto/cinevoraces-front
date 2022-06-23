@@ -8,9 +8,10 @@ type InputStarProps = {
 }
 
 /**
- * @param value     state value, required
- * @param isInput   return \<div> if false
- * @param setter    setter function (only for input)
+ * @return            Radio input menu or notation
+ * @param   value     state value, required
+ * @param   isInput   return \<div> if false
+ * @param   setter    setter function (only for input)
  */
 function InputStar ({isInput, value, setter}: InputStarProps) {
   // Create radio inputs index

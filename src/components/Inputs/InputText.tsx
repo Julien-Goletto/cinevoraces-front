@@ -11,7 +11,7 @@ type InputTextProps = {
 }
 
 /**
- * @return \<input\>
+ * @return              \<input\> type text/mail/psw
  * @param label         add a \<label\> on top of \<input\>
  * @param name          set \<input\> name
  * @param type          set \<input\> type

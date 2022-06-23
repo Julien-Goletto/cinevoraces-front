@@ -63,7 +63,10 @@ export const api = createApi({
     userUpdatePicture: build.mutation<void, any>({
       query: (data) => ({url: `v1/users/addProfilePic/${data.userId}`, method: 'PUT', body: data.form}),
       invalidatesTags: ['UserParams'] 
-    }), 
+    }),
+    filters: build.query<any, void>({
+      query: () => ({url: '/v1/metrics/filters', method: 'GET'})
+    }),
     allMovies: build.query<void, any>({
       query: () =>  ({url: '/v1/movies/search', method: 'GET'})
     }),
@@ -163,6 +166,7 @@ export const {
   useUserLoginMutation,
   useUserUpdateMutation,
   useUserUpdatePictureMutation,
+  useFiltersQuery,
   useAllMoviesQuery,
   useOneMovieQuery,
   useLastMovieQuery,

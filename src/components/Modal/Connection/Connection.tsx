@@ -1,6 +1,5 @@
-import Input from 'components/Input/Input';
 import Loader from 'components/Loader/Loader';
-import { Button } from 'components/Buttons/Button';
+import { Button, InputText } from 'components/Inputs/InputsLib';
 import { useAppDispatch } from 'redux/hooks';
 import { useUserLoginMutation } from 'redux/api';
 import { addToast, toggleConnection } from 'redux/slices/global';
@@ -38,8 +37,8 @@ function Connection() {
       }
       <button className={styles.close} onClick={() => dispatch(toggleConnection())}>X</button>
       <form onSubmit={sendForm}>
-        <Input label="Nom d'utilisateur" name='username' type='text' placeholder='Entrez votre nom d’utilisateur'/>
-        <Input label='Mot de passe' name='password' type='password' placeholder='Entrez votre mot de passe'/>
+        <InputText label="Nom d'utilisateur" name='username' type='text' placeholder='Entrez votre nom d’utilisateur'/>
+        <InputText label='Mot de passe' name='password' type='password' placeholder='Entrez votre mot de passe'/>
         <div className={styles.button}>
           <Button 
             styleMod='fill'

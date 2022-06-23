@@ -5,12 +5,6 @@ type AdminModal = {
 type AboutProps = {
   children?: React.ReactNode
 }
-type Button = {
-  children?: React.ReactNode,
-  styleMod?: string,
-  handler?: MouseEventHandler,
-  href?: string
-}
 type Content = {
   movie: DBMovie,
   isLoading: boolean
@@ -29,24 +23,15 @@ type Description = {
 type ErrorPage = {
   errorNum?: number,
 };
-type FieldsetTextInput = { 
-  label?: string,
-  onChange?: onChangeEventHandler,
-  value?: string,
-  name: string,
-  placeholder: string,
-  type: string,
-  defaultValue?: string | number
-}
 type FieldsetRadio = {
   array: radioFilter[],
   label: string,
-  handler: onChangeEventHandler
+  handler: (e: React.ChangeEvent<HTMLInputElement>) => void
 }
 type FieldsetCheckbox = { 
   array: tag[],
   tagName: string,
-  handler: onChangeEventHandler
+  handler: (e: React.ChangeEvent<HTMLInputElement>) => void
 }
 interface Layout {
   children?: import('react').ReactNode

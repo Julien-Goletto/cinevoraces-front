@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Button } from 'components/Buttons/Button';
-import Input from 'components/Input/Input';
+import { Button, InputText } from 'components/Inputs/InputsLib';
 import styles from './UserParams.module.scss';
 import userStyles from '../User.module.scss';
 
@@ -47,13 +46,13 @@ function UserParamField ({field, defaultValue, onSubmit, updateIsSuccess}: Param
             >
               Entrez votre nouveau {field} :
             </label>
-            <Input
+            <InputText
               name={field}
               type={(field === 'username') ? 'text' : field}
               placeholder={`Entrez votre nouveau ${field}`}
               defaultValue={defaultValue}
             />
-            <Input
+            <InputText
               name='old-password'
               type='password'
               placeholder='Entrez votre mot de passe'

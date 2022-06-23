@@ -1,4 +1,4 @@
-import { Button } from 'components/Buttons/Button';
+import { Button } from 'components/Inputs/InputsLib';
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useUserUpdatePictureMutation } from 'redux/api';

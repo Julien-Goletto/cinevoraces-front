@@ -2,7 +2,7 @@ import {
   MiddlewareAPI,
   isRejectedWithValue,
   Middleware,
-} from '@reduxjs/toolkit'
+} from '@reduxjs/toolkit';
 import { addToast } from 'redux/slices/global';
 
 

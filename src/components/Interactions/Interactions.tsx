@@ -4,9 +4,9 @@ import { ReactComponent as Heart } from './ico/heart.svg';
 import { ReactComponent as Star } from './ico/star.svg';
 import { ReactComponent as Eye } from './ico/eye.svg';
 import { ReactComponent as Bookmark } from './ico/bookmark.svg';
-import { isReviews, toggle } from 'redux/slices/interaction';
+import { isReviews, toggle, getRating, setRating } from 'redux/slices/interaction';
 import { useAppDispatch, useAppSelector } from 'redux/hooks';
-import StarRating from 'components/StarRating/StarRating';
+import { InputStar } from 'components/Inputs/InputsLib';
 import { isOnline, userLogged } from 'redux/slices/user';
 import { addToast } from 'redux/slices/global';
 import { useParams } from 'react-router-dom';
@@ -30,6 +30,8 @@ function Interactions({type, count}: InteractionsProps) {
   const [wrapperIsDisplayed, setWrapperIsDisplayed] = useState<boolean>(false);
   const user = useAppSelector(userLogged);
   const reviews = useAppSelector(isReviews);
+  const rating   = useAppSelector(getRating);
+  const isLogged = useAppSelector(isOnline);
   const [postInteraction] = usePostInteractionMutation();
   const [putInteraction, putHandle] = usePutInteractionMutation();
   // Resolve interaction
@@ -84,6 +86,21 @@ function Interactions({type, count}: InteractionsProps) {
     }, 490);
   };
 
+  // Rating Setter handler
+  const handleSetRating = async (index: number) => {
+    try {
+      if (isLogged) {
+        !reviews && await postInteraction({userId: user.id, movieId: id});
+        await putInteraction({userId: user.id, movieId: id, body: {rating: index}});
+        dispatch(setRating({rating: index}));
+      } else {
+        throw new Error('Vous devez être connecté pour intéragir.');
+      }
+    } catch (error: any) {
+      dispatch(addToast({type: 'warn', text: error.message}));
+    }
+  };
+
 
   return (
     <>
@@ -122,7 +139,9 @@ function Interactions({type, count}: InteractionsProps) {
                 ${starIsOpen ? `${styles['is-open']}` : `${styles['is-closed']}`}
                 ${animIsActive && (!starIsOpen ? `${styles['is-opening']}` : `${styles['is-closing']}`)}
               `}>
-                <StarRating alt={true} value={typeof actualType[1] === 'number' ? actualType[1] : 0} isInput={true}/>
+                {(typeof actualType[1] === 'number') &&
+                  <InputStar isInput value={actualType[1]} setter={handleSetRating}/>
+                }
               </div>
             </div>
           </button>

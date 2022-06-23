@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Button } from 'components/Buttons/Button';
-import Input from 'components/Input/Input';
+import { Button, InputText } from 'components/Inputs/InputsLib';
 import styles from './UserParams.module.scss';
 import userStyles from '../User.module.scss';
 
@@ -46,12 +45,12 @@ function UserParamPasswordField ({onSubmit, updateIsSuccess}: ParamPasswordField
             >
               Entrez votre nouveau mot de passe :
             </label>
-            <Input
+            <InputText
               name='new-password'
               type='password'
               placeholder='Nouveau mot de passe'
             />
-            <Input
+            <InputText
               name='confirm-new-password'
               type='password'
               placeholder='Confirmez votre nouveau mot de passe'
@@ -59,7 +58,7 @@ function UserParamPasswordField ({onSubmit, updateIsSuccess}: ParamPasswordField
             <div className={styles.rules}>
               Votre mot de passe doit contenir au moins une majuscule, une minuscule, un symbôle et un chiffre et doit contenir au moins 8 caractères.
             </div>
-            <Input
+            <InputText
               name='old-password'
               type='password'
               placeholder='Ancien mot de passe'

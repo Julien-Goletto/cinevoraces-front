@@ -1,4 +1,4 @@
-import { Button } from 'components/Buttons/Button'; 
+import { Button } from 'components/Inputs/InputsLib';
 import styles from './AdminModal.module.scss';
 
 function AdminModal ({children, handler}: AdminModal) {

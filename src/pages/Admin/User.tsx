@@ -1,4 +1,4 @@
-import { Button } from 'components/Buttons/Button';
+import { Button } from 'components/Inputs/InputsLib';
 import { useAdminPutUserMutation, useAdminDeleteUserMutation } from 'redux/api';
 import { useEffect } from 'react';
 import { useAppDispatch } from 'redux/hooks';

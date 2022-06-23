@@ -1,11 +1,10 @@
-import styles from './Comment.module.scss';
-import StarRating from 'components/StarRating/StarRating';
 import useSeeMore from 'hooks/useSeeMore';
 import AddComment from './AddComment';
 import { useState } from 'react';
 import { useAppSelector } from 'redux/hooks';
 import { isOnline } from 'redux/slices/user';
-import { Button } from 'components/Buttons/Button';
+import { Button, InputStar } from 'components/Inputs/InputsLib';
+import styles from './Comment.module.scss';
 
 function Comment(props: CommentProps) {
   const {edit, pic, name, date, text, rating} = props;
@@ -31,7 +30,7 @@ function Comment(props: CommentProps) {
             <div className={styles.date}>{createdAt}</div>
           </div>
         </div>
-        <div className={styles.note}><StarRating value={rating}/></div>
+        <div className={styles.note}><InputStar value={rating}/></div>
         {sliceText}
       </div>
     </>

@@ -1,12 +1,20 @@
 import { Link } from 'react-router-dom';
 import styles from './Button.module.scss';
+
+type ButtonProps = {
+  children?: React.ReactNode,
+  styleMod?: string,
+  handler?: React.MouseEventHandler<HTMLElement>,
+  href?: string
+}
+
 /**
  * @return          either \<button\> or \<Link\>
  * @param href      return \<Link\> if used
  * @param handler   onClick handler
  * @param styleMod  'fill' | 'rounded' | 'white' (joinded with '-')
  */
-function Button({ children, styleMod, handler, href }: Button)  {
+function Button({ children, styleMod, handler, href }: ButtonProps)  {
   // Get styleMod and look for keywords in string
   const styleResolver = (searchedString: string) => {
     if (RegExp(`\\b${searchedString}\\b`).test(styleMod!)) {

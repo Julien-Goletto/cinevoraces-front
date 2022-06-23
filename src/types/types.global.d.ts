@@ -76,11 +76,6 @@ type Director = {
   name: string,
   id: number
 }
-type StarRating = {
-  alt?: boolean,
-  value?: number,
-  isInput?: boolean
-};
 type GlobalState = {
   mobileIsOpen: boolean,
   connectionIsOpen: boolean,

@@ -6,14 +6,12 @@ import Search from './Search/Search';
 import AnimationLayout from 'components/AnimationRouter';
 import { useAppDispatch, useAppSelector } from 'redux/hooks';
 import { getProposalData, getSearch, setEpisode, unsetEpisode } from 'redux/slices/proposal';
-import { Button } from 'components/Buttons/Button';
-// import { useTmbdCustomDetailsQuery } from 'redux/apiTmdb';
+import { Button } from 'components/Inputs/InputsLib';
 import { addToast } from 'redux/slices/global';
 import { usePostMovieMutation, useAvailableSlotsQuery, useBookSlotMutation } from 'redux/api';
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { apiTmdb } from 'redux/apiTmdb';
-
 
 function Proposal() {
   const search = useAppSelector(getSearch);
@@ -26,7 +24,7 @@ function Proposal() {
   const [sendPost, postHandle] = usePostMovieMutation();
   const dispatch = useAppDispatch();
   
-  const handleSelect = (event: onChangeFormEvent) => {
+  const handleSelect = (event: React.FormEvent<HTMLFormElement>) => {
     const selected = (event.target as HTMLSelectElement).value;
     const episode = slots.find((slot:any) => slot.episode == selected);
     setSeasonSelect(episode ? episode.season_number : '~');

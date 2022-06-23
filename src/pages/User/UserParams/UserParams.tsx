@@ -3,7 +3,6 @@ import { useAppDispatch } from 'redux/hooks';
 import { addToast } from 'redux/slices/global';
 import { useUserUpdateMutation } from 'redux/api';
 import { useParams } from 'react-router-dom';
-
 import UserParamField from './UserParamField';
 import UserParamPasswordField from './UserParamPasswordField';
 import UserPicUploader from './UserPicUploader';

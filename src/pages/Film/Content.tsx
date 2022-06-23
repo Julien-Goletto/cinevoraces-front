@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react';
 
 function Content({ movie, isLoading }: Content) {
   const [date, setDate] = useState<string>();
-  console.log(movie)
+  console.log(movie);
   
   useEffect(()=> {
     if(!isLoading && movie){

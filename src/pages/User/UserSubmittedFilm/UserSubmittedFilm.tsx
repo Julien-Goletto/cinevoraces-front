@@ -1,7 +1,7 @@
-import { Button } from 'components/Buttons/Button';
+import { usePendingProposalByUserQuery } from 'redux/api';
+import { Button } from 'components/Inputs/InputsLib';
 import userStyles from '../User.module.scss';
 import styles from './UserSubmittedFilm.module.scss';
-import { usePendingProposalByUserQuery } from 'redux/api';
 
 function UserSubmittedFilm({ id }: {id: string}) {
   const { data, isLoading } = usePendingProposalByUserQuery(Number(id));

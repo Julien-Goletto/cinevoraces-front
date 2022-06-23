@@ -5,7 +5,7 @@ import {
   useAdminPublishMovieMutation,
   useAdminRevokeMovieMutation,
 } from 'redux/api';
-import { Button } from 'components/Buttons/Button';
+import { Button } from 'components/Inputs/InputsLib';
 import { addToast } from 'redux/slices/global';
 import AnimationLayout from 'components/AnimationRouter';
 import Loader from 'components/Loader/Loader';

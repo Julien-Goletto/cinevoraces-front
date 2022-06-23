@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from 'redux/hooks';
 import { useAllMoviesQuery, useFiltersQuery } from 'redux/api';
 import { initFilters, filters } from 'redux/slices/filter';
+import Loader from 'components/Loader/Loader';
 import AnimationLayout from 'components/AnimationRouter';
 import Filters from './Filters/Filters';
 import MoviesGrid from './MoviesGrid/MoviesGrid';
@@ -14,16 +15,17 @@ function Films() {
   const [ movies, setMovies ]               = useState<DBMovie[]>([]);
   const { genre, country, periode, query }  = useAppSelector(filters);
 
-  // Update filter state with fetched filters
+  // Update redux filter state with fetched filters
   useEffect(() => {
     filtersData && dispatch(initFilters((filtersData)));
   }, [filtersData, dispatch]);
 
+  // Update movies useState with redux filter state
   useEffect(() => {
-    if (moviesData) {
-      let filteredMovies: DBMovie[] = [...moviesData];    
+    if (moviesData && filtersData) {
+      let filteredMovies: DBMovie[] = [];    
       if(genre.length > 0) {
-        filteredMovies = filteredMovies.filter((movie: DBMovie) => {
+        filteredMovies = [...moviesData].filter((movie: DBMovie) => {
           for(let genre of movie.genres) {
             if (genre.includes(genre)) return true;
           }
@@ -48,16 +50,18 @@ function Films() {
       });
       setMovies(filteredMovies);
     }
-  }, [genre, country, periode, query]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [moviesData, filtersData, genre, country, periode, query]);
   
   return(
     <AnimationLayout>
       <section className={styles.films}>
         <Filters/>
-        <MoviesGrid 
-          movies={movies} 
-          isLoading={isLoading}
-        />
+        {!isLoading &&
+          <MoviesGrid movies={movies} />}
+        {isLoading &&
+          <div className={styles['loader-wrapper']}>
+            <Loader />
+          </div>}
       </section>
     </AnimationLayout>
   );

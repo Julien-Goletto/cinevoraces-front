@@ -58,18 +58,20 @@ function Filters() {
         <FilterMenu handleClose={handleFilterMenu}>
           <DropDown name={'Saison'}>
             { mainFilters.map(({name, value, isChecked}) => (
-              <InputRadio
-                name={name}
-                isChecked={isChecked}
-                value={value}
-                handler={handleSeasonSetter}
-                field='season'
-              />
+              <li key={value}>
+                <InputRadio
+                  name={name}
+                  isChecked={isChecked}
+                  value={value}
+                  handler={handleSeasonSetter}
+                  field='season'
+                />
+              </li>
             ))}
           </DropDown>
           <DropDown name='Genres'>
-            { genre.map(({name, isChecked}, index) => (
-              <li key={index}>
+            { genre.map(({name, isChecked}) => (
+              <li key={name}>
                 <InputCheckbox
                   name={name}
                   isChecked={isChecked}
@@ -79,8 +81,8 @@ function Filters() {
             ))}
           </DropDown>
           <DropDown name='Pays'>
-            { country.map(({name, isChecked}, index) => (
-              <li key={index}>
+            { country.map(({name, isChecked}) => (
+              <li key={name}>
                 <InputCheckbox
                   name={name}
                   isChecked={isChecked}

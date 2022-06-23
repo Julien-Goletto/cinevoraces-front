@@ -44,7 +44,7 @@ function InputStar ({isInput, value, setter}: InputStarProps) {
           />
         ))}
       {!isInput &&
-        // Fixed version
+        // Fix version
         starArray.map(el => (
           <div 
             key={el.value}

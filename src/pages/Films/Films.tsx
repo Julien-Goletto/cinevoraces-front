@@ -13,7 +13,7 @@ import styles from './Films.module.scss';
 
 function Films() {
   const dispatch = useAppDispatch();
-  const { data, isLoading }   = useAllMoviesQuery();
+  const { data, isLoading }   = useAllMoviesQuery('');
   const [ movies, setMovies ] = useState<DBMovie[]>([]);
   const filters     = useAppSelector(filterState);
   const yearFilter  = useAppSelector(filterYearState);

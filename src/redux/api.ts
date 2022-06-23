@@ -60,11 +60,11 @@ export const api = createApi({
     userUpdate: build.mutation<void, any>({
       query: (data) => ({url: `v1/users/modify/${data.userId}`, method: 'PUT', body: data.user})
     }), 
-    allMovies: build.query<any, void>({
-      query: () =>  ({url: '/v1/movies', method: 'GET'})
+    allMovies: build.query<void, any>({
+      query: () =>  ({url: '/v1/movies/search', method: 'GET'})
     }),
     oneMovie: build.query<DBMovie, number>({
-      query: (id) => ({url: `/v1/movies/${id}`, method: 'GET'}),
+      query: (id) => ({url: `/v1/movies/id/${id}`, method: 'GET'}),
       transformResponse: (res:any) => res[0],
       providesTags: ['Movie']
     }),

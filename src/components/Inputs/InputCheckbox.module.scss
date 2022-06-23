@@ -39,10 +39,10 @@ $checkbox-input-clip-path: polygon(20% 0%, 0% 20%, 30% 50%, 0% 80%, 20% 100%, 50
     transform: scale(0);
     transition: 120ms transform ease-in-out;
     box-shadow: 
-      inset 
-      $checkbox-size 
-      $checkbox-size 
-      $checkbox-input-color;
+    inset 
+    $checkbox-size 
+    $checkbox-size 
+    $checkbox-input-color;
     -webkit-clip-path: $checkbox-input-clip-path;
     clip-path: $checkbox-input-clip-path;
   }

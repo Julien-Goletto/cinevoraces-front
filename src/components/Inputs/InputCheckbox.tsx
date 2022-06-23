@@ -17,6 +17,7 @@ function InputCheckbox({name, isChecked, handler}: InputCheckboxProps) {
         {name}
       </label>
       <input 
+        className={styles.input}
         type='checkbox'
         value={name}
         id={name}

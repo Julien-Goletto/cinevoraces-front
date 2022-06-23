@@ -9,7 +9,7 @@ type InputStarProps = {
 
 /**
  * @return            Radio input menu or notation
- * @param   value     state value, required
+ * @param   value     controlled state
  * @param   isInput   return \<div> if false
  * @param   setter    setter function (only for input)
  */

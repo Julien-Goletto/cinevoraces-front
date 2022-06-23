@@ -4,7 +4,7 @@ import styles from './Button.module.scss';
 type ButtonProps = {
   children?: React.ReactNode,
   styleMod?: string,
-  handler?: React.MouseEventHandler<HTMLElement>;
+  handler?: React.MouseEventHandler<HTMLElement>,
   href?: string
 }
 

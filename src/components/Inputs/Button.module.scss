@@ -20,7 +20,6 @@
 .button:hover {
   cursor: pointer;
 }
-
 .button--full {
   background-color: var.$primary;
   color: var.$background;
@@ -37,7 +36,6 @@
 .button--white {
   background-color: var.$white;
 }
-
 .button-search {
   padding: 1.2em 2.1em;
   border-radius: 20px;
@@ -53,7 +51,6 @@
   .button { 
     padding: 0.9em 1.7em;
   }
-
   .button--rounded { 
     padding: 0.7em 1.5em !important;
   }
@@ -63,7 +60,6 @@
   .button { 
     padding: 1em 1.9em;
   }
-
   .button--rounded { 
     padding: 0.8em 1.7em !important;
   }

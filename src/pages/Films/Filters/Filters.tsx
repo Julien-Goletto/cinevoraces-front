@@ -36,7 +36,7 @@ function Filters() {
           type='text'
           placeholder='Recherche un film'
           value={query}
-          onChange={onChangeHandler}
+          handler={onChangeHandler}
         />
       </div>
       { isDropMenu && <DropDownMenu/> }

@@ -25,7 +25,7 @@ function Search() {
           type='text'
           placeholder='Recherche un film'
           value={value}
-          onChange={onChangeHandler}
+          handler={onChangeHandler}
         />
         <ButtonSearch><SearchIco /></ButtonSearch>
       </form>

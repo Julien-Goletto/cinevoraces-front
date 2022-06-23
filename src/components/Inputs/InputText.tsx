@@ -2,7 +2,7 @@ import styles from './InputText.module.scss';
 
 type InputTextProps = { 
   label?: string,
-  onChange?: onChangeEventHandler,
+  handler?: React.ChangeEventHandler<HTMLInputElement>,
   value?: string,
   name: string,
   placeholder: string,
@@ -13,13 +13,13 @@ type InputTextProps = {
 /**
  * @return              \<input\> type text/mail/psw
  * @param label         add a \<label\> on top of \<input\>
- * @param name          set \<input\> name
- * @param type          set \<input\> type
- * @param placeholder   set \<input\> placeholder
- * @param onChange      set onChange event
- * @param value         set \<input\> value
+ * @param name          set \<input\> 'for' param
+ * @param type          set \<input\> 'type' (email | password | confirm | username | search)
+ * @param placeholder   set \<input\> 'placeholder' param
+ * @param handler       state setter
+ * @param value         controlled state
  */
-function InputText({label, name, type, placeholder, onChange, value}: InputTextProps) {
+function InputText({label, name, type, placeholder, handler, value}: InputTextProps) {
   // Look for type name to setup correct icon
   const classResolver = (searchedString: string) => {
     if (RegExp(`\\b${searchedString}\\b`).test(name)) {
@@ -40,7 +40,7 @@ function InputText({label, name, type, placeholder, onChange, value}: InputTextP
         type={type}
         placeholder={placeholder}
         name={name}
-        onChange={onChange}
+        onChange={handler}
         value={value}
       />
     </div>

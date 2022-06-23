@@ -51,5 +51,7 @@ type tag = {
   name: string,
   isChecked: boolean
 }
-type periodeFilter = { [key: string]: [number , number] }
-type periodeFilterConstructor = { [key: string]: number[] }
+
+interface Filter { name: string, value?: string, isChecked: boolean }
+interface periodeFilter { [key: string]: [number , number] }
+interface periodeFilterConstructor { [key: string]: number[] }

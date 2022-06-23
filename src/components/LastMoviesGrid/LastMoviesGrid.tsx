@@ -9,7 +9,7 @@ import { Link } from 'react-router-dom';
  * @return grid with the last 5 movies posted
  */
 function LastMoviesGrid() {
-  const {data, isLoading} = useAllMoviesQuery();
+  const {data, isLoading} = useAllMoviesQuery('');
   const [lastMovies, setLastMovies] = useState<DBMovie[]>();
 
   useEffect(()=> {

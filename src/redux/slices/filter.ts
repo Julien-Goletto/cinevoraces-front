@@ -80,8 +80,19 @@ const filterSlice = createSlice({
       });
       state = formatedData;
     },
-    resetFilters() { 
-      // TODO: Code me then add a reset button
+    resetFilters(state) {
+      // Reset Season
+      state.mainFilters.forEach((el, index) => {
+        el.isChecked = (index === state.mainFilters.length - 1) ? true : false; // Set last season true
+      });
+      // Reset Tags
+      [state.genre, state.country].forEach((tag) => {
+        tag.forEach((el) => {
+          el.isChecked = !el.isChecked;
+        });
+      });
+      state.periode.stateValues = state.periode.baseValues;
+      state.isDefault = true;
     },
     setMainFilter(state, action) {
       state.mainFilters.forEach((el) => {

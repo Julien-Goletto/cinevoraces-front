@@ -91,6 +91,7 @@ const filterSlice = createSlice({
           el.isChecked = !el.isChecked;
         });
       });
+      // Reset Periodes
       state.periode.stateValues = state.periode.baseValues;
       state.isDefault = true;
     },

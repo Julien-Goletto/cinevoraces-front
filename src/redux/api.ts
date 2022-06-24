@@ -67,8 +67,8 @@ export const api = createApi({
     filters: build.query<any, void>({
       query: () => ({url: '/v1/metrics/filters', method: 'GET'})
     }),
-    allMovies: build.query<void, any>({
-      query: () =>  ({url: '/v1/movies/search', method: 'GET'})
+    allMovies: build.query<void, string>({
+      query: (query) =>  ({url: `/v1/movies/search/${query}`, method: 'GET'})
     }),
     oneMovie: build.query<DBMovie, number>({
       query: (id) => ({url: `/v1/movies/id/${id}`, method: 'GET'}),

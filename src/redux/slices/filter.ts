@@ -20,7 +20,7 @@ type FetchedFilters = {
 
 const initialState: FilterState = { 
   mainFilters: [
-    {name: 'Tout les films', value: '0', isChecked: true}
+    {name: 'Tout les films', value: '', isChecked: false}
   ],
   periode: {
     baseValues: [1919, new Date().getFullYear()],
@@ -58,7 +58,7 @@ const filterSlice = createSlice({
         });
         constructor.forEach((season, index) => { // Format and push in new state
           formatedData.mainFilters.push(
-            { name: `Saison ${season[0]} - ${season[1]}`, value: String(season[0]), 
+            { name: `Saison ${season[0]} - ${season[1]}`, value: `season_number=${season[0]}`, 
               isChecked: (index === constructor.length - 1) ? true : false});
         });
         constructor = []; // Reset constructor

@@ -1,9 +1,10 @@
 import { useState } from 'react';
 import { useAppSelector, useAppDispatch } from 'redux/hooks';
 import { 
-  filters, 
-  setQuery, 
-  setCountryFilter, 
+  filters,
+  setQuery,
+  setMainFilter,
+  setCountryFilter,
   setGenreFilter,
   setPeriodeMinVal,
   setPeriodeMaxVal
@@ -20,7 +21,7 @@ function Filters() {
     (isFilterMenu) ? setFilterMenu(false) : setFilterMenu(true);
   };
   const handleSeasonSetter = (event: React.ChangeEvent<HTMLInputElement>) => {
-    // dispatch(setSeasonFilter(event.target.value));
+    dispatch(setMainFilter(event.target.value));
   };
   const handleCountryFilter = (event: React.ChangeEvent<HTMLInputElement>) => {
     dispatch(setCountryFilter(event.target.value));

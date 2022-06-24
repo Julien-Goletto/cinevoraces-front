@@ -10,10 +10,13 @@ import styles from './Films.module.scss';
 
 function Films() {
   const dispatch = useAppDispatch();
+  const [ queryString, setQueryString ]     = useState('');
   const { data: filtersData }               = useFiltersQuery();
-  const { data: moviesData, isLoading }     = useAllMoviesQuery('');
+  const { data: moviesData, isLoading }     = useAllMoviesQuery(queryString);
   const [ movies, setMovies ]               = useState<DBMovie[]>([]);
-  const { genre, country, periode, query }  = useAppSelector(filters);
+  const { mainFilters, genre, country, periode, query }  = useAppSelector(filters);
+
+  // Resolve tags filtering
   const filterTags = (tagsArray: string[], movieArray: DBMovie[], tagsField: string) => {
     if (tagsArray.length > 0) { // Prevent undefined return
       return movieArray.filter((movie) => {
@@ -37,20 +40,36 @@ function Films() {
     filtersData && dispatch(initFilters((filtersData)));
   }, [filtersData, dispatch]);
 
+  // Update queryString useState with redux filter state
+  useEffect(() => {
+    if (filtersData && mainFilters.length > 1) {
+      let query = '';
+      mainFilters.forEach(({value, isChecked}) => {
+        if (isChecked) query = value!;
+      });
+      (query !== queryString) && setQueryString(query);
+    }
+  }, [filtersData, mainFilters, dispatch]); // eslint-disable-line react-hooks/exhaustive-deps
+
   // Update movies useState with redux filter state
   useEffect(() => {
     if (moviesData && filtersData) {
       // Create checked tag names array
       const checkedGenres: string[] = [];
       const checkedCountries: string[] = [];
+      const checkedSeason: string[] = [];
       genre.forEach(({name, isChecked}) => {
         isChecked && checkedGenres.push(name);
       });
       country.forEach(({name, isChecked}) => {
         isChecked && checkedCountries.push(name);
       });
+      mainFilters.forEach(({value, isChecked}) => {
+        isChecked && checkedSeason.push(value!);
+      });
       // filter moviesData
-      let filteredMovies = filterTags(checkedGenres, moviesData, 'genres');
+      let filteredMovies = filterTags(checkedSeason, moviesData, 'season');
+      filteredMovies = filterTags(checkedGenres, moviesData, 'genres');
       filteredMovies = filterTags(checkedCountries, filteredMovies, 'countries');
       filteredMovies = filteredMovies.filter((movie: DBMovie) => {
         const date = new Date(movie.release_date);
@@ -63,7 +82,7 @@ function Films() {
       });
       setMovies(filteredMovies);
     }
-  }, [moviesData, filtersData, genre, country, periode, query]);
+  }, [moviesData, filtersData, mainFilters, genre, country, periode, query]);
   
   return(
     <AnimationLayout>

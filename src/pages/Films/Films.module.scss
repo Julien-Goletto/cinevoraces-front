@@ -3,7 +3,13 @@
 .films {
   composes: container from global;
 }
-
+.loader-wrapper {
+  position: absolute;
+  right: 0; left: 0; 
+  margin-top: 8rem;
+  display: flex;
+  justify-content: center;
+}
 .button {
   display: flex;
   justify-content: center;

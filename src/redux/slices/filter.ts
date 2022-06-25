@@ -88,7 +88,7 @@ const filterSlice = createSlice({
       // Reset Tags
       [state.genre, state.country].forEach((tag) => {
         tag.forEach((el) => {
-          el.isChecked = !el.isChecked;
+          el.isChecked = false;
         });
       });
       // Reset Periodes

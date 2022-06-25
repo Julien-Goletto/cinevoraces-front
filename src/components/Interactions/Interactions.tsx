@@ -140,7 +140,7 @@ function Interactions({type, count}: InteractionsProps) {
                 ${animIsActive && (!starIsOpen ? `${styles['is-opening']}` : `${styles['is-closing']}`)}
               `}>
                 {(typeof actualType[1] === 'number') &&
-                  <InputStar isInput value={actualType[1]} setter={handleSetRating}/>
+                  <InputStar isInput value={typeof actualType[1] === 'number' ? actualType[1] : 0} setter={handleSetRating}/>
                 }
               </div>
             </div>

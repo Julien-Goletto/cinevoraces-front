@@ -7,18 +7,24 @@ import {
   setCountryFilter,
   setGenreFilter,
   setPeriodeMinVal,
-  setPeriodeMaxVal
+  setPeriodeMaxVal,
+  resetFilters
 } from 'redux/slices/filter';
 import { Button, InputText, InputCheckbox, InputRadio, DoubleInputRange } from 'components/Inputs/InputsLib';
 import { FilterMenu, DropDown } from './FilterMenu';
+import { ReactComponent as SVGReset } from './FilterMenu.reset.svg';
 import styles from './Filters.module.scss';
 
 function Filters() {
   const [isFilterMenu, setFilterMenu] = useState(false);
   const dispatch = useAppDispatch();
-  const { mainFilters, query, genre, country, periode } = useAppSelector(filters);
+
+  const { mainFilters, query, genre, country, periode, isDefault } = useAppSelector(filters);
   const handleFilterMenu = () => {
     (isFilterMenu) ? setFilterMenu(false) : setFilterMenu(true);
+  };
+  const handleReset = () => {
+    dispatch(resetFilters());
   };
   const handleSeasonSetter = (event: React.ChangeEvent<HTMLInputElement>) => {
     dispatch(setMainFilter(event.target.value));
@@ -41,10 +47,16 @@ function Filters() {
   
   return(
     <div className={styles.filters}>
-      <Button handler={handleFilterMenu}> 
-        Filtrer
-        { (isFilterMenu) ? <img src='/images/filter-open.svg' alt='' /> : <img src='/images/filter-closed.svg' alt='' /> }
-      </Button>
+      <div className={styles['button-container']}>
+        <Button handler={handleFilterMenu}> 
+          Filtrer
+          { (isFilterMenu) ? <img src='/images/filter-open.svg' alt='' /> : <img src='/images/filter-closed.svg' alt='' /> }
+        </Button>
+        { !isDefault &&
+          <Button handler={handleReset}> 
+            <SVGReset/>
+          </Button> }
+      </div>
       <div className={styles['search-bar']}>
         <InputText 
           label='' 

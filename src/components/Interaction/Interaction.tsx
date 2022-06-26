@@ -9,18 +9,20 @@ import styles from './Interaction.module.scss';
 type InteractionProps = {
   type: string,
   count: number,
+  isActive?: boolean
   value: number,
   setter: (arg: number) => void,
 }
 
 /**
  * @returns 
- * @param type    liked | starred | viewed | bookmarked
- * @param count   count value
- * @param value   controlled state
- * @param setter  setter function (only for input)
+ * @param type      liked | starred | viewed | bookmarked
+ * @param count     count value
+ * @param isActive  change style with boolean
+ * @param value     controlled state
+ * @param setter    setter function (only for input)
  */
-function Interaction({type, count, value, setter}: InteractionProps) {
+function Interaction({type, count, value, setter, isActive}: InteractionProps) {
   const [rateMenu, setRateMenu]               = useState<boolean>(false);
   const [rateMenuWrapper, setRateMenuWrapper] = useState<boolean>(false);
   const [animIsActive, setAnimActive]         = useState<boolean>(false);
@@ -46,29 +48,34 @@ function Interaction({type, count, value, setter}: InteractionProps) {
   };
   
   return(
-    <>
+    // Change appearence if user already clicked with isActive 
+    <div className={isActive ? `${styles.interaction} ${styles['active']}` : styles.interaction}>
+      {/* Background for onClick-close if Star interaction. */}
       {typeResolver('starred') && 
-        <div 
-          className={`${styles.background} ${(rateMenuWrapper) ? '' : styles['hidden']}`}
-          onClick={handleRateMenu}/>}
-      <button className={styles.interaction}>
-        {typeResolver('starred')    && <Starred/>}
+        <div className={(rateMenuWrapper) ? styles['background'] : styles['background--hidden']} onClick={handleRateMenu}/>}
+
+      <button onClick={() => {
+        // Select correct handler with typeResolver
+        typeResolver('starred') && handleRateMenu();}}>
+
+        {/* Select correct SVG with typeResolver */}
         {typeResolver('liked')      && <Liked/>}
         {typeResolver('viewed')     && <Viewed/>}
         {typeResolver('bookmarked') && <Bookmarked/>}
+        {typeResolver('starred')    && <Starred/>}
         <span>{count}</span>
-        {typeResolver('starred') &&
-          <div className={`${`${styles['wrapper']} ${(rateMenuWrapper) ? '' : styles['hidden']}`}`}>
-            <div className={`
-              ${styles.active} ${styles['rate-menu']}
-              ${rateMenu ? `${styles['is-open']}` : `${styles['is-closed']}`}
-              ${animIsActive && (!rateMenu ? `${styles['is-opening']}` : `${styles['is-closing']}`)}
-          `}>
-              <InputStar isInput value={value ? value : 5} setter={setter}/>
-            </div>
-          </div>}
       </button>
-    </>
+      {typeResolver('starred') && 
+        <div className={(rateMenuWrapper) ? styles['wrapper'] : styles['wrapper--hidden']}>
+          <div className={`
+            ${styles['rate-menu']}
+            ${rateMenu ? `${styles['is-open']}` : `${styles['is-closed']}`}
+            ${animIsActive && (!rateMenu ? `${styles['is-opening']}` : `${styles['is-closing']}`)}
+          `}>
+            <InputStar isInput value={value ? value : 5} setter={setter}/>
+          </div>
+        </div>}
+    </div>
   );
 }
 

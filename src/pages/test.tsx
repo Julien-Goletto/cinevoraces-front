@@ -10,7 +10,7 @@ export default function Test() {
       <Interaction value={value} setter={setter} type='liked' count={8}/>
       <Interaction value={value} setter={setter} type='viewed' count={8}/>
       <Interaction value={value} setter={setter} type='bookmarked' count={8}/>
-      <Interaction value={value} setter={setter} type='starred' count={8}/>
+      <Interaction isActive value={value} setter={setter} type='starred' count={8}/>
     </div>
   );
 }

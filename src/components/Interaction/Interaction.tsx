@@ -10,7 +10,6 @@ import styles from './Interaction.module.scss';
 type InteractionProps = {
   type: string,
   count: number,
-  isActive?: boolean,
   value: number,
   handler: (arg: any) => void,
   loader: boolean
@@ -22,6 +21,8 @@ type InteractionProps = {
  * @param count     count value
  * @param value     controlled state
  * @param handler   onClick dispatch function
+ * @param loader    fetch loading state
+ * 
  */
 function Interaction({type, count, value, handler, loader}: InteractionProps) {
   const [rateMenu, setRateMenu]               = useState<boolean>(false);

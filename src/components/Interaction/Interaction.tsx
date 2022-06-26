@@ -11,18 +11,18 @@ type InteractionProps = {
   count: number,
   isActive?: boolean
   value: number,
-  setter: (arg: number) => void,
+  handler: (arg: any) => void,
 }
 
 /**
  * @returns 
  * @param type      liked | starred | viewed | bookmarked
  * @param count     count value
- * @param isActive  change style with boolean
+ * @param isActive  define style (boolean)
  * @param value     controlled state
- * @param setter    setter function (only for input)
+ * @param handler   onClick dispatch function
  */
-function Interaction({type, count, value, setter, isActive}: InteractionProps) {
+function Interaction({type, count, value, handler, isActive}: InteractionProps) {
   const [rateMenu, setRateMenu]               = useState<boolean>(false);
   const [rateMenuWrapper, setRateMenuWrapper] = useState<boolean>(false);
   const [animIsActive, setAnimActive]         = useState<boolean>(false);
@@ -72,7 +72,7 @@ function Interaction({type, count, value, setter, isActive}: InteractionProps) {
             ${rateMenu ? `${styles['is-open']}` : `${styles['is-closed']}`}
             ${animIsActive && (!rateMenu ? `${styles['is-opening']}` : `${styles['is-closing']}`)}
           `}>
-            <InputStar isInput value={value ? value : 5} setter={setter}/>
+            <InputStar isInput value={value ? value : 5} setter={handler}/>
           </div>
         </div>}
     </div>

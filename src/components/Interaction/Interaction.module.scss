@@ -3,8 +3,13 @@
 
 $height: 63px;
 $border-radius: 10px;
+$gap: 6px;
+$wrapper-padding: 16px;
+// Box Shadows
 $bx-shw: 0px 4px 4px rgba(0, 0, 0, 0.25);
-$inner-bx-shw: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
+$inner-btn: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
+$inner-wrapper: inset -2px 4px 4px rgba(0, 0, 0, 0.25);
+$inner-wrapper-reverse: inset 2px 4px 4px rgba(0, 0, 0, 0.25);
 $prim-border: 0px -2px 0px #FC9A3F;
 $second-border: 0px -2px 0px #FC783F;
 
@@ -12,10 +17,9 @@ $second-border: 0px -2px 0px #FC783F;
   position: relative;
   & button {
     flex-direction: column;
-    gap: 6px;
-    z-index: 9;
-    border-radius: $border-radius;
+    gap: $gap;
     width: 55px;
+    border-radius: $border-radius;
     box-shadow: $bx-shw, $prim-border;
   }
   & button, .wrapper .rate-menu {
@@ -37,7 +41,7 @@ $second-border: 0px -2px 0px #FC783F;
     width: 400%;
     & .rate-menu {
       box-sizing: border-box;
-      padding: 10px 16px;
+      padding: $wrapper-padding;
       position: absolute;
       top: 3px;
       border-radius: $border-radius 0 0 $border-radius;
@@ -79,10 +83,10 @@ display: inline-block;
 }
 .active {
   & button {
-    box-shadow: $bx-shw, $second-border, $inner-bx-shw;
+    box-shadow: $bx-shw, $second-border, $inner-btn;
   }
   & .wrapper .rate-menu {
-    box-shadow: $bx-shw, $second-border, $inner-bx-shw!important;
+    box-shadow: $bx-shw, $second-border, $inner-wrapper-reverse;
   }
   & svg path {
     fill: var.$white;
@@ -125,7 +129,13 @@ display: inline-block;
   .is-closing { 
     animation: .5s slideReversed reverse;
     -webkit-animation: .5s slideReversed reverse;
-  }}
+  }
+  .active {
+    & .wrapper .rate-menu {
+      box-shadow: $bx-shw, $second-border, $inner-wrapper;
+    }
+  }
+}
 @include mix.breakpoint('desktop'){
   .interaction button {
     width: 70px;

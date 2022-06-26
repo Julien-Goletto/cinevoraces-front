@@ -58,7 +58,11 @@ function Interaction({type, count, value, handler, loader}: InteractionProps) {
 
       <button onClick={() => {
         // Select correct handler with typeResolver
-        typeResolver('starred') && handleRateMenu();}}>
+        typeResolver('liked')      && handler('liked');
+        typeResolver('viewed')     && handler('viewed');
+        typeResolver('bookmarked') && handler('bookmarked');
+        typeResolver('starred')    && handleRateMenu();
+      }}>
         {/* Show Loader while waiting for PUT response */}
         {loader && <span className={styles.loader}><Loader /></span>}
         {!loader &&

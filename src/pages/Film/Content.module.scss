@@ -20,6 +20,7 @@
   box-sizing: border-box;
   position: relative;
   border-radius: 10px;
+  margin: 0 auto 1.5rem;
   &::before {
     content: '';
     position: absolute;
@@ -36,26 +37,11 @@
   border-radius: 10px;
 }
 
-.interactions {
-  width: 30%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around; 
-  align-items: flex-end;
-}
-
 @media (min-width: 430px) {
   .poster {
     width: 80%;
     max-width: 80%;
     margin: 0 auto 1em auto;
-  }
-  .interactions {
-    width:100%;
-    max-width: 80%;
-    margin: 0 auto;
-    flex-direction: row;
-    justify-content: space-between;
   }
 }
 
@@ -63,10 +49,6 @@
   .content {
     flex-wrap: wrap;
     flex-direction: row;
-  }
-  .interactions {
-    max-width: 100%;
-    width: 100%;
   }
   .poster {
     width: 100%;

@@ -1,0 +1,18 @@
+@use '~styles/mixins' as mix;
+
+.interactions-wrapper {
+  width: 80%;
+  display: flex;
+  justify-content: space-between;
+  margin: auto;
+}
+
+
+@include mix.breakpoint('tablet') {
+}
+
+@media (min-width: 640px) {
+  .interactions-wrapper {
+    width: 100%;
+  }
+}

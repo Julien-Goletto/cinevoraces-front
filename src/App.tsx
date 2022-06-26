@@ -25,7 +25,6 @@ import Team from './pages/Team/Team';
 import Admin from './pages/Admin/Admin';
 import Loader from 'components/Loader/Loader';
 import AnimationLayout from 'components/AnimationRouter';
-import Test from 'pages/test';
 
 function App() {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -63,7 +62,6 @@ function App() {
             <ResetScroll />
             <Routes location={location} key={location.pathname}>
               <Route path='/' element={<Home />}/>
-              <Route path='/test' element={<Test />}/>
               <Route path='/film/:id' element={<Film />}/>
               <Route path='/films' element={<Films />}/>
               <Route path='/register' element={<Register />}/>

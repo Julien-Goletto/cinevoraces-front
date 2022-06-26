@@ -1,4 +1,4 @@
-import Interactions from 'components/Interactions/Interactions';
+import InteractionsWrapper from './InteractionsWrapper';
 import Presentation from './Presentation';
 import Description from './Description';
 import styles from './Content.module.scss';
@@ -30,13 +30,7 @@ function Content({ movie, isLoading }: Content) {
                 className={styles.img} 
               />
             </div>
-            
-            <div className={styles.interactions}> 
-              <Interactions type='bookmarked' count={Number(movie.watchlist_count)}/>
-              <Interactions type='viewed' count={Number(movie.views_count)}/>
-              <Interactions type='liked' count={Number(movie.likes_count)}/>
-              <Interactions type='rating' count={Number(movie.ratings_count)}/>
-            </div>
+            <InteractionsWrapper movie={movie}/>
           </div>
           <Description movie={movie} />
           <Presentation pic={movie.user_avatar_url!} name={movie.user_pseudo} date={date}

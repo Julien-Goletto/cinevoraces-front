@@ -5,13 +5,13 @@ import { usePostInteractionMutation, usePutInteractionMutation } from 'redux/api
 import { useParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { addToast } from 'redux/slices/global';
-import { isReviews } from 'redux/slices/interaction';
+import { userInteractions } from 'redux/slices/interaction';
 import styles from './AddComment.module.scss';
 
 function AddComment(props: any) {
   const { id } = useParams();
   const { setEditable, editable, text } = props;
-  const reviews = useAppSelector(isReviews);
+  const {reviews} = useAppSelector(userInteractions);
   const dispatch = useDispatch();
   const user = useAppSelector(userLogged);
   const [postInteraction] = usePostInteractionMutation();

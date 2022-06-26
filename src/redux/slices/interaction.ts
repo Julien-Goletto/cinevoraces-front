@@ -50,9 +50,12 @@ const interactionSlice = createSlice({
 
 
 
-export const isReviews = (state: RootState) => state.interaction.reviews;
-export const interaction = (state: RootState) => state.interaction;
-export const getRating = (state: RootState) => state.interaction.rating;
+export const userInteractions = (state: RootState) => state.interaction;
 
-export const { setInactive, setActive, setRating, toggle } = interactionSlice.actions;
+export const { 
+  setInactive,
+  setActive,
+  setRating,
+  toggle 
+} = interactionSlice.actions;
 export default interactionSlice.reducer;

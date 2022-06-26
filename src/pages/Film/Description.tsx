@@ -1,12 +1,12 @@
 import { InputStar } from 'components/Inputs/InputsLib';
 import { useAppSelector } from 'redux/hooks';
 import { isOnline } from 'redux/slices/user';
-import { getRating } from 'redux/slices/interaction';
+import { userInteractions } from 'redux/slices/interaction';
 import styles from './Description.module.scss';
 
 function Description({ movie }: Description) {
   const isLogged = useAppSelector(isOnline);
-  const rating = useAppSelector(getRating);
+  const {rating} = useAppSelector(userInteractions);
   const date = new Date(movie.release_date);
   
   return (

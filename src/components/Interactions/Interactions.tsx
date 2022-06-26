@@ -1,17 +1,19 @@
 import styles from './Interactions.module.scss';
-import { useState } from 'react';
 import { ReactComponent as Heart } from './ico/heart.svg';
 import { ReactComponent as Star } from './ico/star.svg';
 import { ReactComponent as Eye } from './ico/eye.svg';
 import { ReactComponent as Bookmark } from './ico/bookmark.svg';
-import { isReviews, toggle, getRating, setRating } from 'redux/slices/interaction';
-import { useAppDispatch, useAppSelector } from 'redux/hooks';
 import { InputStar } from 'components/Inputs/InputsLib';
+import Loader from 'components/Loader/Loader';
+
+
+import { useState } from 'react';
+import { userInteractions, toggle, setRating } from 'redux/slices/interaction';
+import { useAppDispatch, useAppSelector } from 'redux/hooks';
 import { isOnline, userLogged } from 'redux/slices/user';
 import { addToast } from 'redux/slices/global';
 import { useParams } from 'react-router-dom';
 import { usePostInteractionMutation,usePutInteractionMutation } from 'redux/api';
-import Loader from 'components/Loader/Loader';
 
 type InteractionsProps = {
   type: string,
@@ -29,8 +31,7 @@ function Interactions({type, count}: InteractionsProps) {
   const [animIsActive, setAnimActive] = useState<boolean>(false);
   const [wrapperIsDisplayed, setWrapperIsDisplayed] = useState<boolean>(false);
   const user = useAppSelector(userLogged);
-  const reviews = useAppSelector(isReviews);
-  const rating   = useAppSelector(getRating);
+  const {rating, reviews}   = useAppSelector(userInteractions);
   const isLogged = useAppSelector(isOnline);
   const [postInteraction] = usePostInteractionMutation();
   const [putInteraction, putHandle] = usePutInteractionMutation();
@@ -60,6 +61,7 @@ function Interactions({type, count}: InteractionsProps) {
     try {
       if (user.isOnline && type && actualType) {
         let obj = { [type] : !actualType[1] };
+        console.log(obj);
         if(!reviews) await postInteraction({userId: user.id, movieId: id});
         await putInteraction({userId: user.id, movieId: id, body: obj});
         dispatch(toggle(type)); 

@@ -77,7 +77,7 @@ function Film() {
             }
           </div>
         </section>
-        : <Loader /> }
+        : <div style={{display: 'flex', justifyContent: 'center', marginTop: '10rem'}}><Loader /></div> }
     </AnimationLayout>
   );
 };

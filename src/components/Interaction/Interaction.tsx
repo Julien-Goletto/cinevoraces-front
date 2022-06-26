@@ -4,25 +4,26 @@ import { ReactComponent as Starred } from './Interaction.ico_starred.svg';
 import { ReactComponent as Viewed } from './Interaction.ico_viewed.svg';
 import { ReactComponent as Bookmarked } from './Interaction.ico_bookmarked.svg';
 import { InputStar } from 'components/Inputs/InputsLib';
+import Loader from 'components/Loader/Loader';
 import styles from './Interaction.module.scss';
 
 type InteractionProps = {
   type: string,
   count: number,
-  isActive?: boolean
+  isActive?: boolean,
   value: number,
   handler: (arg: any) => void,
+  loader: boolean
 }
 
 /**
  * @returns 
  * @param type      liked | starred | viewed | bookmarked
  * @param count     count value
- * @param isActive  define style (boolean)
  * @param value     controlled state
  * @param handler   onClick dispatch function
  */
-function Interaction({type, count, value, handler, isActive}: InteractionProps) {
+function Interaction({type, count, value, handler, loader}: InteractionProps) {
   const [rateMenu, setRateMenu]               = useState<boolean>(false);
   const [rateMenuWrapper, setRateMenuWrapper] = useState<boolean>(false);
   const [animIsActive, setAnimActive]         = useState<boolean>(false);
@@ -49,7 +50,7 @@ function Interaction({type, count, value, handler, isActive}: InteractionProps) 
   
   return(
     // Change appearence if user already clicked with isActive 
-    <div className={isActive ? `${styles.interaction} ${styles['active']}` : styles.interaction}>
+    <div className={value ? `${styles.interaction} ${styles['active']}` : styles.interaction}>
       {/* Background for onClick-close if Star interaction. */}
       {typeResolver('starred') && 
         <div className={(rateMenuWrapper) ? styles['background'] : styles['background--hidden']} onClick={handleRateMenu}/>}
@@ -57,13 +58,17 @@ function Interaction({type, count, value, handler, isActive}: InteractionProps) 
       <button onClick={() => {
         // Select correct handler with typeResolver
         typeResolver('starred') && handleRateMenu();}}>
-
-        {/* Select correct SVG with typeResolver */}
-        {typeResolver('liked')      && <Liked/>}
-        {typeResolver('viewed')     && <Viewed/>}
-        {typeResolver('bookmarked') && <Bookmarked/>}
-        {typeResolver('starred')    && <Starred/>}
-        <span>{count}</span>
+        {/* Show Loader while waiting for PUT response */}
+        {loader && <span className={styles.loader}><Loader /></span>}
+        {!loader &&
+          // Select correct SVG with typeResolver
+          <>
+            {typeResolver('liked')      && <Liked/>}
+            {typeResolver('viewed')     && <Viewed/>}
+            {typeResolver('bookmarked') && <Bookmarked/>}
+            {typeResolver('starred')    && <Starred/>}
+            <span>{count}</span>
+          </>}
       </button>
       {typeResolver('starred') && 
         <div className={(rateMenuWrapper) ? styles['wrapper'] : styles['wrapper--hidden']}>

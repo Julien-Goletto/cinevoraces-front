@@ -58,8 +58,8 @@ $second-border: 0px -2px 0px #FC783F;
     display: none;
   }}
 .loader {
-width: 10%;
-display: inline-block; 
+  width: 10%;
+  display: inline-block; 
   & div {
     height: 15px;
     transform: translate(-35px, -20px) scale(0.6);

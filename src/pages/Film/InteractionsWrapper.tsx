@@ -28,14 +28,15 @@ function InteractionsWrapper({movie}: InteractionsWrapperProps) {
           userId: userId,
           movieId: movieId,
           body: {
+            // Resolve content with passed string
             [type]: !Object.entries(interactionState).find(
               e => e[0] === type)![1]
           }};
-        // TODO: This should already exist in data base
+        // FIXME: This should already exist in data base
         !reviews && await postInteraction({userId: userId, movieId: movieId});
 
-        await putInteraction(body);
-        dispatch(toggle(type));
+        await putInteraction(body); // Fetch data base
+        dispatch(toggle(type)); // update local state
       } else {
         throw new Error('Vous devez être connecté pour intéragir.');
       }
@@ -52,7 +53,7 @@ function InteractionsWrapper({movie}: InteractionsWrapperProps) {
           movieId: movieId,
           body: {rating: n}
         };
-        // TODO: This should already exist in data base
+        // FIXME: This should already exist in data base
         !reviews && await postInteraction({userId: userId, movieId: movieId});
 
         await putInteraction(body);

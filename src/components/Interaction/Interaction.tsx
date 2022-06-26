@@ -22,7 +22,6 @@ type InteractionProps = {
  * @param value     controlled state
  * @param handler   onClick dispatch function
  * @param loader    fetch loading state
- * 
  */
 function Interaction({type, count, value, handler, loader}: InteractionProps) {
   const [rateMenu, setRateMenu]               = useState<boolean>(false);

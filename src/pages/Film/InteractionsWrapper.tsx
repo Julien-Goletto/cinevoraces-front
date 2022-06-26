@@ -1,7 +1,6 @@
 import { userInteractions, toggle, setRating } from 'redux/slices/interaction';
 import { useAppDispatch, useAppSelector } from 'redux/hooks';
 import { userLogged } from 'redux/slices/user';
-import { addToast } from 'redux/slices/global';
 import { useParams } from 'react-router-dom';
 import { usePostInteractionMutation,usePutInteractionMutation } from 'redux/api';
 import Interaction from 'components/Interaction/Interaction';
@@ -14,7 +13,7 @@ type InteractionsWrapperProps ={
 function InteractionsWrapper({movie}: InteractionsWrapperProps) {
   const dispatch                      = useAppDispatch();
   const {id: movieId}                 = useParams<string>();
-  const {isOnline, id: userId}        = useAppSelector(userLogged);
+  const {id: userId}                  = useAppSelector(userLogged);
   const interactionState              = useAppSelector(userInteractions);
   const {reviews, viewed, rating, bookmarked, liked} = interactionState;
   const [postInteraction]             = usePostInteractionMutation();
@@ -22,48 +21,32 @@ function InteractionsWrapper({movie}: InteractionsWrapperProps) {
 
   // POST/PUT handler for user interactions
   const dispatchInteraction = async (type: string) => {
-    try {
-      if (isOnline) {
-        const body = {
-          userId: userId,
-          movieId: movieId,
-          body: {
-            // Resolve content with passed string
-            [type]: !Object.entries(interactionState).find(
-              e => e[0] === type)![1]
-          }};
-        // FIXME: This should already exist in data base
-        !reviews && await postInteraction({userId: userId, movieId: movieId});
-
-        await putInteraction(body); // Fetch data base
-        dispatch(toggle(type)); // update local state
-      } else {
-        throw new Error('Vous devez être connecté pour intéragir.');
-      }
-    } catch (error: any) {
-      dispatch(addToast({type: 'warn', text: error.message}));
-    }    
+    const body = {
+      userId: userId,
+      movieId: movieId,
+      body: {
+        // Resolve content with passed string
+        [type]: !Object.entries(interactionState).find(
+          e => e[0] === type)![1]
+      }};
+    // FIXME: This should already exist in data base
+    !reviews && await postInteraction({userId: userId, movieId: movieId});
+    
+    await putInteraction(body); // Fetch data base
+    dispatch(toggle(type)); // update local state
   };
   // POST/PUT handler for movie rating
   const dispatchRating = async (n: number) => {
-    try {
-      if (isOnline) {
-        const body = {
-          userId: userId,
-          movieId: movieId,
-          body: {rating: n}
-        };
-        // FIXME: This should already exist in data base
-        !reviews && await postInteraction({userId: userId, movieId: movieId});
+    const body = {
+      userId: userId,
+      movieId: movieId,
+      body: {rating: n}
+    };
+    // FIXME: This should already exist in data base
+    !reviews && await postInteraction({userId: userId, movieId: movieId});
 
-        await putInteraction(body);
-        dispatch(setRating(n));
-      } else {
-        throw new Error('Vous devez être connecté pour intéragir.');
-      }
-    } catch (error: any) {
-      dispatch(addToast({type: 'warn', text: error.message}));
-    }    
+    await putInteraction(body);
+    dispatch(setRating(n));
   };
 
   return(

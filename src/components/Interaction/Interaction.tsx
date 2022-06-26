@@ -3,6 +3,9 @@ import { ReactComponent as Liked } from './Interaction.ico_liked.svg';
 import { ReactComponent as Starred } from './Interaction.ico_starred.svg';
 import { ReactComponent as Viewed } from './Interaction.ico_viewed.svg';
 import { ReactComponent as Bookmarked } from './Interaction.ico_bookmarked.svg';
+import { useAppDispatch, useAppSelector } from 'redux/hooks';
+import { userLogged } from 'redux/slices/user';
+import { addToast } from 'redux/slices/global';
 import { InputStar } from 'components/Inputs/InputsLib';
 import Loader from 'components/Loader/Loader';
 import styles from './Interaction.module.scss';
@@ -24,6 +27,8 @@ type InteractionProps = {
  * @param loader    fetch loading state
  */
 function Interaction({type, count, value, handler, loader}: InteractionProps) {
+  const dispatch                              = useAppDispatch();
+  const {isOnline}                            = useAppSelector(userLogged);
   const [rateMenu, setRateMenu]               = useState<boolean>(false);
   const [rateMenuWrapper, setRateMenuWrapper] = useState<boolean>(false);
   const [animIsActive, setAnimActive]         = useState<boolean>(false);
@@ -33,6 +38,16 @@ function Interaction({type, count, value, handler, loader}: InteractionProps) {
       return true;
     } else {
       return false;
+    }};
+  // Select correct handler with typeResolver
+  const onClickResolver = () => {
+    if (isOnline) {
+      typeResolver('liked')      && handler('liked');
+      typeResolver('viewed')     && handler('viewed');
+      typeResolver('bookmarked') && handler('bookmarked');
+      typeResolver('starred')    && handleRateMenu();
+    } else {
+      dispatch(addToast({type: 'warn', text: 'Vous devez être connecté pour intéragir.'}));
     }};
   const handleRateMenu = () => {
     setRateMenuWrapper(true);
@@ -55,13 +70,7 @@ function Interaction({type, count, value, handler, loader}: InteractionProps) {
       {typeResolver('starred') && 
         <div className={(rateMenuWrapper) ? styles['background'] : styles['background--hidden']} onClick={handleRateMenu}/>}
 
-      <button onClick={() => {
-        // Select correct handler with typeResolver
-        typeResolver('liked')      && handler('liked');
-        typeResolver('viewed')     && handler('viewed');
-        typeResolver('bookmarked') && handler('bookmarked');
-        typeResolver('starred')    && handleRateMenu();
-      }}>
+      <button onClick={onClickResolver}>
         {/* Show Loader while waiting for PUT response */}
         {loader && <span className={styles.loader}><Loader /></span>}
         {!loader &&

@@ -27,7 +27,7 @@ function LastMoviesGrid() {
                 <img 
                   className={styles.img}
                   src={poster_url} 
-                  alt={`Affiche du film ${french_title}`}
+                  alt={''}
                 />
               </Link>
             </div>

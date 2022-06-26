@@ -24,26 +24,20 @@ import Proposal from './pages/Proposal/Proposal';
 import Team from './pages/Team/Team';
 import Admin from './pages/Admin/Admin';
 import Loader from 'components/Loader/Loader';
-import AnimationLayout from 'components/AnimationRouter';
 
 function App() {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const isLogged = useAppSelector<boolean>(isOnline);
+  const isLogged = useAppSelector<boolean>(isOnline); // eslint-disable-line @typescript-eslint/no-unused-vars
   const dispatch = useAppDispatch();
   const location = useLocation();
   const [refreshToken, {data, isLoading, isError}] = useLazyRefreshTokenQuery();
 
   // wait for refreshToken cycle to be done
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [ready, setReady] = useState<boolean>(false);
-
-  
   useEffect(()=>{
     const token = Cookies.get('refreshToken');
     if(token) {
       refreshToken();
     } else return;
-
   }, [refreshToken]);
 
   useEffect(()=> {
@@ -104,7 +98,7 @@ function RequireAuth({ children, redirectTo }:{ children:any, redirectTo:any }) 
 }
 function PendingPropositionCheck ({ children, redirectTo }:{ children:any, redirectTo:any }) {
   const user = useAppSelector(userLogged);
-  const {data, isError, isLoading} = usePendingPropositionQuery(user.id); 
+  const {isError, isLoading} = usePendingPropositionQuery(user.id); 
 
   if(isLoading) {
     return (

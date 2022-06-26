@@ -10,7 +10,7 @@ import styles from './Interaction.module.scss';
 type InteractionProps = {
   type: string,
   count: number,
-  value: number,
+  value: number | boolean,
   handler: (arg: any) => void,
   loader: boolean
 }
@@ -78,7 +78,7 @@ function Interaction({type, count, value, handler, loader}: InteractionProps) {
             ${rateMenu ? `${styles['is-open']}` : `${styles['is-closed']}`}
             ${animIsActive && (!rateMenu ? `${styles['is-opening']}` : `${styles['is-closing']}`)}
           `}>
-            <InputStar isInput value={value ? value : 5} setter={handler}/>
+            <InputStar isInput value={(value && typeof value === 'number') ? value : 0} setter={handler}/>
           </div>
         </div>}
     </div>

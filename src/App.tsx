@@ -91,7 +91,7 @@ function RequireAuth({ children, redirectTo }:{ children:any, redirectTo:any }) 
   const [resfreshToken, {isError, isLoading}] = useLazyRefreshTokenQuery();
   useEffect(()=> {
     resfreshToken();
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
   if(!isLoading) {
     return !isError ? children : <Navigate to={redirectTo} />;
   }

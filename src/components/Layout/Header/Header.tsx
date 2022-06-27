@@ -2,7 +2,7 @@ import { Button } from 'components/Inputs/InputsLib';
 import Connection from 'components/Modal/Connection/Connection';
 import Modal from 'components/Modal/Modal';
 import { useAppDispatch, useAppSelector } from 'redux/hooks';
-import { toggleConnection } from 'redux/slices/global';
+import { toggleModal, globalState } from 'redux/slices/global';
 import { isOnline } from 'redux/slices/user';
 import styles from './Header.module.scss';
 import MenuMobile from './MenuMobile/MenuMobile';
@@ -13,16 +13,16 @@ import { useLastMovieQuery } from 'redux/api';
 function Header() {
   const dispatch = useAppDispatch();
   const {data} = useLastMovieQuery();
-  const connectionIsOpen = useAppSelector(state => state.global.connectionIsOpen);
+  const {modalIsOpen} = useAppSelector(globalState);
   const connectionHandler = () => {
-    dispatch(toggleConnection());
+    dispatch(toggleModal());
   };
   const isLogged = useAppSelector<boolean>(isOnline);
   
 
   return(
     <>
-      { connectionIsOpen && 
+      { modalIsOpen && 
       <Modal>
         <Connection />
       </Modal>

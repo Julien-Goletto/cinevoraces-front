@@ -2,15 +2,16 @@ import React from 'react';
 import styles from './Modal.module.scss';
 import ReactDOM from 'react-dom';
 import { useAppDispatch, useAppSelector } from 'redux/hooks';
-import { toggleConnection } from 'redux/slices/global';
+import { toggleModal, globalState } from 'redux/slices/global';
 
 const portal = document.getElementById('portal') as HTMLElement;
 
 function Modal({children} : {children : React.ReactNode}) {
-  const connectionIsOpen = useAppSelector(state => state.global.connectionIsOpen);
+  const {modalIsOpen} = useAppSelector(globalState);
+
   const dispatch = useAppDispatch();
   const handleCloseModal = () => {
-    connectionIsOpen && dispatch(toggleConnection());
+    modalIsOpen && dispatch(toggleModal());
   };
 
   return ReactDOM.createPortal(

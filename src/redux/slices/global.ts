@@ -1,10 +1,16 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { RootState } from '../store';
 
+type GlobalState = {
+  mobileIsOpen: boolean,
+  modalIsOpen: boolean,
+  userIsOpen: boolean,
+  toasts: object[],
+}
 
 const initialState : GlobalState = { 
   mobileIsOpen: false,
-  connectionIsOpen: false,
+  modalIsOpen: false,
   userIsOpen: false,
   toasts: [],
 };
@@ -13,8 +19,8 @@ const globalSlice = createSlice({
   name: 'global',
   initialState,
   reducers: {
-    toggleConnection(state) {
-      state.connectionIsOpen = !state.connectionIsOpen;
+    toggleModal(state) {
+      state.modalIsOpen = !state.modalIsOpen;
     },
     mobileIsOpen(state) {
       state.mobileIsOpen = !state.mobileIsOpen;
@@ -35,6 +41,12 @@ const globalSlice = createSlice({
 });
 
 export const getToasts = (state: RootState) => state.global.toasts;
+export const globalState = (state: RootState) => state.global;
 
-export const { toggleConnection, mobileIsOpen, userIsOpen, addToast, removeToast } = globalSlice.actions;
+export const { 
+  toggleModal,
+  mobileIsOpen,
+  userIsOpen,
+  addToast,
+  removeToast } = globalSlice.actions;
 export default globalSlice.reducer;

@@ -76,12 +76,7 @@ type Director = {
   name: string,
   id: number
 }
-type GlobalState = {
-  mobileIsOpen: boolean,
-  connectionIsOpen: boolean,
-  userIsOpen: boolean,
-  toasts: object[],
-}
+
 type Toast = {
   payload: {
     type: 'error' | 'warn' | 'success',

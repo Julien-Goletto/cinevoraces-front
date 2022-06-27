@@ -7,7 +7,7 @@ import { useUserRegisterMutation } from 'redux/api';
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from 'redux/hooks';
 import { userLogged, isOnline } from 'redux/slices/user';
-import { addToast, toggleConnection } from 'redux/slices/global';
+import { addToast, toggleModal } from 'redux/slices/global';
 import styles from './Register.module.scss';
 
 function Register() {
@@ -60,7 +60,7 @@ function Register() {
   useEffect(()=> {
     if(isSuccess) {
       dispatch(addToast({type:'success', text: 'Votre compte à été créé, vous pouvez vous connecter'}));
-      dispatch(toggleConnection());
+      dispatch(toggleModal());
       return navigate('/');
     }
     if(isError) {

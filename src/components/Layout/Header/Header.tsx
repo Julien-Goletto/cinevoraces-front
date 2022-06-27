@@ -1,5 +1,5 @@
 import { Button } from 'components/Inputs/InputsLib';
-import Connection from 'components/Modal/Connection/Connection';
+import Connection from 'components/Connection/Connection';
 import Modal from 'components/Modal/Modal';
 import { useAppDispatch, useAppSelector } from 'redux/hooks';
 import { toggleModal, globalState } from 'redux/slices/global';

@@ -76,14 +76,11 @@ type Director = {
   name: string,
   id: number
 }
-
 type Toast = {
-  payload: {
-    type: 'error' | 'warn' | 'success',
-    text: string,
-    duration?: number,
-    id?: number
-  }
+  type: 'error' | 'warn' | 'success',
+  text: string,
+  duration?: number,
+  id?: number
 }
 type RemoveToast = {
   payload: {

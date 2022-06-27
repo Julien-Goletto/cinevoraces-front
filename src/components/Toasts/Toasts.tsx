@@ -1,19 +1,32 @@
+import { useEffect } from 'react';
+import ReactDOM from 'react-dom';
 import { useAppSelector } from 'redux/hooks';
-import { getToasts } from 'redux/slices/global';
+import { globalState } from 'redux/slices/global';
 import Toast from './Toast/Toast';
 import styles from './Toasts.module.scss';
-import ReactDOM from 'react-dom';
+
+// Append toats outside of App with a portal
 const portal = document.getElementById('portal') as HTMLElement;
 
 function Toasts()  {
-  let toastsList = useAppSelector(getToasts);
+  let { toasts } = useAppSelector(globalState);
+  useEffect(() => {
+    console.log(toasts);
+  }, [toasts]);
   
   return ReactDOM.createPortal(
-    (toastsList.length > 0) && <div className={`${styles.toast} ${styles['scale-up-left']}`}>
-      { toastsList.map((toast:any)=> (
-        <Toast key={toast.id} id={toast.id} type={toast.type} text={toast.text} duration={toast.duration} />
-      ))}
-    </div>
+    (toasts.length > 0) && 
+      <div className={`${styles.toast} ${styles['scale-up-left']}`}>
+        {toasts.map(({id, type, text, duration}: Toast) => (
+          <Toast 
+            key={id} 
+            id={id!} 
+            type={type} 
+            text={text} 
+            duration={duration}
+          />
+        ))}
+      </div>
     , portal);
 };
 

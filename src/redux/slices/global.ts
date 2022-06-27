@@ -3,8 +3,8 @@ import { RootState } from '../store';
 
 type GlobalState = {
   modalIsOpen: boolean,
-  toasts: object[],
-}
+  toasts: Toast[],
+};
 
 const initialState : GlobalState = { 
   modalIsOpen: false,
@@ -18,7 +18,7 @@ const globalSlice = createSlice({
     toggleModal(state) {
       state.modalIsOpen = !state.modalIsOpen;
     },
-    addToast(state, action:Toast) {
+    addToast(state, action) {
       action.payload.id = Math.floor((Math.random() * 9999) + 1);
       state.toasts.push(action.payload);
     },

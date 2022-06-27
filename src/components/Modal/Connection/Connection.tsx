@@ -33,7 +33,7 @@ function Connection() {
   return (
     <div className={styles.container}> 
       { isLoading &&
-        <Loader isMaxed={true}/>
+        <Loader isMaxed/>
       }
       <button className={styles.close} onClick={() => dispatch(toggleConnection())}>X</button>
       <form onSubmit={sendForm}>

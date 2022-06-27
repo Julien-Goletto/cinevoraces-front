@@ -36,9 +36,6 @@ type FieldsetCheckbox = {
 interface Layout {
   children?: import('react').ReactNode
 };
-type Loader = {
-  isMaxed?: boolean
-}
 type DBMovie = {
   id: number,
   french_title: string,

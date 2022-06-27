@@ -15,6 +15,10 @@
   display: flex;
   align-items: center;
   gap: 1.5em;
+  & svg {
+    margin-left: 1.1rem;
+    transform: scale(1.22);
+  }
 }
 .img {
   width: 12rem;

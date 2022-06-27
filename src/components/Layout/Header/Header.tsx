@@ -1,37 +1,41 @@
-import { Button } from 'components/Inputs/InputsLib';
-import Connection from 'components/Connection/Connection';
-import Modal from 'components/Modal/Modal';
+import { ReactComponent as SVGLogo } from '../Layout.Logo.svg';
 import { useAppDispatch, useAppSelector } from 'redux/hooks';
 import { toggleModal, globalState } from 'redux/slices/global';
-import { isOnline } from 'redux/slices/user';
-import styles from './Header.module.scss';
+import { userLogged } from 'redux/slices/user';
+import { useLastMovieQuery } from 'redux/api';
+import { Button } from 'components/Inputs/InputsLib';
+import { Link } from 'react-router-dom';
+import Connection from 'components/Connection/Connection';
+import Modal from 'components/Modal/Modal';
 import MenuMobile from './MenuMobile/MenuMobile';
 import UserMenu from './UserMenu/UserMenu';
-import { Link } from 'react-router-dom';
-import { useLastMovieQuery } from 'redux/api';
+import styles from './Header.module.scss';
 
+/**
+ * @returns App header
+ */
 function Header() {
   const dispatch = useAppDispatch();
   const {data} = useLastMovieQuery();
   const {modalIsOpen} = useAppSelector(globalState);
+  const {isOnline} = useAppSelector(userLogged);
+
   const connectionHandler = () => {
     dispatch(toggleModal());
   };
-  const isLogged = useAppSelector<boolean>(isOnline);
-  
 
   return(
     <>
-      { modalIsOpen && 
+      {modalIsOpen && 
       <Modal>
-        <Connection />
-      </Modal>
-      }
+        <Connection/>
+      </Modal>}
+
       <header className={styles.header}>
         <div className={styles.logo}>
           <MenuMobile />
           <Link to='/'>
-            <img className={styles.img} src='/images/logo_title.svg' alt='Logo du site' />
+            <SVGLogo/>
           </Link> 
         </div>
         <nav className={styles.nav}>
@@ -42,18 +46,15 @@ function Header() {
           <Link to={`film/${data ? data[0].id : ''}`} className={styles.link}>Le dernier film</Link>
         </nav>
 
-        {!isLogged &&
+        {!isOnline &&
           <>
-            <Button
-              styleMod='fill'
-              handler={connectionHandler}
-            >
+            <Button styleMod='fill' handler={connectionHandler}>
               <span className={styles['desktop-sentence']}>Se connecter</span>
               <span className={styles['mobile-sentence']}>Connexion</span>
             </Button>
           </>
         }
-        {isLogged &&
+        {isOnline &&
         <>
           <UserMenu />
         </>

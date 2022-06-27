@@ -1,4 +1,5 @@
 import ReactDOM from 'react-dom';
+import { ReactComponent as SVGClose } from './Modal.ico_close.svg';
 import { useAppDispatch } from 'redux/hooks';
 import { toggleModal } from 'redux/slices/global';
 import styles from './Modal.module.scss';
@@ -23,7 +24,12 @@ function Modal({children} : ModalProps) {
     <div className={styles.container}>
       <div className={styles['modal-background']} onClick={handleCloseModal}/>
       <div className={`${styles.modal} ${styles['scale-up-center']}`}>
-        { children }
+        <button className={styles.close} onClick={handleCloseModal}>
+          <SVGClose/>
+        </button>
+        <div className={styles.content}>
+          { children }
+        </div>
       </div>
     </div>
     , portal);

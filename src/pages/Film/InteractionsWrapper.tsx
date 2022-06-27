@@ -29,9 +29,7 @@ function InteractionsWrapper({movie}: InteractionsWrapperProps) {
         [type]: !Object.entries(interactionState).find(
           e => e[0] === type)![1]
       }};
-    // FIXME: This should already exist in data base
     !reviews && await postInteraction({userId: userId, movieId: movieId});
-    
     await putInteraction(body); // Fetch data base
     dispatch(toggle(type)); // update local state
   };
@@ -42,9 +40,7 @@ function InteractionsWrapper({movie}: InteractionsWrapperProps) {
       movieId: movieId,
       body: {rating: n}
     };
-    // FIXME: This should already exist in data base
     !reviews && await postInteraction({userId: userId, movieId: movieId});
-
     await putInteraction(body);
     dispatch(setRating(n));
   };

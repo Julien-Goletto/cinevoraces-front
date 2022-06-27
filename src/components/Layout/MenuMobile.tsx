@@ -36,7 +36,7 @@ function MenuMobile() {
             </Link>
           </li>
           <li className={styles.link}>
-            <Link to={lastMoviePath} className={styles.link} onClick={handleToggle}>
+            <Link to={lastMoviePath} className={styles.link}>
               Le dernier film
             </Link>
           </li>

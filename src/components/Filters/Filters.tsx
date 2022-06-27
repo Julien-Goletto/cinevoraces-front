@@ -17,11 +17,14 @@ import { ReactComponent as SVGFilterClosed } from './FilterMenu.isClosed.svg';
 import { ReactComponent as SVGFilterOpen } from './FilterMenu.isOpen.svg';
 import styles from './Filters.module.scss';
 
+/**
+ * @returns Filters menu 
+ */
 function Filters() {
   const [isFilterMenu, setFilterMenu] = useState(false);
   const dispatch = useAppDispatch();
-
   const { mainFilters, query, genre, country, periode, isDefault } = useAppSelector(filters);
+
   const handleFilterMenu = () => {
     (isFilterMenu) ? setFilterMenu(false) : setFilterMenu(true);
   };

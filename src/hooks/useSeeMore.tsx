@@ -1,14 +1,12 @@
 import { useState } from 'react';
 import styles from './useSeeMore.module.scss';
 
-
 /**
- * 
- * @param text Text content
- * @param max  Max character alowed
- * @returns Slice text and add 'Voir plus'/'Voir moins' action
+ * @returns     Slice text and add 'Voir plus'/'Voir moins' action
+ * @param text  Text content
+ * @param max   Max character alowed
  */
-export default function useSeeMore(text:string, max:number = 500) {
+function useSeeMore(text:string, max:number = 500) {
   const [maxChar, setMaxChar] = useState<number>(max);
   const [see, setSee] = useState<string>('Voir plus');
   if(!text) return null;
@@ -34,5 +32,6 @@ export default function useSeeMore(text:string, max:number = 500) {
       <button onClick={() => {seeMore();}} className={styles.more}>{see}</button>
     </p>
   );
-
 }
+
+export default useSeeMore;

@@ -19,6 +19,10 @@ const variants  = {
   show:   { scale: 1, transition },
 };
 
+/**
+ * @returns             Filter wrapper menu
+ * @param handleClose   Closing setter
+ */
 function FilterMenu ({children, handleClose}: DropDownProps) {
   return(
     <>
@@ -34,6 +38,10 @@ function FilterMenu ({children, handleClose}: DropDownProps) {
   );
 }
 
+/**
+ * @returns     Drop-down menu for filter category
+ * @param name  Displayed category name
+ */
 function DropDown ({children, name} : {[key: string]: React.ReactNode}) {
   const [dropDown, setDropDown] = useState(false);
   const handleDropDown = () => {

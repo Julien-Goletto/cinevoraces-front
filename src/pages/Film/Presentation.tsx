@@ -1,5 +1,4 @@
 import useSeeMore from 'hooks/useSeeMore';
-import { InputStar } from 'components/Inputs/InputsLib';
 import styles from './Presentation.module.scss';
 
 function Presentation({pic, name, date, text}: CommentProps) {

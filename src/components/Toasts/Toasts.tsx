@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import { useAppSelector } from 'redux/hooks';
 import { globalState } from 'redux/slices/global';
@@ -9,10 +8,7 @@ import styles from './Toasts.module.scss';
 const portal = document.getElementById('portal') as HTMLElement;
 
 function Toasts()  {
-  let { toasts } = useAppSelector(globalState);
-  useEffect(() => {
-    console.log(toasts);
-  }, [toasts]);
+  const { toasts } = useAppSelector(globalState);
   
   return ReactDOM.createPortal(
     (toasts.length > 0) && 
@@ -24,8 +20,7 @@ function Toasts()  {
             type={type} 
             text={text} 
             duration={duration}
-          />
-        ))}
+          />))}
       </div>
     , portal);
 };

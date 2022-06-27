@@ -1,17 +1,37 @@
+import { motion } from 'framer-motion';
+import { ReactComponent as SVGLogo } from '../Layout.Logo.svg';
 import { Link } from 'react-router-dom';
 import styles from './Footer.module.scss';
 
+const transition = {
+  type: 'tween',
+  ease: 'linear',
+  duration: 1,
+  delay: 1
+}; 
+const variants  = {
+  hidden: { opacity: 0, transition },
+  show:   { opacity: 1, transition },
+};
+
+/**
+ * @returns Footer 
+ */
 function Footer() {
   return(
-    <div className={styles.upper}>
+    <motion.div
+      className={styles.footer}
+      variants={variants}
+      initial='hidden'
+      animate='show'>
       <footer className={styles.footer}>
-        <img className={styles.img} src='/images/logo_title.svg' alt='Logo du site Cinévoraces' />
+        <SVGLogo/>
         <div className={styles.links}>
           <Link to='/team' className={styles.link}>L'équipe</Link>
         </div>
         <div className={styles.copyright}>© Tout droit réservé - 2022</div>
       </footer>
-    </div>
+    </motion.div>
   );
 }
 

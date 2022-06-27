@@ -4,6 +4,9 @@ import { useAppDispatch, useAppSelector } from 'redux/hooks';
 import { globalState, toggleUserMenu } from 'redux/slices/global';
 import styles from './UserMenu.module.scss';
 
+/**
+ * @returns User menu
+ */
 function Menu() {
   const { pseudo, id, role } = useAppSelector(userLogged);
   const dispatch = useAppDispatch();

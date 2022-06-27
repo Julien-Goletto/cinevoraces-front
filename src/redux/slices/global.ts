@@ -2,16 +2,12 @@ import { createSlice } from '@reduxjs/toolkit';
 import { RootState } from '../store';
 
 type GlobalState = {
-  mobileIsOpen: boolean,
   modalIsOpen: boolean,
-  userIsOpen: boolean,
   toasts: object[],
 }
 
 const initialState : GlobalState = { 
-  mobileIsOpen: false,
   modalIsOpen: false,
-  userIsOpen: false,
   toasts: [],
 };
 

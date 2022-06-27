@@ -40,10 +40,10 @@ function Connection() {
     <> 
       { isLoading &&
         <Loader isMaxed/>}
-      <form onSubmit={sendForm}>
+      <form className={styles.connection} onSubmit={sendForm}>
         <InputText label="Nom d'utilisateur" name='username' type='text' placeholder='Entrez votre nom d’utilisateur'/>
         <InputText label='Mot de passe' name='password' type='password' placeholder='Entrez votre mot de passe'/>
-        <div className={styles.button}>
+        <div className={styles['button-container']}>
           <Button styleMod='fill'>
             Se connecter
           </Button>

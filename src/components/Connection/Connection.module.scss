@@ -1,27 +1,18 @@
 @use '~styles/var';
 
-.button {
-  display: flex;
-  justify-content: space-between;
-  gap: 1em;
-  margin-top: 30px;
-}
-.close {
-  user-select: none;
-  cursor: pointer;
-  position: absolute;
-  top: 10px;
-  right: 5px;
-  border: none;
-  color: var.$primary;
-  font-weight: 600;
-  font-size: 1em;
-  background-color: transparent;
-  font-family: Comic Sans MS, sans-serif;
+.connection {
+  margin: auto;
+  width: 96%;
+  & .button-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 1em;
+    margin-top: 30px;
+  }
 }
 
 @media screen and (max-width: 380px) {
-  .button {
+  .connection .button-container {
     flex-direction: column;
   }
 }

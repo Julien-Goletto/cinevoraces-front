@@ -14,7 +14,6 @@ function Presentation({pic, name, date, text}: CommentProps) {
           <div className={styles.date}>{date}</div>
         </div>
       </div>
-      <div className={styles.note}><InputStar value={0}/></div>
       {sliceText}
     </div>
   );

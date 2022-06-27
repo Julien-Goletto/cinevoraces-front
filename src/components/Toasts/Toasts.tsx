@@ -7,6 +7,9 @@ import styles from './Toasts.module.scss';
 // Append toats outside of App with a portal
 const portal = document.getElementById('portal') as HTMLElement;
 
+/**
+ * @returns List of toasts
+ */
 function Toasts()  {
   const { toasts } = useAppSelector(globalState);
   
@@ -16,7 +19,6 @@ function Toasts()  {
         {toasts.map(({id, type, text, duration}: Toast) => (
           <Toast 
             key={id} 
-            id={id!} 
             type={type} 
             text={text} 
             duration={duration}

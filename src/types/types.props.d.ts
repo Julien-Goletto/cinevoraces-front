@@ -71,9 +71,3 @@ type ParamPasswordField = {
   onSubmit: any,
   updateIsSuccess: any
 }
-type ToastProps = {
-  type: string,
-  text: string,
-  duration?: number,
-  id: number
-}

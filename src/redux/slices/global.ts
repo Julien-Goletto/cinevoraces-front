@@ -19,15 +19,13 @@ const globalSlice = createSlice({
       state.modalIsOpen = !state.modalIsOpen;
     },
     addToast(state, action) {
-      action.payload.id = Math.floor((Math.random() * 9999) + 1);
       state.toasts.push(action.payload);
     },
-    removeToast(state, action:any) {
-      state.toasts = state.toasts.filter((el:any) => action.payload !== el.id);
+    removeToast(state) {
+      state.toasts.splice(0, 1);
     }}
 });
 
-export const getToasts = (state: RootState) => state.global.toasts;
 export const globalState = (state: RootState) => state.global;
 
 export const { 

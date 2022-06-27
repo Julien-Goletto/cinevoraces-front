@@ -2,12 +2,14 @@
 
 .connection {
   margin: auto;
-  width: 96%;
   & .button-container {
     display: flex;
     justify-content: space-between;
-    gap: 1em;
+    gap: 2em;
     margin-top: 30px;
+    & button {
+      white-space: nowrap;
+    }
   }
 }
 

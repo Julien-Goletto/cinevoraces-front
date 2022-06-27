@@ -90,7 +90,7 @@ function Interaction({type, count, value, handler, loader}: InteractionProps) {
             ${rateMenu ? `${styles['is-open']}` : `${styles['is-closed']}`}
             ${animIsActive && (!rateMenu ? `${styles['is-opening']}` : `${styles['is-closing']}`)}
           `}>
-            <InputStar isInput value={(value && typeof value === 'number') ? value : 0} setter={handler}/>
+            <InputStar isInput value={Number(value)} setter={handler}/>
           </div>
         </div>}
     </div>

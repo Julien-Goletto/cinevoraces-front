@@ -1,7 +1,7 @@
 import ReactDOM from 'react-dom';
 import { useAppSelector } from 'redux/hooks';
 import { globalState } from 'redux/slices/global';
-import Toast from './Toast/Toast';
+import Toast from './Toast';
 import styles from './Toasts.module.scss';
 
 // Append toats outside of App with a portal

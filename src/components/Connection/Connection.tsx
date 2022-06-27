@@ -37,7 +37,7 @@ function Connection() {
 
   
   return (
-    <div className={styles.container}> 
+    <> 
       { isLoading &&
         <Loader isMaxed/>}
       <form onSubmit={sendForm}>
@@ -52,8 +52,7 @@ function Connection() {
           </Button>
         </div>
       </form>
-
-    </div>
+    </>
   );
 }
 

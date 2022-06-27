@@ -1,52 +1,46 @@
 import { setOffline, userLogged } from 'redux/slices/user';
 import { Link } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from 'redux/hooks';
-import { userIsOpen } from 'redux/slices/global';
+import { globalState, toggleUserMenu } from 'redux/slices/global';
 import styles from './UserMenu.module.scss';
 
 function Menu() {
-  const { pseudo, id, role } = useAppSelector<any>(userLogged);
+  const { pseudo, id, role } = useAppSelector(userLogged);
   const dispatch = useAppDispatch();
+
   const userMenuHandler = () => {
-    dispatch(userIsOpen());
+    dispatch(toggleUserMenu());
   };
+  const logoutHandler = () => {
+    dispatch(setOffline());
+  };
+
   return (
     <>
-      <div 
-        className={styles['background']}
-        onClick={userMenuHandler}
-      />
+      <div className={styles['background']} onClick={userMenuHandler}/>
       <nav className={styles.nav}>
         <span className={styles.username}>{pseudo}</span>
         <ul className={styles.links}>
           <li className={styles.link}>
-            <Link
-              to={`/user/${id}`}
-              onClick={userMenuHandler}
-            >
+            <Link to={`/user/${id}`} onClick={userMenuHandler}>
               Mon Profil
             </Link>
           </li>
           <li className={styles.link}>
-            <Link reloadDocument 
-              to='/proposal'
-              onClick={userMenuHandler}
-            >
+            <Link reloadDocument to='/proposal' onClick={userMenuHandler}>
               Proposer un film
             </Link>
           </li>
-          { role === 'admin' &&
+          {(role === 'admin') &&
             <li className={styles.link}>
-              <Link reloadDocument 
-                to='/admin'
-                onClick={userMenuHandler}
-              >
+              <Link reloadDocument to='/admin' onClick={userMenuHandler}>
                 Dashboard Admin
               </Link>
-            </li>
-          }
+            </li>}
           <li className={styles.link}>
-            <Link onClick={()=> dispatch(setOffline())} to='/'>Se déconnecter</Link>
+            <Link onClick={logoutHandler} to='/'>
+              Se déconnecter
+            </Link>
           </li>
         </ul>
       </nav>
@@ -57,14 +51,14 @@ function Menu() {
 function UserMenu() {
   const { avatar } = useAppSelector<any>(userLogged);
   const dispatch = useAppDispatch();
-  const isOpen = useAppSelector(state => state.global.userIsOpen);
+  const {userIsOpen} = useAppSelector(globalState);
   const userMenuHandler = () => {
-    dispatch(userIsOpen());
+    dispatch(toggleUserMenu());
   };
 
   return (
     <>
-      {isOpen && <Menu/>}
+      {userIsOpen && <Menu/>}
       <img 
         onClick={userMenuHandler} 
         className={styles.ico} 
@@ -74,4 +68,5 @@ function UserMenu() {
     </>
   );
 }
+
 export default UserMenu;

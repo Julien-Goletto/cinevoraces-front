@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { ReactComponent as SVGLogo } from '../Layout.Logo.svg';
+import { ReactComponent as SVGLogo } from './Layout.Logo.svg';
 import { Link } from 'react-router-dom';
 import styles from './Footer.module.scss';
 

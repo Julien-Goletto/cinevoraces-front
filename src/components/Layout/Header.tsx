@@ -1,4 +1,4 @@
-import { ReactComponent as SVGLogo } from '../Layout.Logo.svg';
+import { ReactComponent as SVGLogo } from './Layout.Logo.svg';
 import { useAppDispatch, useAppSelector } from 'redux/hooks';
 import { toggleModal, globalState } from 'redux/slices/global';
 import { userLogged } from 'redux/slices/user';
@@ -7,8 +7,8 @@ import { Button } from 'components/Inputs/InputsLib';
 import { Link } from 'react-router-dom';
 import Connection from 'components/Connection/Connection';
 import Modal from 'components/Modal/Modal';
-import MenuMobile from './MenuMobile/MenuMobile';
-import UserMenu from './UserMenu/UserMenu';
+import MenuMobile from './MenuMobile';
+import UserMenu from './UserMenu';
 import styles from './Header.module.scss';
 
 /**

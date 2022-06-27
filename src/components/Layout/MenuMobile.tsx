@@ -1,49 +1,47 @@
 import { Link } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from 'redux/hooks';
-import { mobileIsOpen } from 'redux/slices/global';
 import { useLastMovieQuery } from 'redux/api';
+import { globalState, toggleMobileMenu } from 'redux/slices/global';
 import styles from './MenuMobile.module.scss';
 
+/**
+ * @returns Mobile menu
+ */
 function MenuMobile() {
   const dispatch = useAppDispatch();
-  const isOpen = useAppSelector(state => state.global.mobileIsOpen);
+  const {mobileIsOpen} = useAppSelector(globalState);
   const {data} = useLastMovieQuery();
+  const lastMoviePath = `film/${data ? data[0].id : ''}`;
+
+  const handleToggle = () => {
+    dispatch(toggleMobileMenu());
+  };
 
   return (
     <>
-      <button onClick={()=> {dispatch(mobileIsOpen());}} className={styles['nav-mobile']}>
+      <button onClick={handleToggle} className={styles['nav-mobile']}>
         <img src='/images/mobile_menu.svg' alt='' />
       </button>
-      {isOpen &&
+      {mobileIsOpen &&
       <nav className={styles.nav}>
         <ul className={styles.links}>
           <li className={styles.link}>
-            <Link 
-              to='/'
-              onClick={()=> {dispatch(mobileIsOpen());}}
-            >
+            <Link to='/' onClick={handleToggle}>
               Accueil
             </Link>
           </li>
           <li className={styles.link}>
-            <Link 
-              to='/films'
-              onClick={()=> {dispatch(mobileIsOpen());}}
-            >
+            <Link to='/films' onClick={handleToggle}>
               Les films
             </Link>
           </li>
           <li className={styles.link}>
-            <Link 
-              to={`film/${data ? data[0].id : ''}`} className={styles.link}
-              onClick={()=> {dispatch(mobileIsOpen());}}
-            >
+            <Link to={lastMoviePath} className={styles.link} onClick={handleToggle}>
               Le dernier film
             </Link>
           </li>
         </ul>
-      </nav>
-      }
+      </nav>}
     </>
   );
 }

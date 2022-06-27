@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react';
 import { useAllMoviesQuery } from 'redux/api';
 import { Link } from 'react-router-dom';
 import { Button } from 'components/Inputs/InputsLib';

@@ -8,13 +8,14 @@
 .wrapper {
   width: 100%;
   display: flex;
-  flex-wrap: wrap;
-  align-items: start;
+  gap: 1rem;
+  // flex-wrap: wrap;
+  // align-items: start;
   margin-bottom: 1em;
 }
 
 .poster {
-  width: 70%;
+  width: 80%;
   border: 2px solid transparent;
   background-clip: padding-box;
   box-sizing: border-box;
@@ -56,6 +57,7 @@
   }
   .wrapper {
     width: 45%;
+    flex-direction: column;
   }
 }
 

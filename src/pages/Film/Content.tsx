@@ -19,11 +19,7 @@ function Content({ movie, isLoading }: Content) {
       <>
         <div className={styles.content}>
           <div className={styles.wrapper}>
-            
-            <div 
-              className={styles.poster}
-              key={movie.id}
-            >
+            <div className={styles.poster} key={movie.id}>
               <img 
                 src={movie.poster_url} 
                 alt={movie.french_title}

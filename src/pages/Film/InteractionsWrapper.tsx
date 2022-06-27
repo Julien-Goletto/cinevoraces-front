@@ -47,11 +47,11 @@ function InteractionsWrapper({movie}: InteractionsWrapperProps) {
 
   return(
     <div className={styles['interactions-wrapper']}>
-      <Interaction 
-        value={liked}
+      <Interaction
+        value={bookmarked}
         handler={dispatchInteraction}
-        type='liked'
-        count={Number(movie.likes_count)}
+        type='bookmarked'
+        count={Number(movie.watchlist_count)}
         loader={isLoading}
       />
       <Interaction
@@ -61,11 +61,11 @@ function InteractionsWrapper({movie}: InteractionsWrapperProps) {
         count={Number(movie.views_count)}
         loader={isLoading}
       />
-      <Interaction
-        value={bookmarked}
+      <Interaction 
+        value={liked}
         handler={dispatchInteraction}
-        type='bookmarked'
-        count={Number(movie.watchlist_count)}
+        type='liked'
+        count={Number(movie.likes_count)}
         loader={isLoading}
       />
       <Interaction

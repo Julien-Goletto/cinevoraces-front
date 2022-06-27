@@ -13,6 +13,8 @@ import {
 import { Button, InputText, InputCheckbox, InputRadio, DoubleInputRange } from 'components/Inputs/InputsLib';
 import { FilterMenu, DropDown } from './FilterMenu';
 import { ReactComponent as SVGReset } from './FilterMenu.reset.svg';
+import { ReactComponent as SVGFilterClosed } from './FilterMenu.isClosed.svg';
+import { ReactComponent as SVGFilterOpen } from './FilterMenu.isOpen.svg';
 import styles from './Filters.module.scss';
 
 function Filters() {
@@ -50,7 +52,7 @@ function Filters() {
       <div className={styles['button-container']}>
         <Button handler={handleFilterMenu}> 
           Filtrer
-          { (isFilterMenu) ? <img src='/images/filter-open.svg' alt='' /> : <img src='/images/filter-closed.svg' alt='' /> }
+          {(isFilterMenu) ? <SVGFilterOpen/> : <SVGFilterClosed/>}
         </Button>
         { !isDefault &&
           <Button handler={handleReset}> 

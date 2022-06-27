@@ -8,7 +8,7 @@ import { useAppDispatch, useAppSelector } from 'redux/hooks';
 import { userLogged } from 'redux/slices/user';
 import { useCallback, useEffect, useState } from 'react';
 import { setActive, setInactive } from 'redux/slices/interaction';
-import AnimationLayout from 'components/AnimationRouter';
+import AnimationLayout from 'components/AnimationLayout/AnimationLayout';
 import AddComment from './AddComment';
 
 

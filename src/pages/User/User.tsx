@@ -4,7 +4,7 @@ import UserHeader from './UserHeader/UserHeader';
 import UserMetrics from './UserMetrics/UserMetrics';
 import UserSubmittedFilm from './UserSubmittedFilm/UserSubmittedFilm';
 import UserParams from './UserParams/UserParams';
-import AnimationLayout from 'components/AnimationRouter';
+import AnimationLayout from 'components/AnimationLayout/AnimationLayout';
 import styles from './User.module.scss';
 
 function User() {

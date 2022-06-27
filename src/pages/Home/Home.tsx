@@ -7,7 +7,7 @@ import About from './About/About';
 import SendMovie from './About/SendMovie/SendMovie';
 import Share from './About/Share/Share';
 import JoinUs from './JoinUs/JoinUs';
-import AnimationLayout from 'components/AnimationRouter';
+import AnimationLayout from 'components/AnimationLayout/AnimationLayout';
 import styles from './Home.module.scss';
 
 function Home() {

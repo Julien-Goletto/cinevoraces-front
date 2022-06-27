@@ -1,5 +1,8 @@
-// import { Outlet, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
+
+type AnimationLayoutProps = {
+  children: React.ReactNode
+}
 
 const transition = {
   type: 'tween',
@@ -11,20 +14,20 @@ const variants  = {
   show:   { opacity: 1, transition },
 };
 
-function AnimationLayout({children}: {children: React.ReactNode}) {
-  // This method no longer work in React-router-dom v6
+/**
+ * @returns Framer-motion animation wrapper
+ */
+function AnimationLayout({children}: AnimationLayoutProps) {
+  // Outlet/location method no longer work in React-router-dom v6
   // You need to wrap every page you want to animate with this component
-  // const { pathname } = useLocation();
   return (
     <motion.div
-      // key={pathname}
       variants={variants}
       initial='hidden'
       animate='show'
       exit='hidden'
     >
       {children}
-      {/* <Outlet /> */}
     </motion.div>
   );
 };

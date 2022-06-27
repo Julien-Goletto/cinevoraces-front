@@ -2,7 +2,7 @@ import LastMoviesGrid from 'components/LastMoviesGrid/LastMoviesGrid';
 import { Button } from 'components/Inputs/InputsLib';
 import { useLocation } from 'react-router-dom';
 import styles from './Error.module.scss';
-import AnimationLayout from 'components/AnimationRouter';
+import AnimationLayout from 'components/AnimationLayout/AnimationLayout';
 
 function Error({ errorNum = 404, }: ErrorPage) {
   const { pathname } = useLocation();

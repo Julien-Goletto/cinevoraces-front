@@ -1,6 +1,6 @@
 import Metrics from 'components/Metrics/Metrics';
 import Loader from 'components/Loader/Loader';
-import AnimationLayout from 'components/AnimationRouter';
+import AnimationLayout from 'components/AnimationLayout/AnimationLayout';
 import { InputText, Button } from 'components/Inputs/InputsLib';
 import { useEffect } from 'react';
 import { useUserRegisterMutation } from 'redux/api';

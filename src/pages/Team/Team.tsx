@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { ReactComponent as LinkedIn } from './ico/linkedin.svg';
-import AnimationLayout from 'components/AnimationRouter';
+import AnimationLayout from 'components/AnimationLayout/AnimationLayout';
 import styles from './Team.module.scss';
 
 function Team() {

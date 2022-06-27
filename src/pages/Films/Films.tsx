@@ -3,7 +3,7 @@ import { useAppDispatch, useAppSelector } from 'redux/hooks';
 import { useAllMoviesQuery, useFiltersQuery } from 'redux/api';
 import { initFilters, filters } from 'redux/slices/filter';
 import Loader from 'components/Loader/Loader';
-import AnimationLayout from 'components/AnimationRouter';
+import AnimationLayout from 'components/AnimationLayout/AnimationLayout';
 import Filters from './Filters/Filters';
 import MoviesGrid from './MoviesGrid/MoviesGrid';
 import styles from './Films.module.scss';

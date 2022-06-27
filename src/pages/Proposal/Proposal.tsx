@@ -3,7 +3,7 @@ import MovieGrid from './MoviesGrid/MovieGrid';
 import Description from './Description/Description';
 import Option from './Option/Option';
 import Search from './Search/Search';
-import AnimationLayout from 'components/AnimationRouter';
+import AnimationLayout from 'components/AnimationLayout/AnimationLayout';
 import { useAppDispatch, useAppSelector } from 'redux/hooks';
 import { getProposalData, getSearch, setEpisode, unsetEpisode } from 'redux/slices/proposal';
 import { Button } from 'components/Inputs/InputsLib';

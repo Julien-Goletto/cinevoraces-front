@@ -7,7 +7,7 @@ import {
 } from 'redux/api';
 import { Button } from 'components/Inputs/InputsLib';
 import { addToast } from 'redux/slices/global';
-import AnimationLayout from 'components/AnimationRouter';
+import AnimationLayout from 'components/AnimationLayout/AnimationLayout';
 import Loader from 'components/Loader/Loader';
 import Proposal from './Proposal';
 import User from './User';

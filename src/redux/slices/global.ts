@@ -22,12 +22,6 @@ const globalSlice = createSlice({
     toggleModal(state) {
       state.modalIsOpen = !state.modalIsOpen;
     },
-    toggleMobileMenu(state) {
-      state.mobileIsOpen = !state.mobileIsOpen;
-    },
-    toggleUserMenu(state) {
-      state.userIsOpen = !state.userIsOpen;
-    },
     addToast(state, action:Toast) {
       action.payload.id = Math.floor((Math.random() * 9999) + 1);
       state.toasts.push(action.payload);
@@ -42,8 +36,6 @@ export const globalState = (state: RootState) => state.global;
 
 export const { 
   toggleModal,
-  toggleMobileMenu,
-  toggleUserMenu,
   addToast,
   removeToast } = globalSlice.actions;
 export default globalSlice.reducer;

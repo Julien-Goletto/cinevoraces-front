@@ -1,42 +1,62 @@
+import { useState } from 'react';
 import { setOffline, userLogged } from 'redux/slices/user';
 import { Link } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from 'redux/hooks';
-import { globalState, toggleUserMenu } from 'redux/slices/global';
 import styles from './UserMenu.module.scss';
+
+type MenuProps = {
+  setter(): void,
+}
 
 /**
  * @returns User menu
  */
-function Menu() {
+function UserMenu() {
+  const { avatar } = useAppSelector<any>(userLogged);
+  const [menuState, setMenuState] = useState(false);
+  const handleMenu = () => {
+    setMenuState(!menuState);
+  };
+
+  return (
+    <>
+      {menuState && <Menu setter={handleMenu}/>}
+      <img 
+        onClick={handleMenu}
+        className={styles.ico}
+        src={`${(avatar) ? avatar : '/images/user_default.svg'}`}
+        alt=''
+      />
+    </>
+  );
+}
+
+function Menu({setter}: MenuProps) {
   const { pseudo, id, role } = useAppSelector(userLogged);
   const dispatch = useAppDispatch();
-
-  const userMenuHandler = () => {
-    dispatch(toggleUserMenu());
-  };
   const logoutHandler = () => {
     dispatch(setOffline());
   };
 
   return (
     <>
-      <div className={styles['background']} onClick={userMenuHandler}/>
+      <div className={styles['background']} onClick={setter}/>
       <nav className={styles.nav}>
         <span className={styles.username}>{pseudo}</span>
         <ul className={styles.links}>
           <li className={styles.link}>
-            <Link to={`/user/${id}`} onClick={userMenuHandler}>
+            <Link to={`/user/${id}`} onClick={setter}>
               Mon Profil
             </Link>
           </li>
           <li className={styles.link}>
-            <Link reloadDocument to='/proposal' onClick={userMenuHandler}>
+            <Link reloadDocument to='/proposal' onClick={setter}>
               Proposer un film
             </Link>
           </li>
           {(role === 'admin') &&
             <li className={styles.link}>
-              <Link reloadDocument to='/admin' onClick={userMenuHandler}>
+              <Link reloadDocument to='/admin' onClick={setter}>
                 Dashboard Admin
               </Link>
             </li>}
@@ -47,27 +67,6 @@ function Menu() {
           </li>
         </ul>
       </nav>
-    </>
-  );
-}
-
-function UserMenu() {
-  const { avatar } = useAppSelector<any>(userLogged);
-  const dispatch = useAppDispatch();
-  const {userIsOpen} = useAppSelector(globalState);
-  const userMenuHandler = () => {
-    dispatch(toggleUserMenu());
-  };
-
-  return (
-    <>
-      {userIsOpen && <Menu/>}
-      <img 
-        onClick={userMenuHandler} 
-        className={styles.ico} 
-        src={`${(avatar) ? avatar : '/images/user_default.svg'}`}
-        alt=''
-      />
     </>
   );
 }

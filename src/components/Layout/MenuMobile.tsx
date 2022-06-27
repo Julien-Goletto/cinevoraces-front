@@ -1,37 +1,35 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { useAppDispatch, useAppSelector } from 'redux/hooks';
 import { useLastMovieQuery } from 'redux/api';
-import { globalState, toggleMobileMenu } from 'redux/slices/global';
 import styles from './MenuMobile.module.scss';
 
 /**
  * @returns Mobile menu
  */
 function MenuMobile() {
-  const dispatch = useAppDispatch();
-  const {mobileIsOpen} = useAppSelector(globalState);
   const {data} = useLastMovieQuery();
   const lastMoviePath = `film/${data ? data[0].id : ''}`;
-
-  const handleToggle = () => {
-    dispatch(toggleMobileMenu());
+  const [mobileMenu, setMobileMenu] = useState(false);
+  
+  const handleMobileMenu = () => {
+    setMobileMenu(!mobileMenu);
   };
 
   return (
     <>
-      <button onClick={handleToggle} className={styles['nav-mobile']}>
+      <button onClick={handleMobileMenu} className={styles['nav-mobile']}>
         <img src='/images/mobile_menu.svg' alt='' />
       </button>
-      {mobileIsOpen &&
+      {mobileMenu &&
       <nav className={styles.nav}>
         <ul className={styles.links}>
           <li className={styles.link}>
-            <Link to='/' onClick={handleToggle}>
+            <Link to='/' onClick={handleMobileMenu}>
               Accueil
             </Link>
           </li>
           <li className={styles.link}>
-            <Link to='/films' onClick={handleToggle}>
+            <Link to='/films' onClick={handleMobileMenu}>
               Les films
             </Link>
           </li>

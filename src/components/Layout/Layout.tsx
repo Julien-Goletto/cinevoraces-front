@@ -1,11 +1,14 @@
 import Header from './Header/Header';
 import Footer from './Footer/Footer';
 
+/**
+ * @returns App layout 
+ */
 function Layout({children}: Layout) {
   return(
     <>
       <Header/>
-      <main style={{minHeight: '78vh'}}>
+      <main>
         {children}
       </main>
       <Footer/>

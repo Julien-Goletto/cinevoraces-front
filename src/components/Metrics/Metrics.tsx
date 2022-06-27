@@ -1,6 +1,9 @@
 import { useAllMetricsQuery } from 'redux/api';
 import styles from './Metrics.module.scss';
 
+/**
+ * @returns  display statistics about cinévoraces
+ */
 function Metrics() {
   const { data } = useAllMetricsQuery<Metrics>();  
   return (

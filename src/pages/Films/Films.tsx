@@ -4,7 +4,7 @@ import { useAllMoviesQuery, useFiltersQuery } from 'redux/api';
 import { initFilters, filters } from 'redux/slices/filter';
 import Loader from 'components/Loader/Loader';
 import AnimationLayout from 'components/AnimationLayout/AnimationLayout';
-import Filters from './Filters/Filters';
+import Filters from '../../components/Filters/Filters';
 import MoviesGrid from './MoviesGrid/MoviesGrid';
 import styles from './Films.module.scss';
 

@@ -15,28 +15,21 @@
   & svg {
     transform: scale(1.2);
   }
-}
-.links {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: .9em;
-}
-
-.link {
-  color: var.$primary;
-}
-
-.link:hover {
-  text-decoration: underline;
-}
+  .links {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: .9em;
+  }
+  .link {
+    color: var.$primary;
+    &:hover {
+      text-decoration: underline;
+    }}}
 
 @include mix.breakpoint('laptop') {
-  .links,
-  .copyright {
-    font-size: 16px;
-  }
-  .img {
-    width: 14rem;
-  }
-}
+  .footer {
+    & .links,
+    .copyright {
+      font-size: 16px;
+    }}}

@@ -34,7 +34,7 @@ function Interaction({type, count, value, handler, loader}: InteractionProps) {
   const [animIsActive, setAnimActive]         = useState<boolean>(false);
   
   const typeResolver = (searchedString: string) => {
-    if (RegExp(`\\b${searchedString}\\b`).test(type!)) {
+    if (RegExp(`\\b${searchedString}\\b`).test(type)) {
       return true;
     } else {
       return false;

@@ -21,7 +21,7 @@ function Register() {
   const [passwordField, setPasswordField] = useState('');
   const [confirmField, setConfirmField]   = useState('');
 
-  // Fields states Handlers
+  // Fields states handlers
   const handleMailField = (e: React.ChangeEvent<HTMLInputElement>) => {
     setMailField(e.currentTarget.value);
   };

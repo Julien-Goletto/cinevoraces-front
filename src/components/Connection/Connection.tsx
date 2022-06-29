@@ -36,7 +36,7 @@ function Connection() {
         // Show success message to user
         {type:'success', text: `Bienvenue ${userData!.pseudo}`}));
     }
-  }, [userData, isSuccess, dispatch]);
+  }, [isSuccess]);
 
   
   return (

@@ -16,6 +16,7 @@ function Register() {
   const isLogged = useAppSelector<boolean>(isOnline);
   const { id } = useAppSelector(userLogged);
   const [addUser, {error, isLoading, isError, isSuccess}] = useUserRegisterMutation();
+  // Controlled input states
   const [mailField, setMailField]         = useState('');
   const [pseudoField, setPseudoField]     = useState('');
   const [passwordField, setPasswordField] = useState('');

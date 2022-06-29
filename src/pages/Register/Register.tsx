@@ -6,15 +6,14 @@ import { useEffect, useState } from 'react';
 import { useUserRegisterMutation } from 'redux/api';
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from 'redux/hooks';
-import { userLogged, isOnline } from 'redux/slices/user';
+import { userLogged } from 'redux/slices/user';
 import { addToast, toggleModal } from 'redux/slices/global';
 import styles from './Register.module.scss';
 
 function Register() {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const isLogged = useAppSelector<boolean>(isOnline);
-  const {id} = useAppSelector(userLogged);
+  const {id, isOnline} = useAppSelector(userLogged);
   const [addUser, {error, isLoading, isError, isSuccess}] = useUserRegisterMutation();
   // Controlled input states
   const [mailField, setMailField]         = useState('');
@@ -89,8 +88,8 @@ function Register() {
   },[isError]);
   // Handle redirection if connected
   useEffect(() => {
-    isLogged && navigate(`/user/${id}`);
-  }, [isLogged]);
+    isOnline && navigate(`/user/${id}`);
+  }, [isOnline]);
 
   return(
     <AnimationLayout>

@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useAppDispatch } from 'redux/hooks';
 import { useUserLoginMutation } from 'redux/api';
 import { addToast, toggleModal } from 'redux/slices/global';
@@ -11,16 +11,24 @@ import styles from './Connection.module.scss';
  * @returns Connection form
  */
 function Connection() {
-  const [loginUser, {data: userData, isSuccess, isLoading}] = useUserLoginMutation();
   const dispatch = useAppDispatch();
+  const [loginUser, {data: userData, isSuccess, isLoading}] = useUserLoginMutation();
+  const [pseudoField, setPseudoField] = useState('');
+  const [passwordField, setPasswordField]     = useState('');
 
-  // Login handler function
+  // Fields states handlers
+  const handlePseudoField = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setPseudoField(e.currentTarget.value);
+  };
+  const handlePasswordField = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setPasswordField(e.currentTarget.value);
+  };
+  // Login handler
   const login = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const form = new FormData(e.currentTarget);
-    loginUser({      
-      pseudo: form.get('username'),
-      password: form.get('password')
+    loginUser({
+      pseudo: pseudoField,
+      password: passwordField
     });
   };
   const handleModal = () => {
@@ -37,15 +45,28 @@ function Connection() {
         {type:'success', text: `Bienvenue ${userData!.pseudo}`}));
     }
   }, [isSuccess]);
-
   
   return (
     <> 
       { isLoading &&
         <Loader isMaxed/>}
       <form className={styles.connection} onSubmit={login}>
-        <InputText label="Nom d'utilisateur" name='username' type='text' placeholder='Entrez votre nom d’utilisateur'/>
-        <InputText label='Mot de passe' name='password' type='password' placeholder='Entrez votre mot de passe'/>
+        <InputText 
+          label="Nom d'utilisateur"
+          name='username'
+          type='text'
+          placeholder='Entrez votre nom d’utilisateur'
+          handler={handlePseudoField}
+          value={pseudoField}
+        />
+        <InputText 
+          label='Mot de passe'
+          name='password'
+          type='password'
+          placeholder='Entrez votre mot de passe'
+          handler={handlePasswordField}
+          value={passwordField}
+        />
         <div className={styles['button-container']}>
           <Button styleMod='fill'>
             Se connecter

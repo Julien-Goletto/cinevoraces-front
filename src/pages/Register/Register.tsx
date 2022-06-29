@@ -37,12 +37,11 @@ function Register() {
 
   // Resolve password errors
   const formRegEx = (string: string) => {
-    if (RegExp('^((?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[\-~!@#$%^*_+=/:;.?])(?=.{8,}))').test(String(string!))) { // eslint-disable-line
+    if (RegExp(process.env.REACT_APP_PASS_REGEX!).test(String(string!))) { // eslint-disable-line
       return true;
     } else {
       return false;
-    }
-  };
+    }};
   const dispatchToastError = (error: string) => {
     dispatch(addToast({type:'error', text: error}));
   };

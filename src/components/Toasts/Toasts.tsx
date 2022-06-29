@@ -16,9 +16,8 @@ function Toasts()  {
   return ReactDOM.createPortal(
     (toasts.length > 0) && 
       <div className={`${styles.toast} ${styles['scale-up-left']}`}>
-        {toasts.map(({id, type, text, duration}) => (
+        {toasts.map(({type, text, duration}) => (
           <Toast 
-            key={id} 
             type={type} 
             text={text} 
             duration={duration}

@@ -7,7 +7,6 @@ type GlobalState = {
     type: 'error' | 'warn' | 'success',
     text: string,
     duration?: number,
-    id?: number
   }[],
 };
 

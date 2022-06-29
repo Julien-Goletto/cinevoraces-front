@@ -81,7 +81,7 @@ function Register() {
       dispatch(toggleModal());
       return navigate('/');
     }
-  },[isSuccess, dispatch, navigate]);
+  },[isSuccess]);
   // Handle registering errors
   useEffect(()=> {
     if(isError && 'status' in error!) {

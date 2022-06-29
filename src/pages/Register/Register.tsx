@@ -14,7 +14,7 @@ function Register() {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const isLogged = useAppSelector<boolean>(isOnline);
-  const { id } = useAppSelector(userLogged);
+  const {id} = useAppSelector(userLogged);
   const [addUser, {error, isLoading, isError, isSuccess}] = useUserRegisterMutation();
   // Controlled input states
   const [mailField, setMailField]         = useState('');

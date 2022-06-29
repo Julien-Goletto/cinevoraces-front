@@ -52,12 +52,12 @@ export const api = createApi({
     userRegister: build.mutation<string, {[key: string]: string | null}>({
       query: (user) => ({ url: '/v1/users/register', method:'POST', body: user })
     }),
-    userLogin: build.mutation<user, any>({
-      query: (user:user) => ({ url: '/v1/users/login', method:'POST', body: user}),
-      transformResponse: (res:any) => res
+    userLogin: build.mutation<user, {[key: string]: string}>({
+      query: (user) => ({ url: '/v1/users/login', method:'POST', body: user}),
+      transformResponse: (res: user) => res
     }),
-    userUpdate: build.mutation<void, any>({
-      query: (data) => ({url: `v1/users/modify/${data.userId}`, method: 'PUT', body: data.user}),
+    userUpdate: build.mutation<string, {userId: number, user: {[key: string]: string}}>({
+      query: ({user, userId}) => ({url: `v1/users/modify/${userId}`, method: 'PUT', body: user}),
       invalidatesTags: ['UserParams'] 
     }), 
     userUpdatePicture: build.mutation<void, any>({

@@ -42,7 +42,6 @@ function App() {
 
   useEffect(()=> {
     if(!isLoading && data && !isError ) {
-      console.log(data);
       dispatch(setUser(data));
       setReady(true);
     }

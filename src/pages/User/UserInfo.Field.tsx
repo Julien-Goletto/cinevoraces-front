@@ -1,16 +1,77 @@
 import { Button } from 'components/Inputs/InputsLib';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useUserUpdatePictureMutation } from 'redux/api';
 import Loader from 'components/Loader/Loader';
-import styles from './UserParams.module.scss';
+import styles from './UserInfo.module.scss';
 
-function UserPicUploader ({avatar}: {avatar: string}) {
-  const { id }  = useParams();
-  const [ isUpdateOpen, setIsUpdateOpen ]   = useState(false);
-  const [ imageFormData, setImageFormData ] = useState<any>('');
-  const [ preview, setPreview ]             = useState<any>(undefined);
-  const [updateUserPicture, { isSuccess, isLoading }] = useUserUpdatePictureMutation();
+type FieldProps = {
+  name: string,
+  state: string,
+  handler: React.ChangeEventHandler<HTMLInputElement>,
+  placeholder: string
+}
+
+function Field({name, state, handler, placeholder}: FieldProps) {
+  const [updateField, setUpdateField] = useState(false);
+  const handleUpdateField = () => {
+    setUpdateField(!updateField);
+  };
+
+  return (
+    <li>
+      {updateField &&
+        <form>
+        </form>}
+      {!updateField &&
+        <>
+          <div>
+            {(name === 'pseudo') && 
+              <><span>nom d’utilisateur:</span></>}
+            {(name === 'mail') &&
+              <><span>email:</span></>}
+            {(name === 'password') && 
+              <><span>mot de passe:</span>**********</>}
+          </div>
+          <Button handler={handleUpdateField} styleMod='fill-rounded'>
+            Modifier
+          </Button>
+        </>
+      }
+    </li>  
+  );
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function PictureField ({avatar}: {avatar: string}) {
+  const {id}  = useParams();
+  const [isUpdateOpen, setIsUpdateOpen]   = useState(false);
+  const [imageFormData, setImageFormData] = useState<any>('');
+  const [preview, setPreview]             = useState<any>(undefined);
+  const [updateUserPicture, {isLoading}]  = useUserUpdatePictureMutation();
 
   const uploadImage = () => {
     const formData = new FormData();
@@ -84,4 +145,4 @@ function UserPicUploader ({avatar}: {avatar: string}) {
   );
 }
 
-export default UserPicUploader;
+export {Field, PictureField};

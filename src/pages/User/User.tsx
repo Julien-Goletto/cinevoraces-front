@@ -1,9 +1,9 @@
 import { useParams } from 'react-router-dom';
 import { useUserByIdQuery } from 'redux/api';
+import UserInfo from './UserInfo';
 import UserHeader from './UserHeader/UserHeader';
 import UserMetrics from './UserMetrics/UserMetrics';
 import UserSubmittedFilm from './UserSubmittedFilm/UserSubmittedFilm';
-import UserParams from './UserParams/UserParams';
 import AnimationLayout from 'components/AnimationLayout/AnimationLayout';
 import styles from './User.module.scss';
 
@@ -33,11 +33,7 @@ function User() {
           <h2 className={styles['title-h2']}>
             Mes paramètres :
           </h2>
-          <UserParams
-            username={data.pseudo}
-            email={data.mail}
-            avatar={data.avatar_url}
-          />
+          <UserInfo/>
         </section>
       }
     </AnimationLayout>

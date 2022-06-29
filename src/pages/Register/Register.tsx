@@ -83,7 +83,7 @@ function Register() {
   // Handle registering errors
   useEffect(()=> {
     if(isError && 'status' in error!) {
-      (error.status === 400) && dispatch(addToast({type:'error', text: 'Ce nom d\'utilisateur ou cette adresse mail n\'est pas disponible.'}));
+      (error.status === 400) && dispatchToastError('Ce nom d\'utilisateur ou cette adresse mail n\'est pas disponible.');
     }
   },[isError]);
   // Handle redirection if connected

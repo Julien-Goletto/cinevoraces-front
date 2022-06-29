@@ -3,7 +3,12 @@ import { RootState } from '../store';
 
 type GlobalState = {
   modalIsOpen: boolean,
-  toasts: Toast[],
+  toasts: { 
+    type: 'error' | 'warn' | 'success',
+    text: string,
+    duration?: number,
+    id?: number
+  }[],
 };
 
 const initialState : GlobalState = { 

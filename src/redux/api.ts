@@ -1,6 +1,6 @@
-import { createApi, fetchBaseQuery, retry, FetchBaseQueryError, FetchArgs, BaseQueryFn } from '@reduxjs/toolkit/query/react';
-import Cookies from 'js-cookie';
+import { createApi, fetchBaseQuery, retry } from '@reduxjs/toolkit/query/react';
 import { setOffline, setUser } from './slices/user';
+import Cookies from 'js-cookie';
 
 const baseQuery = retry(fetchBaseQuery({
   baseUrl: process.env.REACT_APP_API,

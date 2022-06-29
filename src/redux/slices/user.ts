@@ -2,6 +2,16 @@ import { createSlice } from '@reduxjs/toolkit';
 import { RootState } from '../store';
 import Cookies from 'js-cookie';
 
+type UserState = { 
+  isOnline: boolean,
+  id: number | null,
+  pseudo: string,
+  avatar: string,
+  role: string,
+  access_jwt: string | null | undefined,
+  refresh_jwt: string | null | undefined,
+};
+
 const initialState: UserState = { 
   isOnline: false,
   id: null,

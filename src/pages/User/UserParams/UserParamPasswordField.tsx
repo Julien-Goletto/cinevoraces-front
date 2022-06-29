@@ -3,7 +3,12 @@ import { Button, InputText } from 'components/Inputs/InputsLib';
 import styles from './UserParams.module.scss';
 import userStyles from '../User.module.scss';
 
-function UserParamPasswordField ({onSubmit, updateIsSuccess}: ParamPasswordField) {
+type UserParamPasswordFieldProps = {
+  onSubmit: any,
+  updateIsSuccess: any
+}
+
+function UserParamPasswordField ({onSubmit, updateIsSuccess}: UserParamPasswordFieldProps) {
   const [showInput, setShowInput] = useState(false);
   const handleShowInput = (e: any) => { 
     e.preventDefault();

@@ -6,6 +6,15 @@ import { isOnline } from 'redux/slices/user';
 import { Button, InputStar } from 'components/Inputs/InputsLib';
 import styles from './Comment.module.scss';
 
+type CommentProps = {
+  pic: string,
+  name: string,
+  date: string,
+  text: string,
+  edit?: boolean,
+  rating: number
+}
+
 function Comment(props: CommentProps) {
   const {edit, pic, name, date, text, rating} = props;
   const sliceText = useSeeMore(text);

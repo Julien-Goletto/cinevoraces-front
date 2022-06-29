@@ -5,7 +5,7 @@ import styles from './Metrics.module.scss';
  * @returns  display statistics about cinévoraces
  */
 function Metrics() {
-  const { data } = useAllMetricsQuery<Metrics>();  
+  const { data } = useAllMetricsQuery();  
   return (
     <>
       { data &&

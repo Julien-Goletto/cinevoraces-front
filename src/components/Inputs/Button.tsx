@@ -7,6 +7,9 @@ type ButtonProps = {
   handler?: React.MouseEventHandler<HTMLElement>,
   href?: string
 }
+type ButtonSearchProps = {
+  children: React.ReactNode
+};
 
 /**
  * @return          either \<button\> or \<Link\>
@@ -56,7 +59,7 @@ function Button({ children, styleMod, handler, href }: ButtonProps)  {
   );
 };
 
-function ButtonSearch({children}: ButtonSearch)  {
+function ButtonSearch({children}: ButtonSearchProps)  {
   return (
     <button className={`${styles['button-search']} ${styles['button--full']}`}>{children}</button>
   );

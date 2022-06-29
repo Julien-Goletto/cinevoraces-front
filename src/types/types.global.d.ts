@@ -1,19 +1,3 @@
-
-type Reviews = [{
-  bookmarked: boolean,
-  comment: string,
-  created_at: string,
-  liked: boolean,
-  movie_id: number,
-  rating: null | number,
-  updated_at: string,
-  user_id: number,
-  viewed: boolean
-}]
-
-type ButtonSearch = {
-  children: React.ReactNode
-};
 type DBMovie = {
   id: number,
   french_title: string,
@@ -44,13 +28,10 @@ type DBMovieFilter = {
   genres: string[],
   countries: string[],
 };
-type TMDBMovie = {
-  id: number,
-  title: string
-  release_date: string,
-  poster_path: string,
-  original_title?: string
-  poster_url?: string
+type Filter = {
+  name: string,
+  value?: string,
+  isChecked: boolean
 }
 type ProposalMovie = {
   id?: number,
@@ -70,28 +51,29 @@ type ProposalMovie = {
   movie_languages: string[],
   movie_countries: string[],
 }
-
-type Director = {
-  job: string,
-  name: string,
-  id: number
-}
-type Toast = {
-  type: 'error' | 'warn' | 'success',
-  text: string,
-  duration?: number,
-  id?: number
-}
-type RemoveToast = {
-  payload: {
-    id:number
-  } | number
-}
-type Comment = {
-  avatar_url: null | string,
+type Reviews = [{
+  bookmarked: boolean,
   comment: string,
+  created_at: string,
+  liked: boolean,
   movie_id: number,
   rating: null | number,
+  updated_at: string,
   user_id: number,
-  user_pseudo: string
+  viewed: boolean
+}]
+type TMDBMovie = {
+  id: number,
+  title: string
+  release_date: string,
+  poster_path: string,
+  original_title?: string
+  poster_url?: string
+}
+type User = {
+  pseudo: string,
+  mail: string,
+  password: string,
+  accessToken: string,
+  refreshToken: string
 }

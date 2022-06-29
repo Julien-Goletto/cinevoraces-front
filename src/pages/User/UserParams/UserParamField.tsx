@@ -3,7 +3,14 @@ import { Button, InputText } from 'components/Inputs/InputsLib';
 import styles from './UserParams.module.scss';
 import userStyles from '../User.module.scss';
 
-function UserParamField ({field, defaultValue, onSubmit, updateIsSuccess}: ParamField) {
+type ParamFieldProps = {
+  field: string,
+  defaultValue: string,
+  onSubmit: any,
+  updateIsSuccess: any
+}
+
+function UserParamField ({field, defaultValue, onSubmit, updateIsSuccess}: ParamFieldProps) {
   const [showInput, setShowInput] = useState(false);
   const handleShowInput = (e: any) => { 
     e.preventDefault();

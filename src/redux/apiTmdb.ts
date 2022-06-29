@@ -49,9 +49,8 @@ export const apiTmdb = createApi({
           const movieGenres = movieDetails.data.genres;
           const productCoutries = movieDetails.data.production_countries;
           const spokenLanguages = movieDetails.data.spoken_languages;
-
           const directors = [];
-          let director:Director;
+          let director: {[key: string]: string | number};
           for(director of crew) {
             if(director.job === 'Director') {
               directors.push(director.name);

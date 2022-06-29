@@ -4,7 +4,12 @@ import Description from './Description';
 import styles from './Content.module.scss';
 import { useEffect, useState } from 'react';
 
-function Content({ movie, isLoading }: Content) {
+type ContentProps = {
+  movie: DBMovie,
+  isLoading: boolean
+}
+
+function Content({ movie, isLoading }: ContentProps) {
   const [date, setDate] = useState<string>();
   
   useEffect(()=> {

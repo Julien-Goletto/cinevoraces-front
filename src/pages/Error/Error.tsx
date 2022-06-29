@@ -4,7 +4,11 @@ import { useLocation } from 'react-router-dom';
 import styles from './Error.module.scss';
 import AnimationLayout from 'components/AnimationLayout/AnimationLayout';
 
-function Error({ errorNum = 404, }: ErrorPage) {
+type ErrorProps = {
+  errorNum?: number,
+};
+
+function Error({ errorNum = 404, }: ErrorProps) {
   const { pathname } = useLocation();
 
   return(

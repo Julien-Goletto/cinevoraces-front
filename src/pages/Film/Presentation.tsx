@@ -1,6 +1,15 @@
 import useSeeMore from 'hooks/useSeeMore';
 import styles from './Presentation.module.scss';
 
+type CommentProps = {
+  pic: string,
+  name: string,
+  date: string,
+  text: string,
+  edit?: boolean,
+  rating: number
+}
+
 function Presentation({pic, name, date, text}: CommentProps) {
   const sliceText = useSeeMore(text, 700);
 

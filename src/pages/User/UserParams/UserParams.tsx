@@ -8,7 +8,13 @@ import UserParamPasswordField from './UserParamPasswordField';
 import UserPicUploader from './UserPicUploader';
 import styles from './UserParams.module.scss';
 
-function UserParams({ username, email, avatar }: user) {
+type UserParamsProps = {
+  username: string,
+  email: string,
+  avatar: string
+}
+
+function UserParams({ username, email, avatar }: UserParamsProps) {
   const dispatch = useAppDispatch();
   const { id }  = useParams();
   const [updateUser, {

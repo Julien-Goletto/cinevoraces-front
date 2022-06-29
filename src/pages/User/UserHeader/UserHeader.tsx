@@ -1,6 +1,12 @@
 import styles from './UserHeader.module.scss';
 
-function UserHeader({ avatar, username, registerDate }: UserHeader) {
+type UserHeaderProps = {
+  username: string,
+  avatar?: string | null,
+  registerDate: string
+}
+
+function UserHeader({ avatar, username, registerDate }: UserHeaderProps) {
   let date = new Date(registerDate);
   let customDate = date.toLocaleDateString('fr-FR', {day: 'numeric', month: 'long', year: 'numeric'});
 

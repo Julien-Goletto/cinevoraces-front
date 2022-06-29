@@ -71,8 +71,7 @@ function Register() {
     } else {
       delete user.confirm;
       await addUser(user);
-    }
-  };
+    }};
 
   // Handle registering success
   useEffect(()=> {
@@ -87,11 +86,11 @@ function Register() {
     if(isError && 'status' in error!) {
       (error.status === 400) && dispatch(addToast({type:'error', text: 'Ce nom d\'utilisateur ou cette adresse mail n\'est pas disponible.'}));
     }
-  },[error, isError, dispatch]);
+  },[isError]);
   // Handle redirection if connected
   useEffect(() => {
     isLogged && navigate(`/user/${id}`);
-  }, [isLogged, id, navigate]);
+  }, [isLogged]);
 
   return(
     <AnimationLayout>

@@ -2,7 +2,7 @@ import Metrics from 'components/Metrics/Metrics';
 import Loader from 'components/Loader/Loader';
 import AnimationLayout from 'components/AnimationLayout/AnimationLayout';
 import { InputText, Button } from 'components/Inputs/InputsLib';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useUserRegisterMutation } from 'redux/api';
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from 'redux/hooks';
@@ -11,14 +11,32 @@ import { addToast, toggleModal } from 'redux/slices/global';
 import styles from './Register.module.scss';
 
 function Register() {
+  const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const isLogged = useAppSelector<boolean>(isOnline);
-  const { id } = useAppSelector<any>(userLogged);
-  const [addUser, {error, isLoading, isError, isSuccess}] = useUserRegisterMutation<any>();
-  let navigate = useNavigate();
-  isLogged && navigate(`/user/${id}`);
+  const { id } = useAppSelector(userLogged);
+  const [addUser, {error, isLoading, isError, isSuccess}] = useUserRegisterMutation();
+  const [mailField, setMailField]         = useState('');
+  const [pseudoField, setPseudoField]     = useState('');
+  const [passwordField, setPasswordField] = useState('');
+  const [confirmField, setConfirmField]   = useState('');
 
-  const formRegEx = (string: FormDataEntryValue) => {
+  // Fields states Handlers
+  const handleMailField = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setMailField(e.currentTarget.value);
+  };
+  const handlePseudoField = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setPseudoField(e.currentTarget.value);
+  };
+  const handlePasswordField = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setPasswordField(e.currentTarget.value);
+  };
+  const handleConfirmField = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setConfirmField(e.currentTarget.value);
+  };
+
+  // Resolve password errors
+  const formRegEx = (string: string) => {
     if (RegExp('^((?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[\-~!@#$%^*_+=/:;.?])(?=.{8,}))').test(String(string!))) { // eslint-disable-line
       return true;
     } else {
@@ -28,7 +46,16 @@ function Register() {
   const dispatchToastError = (error: string) => {
     dispatch(addToast({type:'error', text: error}));
   };
-  const validateRequest = async (user: {[key: string]: FormDataEntryValue | null}) => {
+  const sendFormHandler = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    validateRequest({
+      pseudo: pseudoField,
+      mail: mailField,
+      password: passwordField,
+      confirm: confirmField
+    });
+  };
+  const validateRequest = async (user: {[key: string]: string | null}) => {
     if (!user.mail) {
       dispatchToastError('Vous devez indiquer une adresse email valide.');
     } else if (!user.pseudo) {
@@ -43,31 +70,28 @@ function Register() {
       dispatchToastError('Le mot de passe ne correspond pas au champ de confirmation.');
     } else {
       delete user.confirm;
-      const res = await addUser(user); // eslint-disable-line
+      await addUser(user);
     }
   };
-  const sendFormHandler = async (e:any) => {
-    e.preventDefault();
-    const data = new FormData(e.target);
-    const user = {
-      pseudo: data.get('username'),
-      mail: data.get('email'),
-      password: data.get('password'),
-      confirm: data.get('confirm'),
-    };
-    validateRequest(user);
-  };
+
+  // Handle registering success
   useEffect(()=> {
     if(isSuccess) {
       dispatch(addToast({type:'success', text: 'Votre compte à été créé, vous pouvez vous connecter'}));
       dispatch(toggleModal());
       return navigate('/');
     }
-    if(isError) {
-      (error.originalStatus === 400) && dispatch(addToast({type:'error', text: 'Ce nom d\'utilisateur ou cette adresse mail n\'est pas disponible.'}));
+  },[isSuccess, dispatch, navigate]);
+  // Handle registering errors
+  useEffect(()=> {
+    if(isError && 'status' in error!) {
+      (error.status === 400) && dispatch(addToast({type:'error', text: 'Ce nom d\'utilisateur ou cette adresse mail n\'est pas disponible.'}));
     }
-  },[error, isLoading, isError, isSuccess, dispatch, navigate]);
-
+  },[error, isError, dispatch]);
+  // Handle redirection if connected
+  useEffect(() => {
+    isLogged && navigate(`/user/${id}`);
+  }, [isLogged, id, navigate]);
 
   return(
     <AnimationLayout>
@@ -82,23 +106,31 @@ function Register() {
             name='email'
             placeholder='Entrez votre email'
             type='email'
+            handler={handleMailField}
+            value={mailField}
           />
           <InputText
             label='Nom d’utilisateur'
             name='username'
             placeholder='Entrez votre nom d’utilisateur'
             type='text'
+            handler={handlePseudoField}
+            value={pseudoField}
           />
           <InputText
             label='Mot de passe'
             name='password'
             placeholder='Entrez votre mot de passe'
             type='password'
+            handler={handlePasswordField}
+            value={passwordField}
           />
           <InputText
             name='confirm'
             placeholder='Confirmez votre mot de passe'
             type='password'
+            handler={handleConfirmField}
+            value={confirmField}
           />
           <div className={styles.rules}>
             Votre mot de passe doit contenir au moins une majuscule, une minuscule, un symbôle et un chiffre et doit contenir au moins 8 caractères.

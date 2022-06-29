@@ -49,11 +49,11 @@ export const api = createApi({
   reducerPath: 'api',
   baseQuery: baseQueryWithReauth, tagTypes: ['Movie', 'Reviews', 'Propositions', 'Users', 'UserParams'],
   endpoints: (build) => ({
-    userRegister: build.mutation<User, any>({
-      query: (user:User) => ({ url: '/v1/users/register', method:'POST', body: user })
+    userRegister: build.mutation<string, {[key: string]: string | null}>({
+      query: (user) => ({ url: '/v1/users/register', method:'POST', body: user })
     }),
-    userLogin: build.mutation<User, any>({
-      query: (user:User) => ({ url: '/v1/users/login', method:'POST', body: user}),
+    userLogin: build.mutation<user, any>({
+      query: (user:user) => ({ url: '/v1/users/login', method:'POST', body: user}),
       transformResponse: (res:any) => res
     }),
     userUpdate: build.mutation<void, any>({
@@ -64,10 +64,10 @@ export const api = createApi({
       query: (data) => ({url: `v1/users/addProfilePic/${data.userId}`, method: 'PUT', body: data.form}),
       invalidatesTags: ['UserParams'] 
     }),
-    filters: build.query<any, void>({
+    filters: build.query<DBFilters[], void>({
       query: () => ({url: '/v1/metrics/filters', method: 'GET'})
     }),
-    allMovies: build.query<void, string>({
+    allMovies: build.query<DBMovie[], string>({
       query: (query) =>  ({url: `/v1/movies/search/${query}`, method: 'GET'})
     }),
     oneMovie: build.query<DBMovie, number>({
@@ -78,15 +78,14 @@ export const api = createApi({
     lastMovie: build.query<DBMovie[], void>({
       query: () => ({url: 'v1/movies/lastmovie', method: 'GET'})
     }),
-    allMetrics: build.query<any, void>({
+    allMetrics: build.query<{[key: string]: string}, void>({
       query: () => ({url: '/v1/metrics', method: 'GET'}),
-      transformResponse: (res:any) => res[0]
+      transformResponse: (res: {[key: string]: string}[]) => res[0]
     }),
-    refreshToken: build.query<any, void>({
+    refreshToken: build.query<refreshToken, void>({
       query: () =>  ({url: '/v1/refreshTokens', method: 'GET'}),
       providesTags: ['UserParams']
     }),
-    //const token = (getState() as any).user.access_jwt;
     movieReviews: build.query<Comment[], number>({
       query: (id) => ({url: `/v1/reviews/${id}/comments`, method: 'GET'}),
       providesTags: ['Reviews']
@@ -115,7 +114,7 @@ export const api = createApi({
         publishing_date: data
       }})
     }),
-    getUserReview: build.query<Reviews, object>({
+    getUserReview: build.query<reviews, object>({
       query: (arg:{userId: number, movieId:number}) => ({url: `/v1/reviews/${arg.userId}/${arg.movieId}`, method: 'GET'}),
       providesTags: ['Reviews']
     }),
@@ -172,7 +171,6 @@ export const {
   useLastMovieQuery,
   usePostMovieMutation,
   useAllMetricsQuery,
-  useRefreshTokenQuery,
   useLazyRefreshTokenQuery,
   useMovieReviewsQuery,
   useMetricsByIdQuery,

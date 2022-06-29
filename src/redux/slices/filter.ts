@@ -2,20 +2,13 @@ import { createSlice } from '@reduxjs/toolkit';
 import { RootState } from '../store';
 
 type FilterState = {
-  mainFilters: Filter[],
-  genre: Filter[],
-  country: Filter[],
+  mainFilters: filter[],
+  genre: filter[],
+  country: filter[],
   periode: {[key: string]: number[]},
   query: string,
   isDefault: boolean,
   isLogged: boolean
-}
-type FetchedFilters = {
-  seasons_list: [number[]],
-  genres_list: string[],
-  countries_list: string[],
-  min_max_dates: [number, number],
-  max_runtime: number
 }
 
 const initialState: FilterState = { 
@@ -37,7 +30,7 @@ const filterSlice = createSlice({
   name: 'filter',
   initialState,
   reducers: {
-    initFilters(state, {payload}: {payload: FetchedFilters[]}) {
+    initFilters(state, {payload}: {payload: DBFilters[]}) {
       // Recreate initial state with fetched data
       const formatedData: FilterState = {
         ...state,

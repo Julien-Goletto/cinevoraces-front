@@ -23,35 +23,28 @@ type DBMovie = {
   views_count: string,
   avg_rating: string
 };
-type DBMovieFilter = {
-  season_number: number | string,
-  genres: string[],
-  countries: string[],
-};
-type Filter = {
+type filter = {
   name: string,
   value?: string,
   isChecked: boolean
 }
-type ProposalMovie = {
-  id?: number,
-  episode?: string
-  french_title: string,
-  original_title: string,
-  poster_url: string,
-  directors: string[],
-  release_date: string,
-  runtime: number,
-  casting: string[],
-  presentation?: string,
-  publishing_date?: string,
-  user_id?: number,
-  season_id?: number,
-  movie_genres: string[],
-  movie_languages: string[],
-  movie_countries: string[],
+type DBFilters = {
+  seasons_list: [number[]],
+  genres_list: string[],
+  countries_list: string[],
+  min_max_dates: [number, number],
+  max_runtime: number
 }
-type Reviews = [{
+type refreshToken = {
+  accessToken: string,
+  avatar_url: string,
+  created_at: string,
+  id: number,
+  pseudo: string,
+  refreshToken: string,
+  role: string
+}
+type reviews = [{
   bookmarked: boolean,
   comment: string,
   created_at: string,
@@ -70,7 +63,7 @@ type TMDBMovie = {
   original_title?: string
   poster_url?: string
 }
-type User = {
+type user = {
   pseudo: string,
   mail: string,
   password: string,

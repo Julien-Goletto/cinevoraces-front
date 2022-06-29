@@ -1,6 +1,6 @@
 import styles from './InputRadio.module.scss';
 
-interface InputRadioProps extends Filter {
+interface InputRadioProps extends filter {
   handler: React.ChangeEventHandler<HTMLInputElement>,
   field: string
 }

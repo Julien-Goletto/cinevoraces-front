@@ -5,7 +5,26 @@ import React from 'react';
 import Genres from './Genres';
 import Director from './Director';
 
-function Movie({movie} : {movie: ProposalMovie} ) {
+type ProposalMovieProps = {
+  id?: number,
+  episode?: string
+  french_title: string,
+  original_title: string,
+  poster_url: string,
+  directors: string[],
+  release_date: string,
+  runtime: number,
+  casting: string[],
+  presentation?: string,
+  publishing_date?: string,
+  user_id?: number,
+  season_id?: number,
+  movie_genres: string[],
+  movie_languages: string[],
+  movie_countries: string[],
+}
+
+function Movie({movie} : {movie: ProposalMovieProps} ) {
   const dispatch = useAppDispatch();
   const { french_title, poster_url, release_date, directors, movie_genres } = movie;
   const no_poster_path = 'https://image.tmdb.org/t/p/originalnull';

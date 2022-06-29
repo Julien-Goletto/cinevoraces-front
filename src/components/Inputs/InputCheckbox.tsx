@@ -1,6 +1,6 @@
 import styles from './InputCheckbox.module.scss';
 
-interface InputCheckboxProps extends Filter {
+interface InputCheckboxProps extends filter {
   handler: React.ChangeEventHandler<HTMLInputElement>,
 }
 

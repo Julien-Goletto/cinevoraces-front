@@ -59,7 +59,8 @@ export const api = createApi({
     userUpdate: build.mutation<string, {userId: number, user: {[key: string]: string}}>({
       query: ({user, userId}) => ({url: `v1/users/modify/${userId}`, method: 'PUT', body: user}),
       invalidatesTags: ['UserParams'] 
-    }), 
+    }),
+    // FIXME: updatePicture method/component must be rewrited 
     userUpdatePicture: build.mutation<void, any>({
       query: (data) => ({url: `v1/users/addProfilePic/${data.userId}`, method: 'PUT', body: data.form}),
       invalidatesTags: ['UserParams'] 
@@ -72,7 +73,7 @@ export const api = createApi({
     }),
     oneMovie: build.query<DBMovie, number>({
       query: (id) => ({url: `/v1/movies/id/${id}`, method: 'GET'}),
-      transformResponse: (res:any) => res[0],
+      transformResponse: (res: DBMovie[]) => res[0],
       providesTags: ['Movie']
     }),
     lastMovie: build.query<DBMovie[], void>({

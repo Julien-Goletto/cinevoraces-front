@@ -10,7 +10,7 @@ import { Button } from 'components/Inputs/InputsLib';
 import { addToast } from 'redux/slices/global';
 import { usePostMovieMutation, useAvailableSlotsQuery, useBookSlotMutation } from 'redux/api';
 import { useNavigate } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { apiTmdb } from 'redux/apiTmdb';
 
 function Proposal() {
@@ -24,6 +24,10 @@ function Proposal() {
   const [sendPost, postHandle] = usePostMovieMutation();
   const dispatch = useAppDispatch();
   
+  useEffect(() => {
+    console.log(postHandle.data);
+  }, [postHandle]);
+
   const handleSelect = (event: React.FormEvent<HTMLFormElement>) => {
     const selected = (event.target as HTMLSelectElement).value;
     const episode = slots.find((slot:any) => slot.episode == selected);
@@ -38,8 +42,7 @@ function Proposal() {
     } else dispatch(unsetEpisode());
   };
   
-  const handleSubmit = async (e:any) => {
-    e.preventDefault();
+  const handleSubmit = async () => {
     const { presentation, user_id }: any = proposalMovie;
     if(!presentation || !user_id) {
       dispatch(addToast({type: 'error', text:'Formulaire invalide'}));

@@ -1,4 +1,4 @@
-import { Button } from 'components/Inputs/InputsLib';
+import { Button, InputText } from 'components/Inputs/InputsLib';
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useUserUpdatePictureMutation } from 'redux/api';
@@ -6,39 +6,86 @@ import Loader from 'components/Loader/Loader';
 import styles from './UserInfo.module.scss';
 
 type FieldProps = {
-  name: string,
+  type: string,
   state: string,
+  password: string,
+  confirm: string,
+  fieldState: boolean,
+  fieldSetter: React.MouseEventHandler,
   handler: React.ChangeEventHandler<HTMLInputElement>,
-  placeholder: string
+  value?: string
 }
 
-function Field({name, state, handler, placeholder}: FieldProps) {
-  const [updateField, setUpdateField] = useState(false);
-  const handleUpdateField = () => {
-    setUpdateField(!updateField);
-  };
+function Field({type, state, handler, value, password, confirm, fieldState, fieldSetter}: FieldProps) {
+  const resolveTexts = () => {
+    if (type === 'username') {
+      return {
+        placeholder: 'Jean-Roger',
+        field: 'nom d’utilisateur:',
+        label: 'Entrez votre nouveau nom d’utilisateur'
+      }} // eslint-disable-line
+    if (type === 'email') {
+      return {
+        placeholder: 'jean-roger@exemple.fr',
+        field: 'email:',
+        label: 'Entrez votre nouvelle adresse email'
+      }} // eslint-disable-line
+    if (type === 'password') {
+      return {
+        field: 'mot de passe:',
+        label: 'Entrez votre nouveau mot de passe',
+      }}} // eslint-disable-line
+  const texts = resolveTexts();
 
   return (
-    <li>
-      {updateField &&
-        <form>
-        </form>}
-      {!updateField &&
-        <>
-          <div>
-            {(name === 'pseudo') && 
-              <><span>nom d’utilisateur:</span></>}
-            {(name === 'mail') &&
-              <><span>email:</span></>}
-            {(name === 'password') && 
-              <><span>mot de passe:</span>**********</>}
-          </div>
-          <Button handler={handleUpdateField} styleMod='fill-rounded'>
+    <fieldset className={styles.field}>
+      {!fieldState &&
+        <div className={styles['field-name']}>
+          <span>{texts!.field}</span>&nbsp;{(value) ? value : '**********'}
+        </div>}
+      {fieldState &&
+        <div className={styles['inputs-container']}>
+          <InputText
+            label={texts!.label}
+            name={type}
+            placeholder={(texts!.placeholder) ? texts!.placeholder : 'Nouveau mot de passe'}
+            handler={handler}
+            value={state}
+            type={type}
+          />
+          {(type === 'password') &&
+            <InputText
+              name='confirm'
+              placeholder='Confirmation'
+              handler={handler}
+              value={confirm}
+              type='password'
+            />
+          }
+          <InputText
+            name='password'
+            placeholder='Entrez votre mot de passe'
+            handler={handler}
+            value={password}
+            type='password'
+          />
+        </div>}
+      <div className={styles.buttons}>
+        {!fieldState &&
+          <Button handler={fieldSetter} styleMod='fill-rounded'>
             Modifier
+          </Button>}
+        {fieldState &&
+        <>
+          <Button styleMod='fill-rounded'>
+            Valider
           </Button>
-        </>
-      }
-    </li>  
+          <Button handler={fieldSetter} styleMod='fill-rounded'>
+            Annuler
+          </Button>
+        </>}
+      </div>
+    </fieldset>  
   );
 }
 

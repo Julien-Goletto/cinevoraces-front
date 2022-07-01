@@ -8,30 +8,29 @@ import styles from './UserInfo.module.scss';
 
 function UserInfo() {
   const dispatch = useAppDispatch();
-  const {id, avatar} = useAppSelector(userLogged);
+  const {id, avatar, pseudo: statePseudo, mail: stateMail} = useAppSelector(userLogged);
   const [updateUser, {isError, isSuccess, reset, error}] = useUserUpdateMutation();
+  // Field selector
+  const [fieldSelector, setFieldSelector] = useState([false, false, false]);
+  const handleUpdateField = (index: number) => {
+    const newState: boolean[] = [];
+    fieldSelector.forEach((e, i) => {
+      (i === index && e !== true) ? newState.push(true) : newState.push(false);
+    });
+    setFieldSelector(newState);
+  };
   // Controlled inputs states
   const [pseudo, setPseudo]             = useState('');
   const [mail, setMail]                 = useState('');
   const [password, setPassword]         = useState('');
   const [newPassword, setNewPassword]   = useState('');
   const [confirm, setConfirm]           = useState('');
-
-  // Controlled states handlers
-  const handlePseudo = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setPseudo(e.currentTarget.value);
-  };
-  const handleMail = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setMail(e.currentTarget.value);
-  };
-  const handlePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setPassword(e.currentTarget.value);
-  };
-  const handleNewPassword = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setNewPassword(e.currentTarget.value);
-  };
-  const handleConfirm = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setConfirm(e.currentTarget.value);
+  const statesHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    (e.currentTarget.name === 'username')    && setPseudo(e.currentTarget.value);
+    (e.currentTarget.name === 'email')       && setMail(e.currentTarget.value);
+    (e.currentTarget.name === 'password')    && setPassword(e.currentTarget.value);
+    (e.currentTarget.name === 'newPassword') && setNewPassword(e.currentTarget.value);
+    (e.currentTarget.name === 'confirm')     && setConfirm(e.currentTarget.value);
   };
   // Resolve password errors
   const formRegEx = (string: string) => {
@@ -43,7 +42,7 @@ function UserInfo() {
   const dispatchToastError = (error: string) => {
     dispatch(addToast({type:'error', text: error}));
   };
-  const sendFormHandler = async (field: string, e: React.FormEvent<HTMLFormElement>) => {
+  const sendFormHandler = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (password.length === 0) {
       return dispatchToastError('Vous devez renseigner votre mot de passe.');
@@ -54,8 +53,19 @@ function UserInfo() {
       user: {oldPassword: password}};
 
     // Resolve field
-    switch (field) {
-    case 'password':
+    if (fieldSelector[0]) { // Email
+      if (mail.length === 0) {
+        return dispatchToastError('Vous devez indiquer une adresse email valide.');
+      }
+      body.user = {mail: mail, ...body.user};
+    }
+    if (fieldSelector[1]) { // Username
+      if (pseudo.length === 0) {
+        return dispatchToastError('Vous devez indiquer un nom d\'utilisateur valide.');
+      }
+      body.user = {pseudo: pseudo, ...body.user};
+    }
+    if (fieldSelector[2]) { // Username
       // handle errors
       if (confirm.length === 0) {
         return dispatchToastError('Vous devez confirmer votre mot de passe.');
@@ -66,19 +76,6 @@ function UserInfo() {
       }
       // update body
       body.user = {password: password, ...body.user};
-      break;
-    case 'pseudo':
-      if (pseudo.length === 0) {
-        return dispatchToastError('Vous devez indiquer un nom d\'utilisateur valide.');
-      }
-      body.user = {pseudo: pseudo, ...body.user};
-      break;
-    case 'mail':
-      if (mail.length === 0) {
-        return dispatchToastError('Vous devez indiquer une adresse email valide.');
-      }
-      body.user = {mail: mail, ...body.user};
-      break;
     }
     await updateUser(body);
   };
@@ -87,7 +84,14 @@ function UserInfo() {
   useEffect(()=> {
     if(isSuccess) {
       dispatch(addToast({type: 'success', text: 'Informations mises à jour avec succés.'}));
+      // Reset all fields/states
       reset();
+      setPseudo('');
+      setMail('');
+      setPassword('');
+      setNewPassword('');
+      setConfirm('');
+      setFieldSelector([false, false, false]);
     }},[isSuccess]);
   // Handle update errors
   useEffect(()=> {
@@ -96,48 +100,40 @@ function UserInfo() {
     }},[isError]);
 
   return(
-    <ul className={styles['user-params']}> 
+    <form className={styles['user-params']} onSubmit={sendFormHandler}> 
       <PictureField
         avatar={avatar}
       />
       <Field
-        name='mail'
+        type='email'
         state={mail}
-        handler={handleMail}
-        placeholder='Entrez votre nouveau email'
+        password={password}
+        confirm={confirm}
+        handler={statesHandler}
+        value={stateMail}
+        fieldState={fieldSelector[0]}
+        fieldSetter={() => {handleUpdateField(0);}}
       />
       <Field
-        name='pseudo'
+        type='username'
         state={pseudo}
-        handler={handlePseudo}
-        placeholder="Entrez votre nouveau nom d'utilisateur"
+        password={password}
+        confirm={confirm}
+        handler={statesHandler}
+        value={statePseudo}
+        fieldState={fieldSelector[1]}
+        fieldSetter={() => {handleUpdateField(1);}}
       />
       <Field
-        name='password'
-        state={password}
-        handler={handlePassword}
-        placeholder='Entrez votre nouveau mot de passe'
+        type='password'
+        state={newPassword}
+        password={password}
+        confirm={confirm}
+        handler={statesHandler}
+        fieldState={fieldSelector[2]}
+        fieldSetter={() => {handleUpdateField(2);}}
       />
-      {/* <UserPicUploader
-        avatar={avatar}
-      />
-      <UserParamField
-        onSubmit={handleEmailSubmit}
-        field='email'
-        defaultValue={email}
-        updateIsSuccess={updateIsSuccess}
-      />
-      <UserParamField
-        onSubmit={handleUsernameSubmit}
-        field='username'
-        defaultValue={username}
-        updateIsSuccess={updateIsSuccess}
-      />
-      <UserParamPasswordField
-        onSubmit={handlePasswordSubmit}
-        updateIsSuccess={updateIsSuccess}
-      />         */}
-    </ul>
+    </form>
   );
 }
 

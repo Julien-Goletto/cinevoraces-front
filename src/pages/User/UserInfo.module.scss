@@ -1,57 +1,40 @@
 @use '~styles/var';
 @use '~styles/mixins' as mix;
 
+$gap: 1.5rem;
+
 .user-params {
-  composes: container from global;
+  @include mix.container;
   box-sizing: border-box;
   width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 1rem;
-  & button {
-    width: fit-content;
-    align-self: center;
+  gap: $gap;
+  & .field {
     display: flex;
-    gap: .5em;
-  }}
-.user-info {
-  display: flex;
-  flex-direction: column;
-  gap: 3em;
-  margin-bottom: 2em;
-}
-.info {
-  text-transform: initial;
-  color: var.$white;
-}
-.rules {
-  display: block;
-  font-size: .8em;
-  font-style: italic;
-  line-height: 1.2em;
-  margin-top: -10px!important;
-  padding: 0 .5em;
-}
-.field {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  align-items: left;
-  & .rules {
-    margin: 0 0 -10px 0;
-  }
-  & .buttons {
-    margin-top: .8rem;
-    display: flex;
-    justify-content:flex-start;
-    gap: 1rem;
-  }
-  & .modif-btn {
-    display: flex;
-    justify-content: left;
-    margin-top: 10px;
-  }
-}
+    flex-direction: column;
+    align-items: center;
+    gap: $gap;
+    border-bottom: 1px solid var.$white;
+    padding-bottom: $gap;
+    & .inputs-container {
+      width: 90%;
+    }
+    & .field-name {
+      white-space: nowrap;
+      font-weight: 500;
+      font-size: 1rem;
+      & span {
+        text-transform: uppercase;
+        color: var.$input-text;
+      }}
+    & .buttons {
+      display: flex;
+      gap: $gap;
+      & button {
+        width: fit-content!important;
+      }}}}
+
 .upload-img {
   display: flex;
   align-items: center;
@@ -77,10 +60,15 @@
     }}}
 
 @include mix.breakpoint('tablet') {
-  .field {
-    flex-direction: row;
-    align-items:flex-start;
-    justify-content: space-between;
-    & .input {
-      width: 400px;
-    }}}
+  .user-params {
+    & .field {
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      & .inputs-container {
+        max-width: 400px;
+      }
+      & .buttons {
+        flex-direction: column;
+        align-self: center;
+      }}}}

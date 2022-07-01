@@ -22,7 +22,7 @@ type InputTextProps = {
 function InputText({label, name, type, placeholder, handler, value}: InputTextProps) {
   // Look for type name to setup correct icon
   const classResolver = (searchedString: string) => {
-    if (RegExp(`\\b${searchedString}\\b`).test(name)) {
+    if (RegExp(`\\b${searchedString}\\b`).test(type)) {
       return searchedString;
     } else {
       return name;

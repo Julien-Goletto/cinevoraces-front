@@ -1,6 +1,13 @@
 @use '~styles/var';
 @use '~styles/mixins' as mix;
 
+.loader {
+  position: absolute;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+}
 .grid {
   composes: container from global;
   box-sizing: border-box;

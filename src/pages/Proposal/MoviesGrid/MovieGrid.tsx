@@ -28,7 +28,7 @@ function MovieGrid({movies, isFetching}: MovieGridProps) {
   return (
     <div className={styles.grid}>
       { (isFetching) && 
-        <Loader />
+        <div className={styles.loader}><Loader /></div>
       }
       { (!isFetching && movies && movies.length > 0) &&
         movies.map((movie)=> 

@@ -104,7 +104,7 @@ export const api = createApi({
     pendingProposalByUser: build.query<any, number>({
       query: (id:number) => ({url: `/v1/propositions/${id}`, method: 'GET'})
     }),
-    availableSlots: build.query<any, void>({
+    availableSlots: build.query<slot[], void>({
       query: () => ({url: '/v1/propositions/availableSlots', method: 'GET'})  
     }),
     pendingProposition: build.query<any, any>({

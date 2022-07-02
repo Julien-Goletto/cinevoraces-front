@@ -55,6 +55,13 @@ type reviews = [{
   user_id: number,
   viewed: boolean
 }]
+type slot = {
+  id: number,
+  season_number: number,
+  episode: number,
+  publishing_date: string,
+  is_booked: boolean
+}
 type TMDBMovie = {
   id: number,
   title: string

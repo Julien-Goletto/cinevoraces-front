@@ -25,14 +25,13 @@ function Proposal() {
   const dispatch = useAppDispatch();
   
   useEffect(() => {
-    console.log(postHandle.data);
+    // console.log(postHandle.data);
   }, [postHandle]);
 
-  const handleSelect = (event: React.FormEvent<HTMLFormElement>) => {
-    const selected = (event.target as HTMLSelectElement).value;
-    const episode = slots.find((slot:any) => slot.episode == selected);
+  const handleSelect = (e: React.FormEvent<HTMLSelectElement>) => {
+    const selected = Number(e.currentTarget.value);
+    const episode = slots!.find((slot) => slot.episode === selected);
     setSeasonSelect(episode ? episode.season_number : '~');
-
     if(episode) {
       dispatch(setEpisode({
         episode_selected: selected,
@@ -76,13 +75,13 @@ function Proposal() {
     <AnimationLayout>
       <section className={styles.proposal}>
         <h1 className={styles.title}>Ajouter un film</h1>
-        <form onChange={handleSelect} className={styles.episode}>
+        <form className={styles.episode}>
           <label htmlFor='episode'>Selectionez un épisode</label>
           <div className={styles.select}>
             <span>Saison - {seasonSelect}</span>
-            <select name='episode' id='episode'>
+            <select onChange={handleSelect} name='episode' id='episode'>
               <option value='x'>--- Choissisez votre épisode ---</option>
-              {(slots && isSlotsSuccess && typeof slots !== 'string') && slots.map((slot:any) => (
+              {(slots && isSlotsSuccess && typeof slots !== 'string') && slots.map((slot) => (
                 <Option slot={slot} key={slot.id} />
               ))}
             </select>

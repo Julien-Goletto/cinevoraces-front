@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { RootState } from '../store';
 
-type GlobalState = {
+type globalState = {
   modalIsOpen: boolean,
   toasts: { 
     type: 'error' | 'warn' | 'success',
@@ -10,7 +10,7 @@ type GlobalState = {
   }[],
 };
 
-const initialState : GlobalState = { 
+const initialState : globalState = { 
   modalIsOpen: false,
   toasts: [],
 };

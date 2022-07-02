@@ -1,7 +1,17 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { RootState } from '../store';
 
-const initialState = { 
+type proposalState = {
+  episode_selected: string | null,
+  episode_publish_date: string | null,
+  searchMovie: string,
+  controlledInput: string,
+  presentation: string | null,
+  season_id: string | null,
+  movie_selected: {[key: string]: string | null},
+}
+
+const initialState: proposalState = { 
   episode_selected: null,
   episode_publish_date: null,
   searchMovie: '',

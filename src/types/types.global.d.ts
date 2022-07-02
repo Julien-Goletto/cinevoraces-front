@@ -35,6 +35,12 @@ type DBFilters = {
   min_max_dates: [number, number],
   max_runtime: number
 }
+type proposal = {
+  publishing_date: string | null;
+  presentation: string | null;
+  user_id: number | null;
+  season_id: string | null;
+}
 type refreshToken = {
   accessToken: string,
   avatar_url: string,

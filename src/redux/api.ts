@@ -91,7 +91,7 @@ export const api = createApi({
       query: (id) => ({url: `/v1/reviews/${id}/comments`, method: 'GET'}),
       providesTags: ['Reviews']
     }),
-    postMovie: build.mutation<any, any>({
+    postMovie: build.mutation<any, proposal>({
       query: ((proposal) => ({url: 'v1/movies/newmovie/', method: 'POST', body: proposal}))
     }), 
     metricsById: build.query<any, number>({

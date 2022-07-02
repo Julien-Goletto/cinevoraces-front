@@ -24,7 +24,7 @@ function Proposal() {
   const dispatch = useAppDispatch();
   
   useEffect(() => {
-    // console.log(postHandle.data);
+    console.log(postHandle.data);
   }, [postHandle]);
 
   const handleSelect = (e: React.FormEvent<HTMLSelectElement>) => {
@@ -41,7 +41,7 @@ function Proposal() {
   };
   
   const handleSubmit = async () => {
-    const { presentation, user_id }: any = proposalMovie;
+    const { presentation, user_id } = proposalMovie;
     if(!presentation || !user_id) {
       dispatch(addToast({type: 'error', text:'Formulaire invalide'}));
       return;

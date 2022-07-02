@@ -1,6 +1,6 @@
 import { ReactComponent as SVGLogo } from './Layout.Logo.svg';
 import { useAppDispatch, useAppSelector } from 'redux/hooks';
-import { toggleModal, globalState } from 'redux/slices/global';
+import { toggleModal, globals } from 'redux/slices/global';
 import { userLogged } from 'redux/slices/user';
 import { useLastMovieQuery } from 'redux/api';
 import { Button } from 'components/Inputs/InputsLib';
@@ -17,7 +17,7 @@ import styles from './Header.module.scss';
 function Header() {
   const dispatch = useAppDispatch();
   const {data} = useLastMovieQuery();
-  const {modalIsOpen} = useAppSelector(globalState);
+  const {modalIsOpen} = useAppSelector(globals);
   const {isOnline} = useAppSelector(userLogged);
 
   const connectionHandler = () => {

@@ -1,6 +1,6 @@
 import ReactDOM from 'react-dom';
 import { useAppSelector } from 'redux/hooks';
-import { globalState } from 'redux/slices/global';
+import { globals } from 'redux/slices/global';
 import Toast from './Toast';
 import styles from './Toasts.module.scss';
 
@@ -11,7 +11,7 @@ const portal = document.getElementById('portal') as HTMLElement;
  * @returns List of toasts
  */
 function Toasts()  {
-  const { toasts } = useAppSelector(globalState);
+  const { toasts } = useAppSelector(globals);
   
   return ReactDOM.createPortal(
     (toasts.length > 0) && 

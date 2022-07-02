@@ -10,7 +10,7 @@ type globalState = {
   }[],
 };
 
-const initialState : globalState = { 
+const initialState: globalState = { 
   modalIsOpen: false,
   toasts: [],
 };
@@ -30,7 +30,7 @@ const globalSlice = createSlice({
     }}
 });
 
-export const globalState = (state: RootState) => state.global;
+export const globals = (state: RootState) => state.global;
 
 export const { 
   toggleModal,

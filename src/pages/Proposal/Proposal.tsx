@@ -5,7 +5,7 @@ import Option from './Option/Option';
 import Search from './Search/Search';
 import AnimationLayout from 'components/AnimationLayout/AnimationLayout';
 import { useAppDispatch, useAppSelector } from 'redux/hooks';
-import { getProposalData, getSearch, setEpisode, unsetEpisode } from 'redux/slices/proposal';
+import { getProposalData, setEpisode, unsetEpisode } from 'redux/slices/proposal';
 import { Button } from 'components/Inputs/InputsLib';
 import { addToast } from 'redux/slices/global';
 import { usePostMovieMutation, useAvailableSlotsQuery, useBookSlotMutation } from 'redux/api';
@@ -14,11 +14,10 @@ import React, { useEffect, useState } from 'react';
 import { apiTmdb } from 'redux/apiTmdb';
 
 function Proposal() {
-  const search = useAppSelector(getSearch);
   const navigate = useNavigate();
   const proposalMovie = useAppSelector(getProposalData);
   const [seasonSelect, setSeasonSelect] = useState<number | string>('~');
-  const [searchTrigger, { data, isFetching: isDetailsFetching, ...rest }] = apiTmdb.endpoints.tmbdCustomDetails.useLazyQuery();
+  const [searchTrigger, { data, isFetching: isDetailsFetching}] = apiTmdb.endpoints.tmbdCustomDetails.useLazyQuery();
   const { data: slots, isSuccess: isSlotsSuccess } = useAvailableSlotsQuery();
   const [sendBook, bookHandle] = useBookSlotMutation();
   const [sendPost, postHandle] = usePostMovieMutation();

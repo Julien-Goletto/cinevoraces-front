@@ -41,6 +41,18 @@ type proposal = {
   user_id: number | null;
   season_id: string | null;
 }
+type DBProposal = {
+  id: number,
+  french_title: string,
+  poster_url: string,
+  directors: string[],
+  release_date: string,
+  user_id: number,
+  user_pseudo: string,
+  publishing_date: string,
+  genres: string[],
+  presentation: string
+}
 type refreshToken = {
   accessToken: string,
   avatar_url: string,

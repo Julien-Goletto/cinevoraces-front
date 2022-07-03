@@ -98,7 +98,7 @@ function RequireAuth({ children, redirectTo }:{ children:any, redirectTo:any }) 
 }
 function PendingPropositionCheck ({ children, redirectTo }:{ children:any, redirectTo:any }) {
   const user = useAppSelector(userLogged);
-  const {isError, isLoading} = usePendingPropositionQuery(user.id); 
+  const {isError, isLoading} = usePendingPropositionQuery(user.id!); 
 
   if(isLoading) {
     return (

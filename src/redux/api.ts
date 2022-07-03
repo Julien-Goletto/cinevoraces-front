@@ -94,21 +94,21 @@ export const api = createApi({
     postMovie: build.mutation<string, proposal>({
       query: ((proposal) => ({url: 'v1/movies/newmovie/', method: 'POST', body: proposal}))
     }), 
-    metricsById: build.query<any, number>({
-      query: (id:number) => ({url: `/v1/metrics/${id}`, method: 'GET'})
+    metricsById: build.query<{[key: string]: number}[], number>({
+      query: (id) => ({url: `/v1/metrics/${id}`, method: 'GET'})
     }),
-    userById: build.query<any, number>({
-      query: (id:number) => ({url: `/v1/users/${id}`, method: 'GET'}),
+    userById: build.query<{[key: string]: string}, number>({
+      query: (id) => ({url: `/v1/users/${id}`, method: 'GET'}),
       providesTags: ['UserParams']
     }),
-    pendingProposalByUser: build.query<any, number>({
-      query: (id:number) => ({url: `/v1/propositions/${id}`, method: 'GET'})
+    pendingProposalByUser: build.query<DBProposal[] | string, number>({
+      query: (id) => ({url: `/v1/propositions/${id}`, method: 'GET'}),
     }),
     availableSlots: build.query<slot[], void>({
       query: () => ({url: '/v1/propositions/availableSlots', method: 'GET'})  
     }),
-    pendingProposition: build.query<any, any>({
-      query: (id:number) => ({url: `/v1/propositions/hasPendingProposition/${id}`, method: 'GET'})
+    pendingProposition: build.query<DBProposal[], number>({
+      query: (id) => ({url: `/v1/propositions/hasPendingProposition/${id}`, method: 'GET'})
     }),
     bookSlot: build.mutation<string, string>({
       query: (data) => ({url: '/v1/propositions/book/', method: 'PUT', body: {
@@ -116,7 +116,7 @@ export const api = createApi({
       }})
     }),
     getUserReview: build.query<reviews, object>({
-      query: (arg:{userId: number, movieId:number}) => ({url: `/v1/reviews/${arg.userId}/${arg.movieId}`, method: 'GET'}),
+      query: (arg:{userId: number, movieId: number}) => ({url: `/v1/reviews/${arg.userId}/${arg.movieId}`, method: 'GET'}),
       providesTags: ['Reviews']
     }),
     postInteraction: build.mutation<any, any>({

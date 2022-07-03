@@ -91,7 +91,7 @@ export const api = createApi({
       query: (id) => ({url: `/v1/reviews/${id}/comments`, method: 'GET'}),
       providesTags: ['Reviews']
     }),
-    postMovie: build.mutation<any, proposal>({
+    postMovie: build.mutation<string, proposal>({
       query: ((proposal) => ({url: 'v1/movies/newmovie/', method: 'POST', body: proposal}))
     }), 
     metricsById: build.query<any, number>({
@@ -110,8 +110,8 @@ export const api = createApi({
     pendingProposition: build.query<any, any>({
       query: (id:number) => ({url: `/v1/propositions/hasPendingProposition/${id}`, method: 'GET'})
     }),
-    bookSlot: build.mutation<any, any>({
-      query: (data:any) => ({url: '/v1/propositions/book/', method: 'PUT', body: {
+    bookSlot: build.mutation<string, string>({
+      query: (data) => ({url: '/v1/propositions/book/', method: 'PUT', body: {
         publishing_date: data
       }})
     }),

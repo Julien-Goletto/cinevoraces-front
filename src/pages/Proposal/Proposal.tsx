@@ -19,13 +19,9 @@ function Proposal() {
   const [seasonSelect, setSeasonSelect] = useState<number | string>('~');
   const [searchTrigger, { data, isFetching: isDetailsFetching}] = apiTmdb.endpoints.tmbdCustomDetails.useLazyQuery();
   const { data: slots, isSuccess: isSlotsSuccess } = useAvailableSlotsQuery();
-  const [sendBook, bookHandle] = useBookSlotMutation();
-  const [sendPost, postHandle] = usePostMovieMutation();
+  const [sendBook, {isSuccess: isBookHandleSuccess}] = useBookSlotMutation();
+  const [sendPost, {isSuccess: isPostMovieSuccess}] = usePostMovieMutation();
   const dispatch = useAppDispatch();
-  
-  useEffect(() => {
-    console.log(postHandle.data);
-  }, [postHandle]);
 
   const handleSelect = (e: React.FormEvent<HTMLSelectElement>) => {
     const selected = Number(e.currentTarget.value);
@@ -46,15 +42,13 @@ function Proposal() {
       dispatch(addToast({type: 'error', text:'Formulaire invalide'}));
       return;
     }
-    const res:any = await sendPost(proposalMovie);
-    if(res.data === 'Film ajouté en base') {
-      await sendBook(proposalMovie.publishing_date);
-    }
+    await sendPost(proposalMovie);
+    await sendBook(proposalMovie.publishing_date!);
   };
 
   
   useEffect(()=> {  
-    if(postHandle.isSuccess && bookHandle.isSuccess) {
+    if(isPostMovieSuccess && isBookHandleSuccess) {
       dispatch(addToast({type: 'success', text: 'Votre film à bien été enregistré'}));
       setTimeout(()=> {
         navigate('/', {state: {}, replace: true});
@@ -66,7 +60,7 @@ function Proposal() {
         navigate('/');
       }, 100);
     }
-  }, [postHandle, bookHandle, slots ]);
+  }, [isPostMovieSuccess, isBookHandleSuccess, slots ]);
 
 
   

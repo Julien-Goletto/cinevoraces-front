@@ -27,7 +27,7 @@ type DoubleInputRangeProps = {
  */
 function InputRange({ min, max, stateValue, setter, label }: InputRangeProps) {
   const handleOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setter(Number(event.target.value));
+    setter(Number(event.currentTarget.value));
   };
   return (
     <div className={styles['double-input-range']}>
@@ -61,11 +61,11 @@ function InputRange({ min, max, stateValue, setter, label }: InputRangeProps) {
  */
 function DoubleInputRange({ min, max, valueMin, valueMax, maxSetter, minSetter, label}: DoubleInputRangeProps) {
   const handleMinThumb = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const value = Math.min(Number(event.target.value), valueMax - 1);
+    const value = Math.min(Number(event.currentTarget.value), valueMax - 1);
     minSetter(value);
   };
   const handleMaxThumb = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const value = Math.max(Number(event.target.value), valueMin + 1);
+    const value = Math.max(Number(event.currentTarget.value), valueMin + 1);
     maxSetter(value);
   };
 

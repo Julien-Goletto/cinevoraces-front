@@ -1,9 +1,10 @@
 import { Button, InputText } from 'components/Inputs/InputsLib';
-import { useState } from 'react';
-import { useParams } from 'react-router-dom';
+import React, { useState } from 'react';
+import { userLogged } from 'redux/slices/user';
 import { useUserUpdatePictureMutation } from 'redux/api';
 import Loader from 'components/Loader/Loader';
 import styles from './UserInfo.module.scss';
+import { useAppSelector } from 'redux/hooks';
 
 type FieldProps = {
   type: string,
@@ -89,48 +90,25 @@ function Field({type, state, handler, value, password, confirm, fieldState, fiel
   );
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 function PictureField ({avatar}: {avatar: string}) {
-  const {id}  = useParams();
+  const {id} = useAppSelector(userLogged);
   const [isUpdateOpen, setIsUpdateOpen]   = useState(false);
-  const [imageFormData, setImageFormData] = useState<any>('');
-  const [preview, setPreview]             = useState<any>(undefined);
+  const [imageFormData, setImageFormData] = useState<File>();
+  const [preview, setPreview]             = useState<string | undefined>(undefined);
   const [updateUserPicture, {isLoading}]  = useUserUpdatePictureMutation();
 
   const uploadImage = () => {
     const formData = new FormData();
-    formData.append('picture', imageFormData, imageFormData.name);
-    const data = {userId: id, form: formData};
+    formData.append('picture', imageFormData!, imageFormData!.name);
+    const data = {userId: id!, formData: formData};
     updateUserPicture(data);
     setIsUpdateOpen(!isUpdateOpen);
   };
-  const onChangeHandler = (e: any) => {
-    const [file] = e.target.files;
-    setPreview(URL.createObjectURL(file));
-    setImageFormData(file);
+  const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.currentTarget.files) {
+      setPreview(URL.createObjectURL(e.currentTarget.files[0]));
+      setImageFormData(e.currentTarget.files[0]);
+    }
   };
   const openUpdateHandler = () => {
     setIsUpdateOpen(!isUpdateOpen);

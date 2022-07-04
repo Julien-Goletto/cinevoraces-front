@@ -1,32 +1,23 @@
-import { createApi, fetchBaseQuery, retry } from '@reduxjs/toolkit/query/react';
+import type { BaseQueryFn, FetchBaseQueryError } from '@reduxjs/toolkit/query';
+import type { RootState } from './store';
+import { createApi, FetchArgs, fetchBaseQuery, retry } from '@reduxjs/toolkit/query/react';
 import { setOffline, setUser } from './slices/user';
 import Cookies from 'js-cookie';
 
 const baseQuery = retry(fetchBaseQuery({
   baseUrl: process.env.REACT_APP_API,
   prepareHeaders: (headers, {getState, endpoint}) => {
-    const accessToken = (getState() as any).user.access_jwt;
+    const accessToken = (getState() as RootState).user.access_jwt;
     const refreshToken = Cookies.get('refreshToken');
-    
-    if(headers.get('authorization')) {
-      return headers;
-    }
-    
-    if(endpoint === 'refreshToken') {
-      headers.set('authorization', `Bearer ${refreshToken}`);
-    }
-
-    if (accessToken && endpoint !== 'refreshToken') {
-      headers.set('authorization', `Bearer ${accessToken}`);
-    }
+    if (headers.get('authorization')) return headers;
+    if (endpoint === 'refreshToken') headers.set('authorization', `Bearer ${refreshToken}`);
+    if (accessToken && endpoint !== 'refreshToken') headers.set('authorization', `Bearer ${accessToken}`);
     return headers;
-  },
-}), {maxRetries: 0});
-
-const baseQueryWithReauth = async (args:any, api:any, extraOptions:any) => {
-    
+  }}), {maxRetries: 0});
+const baseQueryWithReauth: BaseQueryFn<string | FetchArgs, unknown, FetchBaseQueryError> = async (
+  args, api, extraOptions
+) => {
   let result = await baseQuery(args, api, extraOptions);
-
   if (result.error && 'status' in result.error && result.error.status === 401) {
     // try to get a new token
     const refreshToken = Cookies.get('refreshToken');
@@ -59,9 +50,8 @@ export const api = createApi({
       query: ({user, userId}) => ({url: `v1/users/modify/${userId}`, method: 'PUT', body: user}),
       invalidatesTags: ['UserParams'] 
     }),
-    // TODO: updatePicture method/component must be rewrited
-    userUpdatePicture: build.mutation<void, any>({
-      query: ({userId, form}) => ({url: `v1/users/addProfilePic/${userId}`, method: 'PUT', body: form}),
+    userUpdatePicture: build.mutation<void, {userId: id, formData: FormData}>({
+      query: ({userId, formData}) => ({url: `v1/users/addProfilePic/${userId}`, method: 'PUT', body: formData}),
       invalidatesTags: ['UserParams'] 
     }),
     filters: build.query<DBFilters[], void>({
@@ -150,9 +140,7 @@ export const api = createApi({
         }};
       },
       providesTags: ['Users', 'Propositions']
-    })
-  })
-});
+    })})});
 
 export const { 
   useAdminPublishMovieMutation,

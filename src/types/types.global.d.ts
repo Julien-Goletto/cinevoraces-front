@@ -63,11 +63,6 @@ type TMDBMovie = {
   original_title?: string
   poster_url?: string
 }
-type filter = {
-  name: string,
-  value?: string,
-  isChecked: boolean
-}
 type refreshToken = {
   accessToken: string,
   avatar_url: string,
@@ -101,4 +96,10 @@ type user = {
   password: string,
   accessToken: string,
   refreshToken: string
+}
+// Global slice
+type filter = {
+  name: string,
+  value?: string,
+  isChecked: boolean
 }

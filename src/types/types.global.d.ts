@@ -1,4 +1,11 @@
 // API Arguments
+type user = {
+  pseudo: string,
+  mail: string,
+  password: string,
+  accessToken: string,
+  refreshToken: string
+}
 type id = number | string;
 type interactionBody = {
   rating?: number,
@@ -63,6 +70,13 @@ type TMDBMovie = {
   original_title?: string
   poster_url?: string
 }
+type DBUser = {
+  id: string,
+  pseudo: string,
+  mail: string,
+  role: string,
+  created_at: string
+}
 type refreshToken = {
   accessToken: string,
   avatar_url: string,
@@ -72,7 +86,7 @@ type refreshToken = {
   refreshToken: string,
   role: string
 }
-type reviews = [{
+type DBReviews = [{
   bookmarked: boolean,
   comment: string,
   created_at: string,
@@ -89,13 +103,6 @@ type slot = {
   episode: number,
   publishing_date: string,
   is_booked: boolean
-}
-type user = {
-  pseudo: string,
-  mail: string,
-  password: string,
-  accessToken: string,
-  refreshToken: string
 }
 // Global slice
 type filter = {

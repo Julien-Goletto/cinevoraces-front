@@ -103,7 +103,7 @@ export const api = createApi({
     bookSlot: build.mutation<string, {publishing_date: string}>({
       query: (body) => ({url: '/v1/propositions/book/', method: 'PUT', body: body})
     }),
-    getUserReview: build.query<reviews, {userId: id, movieId: id}>({
+    getUserReview: build.query<DBReviews, {userId: id, movieId: id}>({
       query: ({userId, movieId}) => ({url: `/v1/reviews/${userId}/${movieId}`, method: 'GET'}),
       providesTags: ['Reviews']
     }),
@@ -130,17 +130,18 @@ export const api = createApi({
       query: ({userId}) => ({url : `/v1/users/${userId}`, method: 'DELETE'}),
       invalidatesTags: ['Users'] 
     }),
-    adminGetData: build.query<any, void>({
+    adminGetData: build.query<{propositions: DBProposal[], users: DBUser[]}, void>({
       async queryFn(_arg, _queryApi, _extraOptions, fetchWithBQ) {
         const propositions = await fetchWithBQ('/v1/propositions/pendingPropositions');
         const users = await fetchWithBQ('/v1/users');
         return {data : {
-          users: users.data,
-          propositions: propositions.data
+          users: users.data as DBUser[],
+          propositions: propositions.data as DBProposal[]
         }};
       },
       providesTags: ['Users', 'Propositions']
-    })})});
+    }),
+  })});
 
 export const { 
   useAdminPublishMovieMutation,

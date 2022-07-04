@@ -76,10 +76,10 @@ function Admin () {
         }
         { !isLoading &&
         <>
-          { data.propositions &&
+          { data!.propositions &&
             <form className={styles['proposal-form']}>
               <div className={styles['proposals-container']}>
-                { data.propositions.map((proposition: any) => 
+                { data!.propositions.map((proposition: DBProposal) => 
                   <Proposal
                     key={proposition.id}
                     movie={proposition}
@@ -115,7 +115,7 @@ function Admin () {
               </div>
             </form>
           }
-          { !data.propositions &&
+          { !data!.propositions &&
             <div>y'a R frere</div>
           }
           <form className={styles['user-form']}>
@@ -132,7 +132,7 @@ function Admin () {
                   </tr>
                 </thead>
                 <tbody>
-                  { data.users.map((user: any) => 
+                  { data!.users.map((user) => 
                     <User
                       key={user.id}
                       user={user}

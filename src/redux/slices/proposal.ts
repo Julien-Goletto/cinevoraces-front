@@ -2,36 +2,23 @@ import { createSlice } from '@reduxjs/toolkit';
 import { RootState } from '../store';
 
 type proposalState = {
-  episode_selected: string | null,
-  episode_publish_date: string | null,
+  episode_selected: string,
+  episode_publish_date: string,
   searchMovie: string,
   controlledInput: string,
-  presentation: string | null,
-  season_id: string | null,
-  movie_selected: {[key: string]: string | null},
+  presentation: string,
+  season_id: string,
+  movie_selected: {[key: string]: string},
 }
 
 const initialState: proposalState = { 
-  episode_selected: null,
-  episode_publish_date: null,
+  episode_selected: '',
+  episode_publish_date: '',
   searchMovie: '',
   controlledInput: '',
-  presentation: null,
-  season_id: null,
-  movie_selected: {
-    french_title: null,
-    original_title: null,
-    poster_url: null,
-    directors: null,
-    release_date: null,
-    runtime: null,
-    casting: null,
-    publishing_date: null,
-    user_id: null,
-    movie_genres: null,
-    movie_languages: null,
-    movie_countries: null
-  }
+  presentation: '',
+  season_id: '',
+  movie_selected: {}
 };
 
 
@@ -45,9 +32,9 @@ const proposalSlice = createSlice({
       state.season_id = action.payload.season_id;
     },
     unsetEpisode(state) {
-      state.episode_selected = null;
-      state.episode_publish_date = null;
-      state.season_id = null;
+      state.episode_selected = '';
+      state.episode_publish_date = '';
+      state.season_id = '';
     },
     setSearch(state, action) {
       state.searchMovie = action.payload;

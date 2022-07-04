@@ -22,9 +22,9 @@ function AddComment(props: any) {
     let comment = e.target.comment.value;
     if (user.isOnline) {
       if(reviews === false) {
-        await postInteraction({userId: user.id, movieId: id});
+        await postInteraction({userId: user.id!, movieId: id!});
       }
-      await putInteraction({userId: user.id, movieId: id, body: {comment: comment}});
+      await putInteraction({userId: user.id!, movieId: id!, body: {comment: comment}});
       dispatch(addToast({type: 'success', text: 'Commentaire ajouté / modifié'}));
     }
     setEditable(false);

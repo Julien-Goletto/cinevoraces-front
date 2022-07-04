@@ -1,3 +1,16 @@
+// API Arguments
+type id = number | string;
+type interactionBody = {
+  rating?: number,
+  comment?: Comment
+}
+type proposalBody = {
+  publishing_date: string | null;
+  presentation: string | null;
+  user_id: number | null;
+  season_id: string | null;
+}
+// Responses
 type DBMovie = {
   id: number,
   french_title: string,
@@ -23,23 +36,12 @@ type DBMovie = {
   views_count: string,
   avg_rating: string
 };
-type filter = {
-  name: string,
-  value?: string,
-  isChecked: boolean
-}
 type DBFilters = {
   seasons_list: [number[]],
   genres_list: string[],
   countries_list: string[],
   min_max_dates: [number, number],
   max_runtime: number
-}
-type proposal = {
-  publishing_date: string | null;
-  presentation: string | null;
-  user_id: number | null;
-  season_id: string | null;
 }
 type DBProposal = {
   id: number,
@@ -52,6 +54,19 @@ type DBProposal = {
   publishing_date: string,
   genres: string[],
   presentation: string
+}
+type TMDBMovie = {
+  id: number,
+  title: string
+  release_date: string,
+  poster_path: string,
+  original_title?: string
+  poster_url?: string
+}
+type filter = {
+  name: string,
+  value?: string,
+  isChecked: boolean
 }
 type refreshToken = {
   accessToken: string,
@@ -79,14 +94,6 @@ type slot = {
   episode: number,
   publishing_date: string,
   is_booked: boolean
-}
-type TMDBMovie = {
-  id: number,
-  title: string
-  release_date: string,
-  poster_path: string,
-  original_title?: string
-  poster_url?: string
 }
 type user = {
   pseudo: string,

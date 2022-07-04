@@ -22,25 +22,25 @@ function InteractionsWrapper({movie}: InteractionsWrapperProps) {
   // POST/PUT handler for user interactions
   const dispatchInteraction = async (type: string) => {
     const body = {
-      userId: userId,
-      movieId: movieId,
+      userId: userId!,
+      movieId: movieId!,
       body: {
         // Resolve content with passed string
         [type]: !Object.entries(interactionState).find(
           e => e[0] === type)![1]
       }};
-    !reviews && await postInteraction({userId: userId, movieId: movieId});
+    !reviews && await postInteraction({userId: userId!, movieId: movieId!});
     await putInteraction(body); // Fetch data base
     dispatch(toggle(type)); // update local state
   };
   // POST/PUT handler for movie rating
   const dispatchRating = async (n: number) => {
     const body = {
-      userId: userId,
-      movieId: movieId,
+      userId: userId!,
+      movieId: movieId!,
       body: {rating: n}
     };
-    !reviews && await postInteraction({userId: userId, movieId: movieId});
+    !reviews && await postInteraction({userId: userId!, movieId: movieId!});
     await putInteraction(body);
     dispatch(setRating(n));
   };

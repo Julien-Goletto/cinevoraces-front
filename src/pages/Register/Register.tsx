@@ -54,7 +54,7 @@ function Register() {
       confirm: confirmField
     });
   };
-  const validateRequest = async (user: {[key: string]: string | null}) => {
+  const validateRequest = async (user: {[key: string]: string}) => {
     if (!user.mail) {
       dispatchToastError('Vous devez indiquer une adresse email valide.');
     } else if (!user.pseudo) {

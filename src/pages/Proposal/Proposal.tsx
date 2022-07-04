@@ -12,9 +12,12 @@ import { usePostMovieMutation, useAvailableSlotsQuery, useBookSlotMutation } fro
 import { useNavigate } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
 import { apiTmdb } from 'redux/apiTmdb';
+import { userLogged } from 'redux/slices/user';
+
 
 function Proposal() {
   const navigate = useNavigate();
+  const {id} = useAppSelector(userLogged);
   const proposalMovie = useAppSelector(getProposalData);
   const [seasonSelect, setSeasonSelect] = useState<number | string>('~');
   const [searchTrigger, { data, isFetching: isDetailsFetching}] = apiTmdb.endpoints.tmbdCustomDetails.useLazyQuery();
@@ -37,14 +40,12 @@ function Proposal() {
   };
   
   const handleSubmit = async () => {
-    const { presentation, user_id } = proposalMovie;
-    if(!presentation || !user_id) {
+    if(proposalMovie.presentation.length <= 1) {
       dispatch(addToast({type: 'error', text:'Formulaire invalide'}));
-      return;
-    }
-    await sendPost(proposalMovie);
-    await sendBook(proposalMovie.publishing_date!);
-  };
+    } else {
+      await sendPost({...proposalMovie, user_id: id!});
+      await sendBook({publishing_date: proposalMovie.publishing_date!});
+    }};
 
   
   useEffect(()=> {  

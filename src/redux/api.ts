@@ -49,20 +49,19 @@ export const api = createApi({
   reducerPath: 'api',
   baseQuery: baseQueryWithReauth, tagTypes: ['Movie', 'Reviews', 'Propositions', 'Users', 'UserParams'],
   endpoints: (build) => ({
-    userRegister: build.mutation<string, {[key: string]: string | null}>({
+    userRegister: build.mutation<string, {[key: string]: string}>({
       query: (user) => ({ url: '/v1/users/register', method:'POST', body: user })
     }),
     userLogin: build.mutation<user, {[key: string]: string}>({
       query: (user) => ({ url: '/v1/users/login', method:'POST', body: user}),
-      transformResponse: (res: user) => res
     }),
     userUpdate: build.mutation<string, {userId: number, user: {[key: string]: string}}>({
       query: ({user, userId}) => ({url: `v1/users/modify/${userId}`, method: 'PUT', body: user}),
       invalidatesTags: ['UserParams'] 
     }),
-    // FIXME: updatePicture method/component must be rewrited 
+    // TODO: updatePicture method/component must be rewrited
     userUpdatePicture: build.mutation<void, any>({
-      query: (data) => ({url: `v1/users/addProfilePic/${data.userId}`, method: 'PUT', body: data.form}),
+      query: ({userId, form}) => ({url: `v1/users/addProfilePic/${userId}`, method: 'PUT', body: form}),
       invalidatesTags: ['UserParams'] 
     }),
     filters: build.query<DBFilters[], void>({
@@ -71,11 +70,12 @@ export const api = createApi({
     allMovies: build.query<DBMovie[], string>({
       query: (query) =>  ({url: `/v1/movies/search/${query}`, method: 'GET'})
     }),
-    oneMovie: build.query<DBMovie, number>({
+    oneMovie: build.query<DBMovie, id>({
       query: (id) => ({url: `/v1/movies/id/${id}`, method: 'GET'}),
       transformResponse: (res: DBMovie[]) => res[0],
       providesTags: ['Movie']
     }),
+    // FIXME: should receive an object not an array
     lastMovie: build.query<DBMovie[], void>({
       query: () => ({url: 'v1/movies/lastmovie', method: 'GET'})
     }),
@@ -87,21 +87,21 @@ export const api = createApi({
       query: () =>  ({url: '/v1/refreshTokens', method: 'GET'}),
       providesTags: ['UserParams']
     }),
-    movieReviews: build.query<Comment[], number>({
+    movieReviews: build.query<Comment[], id>({
       query: (id) => ({url: `/v1/reviews/${id}/comments`, method: 'GET'}),
       providesTags: ['Reviews']
     }),
-    postMovie: build.mutation<string, proposal>({
-      query: ((proposal) => ({url: 'v1/movies/newmovie/', method: 'POST', body: proposal}))
+    postMovie: build.mutation<string, {[key: string]: string | number}>({
+      query: (body => ({url: 'v1/movies/newmovie/', method: 'POST', body: body}))
     }), 
-    metricsById: build.query<{[key: string]: number}[], number>({
+    metricsById: build.query<{[key: string]: number}[], id>({
       query: (id) => ({url: `/v1/metrics/${id}`, method: 'GET'})
     }),
-    userById: build.query<{[key: string]: string}, number>({
+    userById: build.query<{[key: string]: string}, id>({
       query: (id) => ({url: `/v1/users/${id}`, method: 'GET'}),
       providesTags: ['UserParams']
     }),
-    pendingProposalByUser: build.query<DBProposal[] | string, number>({
+    pendingProposalByUser: build.query<DBProposal[], id>({
       query: (id) => ({url: `/v1/propositions/${id}`, method: 'GET'}),
     }),
     availableSlots: build.query<slot[], void>({
@@ -110,36 +110,34 @@ export const api = createApi({
     pendingProposition: build.query<DBProposal[], number>({
       query: (id) => ({url: `/v1/propositions/hasPendingProposition/${id}`, method: 'GET'})
     }),
-    bookSlot: build.mutation<string, string>({
-      query: (data) => ({url: '/v1/propositions/book/', method: 'PUT', body: {
-        publishing_date: data
-      }})
+    bookSlot: build.mutation<string, {publishing_date: string}>({
+      query: (body) => ({url: '/v1/propositions/book/', method: 'PUT', body: body})
     }),
-    getUserReview: build.query<reviews, object>({
-      query: (arg:{userId: number, movieId: number}) => ({url: `/v1/reviews/${arg.userId}/${arg.movieId}`, method: 'GET'}),
+    getUserReview: build.query<reviews, {userId: id, movieId: id}>({
+      query: ({userId, movieId}) => ({url: `/v1/reviews/${userId}/${movieId}`, method: 'GET'}),
       providesTags: ['Reviews']
     }),
-    postInteraction: build.mutation<any, any>({
-      query: (arg:any) => ({url : `/v1/reviews/${arg.userId}/${arg.movieId}`, method: 'POST'})   
+    postInteraction: build.mutation<string, {userId: id, movieId: id}>({
+      query: ({userId, movieId}) => ({url : `/v1/reviews/${userId}/${movieId}`, method: 'POST'})   
     }),
-    putInteraction: build.mutation<any, any>({
-      query: (arg:any) => ({url : `/v1/reviews/${arg.userId}/${arg.movieId}`, method: 'PUT', body: arg.body}),
+    putInteraction: build.mutation<string, {userId: id, movieId: id, body: interactionBody}>({
+      query: ({userId, movieId, body}) => ({url : `/v1/reviews/${userId}/${movieId}`, method: 'PUT', body: body}),
       invalidatesTags: ['Movie', 'Reviews'] 
     }),
-    adminPublishMovie: build.mutation<any, any>({
-      query: (arg:any) => ({url : `/v1/movies/publishing/${arg.movieId}`, method: 'PUT', body: arg.body}),
+    adminPublishMovie: build.mutation<string, {movieId: id, body: {isPublished: boolean}}>({
+      query: ({movieId, body}) => ({url: `/v1/movies/publishing/${movieId}`, method: 'PUT', body: body}),
       invalidatesTags: ['Propositions'] 
     }),
-    adminRevokeMovie: build.mutation<any, any>({
-      query: (arg:any) => ({url : `/v1/movies/${arg.movieId}`, method: 'DELETE'}),
+    adminRevokeMovie: build.mutation<string, {movieId: id}>({
+      query: ({movieId}) => ({url : `/v1/movies/${movieId}`, method: 'DELETE'}),
       invalidatesTags: ['Propositions'] 
     }),
-    adminPutUser: build.mutation<any, any>({
-      query: (arg:any) => ({url : `/v1/users/modify/${arg.userId}`, method: 'PUT', body: arg.body}),
+    adminPutUser: build.mutation<string, {userId: id, body: {role: string}}>({
+      query: ({userId, body}) => ({url : `/v1/users/modify/${userId}`, method: 'PUT', body: body}),
       invalidatesTags: ['Users'] 
     }),
-    adminDeleteUser: build.mutation<any, any>({
-      query: (arg:any) => ({url : `/v1/users/${arg.userId}`, method: 'DELETE'}),
+    adminDeleteUser: build.mutation<string, {userId: id}>({
+      query: ({userId}) => ({url : `/v1/users/${userId}`, method: 'DELETE'}),
       invalidatesTags: ['Users'] 
     }),
     adminGetData: build.query<any, void>({

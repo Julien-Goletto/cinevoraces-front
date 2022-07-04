@@ -8,7 +8,9 @@ function UserSubmittedFilm({ id }: {id: string}) {
   const { data, isLoading } = usePendingProposalByUserQuery(Number(id));
   let dataResponseTest = false;
   if (data) {
-    if (data === 'Cet utilisateur n\'a pas de proposition de film en attente.') {
+    // FIXME: Response should send an empty array instead of string
+    // @ts-expect-error
+    if (data === 'Cet utilisateur n\'a pas de proposition de film en attente.') { 
       dataResponseTest = false;
     } else {
       dataResponseTest = true;

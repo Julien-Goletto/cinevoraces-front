@@ -18,7 +18,7 @@ function Film() {
   const dispatch = useAppDispatch();
   const { data: movie, isLoading: isMovieLoad } = useOneMovieQuery(Number(id));
   const { data: reviews, isLoading: isReviewsLoad } = useMovieReviewsQuery(Number(id));
-  const { data: userReview, isLoading: isUserReviewLoad, isError: isUserReviewError, isSuccess: isUserReviewSuccess } = useGetUserReviewQuery({userId: user.id, movieId: id });
+  const { data: userReview, isLoading: isUserReviewLoad, isError: isUserReviewError, isSuccess: isUserReviewSuccess } = useGetUserReviewQuery({userId: user.id!, movieId: id! });
   const [filteredComment, setFilteredComment] = useState(reviews);
 
   const filterComment = useCallback(

@@ -1,48 +1,48 @@
+import type { RootState } from 'redux/store';
 import { createSlice } from '@reduxjs/toolkit';
-import { RootState } from '../store';
 import Cookies from 'js-cookie';
 
 type UserState = { 
   isOnline: boolean,
-  id: number | null,
+  id: number,
   pseudo: string,
   mail: string,
   avatar: string,
   role: string,
-  access_jwt: string | null | undefined,
-  refresh_jwt: string | null | undefined,
+  accessToken: string | null | undefined,
+  refreshToken: string | null | undefined,
 };
 
 const initialState: UserState = { 
   isOnline: false,
-  id: null,
+  id: NaN,
   pseudo: '',
-  mail: 'mail@fake.com',
+  mail: '',
   role: '',
   avatar: '',
-  access_jwt: null,
-  refresh_jwt: null,
+  accessToken: null,
+  refreshToken: null,
 };
 
 const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: { 
-    setUser(state,action) {
+    setUser(state, action) {
+      state.isOnline = true;
       state.id = action.payload.id;
       state.pseudo = action.payload.pseudo;
+      state.mail = 'fixme@fix.fix';
       state.role = action.payload.role;
-      state.access_jwt = action.payload.accessToken;
-      state.refresh_jwt = action.payload.refreshToken;
-      state.avatar = action.payload.avatar_url;
-      state.isOnline = true;
-      
+      state.avatar = action.payload.avatar;
+      state.accessToken = action.payload.accessToken;
+      state.refreshToken = action.payload.refreshToken;
       Cookies.set('accessToken',action.payload.accessToken);
       Cookies.set('refreshToken',action.payload.refreshToken);
     },
-    setJwts(state, action){
-      state.access_jwt = action.payload.accessToken;
-      state.refresh_jwt = action.payload.refreshToken;
+    setToken(state, action) {
+      state.accessToken = action.payload.accessToken;
+      state.refreshToken = action.payload.refreshToken;
     },
     setConnectedStatus(state, action) {
       state.isOnline = action.payload;
@@ -52,27 +52,26 @@ const userSlice = createSlice({
       Cookies.remove('refreshToken');
       return initialState;
     },
-    setUsername (state,action) {
+    setUsername (state, action) {
       state.pseudo = action.payload.pseudo;
     },
-    setAvatar (state,action) {
+    setAvatar (state, action) {
       state.avatar = action.payload.avatar_url;
     }
   }
 });
 
-export const isOnline = (state:RootState) : boolean => state.user.isOnline;
-export const userLogged = (state: RootState) => state.user;
-export const userJwts = (state:RootState) => { return {
-  access_jwt: state.user.access_jwt,
-  refresh_jwt: state.user.refresh_jwt
+export const userState = (state: RootState) => state.user;
+export const userToken = (state:RootState) => { return {
+  accessToken: state.user.accessToken,
+  refreshToken: state.user.refreshToken
 };};
 
 export const { 
   setUser,
   setAvatar,
   setUsername,
-  setJwts,
+  setToken,
   setConnectedStatus,
   setOffline
 } = userSlice.actions;

@@ -12,12 +12,12 @@ import { usePostMovieMutation, useAvailableSlotsQuery, useBookSlotMutation } fro
 import { useNavigate } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
 import { apiTmdb } from 'redux/apiTmdb';
-import { userLogged } from 'redux/slices/user';
+import { userState } from 'redux/slices/user';
 
 
 function Proposal() {
   const navigate = useNavigate();
-  const {id} = useAppSelector(userLogged);
+  const {id} = useAppSelector(userState);
   const proposalMovie = useAppSelector(getProposalData);
   const [seasonSelect, setSeasonSelect] = useState<number | string>('~');
   const [searchTrigger, { data, isFetching: isDetailsFetching}] = apiTmdb.endpoints.tmbdCustomDetails.useLazyQuery();

@@ -1,7 +1,7 @@
 import { ReactComponent as SVGLogo } from './Layout.Logo.svg';
 import { useAppDispatch, useAppSelector } from 'redux/hooks';
 import { toggleModal, globals } from 'redux/slices/global';
-import { userLogged } from 'redux/slices/user';
+import { userState } from 'redux/slices/user';
 import { useLastMovieQuery } from 'redux/api';
 import { Button } from 'components/Inputs/InputsLib';
 import { Link } from 'react-router-dom';
@@ -18,7 +18,7 @@ function Header() {
   const dispatch = useAppDispatch();
   const {data} = useLastMovieQuery();
   const {modalIsOpen} = useAppSelector(globals);
-  const {isOnline} = useAppSelector(userLogged);
+  const {isOnline} = useAppSelector(userState);
 
   const connectionHandler = () => {
     dispatch(toggleModal());

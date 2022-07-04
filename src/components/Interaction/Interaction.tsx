@@ -4,7 +4,7 @@ import { ReactComponent as Starred } from './Interaction.ico_starred.svg';
 import { ReactComponent as Viewed } from './Interaction.ico_viewed.svg';
 import { ReactComponent as Bookmarked } from './Interaction.ico_bookmarked.svg';
 import { useAppDispatch, useAppSelector } from 'redux/hooks';
-import { userLogged } from 'redux/slices/user';
+import { userState } from 'redux/slices/user';
 import { addToast } from 'redux/slices/global';
 import { InputStar } from 'components/Inputs/InputsLib';
 import Loader from 'components/Loader/Loader';
@@ -14,7 +14,7 @@ type InteractionProps = {
   type: string,
   count: number,
   value: number | boolean,
-  handler: (arg: any) => void,
+  handler: (arg: any) => Promise<void>,
   loader: boolean
 }
 
@@ -28,10 +28,10 @@ type InteractionProps = {
  */
 function Interaction({type, count, value, handler, loader}: InteractionProps) {
   const dispatch                              = useAppDispatch();
-  const {isOnline}                            = useAppSelector(userLogged);
-  const [rateMenu, setRateMenu]               = useState<boolean>(false);
-  const [rateMenuWrapper, setRateMenuWrapper] = useState<boolean>(false);
-  const [animIsActive, setAnimActive]         = useState<boolean>(false);
+  const {isOnline}                            = useAppSelector(userState);
+  const [rateMenu, setRateMenu]               = useState(false);
+  const [rateMenuWrapper, setRateMenuWrapper] = useState(false);
+  const [animIsActive, setAnimActive]         = useState(false);
   
   const typeResolver = (searchedString: string) => {
     if (RegExp(`\\b${searchedString}\\b`).test(type)) {

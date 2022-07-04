@@ -1,6 +1,6 @@
 import { userInteractions, toggle, setRating } from 'redux/slices/interaction';
 import { useAppDispatch, useAppSelector } from 'redux/hooks';
-import { userLogged } from 'redux/slices/user';
+import { userState } from 'redux/slices/user';
 import { useParams } from 'react-router-dom';
 import { usePostInteractionMutation,usePutInteractionMutation } from 'redux/api';
 import Interaction from 'components/Interaction/Interaction';
@@ -12,8 +12,8 @@ type InteractionsWrapperProps ={
 
 function InteractionsWrapper({movie}: InteractionsWrapperProps) {
   const dispatch                      = useAppDispatch();
-  const {id: movieId}                 = useParams<string>();
-  const {id: userId}                  = useAppSelector(userLogged);
+  const {id: movieId}                 = useParams();
+  const {id: userId}                  = useAppSelector(userState);
   const interactionState              = useAppSelector(userInteractions);
   const {reviews, viewed, rating, bookmarked, liked} = interactionState;
   const [postInteraction]             = usePostInteractionMutation();

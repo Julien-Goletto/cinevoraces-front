@@ -1,5 +1,5 @@
 import { useAppSelector } from 'redux/hooks';
-import { isOnline } from 'redux/slices/user';
+import { userState } from 'redux/slices/user';
 import Hero from './Hero/Hero';
 import LastMoviesGrid from 'components/LastMoviesGrid/LastMoviesGrid';
 import Metrics from 'components/Metrics/Metrics';
@@ -11,7 +11,7 @@ import AnimationLayout from 'components/AnimationLayout/AnimationLayout';
 import styles from './Home.module.scss';
 
 function Home() {
-  const isLogged = useAppSelector<boolean>(isOnline);
+  const isLogged = useAppSelector(userState);
   return (
     <AnimationLayout>
       <Hero />

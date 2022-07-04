@@ -5,7 +5,7 @@ import { useOneMovieQuery, useMovieReviewsQuery, useGetUserReviewQuery } from 'r
 import { useParams } from 'react-router-dom';
 import Loader from 'components/Loader/Loader';
 import { useAppDispatch, useAppSelector } from 'redux/hooks';
-import { userLogged } from 'redux/slices/user';
+import { userState } from 'redux/slices/user';
 import { useCallback, useEffect, useState } from 'react';
 import { setActive, setInactive } from 'redux/slices/interaction';
 import AnimationLayout from 'components/AnimationLayout/AnimationLayout';
@@ -14,7 +14,7 @@ import AddComment from './AddComment';
 
 function Film() {
   const { id }  = useParams();
-  const user = useAppSelector(userLogged);
+  const user = useAppSelector(userState);
   const dispatch = useAppDispatch();
   const { data: movie, isLoading: isMovieLoad } = useOneMovieQuery(Number(id));
   const { data: reviews, isLoading: isReviewsLoad } = useMovieReviewsQuery(Number(id));

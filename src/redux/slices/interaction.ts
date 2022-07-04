@@ -1,5 +1,5 @@
+import type { RootState } from 'redux/store';
 import { createSlice } from '@reduxjs/toolkit';
-import { RootState } from '../store';
 
 const initialState = { 
   reviews: false,
@@ -8,7 +8,6 @@ const initialState = {
   bookmarked : false,
   liked : false,
 };
-
 
 const interactionSlice = createSlice({
   name: 'interaction',

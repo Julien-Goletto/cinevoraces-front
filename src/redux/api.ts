@@ -1,13 +1,13 @@
 import type { BaseQueryFn, FetchBaseQueryError } from '@reduxjs/toolkit/query';
-import type { RootState } from './store';
+import type { RootState } from 'redux/store';
 import { createApi, FetchArgs, fetchBaseQuery, retry } from '@reduxjs/toolkit/query/react';
-import { setOffline, setUser } from './slices/user';
+import { setOffline, setUser } from 'redux/slices/user';
 import Cookies from 'js-cookie';
 
 const baseQuery = retry(fetchBaseQuery({
   baseUrl: process.env.REACT_APP_API,
   prepareHeaders: (headers, {getState, endpoint}) => {
-    const accessToken = (getState() as RootState).user.access_jwt;
+    const accessToken = (getState() as RootState).user.accessToken;
     const refreshToken = Cookies.get('refreshToken');
     if (headers.get('authorization')) return headers;
     if (endpoint === 'refreshToken') headers.set('authorization', `Bearer ${refreshToken}`);

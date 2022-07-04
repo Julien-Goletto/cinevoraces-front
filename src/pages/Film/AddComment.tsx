@@ -1,6 +1,6 @@
 import { Button } from 'components/Inputs/InputsLib';
 import { useAppSelector } from 'redux/hooks';
-import { userLogged } from 'redux/slices/user';
+import { userState } from 'redux/slices/user';
 import { usePostInteractionMutation, usePutInteractionMutation } from 'redux/api';
 import { useParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
@@ -13,7 +13,7 @@ function AddComment(props: any) {
   const { setEditable, editable, text } = props;
   const {reviews} = useAppSelector(userInteractions);
   const dispatch = useDispatch();
-  const user = useAppSelector(userLogged);
+  const user = useAppSelector(userState);
   const [postInteraction] = usePostInteractionMutation();
   const [putInteraction] = usePutInteractionMutation();
 

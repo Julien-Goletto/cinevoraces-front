@@ -1,5 +1,5 @@
+import type { RootState } from 'redux/store';
 import { createSlice } from '@reduxjs/toolkit';
-import { RootState } from '../store';
 
 type globalState = {
   modalIsOpen: boolean,

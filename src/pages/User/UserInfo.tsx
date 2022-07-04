@@ -2,13 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from 'redux/hooks';
 import { addToast } from 'redux/slices/global';
 import { useUserUpdateMutation } from 'redux/api';
-import { userLogged } from 'redux/slices/user';
+import { userState } from 'redux/slices/user';
 import { PictureField, Field } from './UserInfo.Field';
 import styles from './UserInfo.module.scss';
 
 function UserInfo() {
   const dispatch = useAppDispatch();
-  const {id, avatar, pseudo: statePseudo, mail: stateMail} = useAppSelector(userLogged);
+  const {id, avatar, pseudo: statePseudo, mail: stateMail} = useAppSelector(userState);
   const [updateUser, {isError, isSuccess, reset, error}] = useUserUpdateMutation();
   // Field selector
   const [fieldSelector, setFieldSelector] = useState([false, false, false]);

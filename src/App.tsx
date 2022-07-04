@@ -8,7 +8,7 @@ import {
 import Cookies from 'js-cookie';
 import { AnimatePresence } from 'framer-motion';
 import { useAppDispatch, useAppSelector } from 'redux/hooks';
-import { isOnline, setUser, userLogged } from 'redux/slices/user';
+import { setUser, userState } from 'redux/slices/user';
 import { usePendingPropositionQuery, useLazyRefreshTokenQuery } from 'redux/api';
 
 import Toast from 'components/Toasts/Toasts';
@@ -26,7 +26,7 @@ import Admin from './pages/Admin/Admin';
 import Loader from 'components/Loader/Loader';
 
 function App() {
-  const isLogged = useAppSelector<boolean>(isOnline); // eslint-disable-line @typescript-eslint/no-unused-vars
+  const isLogged = useAppSelector(userState); // eslint-disable-line @typescript-eslint/no-unused-vars
   const dispatch = useAppDispatch();
   const location = useLocation();
   const [refreshToken, {data, isLoading, isError}] = useLazyRefreshTokenQuery();
@@ -91,13 +91,13 @@ function RequireAuth({ children, redirectTo }:{ children:any, redirectTo:any }) 
   const [resfreshToken, {isError, isLoading}] = useLazyRefreshTokenQuery();
   useEffect(()=> {
     resfreshToken();
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  }, []);
   if(!isLoading) {
     return !isError ? children : <Navigate to={redirectTo} />;
   }
 }
-function PendingPropositionCheck ({ children, redirectTo }:{ children:any, redirectTo:any }) {
-  const user = useAppSelector(userLogged);
+function PendingPropositionCheck ({children, redirectTo}: {children: any, redirectTo: any}) {
+  const user = useAppSelector(userState);
   const {isError, isLoading} = usePendingPropositionQuery(user.id!); 
 
   if(isLoading) {

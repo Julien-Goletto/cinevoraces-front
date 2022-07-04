@@ -6,14 +6,14 @@ import { useEffect, useState } from 'react';
 import { useUserRegisterMutation } from 'redux/api';
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from 'redux/hooks';
-import { userLogged } from 'redux/slices/user';
+import { userState } from 'redux/slices/user';
 import { addToast, toggleModal } from 'redux/slices/global';
 import styles from './Register.module.scss';
 
 function Register() {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const {id, isOnline} = useAppSelector(userLogged);
+  const {id, isOnline} = useAppSelector(userState);
   const [addUser, {error, isLoading, isError, isSuccess}] = useUserRegisterMutation();
   // Controlled input states
   const [mailField, setMailField]         = useState('');

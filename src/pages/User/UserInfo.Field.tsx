@@ -1,6 +1,6 @@
 import { Button, InputText } from 'components/Inputs/InputsLib';
 import React, { useState } from 'react';
-import { userLogged } from 'redux/slices/user';
+import { userState } from 'redux/slices/user';
 import { useUserUpdatePictureMutation } from 'redux/api';
 import Loader from 'components/Loader/Loader';
 import styles from './UserInfo.module.scss';
@@ -91,7 +91,7 @@ function Field({type, state, handler, value, password, confirm, fieldState, fiel
 }
 
 function PictureField ({avatar}: {avatar: string}) {
-  const {id} = useAppSelector(userLogged);
+  const {id} = useAppSelector(userState);
   const [isUpdateOpen, setIsUpdateOpen]   = useState(false);
   const [imageFormData, setImageFormData] = useState<File>();
   const [preview, setPreview]             = useState<string | undefined>(undefined);

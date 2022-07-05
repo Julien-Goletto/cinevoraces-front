@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useLastMovieQuery } from 'redux/api';
 import styles from './MenuMobile.module.scss';
@@ -7,13 +7,17 @@ import styles from './MenuMobile.module.scss';
  * @returns Mobile menu
  */
 function MenuMobile() {
-  const {data} = useLastMovieQuery();
-  const lastMoviePath = `film/${data ? data[0].id : ''}`;
+  const {data: lastMovieData} = useLastMovieQuery();
+  const [lastMoviePath, setLastMoviePath] = useState('');
   const [mobileMenu, setMobileMenu] = useState(false);
   
   const handleMobileMenu = () => {
     setMobileMenu(!mobileMenu);
   };
+
+  useEffect(() => {
+    lastMovieData && setLastMoviePath(`film/${lastMovieData.id}`);
+  }, [lastMovieData]);
 
   return (
     <>

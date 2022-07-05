@@ -45,7 +45,7 @@ const filterSlice = createSlice({
         countries_list,
       }) => {
         // Format Season
-        let constructor: Array<any> = []; // Push new values in constructor
+        let constructor: Array<number[] | string> = []; // Push new values in constructor
         seasons_list.forEach((season) => {
           !(constructor.includes(season)) && constructor.push(season);
         });
@@ -60,7 +60,7 @@ const filterSlice = createSlice({
           !(constructor.includes(genre)) && constructor.push(genre);
         });
         constructor.forEach((genre) => {
-          formatedData.genre.push({name: genre, isChecked: false});
+          formatedData.genre.push({name: genre as string, isChecked: false});
         });
         constructor = [];
         // Format countries
@@ -68,7 +68,7 @@ const filterSlice = createSlice({
           !(constructor.includes(country)) && constructor.push(country);
         }); 
         constructor.forEach((country) => {
-          formatedData.country.push({name: country, isChecked: false});
+          formatedData.country.push({name: country as string, isChecked: false});
         });
       });
       state = formatedData;

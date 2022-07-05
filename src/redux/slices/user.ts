@@ -27,12 +27,13 @@ const initialState: UserState = {
 const userSlice = createSlice({
   name: 'user',
   initialState,
-  reducers: { 
+  reducers: {
     setUser(state, action) {
+      console.log(action.payload);
       state.isOnline = true;
       state.id = action.payload.id;
       state.pseudo = action.payload.pseudo;
-      state.mail = 'fixme@fix.fix';
+      state.mail = action.payload.mail;
       state.role = action.payload.role;
       state.avatar = action.payload.avatar;
       state.accessToken = action.payload.accessToken;

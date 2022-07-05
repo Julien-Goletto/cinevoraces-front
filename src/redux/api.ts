@@ -25,14 +25,12 @@ const baseQueryWithReauth: BaseQueryFn<string | FetchArgs, unknown, FetchBaseQue
       'authorization': `Bearer ${refreshToken}`
     }}, api, extraOptions);
 
-    if (refreshResult.data) {
-      // store the new token
+    if (refreshResult.data) { // Store the new token
       api.dispatch(setUser(refreshResult.data));
       result = await baseQuery(args, api, extraOptions);
-    } else {
+    } else { // Disconnect user
       api.dispatch(setOffline());
-    }
-  }
+    }}
   return result;
 };
 
@@ -65,8 +63,7 @@ export const api = createApi({
       transformResponse: (res: DBMovie[]) => res[0],
       providesTags: ['Movie']
     }),
-    // FIXME: should receive an object not an array
-    lastMovie: build.query<DBMovie[], void>({
+    lastMovie: build.query<DBMovie, void>({
       query: () => ({url: 'v1/movies/lastmovie', method: 'GET'})
     }),
     allMetrics: build.query<{[key: string]: string}, void>({
@@ -91,7 +88,7 @@ export const api = createApi({
       query: (id) => ({url: `/v1/users/${id}`, method: 'GET'}),
       providesTags: ['UserParams']
     }),
-    pendingProposalByUser: build.query<DBProposal[], id>({
+    pendingProposalByUser: build.query<DBProposal, id>({
       query: (id) => ({url: `/v1/propositions/${id}`, method: 'GET'}),
     }),
     availableSlots: build.query<slot[], void>({

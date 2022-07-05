@@ -4,7 +4,7 @@ import Cookies from 'js-cookie';
 
 type UserState = { 
   isOnline: boolean,
-  id: number,
+  id: number | null,
   pseudo: string,
   mail: string,
   avatar: string,
@@ -15,7 +15,7 @@ type UserState = {
 
 const initialState: UserState = { 
   isOnline: false,
-  id: NaN,
+  id: null,
   pseudo: '',
   mail: '',
   role: '',
@@ -28,52 +28,25 @@ const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
-    setUser(state, action) {
-      state.isOnline = true;
-      state.id = action.payload.id;
-      state.pseudo = action.payload.pseudo;
-      state.mail = action.payload.mail;
-      state.role = action.payload.role;
-      state.avatar = action.payload.avatar;
-      state.accessToken = action.payload.accessToken;
+    login(state, action) {
+      state.isOnline     = true;
+      state.id           = action.payload.id;
+      state.pseudo       = action.payload.pseudo;
+      state.mail         = action.payload.mail;
+      state.role         = action.payload.role;
+      state.avatar       = action.payload.avatar;
+      state.accessToken  = action.payload.accessToken;
       state.refreshToken = action.payload.refreshToken;
       Cookies.set('accessToken',action.payload.accessToken);
       Cookies.set('refreshToken',action.payload.refreshToken);
     },
-    setToken(state, action) {
-      state.accessToken = action.payload.accessToken;
-      state.refreshToken = action.payload.refreshToken;
-    },
-    setConnectedStatus(state, action) {
-      state.isOnline = action.payload;
-    },
-    setOffline: () => {
+    logout() {
       Cookies.remove('accessToken');
       Cookies.remove('refreshToken');
       return initialState;
-    },
-    setUsername (state, action) {
-      state.pseudo = action.payload.pseudo;
-    },
-    setAvatar (state, action) {
-      state.avatar = action.payload.avatar_url;
     }
-  }
-});
+  }});
 
 export const userState = (state: RootState) => state.user;
-export const userToken = (state:RootState) => { return {
-  accessToken: state.user.accessToken,
-  refreshToken: state.user.refreshToken
-};};
-
-export const { 
-  setUser,
-  setAvatar,
-  setUsername,
-  setToken,
-  setConnectedStatus,
-  setOffline
-} = userSlice.actions;
-
+export const {login, logout} = userSlice.actions;
 export default userSlice.reducer;

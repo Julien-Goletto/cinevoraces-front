@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useAppDispatch } from 'redux/hooks';
 import { useLoginMutation } from 'redux/api';
 import { addToast, toggleModal } from 'redux/slices/global';
-import { setUser } from 'redux/slices/user';
+import { login } from 'redux/slices/user';
 import { Button, InputText } from 'components/Inputs/InputsLib';
 import Loader from 'components/Loader/Loader';
 import styles from './Connection.module.scss';
@@ -24,7 +24,7 @@ function Connection() {
     setPasswordField(e.currentTarget.value);
   };
   // Login handler
-  const login = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     loginUser({
       pseudo: pseudoField,
@@ -38,10 +38,10 @@ function Connection() {
   // Handle connection success
   useEffect(()=> {
     if(isSuccess) {
-      dispatch(setUser(userData)); // Update local user state
+      dispatch(login(userData)); // Update local user state
       dispatch(toggleModal());  // Close modal
       dispatch(addToast(
-        // Show success message to user
+        // Show success message
         {type:'success', text: `Bienvenue ${userData!.pseudo}`}));
     }
   }, [isSuccess]);
@@ -50,7 +50,7 @@ function Connection() {
     <> 
       { isLoading &&
         <Loader isMaxed/>}
-      <form className={styles.connection} onSubmit={login}>
+      <form className={styles.connection} onSubmit={handleLogin}>
         <InputText 
           label="Nom d'utilisateur"
           name='username'

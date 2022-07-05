@@ -8,7 +8,7 @@ import {
 import Cookies from 'js-cookie';
 import { AnimatePresence } from 'framer-motion';
 import { useAppDispatch, useAppSelector } from 'redux/hooks';
-import { setUser, userState } from 'redux/slices/user';
+import { login, userState } from 'redux/slices/user';
 import { useGetHasUserProposedQuery, useLazyRefreshTokenQuery } from 'redux/api';
 
 import Toast from 'components/Toasts/Toasts';
@@ -42,7 +42,7 @@ function App() {
 
   useEffect(()=> {
     if(!isLoading && data && !isError ) {
-      dispatch(setUser(data));
+      dispatch(login(data));
       setReady(true);
     }
     setReady(true);

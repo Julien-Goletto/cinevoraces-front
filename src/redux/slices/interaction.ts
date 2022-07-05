@@ -14,16 +14,16 @@ const interactionSlice = createSlice({
   initialState,
   reducers: {
     setActive(state, action) {
-      state.viewed = action.payload[0].viewed;
-      state.rating = action.payload[0].rating === null ? false: action.payload[0].rating;
-      state.bookmarked = action.payload[0].bookmarked;
-      state.liked = action.payload[0].liked;
+      state.viewed = action.payload.viewed;
+      state.rating = action.payload.rating === null ? false: action.payload.rating;
+      state.bookmarked = action.payload.bookmarked;
+      state.liked = action.payload.liked;
       state.reviews = true;
     },
     setRating(state,action) {
       state.rating = action.payload.rating;
     },
-    setInactive(state) {
+    setInactive() {
       return initialState;
     },
     toggle(state, action) {
@@ -42,15 +42,10 @@ const interactionSlice = createSlice({
         break;
       default: 
         break;
-      }
-    }
-  }
-});
-
-
+      }}
+  }});
 
 export const userInteractions = (state: RootState) => state.interaction;
-
 export const { 
   setInactive,
   setActive,

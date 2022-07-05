@@ -27,13 +27,13 @@ const globalSlice = createSlice({
     },
     removeToast(state) {
       state.toasts.splice(0, 1);
-    }}
-});
+    }
+  }});
 
 export const globals = (state: RootState) => state.global;
-
 export const { 
   toggleModal,
   addToast,
-  removeToast } = globalSlice.actions;
+  removeToast
+} = globalSlice.actions;
 export default globalSlice.reducer;

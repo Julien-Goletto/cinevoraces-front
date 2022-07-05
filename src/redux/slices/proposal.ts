@@ -48,8 +48,7 @@ const proposalSlice = createSlice({
     setSelectedMovie(state, action) {
       state.movie_selected = action.payload;
     }
-  }
-});
+  }});
 
 export const getEpisode = (state: RootState) => state.proposal.episode_selected;
 export const getSearch = (state: RootState) => state.proposal.searchMovie;

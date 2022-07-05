@@ -11,7 +11,6 @@ import { setActive, setInactive } from 'redux/slices/interaction';
 import AnimationLayout from 'components/AnimationLayout/AnimationLayout';
 import AddComment from './AddComment';
 
-
 function Film() {
   const { id }  = useParams();
   const user = useAppSelector(userState);
@@ -38,7 +37,7 @@ function Film() {
     setFilteredComment(filterComment(user.id, reviews));
     // SET reviews from db (if no error/no data)
     if(typeof userReview !== 'string' && !isUserReviewLoad && !isUserReviewError) {
-      dispatch(setActive(userReview));
+      dispatch(setActive(userReview![0]));
     }    
   },[user,
     userReview,

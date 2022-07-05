@@ -119,11 +119,9 @@ const filterSlice = createSlice({
     setQuery(state, action) {
       state.query = action.payload;
     }
-  }
-});
+  }});
 
 export const filters = (state: RootState) => state.filter;
-
 export const { 
   initFilters,
   resetFilters,
@@ -134,5 +132,4 @@ export const {
   setPeriodeMaxVal,
   setQuery
 } = filterSlice.actions;
-
 export default filterSlice.reducer;

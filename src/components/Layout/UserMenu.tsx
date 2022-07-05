@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { setOffline, userState } from 'redux/slices/user';
+import { logout, userState } from 'redux/slices/user';
 import { Link } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from 'redux/hooks';
 import styles from './UserMenu.module.scss';
@@ -35,7 +35,7 @@ function Menu({setter}: MenuProps) {
   const { pseudo, id, role } = useAppSelector(userState);
   const dispatch = useAppDispatch();
   const logoutHandler = () => {
-    dispatch(setOffline());
+    dispatch(logout());
   };
 
   return (

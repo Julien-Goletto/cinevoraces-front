@@ -1,7 +1,7 @@
 import type { BaseQueryFn, FetchBaseQueryError } from '@reduxjs/toolkit/query';
 import type { RootState } from 'redux/store';
 import { createApi, FetchArgs, fetchBaseQuery, retry } from '@reduxjs/toolkit/query/react';
-import { setOffline, setUser } from 'redux/slices/user';
+import { login, logout } from 'redux/slices/user';
 import Cookies from 'js-cookie';
 
 const baseQuery = retry(fetchBaseQuery({
@@ -25,10 +25,10 @@ const baseQueryWithReauth: BaseQueryFn<string | FetchArgs, unknown, FetchBaseQue
       'authorization': `Bearer ${refreshToken}`
     }}, api, extraOptions);
     if (refreshResult.data) { // Store the new token if granted
-      api.dispatch(setUser(refreshResult.data));
+      api.dispatch(login(refreshResult.data));
       result = await baseQuery(args, api, extraOptions);
     } else { // Disconnect user if denied
-      api.dispatch(setOffline());
+      api.dispatch(logout());
     }}
   return result;
 };

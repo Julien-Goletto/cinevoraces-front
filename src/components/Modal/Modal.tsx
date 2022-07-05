@@ -28,7 +28,7 @@ function Modal({children} : ModalProps) {
           <SVGClose/>
         </button>
         <div className={styles.content}>
-          { children }
+          {children}
         </div>
       </div>
     </div>

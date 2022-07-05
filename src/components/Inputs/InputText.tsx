@@ -26,15 +26,14 @@ function InputText({label, name, type, placeholder, handler, value}: InputTextPr
       return searchedString;
     } else {
       return name;
-    }
-  };
+    }};
   const className = classResolver('password');
-
   return (
     <div className={styles.container}>
-      { label &&
-        <label className= {styles.label} htmlFor={name}>{label}</label>
-      }
+      {label &&
+        <label className= {styles.label} htmlFor={name}>
+          {label}
+        </label>}
       <input 
         className={`${styles.input} ${styles[`input--${className}`]}`} 
         type={type}
@@ -46,4 +45,5 @@ function InputText({label, name, type, placeholder, handler, value}: InputTextPr
     </div>
   );
 }
+
 export default InputText;

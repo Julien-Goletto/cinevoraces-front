@@ -14,7 +14,7 @@ function Connection() {
   const dispatch = useAppDispatch();
   const [loginUser, {data: userData, isSuccess, isLoading}] = useLoginMutation();
   const [pseudoField, setPseudoField] = useState('');
-  const [passwordField, setPasswordField]     = useState('');
+  const [passwordField, setPasswordField] = useState('');
 
   // Fields states handlers
   const handlePseudoField = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -40,15 +40,13 @@ function Connection() {
     if(isSuccess) {
       dispatch(login(userData)); // Update local user state
       dispatch(toggleModal());  // Close modal
-      dispatch(addToast(
-        // Show success message
-        {type:'success', text: `Bienvenue ${userData!.pseudo}`}));
+      dispatch(addToast({type:'success', text: `Bienvenue ${userData!.pseudo}`})); // Show success message
     }
   }, [isSuccess]);
   
   return (
     <> 
-      { isLoading &&
+      {isLoading &&
         <Loader isMaxed/>}
       <form className={styles.connection} onSubmit={handleLogin}>
         <InputText 

@@ -1,7 +1,7 @@
 import { useState } from 'react';
+import { useAppDispatch, useAppSelector } from 'redux/hooks';
 import { logout, userState } from 'redux/slices/user';
 import { Link } from 'react-router-dom';
-import { useAppDispatch, useAppSelector } from 'redux/hooks';
 import styles from './UserMenu.module.scss';
 
 type MenuProps = {
@@ -32,7 +32,7 @@ function UserMenu() {
 }
 
 function Menu({setter}: MenuProps) {
-  const { pseudo, id, role } = useAppSelector(userState);
+  const {pseudo, id, role} = useAppSelector(userState);
   const dispatch = useAppDispatch();
   const logoutHandler = () => {
     dispatch(logout());

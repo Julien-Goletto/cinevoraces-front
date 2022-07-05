@@ -15,8 +15,8 @@ const transition = {
   duration: 0.1
 }; 
 const variants  = {
-  hidden: { scale: 0, transition },
-  show:   { scale: 1, transition },
+  hidden: {scale: 0, transition},
+  show:   {scale: 1, transition},
 };
 
 /**
@@ -26,12 +26,13 @@ const variants  = {
 function FilterMenu ({children, handleClose}: DropDownProps) {
   return(
     <>
-      <div className={styles['filter-menu-back']} onClick={handleClose}></div>
+      <div className={styles['filter-menu-back']} onClick={handleClose}/>
       <motion.div 
         variants={variants}
         initial='hidden'
         animate='show'
-        className={styles['filter-menu']}>
+        className={styles['filter-menu']}
+      >
         {children}
       </motion.div>
     </>
@@ -54,13 +55,12 @@ function DropDown ({children, name} : {[key: string]: React.ReactNode}) {
         {!dropDown && <SvgArrowRight/>}
         {dropDown && <SvgArrowDown/>}
       </div>
-      { dropDown &&
+      {dropDown &&
         <ul className={styles.list}>
           {children}
-        </ul>
-      }
+        </ul>}
     </>
   );
 }
 
-export { FilterMenu, DropDown };
+export {FilterMenu, DropDown};

@@ -6,9 +6,9 @@ import styles from './useSeeMore.module.scss';
  * @param text  Text content
  * @param max   Max character alowed
  */
-function useSeeMore(text:string, max:number = 500) {
-  const [maxChar, setMaxChar] = useState<number>(max);
-  const [see, setSee] = useState<string>('Voir plus');
+function useSeeMore(text: string, max: number = 500) {
+  const [maxChar, setMaxChar] = useState(max);
+  const [see, setSee] = useState('Voir plus');
   if(!text) return null;
   const textLenght = text.length;
   const seeMore = () => {
@@ -19,13 +19,10 @@ function useSeeMore(text:string, max:number = 500) {
     else {
       setMaxChar(max);
       setSee('Voir plus');
-    }
-  };
+    }};
 
   if(textLenght <= max) {
-    return (
-      <p className={styles.text}>{text}</p>
-    );
+    return <p className={styles.text}>{text}</p>;
   }
   return (
     <p className={styles.text}>{text.substring(0,maxChar)}

@@ -15,19 +15,17 @@ interface InputRadioProps extends filter {
  */
 function InputRadio({name, value, isChecked, handler, field}: InputRadioProps) {
   return(
-    <>
-      <label className={styles['input-radio']}>
-        {name}
-        <input
-          className={styles.input}
-          type='radio'
-          value={value}
-          name={field}
-          onChange={handler}
-          defaultChecked={isChecked}
-        />
-      </label>
-    </>
+    <label className={styles['input-radio']}>
+      {name}
+      <input
+        className={styles.input}
+        type='radio'
+        value={value}
+        name={field}
+        onChange={handler}
+        defaultChecked={isChecked}
+      />
+    </label>
   );
 }
 

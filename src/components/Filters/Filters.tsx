@@ -23,7 +23,7 @@ import styles from './Filters.module.scss';
 function Filters() {
   const [isFilterMenu, setFilterMenu] = useState(false);
   const dispatch = useAppDispatch();
-  const { mainFilters, query, genre, country, periode, isDefault } = useAppSelector(filters);
+  const {mainFilters, query, genre, country, periode, isDefault} = useAppSelector(filters);
 
   const handleFilterMenu = () => {
     (isFilterMenu) ? setFilterMenu(false) : setFilterMenu(true);
@@ -57,10 +57,10 @@ function Filters() {
           Filtrer
           {(isFilterMenu) ? <SVGFilterOpen/> : <SVGFilterClosed/>}
         </Button>
-        { !isDefault &&
+        {!isDefault &&
           <Button handler={handleReset}> 
             <SVGReset/>
-          </Button> }
+          </Button>}
       </div>
       <div className={styles['search-bar']}>
         <InputText 
@@ -72,10 +72,10 @@ function Filters() {
           handler={handleSearchBarQuery}
         />
       </div>
-      { isFilterMenu && 
+      {isFilterMenu && 
         <FilterMenu handleClose={handleFilterMenu}>
           <DropDown name={'Saison'}>
-            { mainFilters.map(({name, value, isChecked}) => (
+            {mainFilters.map(({name, value, isChecked}) => (
               <li key={value}>
                 <InputRadio
                   name={name}
@@ -84,30 +84,27 @@ function Filters() {
                   handler={handleSeasonSetter}
                   field='season'
                 />
-              </li>
-            ))}
+              </li>))}
           </DropDown>
           <DropDown name='Genres'>
-            { genre.map(({name, isChecked}) => (
+            {genre.map(({name, isChecked}) => (
               <li key={name}>
                 <InputCheckbox
                   name={name}
                   isChecked={isChecked}
                   handler={handleGenreFilter}
                 />
-              </li>
-            ))}
+              </li>))}
           </DropDown>
           <DropDown name='Pays'>
-            { country.map(({name, isChecked}) => (
+            {country.map(({name, isChecked}) => (
               <li key={name}>
                 <InputCheckbox
                   name={name}
                   isChecked={isChecked}
                   handler={handleCountryFilter}
                 />
-              </li>
-            ))}
+              </li>))}
           </DropDown>
           <DropDown name={'Période'}>
             <DoubleInputRange
@@ -120,8 +117,7 @@ function Filters() {
               label='Période'
             />
           </DropDown>
-        </FilterMenu>
-      }
+        </FilterMenu>}
     </div>
   );
 }

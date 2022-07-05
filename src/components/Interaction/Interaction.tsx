@@ -68,7 +68,11 @@ function Interaction({type, count, value, handler, loader}: InteractionProps) {
     <div className={value ? `${styles.interaction} ${styles['active']}` : styles.interaction}>
       {/* Background for onClick-close if Star interaction. */}
       {typeResolver('starred') && 
-        <div className={(rateMenuWrapper) ? styles['background'] : styles['background--hidden']} onClick={handleRateMenu}/>}
+        <div className={
+          (rateMenuWrapper) 
+            ? styles['background']
+            : styles['background--hidden']}
+        onClick={handleRateMenu}/>}
 
       <button onClick={onClickResolver}>
         {/* Show Loader while waiting for PUT response */}

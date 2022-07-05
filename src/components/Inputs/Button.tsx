@@ -17,52 +17,46 @@ type ButtonSearchProps = {
  * @param handler   onClick handler
  * @param styleMod  'fill' | 'rounded' | 'white' (joinded with '-')
  */
-function Button({ children, styleMod, handler, href }: ButtonProps)  {
+function Button({children, styleMod, handler, href}: ButtonProps)  {
   // Get styleMod and look for keywords in string
   const styleResolver = (searchedString: string) => {
     if (RegExp(`\\b${searchedString}\\b`).test(styleMod!)) {
       return searchedString;
     } else {
       return null;
-    }
-  };
-  const isFilled = styleResolver('fill');
+    }};
+  const isFilled  = styleResolver('fill');
   const isRounded = styleResolver('rounded');
-  const isWhite = styleResolver('white');
+  const isWhite   = styleResolver('white');
   // Set the correct classname
   const className = `
     ${styles['button']}
     ${(isFilled) ? styles['button--full'] : styles['button--empty']}
     ${(isRounded) && styles['button--rounded']}
-    ${(isWhite) && styles['button--white']}
-  `;
+    ${(isWhite) && styles['button--white']}`;
   return(
     <>
-      { href &&
+      {href &&
         <Link 
           className={className}
           to={href}
           onClick={handler}         
         >
           {children}
-        </Link>
-      }
-      { (!href) &&
+        </Link>      }
+      {(!href) &&
         <button
           className={className}
           onClick={handler}
         >
           {children}
-        </button>
-      }
+        </button>}
     </>
   );
 };
 
 function ButtonSearch({children}: ButtonSearchProps)  {
-  return (
-    <button className={`${styles['button-search']} ${styles['button--full']}`}>{children}</button>
-  );
+  return <button className={`${styles['button-search']} ${styles['button--full']}`}>{children}</button>;
 };
 
-export { ButtonSearch , Button };
+export {ButtonSearch , Button};

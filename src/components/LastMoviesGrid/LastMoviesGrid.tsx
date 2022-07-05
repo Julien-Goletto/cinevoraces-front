@@ -12,7 +12,7 @@ function LastMoviesGrid() {
 
   return(
     <>
-      { !isLoading && movies &&
+      {!isLoading && movies &&
         <div id='last-movie' className={styles['last-movies']}>
           <h2 className={styles.title}>Les derniers ajouts de la communauté</h2>
           <div className={styles.grid}>
@@ -28,7 +28,7 @@ function LastMoviesGrid() {
             Voir la liste des films
           </Button>
         </div>}
-      { isLoading &&
+      {isLoading &&
         <div id='last-movie' className={styles.loader}>
           <Loader />
         </div>}

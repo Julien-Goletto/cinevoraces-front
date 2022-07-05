@@ -10,8 +10,8 @@ const transition = {
   duration: 0.2
 }; 
 const variants  = {
-  hidden: { opacity: 0, transition },
-  show:   { opacity: 1, transition },
+  hidden: {opacity: 0, transition},
+  show:   {opacity: 1, transition},
 };
 
 /**

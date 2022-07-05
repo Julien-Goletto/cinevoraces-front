@@ -11,7 +11,7 @@ const portal = document.getElementById('portal') as HTMLElement;
  * @returns List of toasts
  */
 function Toasts()  {
-  const { toasts } = useAppSelector(globals);
+  const {toasts} = useAppSelector(globals);
   
   return ReactDOM.createPortal(
     (toasts.length > 0) && 

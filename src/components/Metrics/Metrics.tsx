@@ -8,7 +8,7 @@ function Metrics() {
   const { data } = useGetAllUserMetricsQuery();  
   return (
     <>
-      { data &&
+      {data &&
         <section className={styles.metrics}>
           <h3 className={styles.title}>CinéVoraces en quelques chiffres</h3>
           <div className={styles.grid}>
@@ -25,8 +25,7 @@ function Metrics() {
               <span className={styles.type}>Pays</span>
             </div>
           </div>
-        </section>
-      }
+        </section>}
     </>
   );
 };

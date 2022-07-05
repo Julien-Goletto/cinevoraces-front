@@ -41,15 +41,17 @@ function InputStar ({isInput, value, setter}: InputStarProps) {
             name='input-star'
             onChange={handleOnChange}
             defaultChecked={defaultChecked}
-          />
-        ))}
+          />))}
       {!isInput &&
         // Fix version
         starArray.map(el => (
           <div 
             key={el.value}
-            className={(el.value > value) ? styles.star : `${styles.star} ${styles['star--checked']}`}></div>
-        ))}
+            className={
+              (el.value > value) 
+                ? styles.star
+                : `${styles.star} ${styles['star--checked']}`
+            }/>))}
     </div>
   );
 }

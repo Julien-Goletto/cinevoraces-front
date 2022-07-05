@@ -11,11 +11,11 @@ type LoaderProps = {
 function Loader({isMaxed}: LoaderProps) {
   return(
     <>
-      { isMaxed && 
+      {isMaxed && 
         <div className={styles['lds-container']}>
           <LoadingAnim />
         </div>}
-      { !isMaxed && 
+      {!isMaxed && 
         <LoadingAnim />}
     </>
   );

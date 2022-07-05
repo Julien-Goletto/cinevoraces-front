@@ -2,19 +2,20 @@ import { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from 'redux/hooks';
 import { useGetAllMoviesQuery, useGetAllFiltersQuery } from 'redux/api';
 import { initFilters, filters } from 'redux/slices/filter';
+import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 import Loader from 'components/Loader/Loader';
+import Filters from 'components/Filters/Filters';
 import AnimationLayout from 'components/AnimationLayout/AnimationLayout';
-import Filters from '../../components/Filters/Filters';
-import MoviesGrid from './MoviesGrid/MoviesGrid';
 import styles from './Films.module.scss';
 
 function Films() {
   const dispatch = useAppDispatch();
-  const [ queryString, setQueryString ]     = useState('');
-  const { data: filtersData }               = useGetAllFiltersQuery();
-  const { data: moviesData, isLoading }     = useGetAllMoviesQuery(queryString);
-  const [ movies, setMovies ]               = useState<DBMovie[]>([]);
-  const { mainFilters, genre, country, periode, query }  = useAppSelector(filters);
+  const [queryString, setQueryString] = useState('');
+  const {data: filtersData}           = useGetAllFiltersQuery();
+  const {data: moviesData, isLoading} = useGetAllMoviesQuery(queryString);
+  const [movies, setMovies]           = useState<DBMovie[]>([]);
+  const {mainFilters, genre, country, periode, query} = useAppSelector(filters);
 
   // Resolve tags filtering
   const filterTags = (tagsArray: string[], movieArray: DBMovie[], tagsField: string) => {
@@ -49,7 +50,7 @@ function Films() {
       });
       (query !== queryString) && setQueryString(query);
     }
-  }, [filtersData, mainFilters, dispatch]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [filtersData, mainFilters, dispatch]);
 
   // Update movies useState with redux filter state
   useEffect(() => {
@@ -89,13 +90,36 @@ function Films() {
       <section className={styles.films}>
         <Filters/>
         {!isLoading &&
-          <MoviesGrid movies={movies}/>}
+          <motion.div className={styles.grid} 
+            animate={{opacity: [0,1]}} transition= {{delay: 0.2}}
+          >
+            {movies.map((movie) => <Movie movie={movie}/>)}
+          </motion.div>}
         {isLoading &&
           <div className={styles['loader-wrapper']}>
             <Loader />
           </div>}
       </section>
     </AnimationLayout>
+  );
+}
+
+function Movie({movie}: {movie: DBMovie}) {
+  const [opacity, setOpacity] = useState(0);
+  const handleOnLoad = () => {
+    setOpacity(1);
+  };
+
+  return(
+    <div 
+      className={styles.poster}
+      key={movie.id}
+      style={{opacity: opacity}}
+    >
+      <Link to={`/film/${movie.id}`}>
+        <img className={`${styles.img}`} src={movie.poster_url} onLoad={handleOnLoad} alt={`affiche du film ${movie.french_title}`}/>
+      </Link>
+    </div>
   );
 }
 

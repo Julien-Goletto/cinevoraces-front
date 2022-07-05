@@ -1,7 +1,7 @@
 @use '~styles/mixins' as mix;
 
 .films {
-  composes: container from global;
+  @include mix.container;
 }
 .loader-wrapper {
   position: absolute;
@@ -15,3 +15,36 @@
   justify-content: center;
   margin-bottom: 2.5rem;
 }
+.grid {
+  display: grid;
+  gap: .5em;
+  grid-template-columns: repeat(3, minmax(115px, 1fr));
+  margin-bottom: 2.5rem;
+  min-height: 5em;
+}
+.poster {
+  border-radius: 10px;
+  transition: .3s;
+}
+.img {
+  width: 100%;
+  height: 100%; 
+  object-fit: cover;
+  border-radius: 10px;
+}
+.hidden {
+  display: none;
+}
+
+@media screen and (max-width: 420px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }}
+@include mix.breakpoint('tablet') {
+  .grid {
+    grid-template-columns: repeat(4, minmax(175px, 1fr));
+  }}
+@include mix.breakpoint('desktop') {
+  .grid {
+    grid-template-columns: repeat(6, minmax(200px, 1fr));
+  }}

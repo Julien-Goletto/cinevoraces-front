@@ -1,8 +1,8 @@
-import { useMetricsByIdQuery } from 'redux/api';
+import { useGetUserMetricsQuery } from 'redux/api';
 import styles from './UserMetrics.module.scss';
 
 function UserMetrics({ id }: { id: string }) {
-  const { data, isLoading } = useMetricsByIdQuery(Number(id));
+  const { data, isLoading } = useGetUserMetricsQuery(Number(id));
   return(
     <>
       { !isLoading &&

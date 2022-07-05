@@ -1,5 +1,5 @@
 import { useParams } from 'react-router-dom';
-import { useUserByIdQuery } from 'redux/api';
+import { useGetOneUserQuery } from 'redux/api';
 import UserInfo from './UserInfo';
 import UserHeader from './UserHeader/UserHeader';
 import UserMetrics from './UserMetrics/UserMetrics';
@@ -9,7 +9,7 @@ import styles from './User.module.scss';
 
 function User() {
   const { id }  = useParams();
-  const { data, isLoading } = useUserByIdQuery(Number(id));
+  const { data, isLoading } = useGetOneUserQuery(Number(id));
   
   return(
     <AnimationLayout>

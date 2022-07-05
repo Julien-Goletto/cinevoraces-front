@@ -1,7 +1,7 @@
 import { Button, InputText } from 'components/Inputs/InputsLib';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { userState } from 'redux/slices/user';
-import { useUserUpdatePictureMutation } from 'redux/api';
+import { usePutUserPicMutation } from 'redux/api';
 import Loader from 'components/Loader/Loader';
 import styles from './UserInfo.module.scss';
 import { useAppSelector } from 'redux/hooks';
@@ -95,7 +95,7 @@ function PictureField ({avatar}: {avatar: string}) {
   const [isUpdateOpen, setIsUpdateOpen]   = useState(false);
   const [imageFormData, setImageFormData] = useState<File>();
   const [preview, setPreview]             = useState<string | undefined>(undefined);
-  const [updateUserPicture, {isLoading}]  = useUserUpdatePictureMutation();
+  const [updateUserPicture, {isLoading}]  = usePutUserPicMutation();
 
   const uploadImage = () => {
     const formData = new FormData();

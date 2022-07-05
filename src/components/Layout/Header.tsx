@@ -3,7 +3,7 @@ import { ReactComponent as SVGLogo } from './Layout.Logo.svg';
 import { useAppDispatch, useAppSelector } from 'redux/hooks';
 import { toggleModal, globals } from 'redux/slices/global';
 import { userState } from 'redux/slices/user';
-import { useLastMovieQuery } from 'redux/api';
+import { useGetLastMovieQuery } from 'redux/api';
 import { Button } from 'components/Inputs/InputsLib';
 import { Link } from 'react-router-dom';
 import Connection from 'components/Connection/Connection';
@@ -17,7 +17,7 @@ import styles from './Header.module.scss';
  */
 function Header() {
   const dispatch = useAppDispatch();
-  const {data: lastMovieData} = useLastMovieQuery();
+  const {data: lastMovieData} = useGetLastMovieQuery();
   const [lastMoviePath, setLastMoviePath] = useState('');
   const {modalIsOpen} = useAppSelector(globals);
   const {isOnline} = useAppSelector(userState);

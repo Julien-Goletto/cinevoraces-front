@@ -29,7 +29,6 @@ const userSlice = createSlice({
   initialState,
   reducers: {
     setUser(state, action) {
-      console.log(action.payload);
       state.isOnline = true;
       state.id = action.payload.id;
       state.pseudo = action.payload.pseudo;

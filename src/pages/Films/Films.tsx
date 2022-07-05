@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from 'redux/hooks';
-import { useAllMoviesQuery, useFiltersQuery } from 'redux/api';
+import { useGetAllMoviesQuery, useGetAllFiltersQuery } from 'redux/api';
 import { initFilters, filters } from 'redux/slices/filter';
 import Loader from 'components/Loader/Loader';
 import AnimationLayout from 'components/AnimationLayout/AnimationLayout';
@@ -11,8 +11,8 @@ import styles from './Films.module.scss';
 function Films() {
   const dispatch = useAppDispatch();
   const [ queryString, setQueryString ]     = useState('');
-  const { data: filtersData }               = useFiltersQuery();
-  const { data: moviesData, isLoading }     = useAllMoviesQuery(queryString);
+  const { data: filtersData }               = useGetAllFiltersQuery();
+  const { data: moviesData, isLoading }     = useGetAllMoviesQuery(queryString);
   const [ movies, setMovies ]               = useState<DBMovie[]>([]);
   const { mainFilters, genre, country, periode, query }  = useAppSelector(filters);
 

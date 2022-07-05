@@ -1,10 +1,10 @@
-import { usePendingProposalByUserQuery } from 'redux/api';
+import { useGetPendingProposalQuery } from 'redux/api';
 import { Button } from 'components/Inputs/InputsLib';
 import userStyles from '../User.module.scss';
 import styles from './UserSubmittedFilm.module.scss';
 
 function UserSubmittedFilm({ id }: {id: string}) {
-  const {data: movieData, isLoading} = usePendingProposalByUserQuery(id);
+  const {data: movieData, isLoading} = useGetPendingProposalQuery(id);
 
   return(
     <div className={styles['user-submitted']}>

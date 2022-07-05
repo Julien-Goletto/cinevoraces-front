@@ -1,11 +1,11 @@
-import { useAllMetricsQuery } from 'redux/api';
+import { useGetAllUserMetricsQuery } from 'redux/api';
 import styles from './Metrics.module.scss';
 
 /**
  * @returns  display statistics about cinévoraces
  */
 function Metrics() {
-  const { data } = useAllMetricsQuery();  
+  const { data } = useGetAllUserMetricsQuery();  
   return (
     <>
       { data &&

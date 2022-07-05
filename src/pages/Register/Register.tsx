@@ -3,7 +3,7 @@ import Loader from 'components/Loader/Loader';
 import AnimationLayout from 'components/AnimationLayout/AnimationLayout';
 import { InputText, Button } from 'components/Inputs/InputsLib';
 import { useEffect, useState } from 'react';
-import { useUserRegisterMutation } from 'redux/api';
+import { useRegisterMutation } from 'redux/api';
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from 'redux/hooks';
 import { userState } from 'redux/slices/user';
@@ -14,7 +14,7 @@ function Register() {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const {id, isOnline} = useAppSelector(userState);
-  const [addUser, {error, isLoading, isError, isSuccess}] = useUserRegisterMutation();
+  const [addUser, {error, isLoading, isError, isSuccess}] = useRegisterMutation();
   // Controlled input states
   const [mailField, setMailField]         = useState('');
   const [pseudoField, setPseudoField]     = useState('');

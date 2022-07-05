@@ -9,7 +9,7 @@ import Cookies from 'js-cookie';
 import { AnimatePresence } from 'framer-motion';
 import { useAppDispatch, useAppSelector } from 'redux/hooks';
 import { setUser, userState } from 'redux/slices/user';
-import { usePendingPropositionQuery, useLazyRefreshTokenQuery } from 'redux/api';
+import { useGetHasUserProposedQuery, useLazyRefreshTokenQuery } from 'redux/api';
 
 import Toast from 'components/Toasts/Toasts';
 import ResetScroll from 'components/ResetScroll/ResetScroll';
@@ -42,7 +42,6 @@ function App() {
 
   useEffect(()=> {
     if(!isLoading && data && !isError ) {
-      console.log(data);
       dispatch(setUser(data));
       setReady(true);
     }
@@ -99,7 +98,8 @@ function RequireAuth({ children, redirectTo }:{ children:any, redirectTo:any }) 
 }
 function PendingPropositionCheck ({children, redirectTo}: {children: any, redirectTo: any}) {
   const user = useAppSelector(userState);
-  const {isError, isLoading} = usePendingPropositionQuery(user.id!); 
+  const {data, isError, isLoading} = useGetHasUserProposedQuery(user.id!);
+  console.log(data);
 
   if(isLoading) {
     return (

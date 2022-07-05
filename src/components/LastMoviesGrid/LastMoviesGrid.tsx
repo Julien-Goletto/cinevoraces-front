@@ -1,4 +1,4 @@
-import { useAllMoviesQuery } from 'redux/api';
+import { useGetAllMoviesQuery } from 'redux/api';
 import { Link } from 'react-router-dom';
 import { Button } from 'components/Inputs/InputsLib';
 import Loader from 'components/Loader/Loader';
@@ -8,7 +8,7 @@ import styles from './LastMoviesGrid.module.scss';
  * @return grid with the last 5 movies posted
  */
 function LastMoviesGrid() {
-  const {data: movies, isLoading} = useAllMoviesQuery('');
+  const {data: movies, isLoading} = useGetAllMoviesQuery('');
 
   return(
     <>

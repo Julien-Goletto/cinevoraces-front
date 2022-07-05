@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useAppDispatch } from 'redux/hooks';
-import { useUserLoginMutation } from 'redux/api';
+import { useLoginMutation } from 'redux/api';
 import { addToast, toggleModal } from 'redux/slices/global';
 import { setUser } from 'redux/slices/user';
 import { Button, InputText } from 'components/Inputs/InputsLib';
@@ -12,7 +12,7 @@ import styles from './Connection.module.scss';
  */
 function Connection() {
   const dispatch = useAppDispatch();
-  const [loginUser, {data: userData, isSuccess, isLoading}] = useUserLoginMutation();
+  const [loginUser, {data: userData, isSuccess, isLoading}] = useLoginMutation();
   const [pseudoField, setPseudoField] = useState('');
   const [passwordField, setPasswordField]     = useState('');
 

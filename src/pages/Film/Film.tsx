@@ -1,7 +1,7 @@
 import Content from './Content';
 import styles from './Film.module.scss';
 import Comment from './Comment';
-import { useOneMovieQuery, useMovieReviewsQuery, useGetUserReviewQuery } from 'redux/api';
+import { useGetOneMovieQuery, useGetAllReviewsQuery, useGetOneReviewQuery } from 'redux/api';
 import { useParams } from 'react-router-dom';
 import Loader from 'components/Loader/Loader';
 import { useAppDispatch, useAppSelector } from 'redux/hooks';
@@ -16,9 +16,9 @@ function Film() {
   const { id }  = useParams();
   const user = useAppSelector(userState);
   const dispatch = useAppDispatch();
-  const { data: movie, isLoading: isMovieLoad } = useOneMovieQuery(Number(id));
-  const { data: reviews, isLoading: isReviewsLoad } = useMovieReviewsQuery(Number(id));
-  const { data: userReview, isLoading: isUserReviewLoad, isError: isUserReviewError, isSuccess: isUserReviewSuccess } = useGetUserReviewQuery({userId: user.id!, movieId: id! });
+  const { data: movie, isLoading: isMovieLoad } = useGetOneMovieQuery(Number(id));
+  const { data: reviews, isLoading: isReviewsLoad } = useGetAllReviewsQuery(Number(id));
+  const { data: userReview, isLoading: isUserReviewLoad, isError: isUserReviewError, isSuccess: isUserReviewSuccess } = useGetOneReviewQuery({userId: user.id!, movieId: id! });
   const [filteredComment, setFilteredComment] = useState(reviews);
 
   const filterComment = useCallback(

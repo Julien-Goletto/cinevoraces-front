@@ -12,9 +12,7 @@ type filterState = {
 }
 
 const initialState: filterState = { 
-  mainFilters: [
-    {name: 'Tout les films', value: '', isChecked: false}
-  ],
+  mainFilters: [],
   periode: {
     baseValues: [1919, new Date().getFullYear()],
     stateValues: [1919, new Date().getFullYear()]
@@ -30,48 +28,49 @@ const filterSlice = createSlice({
   name: 'filter',
   initialState,
   reducers: {
+    // Rewrite state with fetched data
     initFilters(state, {payload}: {payload: DBFilters[]}) {
-      // Recreate initial state with fetched data
-      const formatedData: filterState = {
-        ...state,
-        periode: {
-          baseValues: [payload[0].min_max_dates[0], payload[0].min_max_dates[1]],
-          stateValues: [payload[0].min_max_dates[0], payload[0].min_max_dates[1]]
-        },};
-      // Init filters containers
-      payload.forEach(({
-        seasons_list,
-        genres_list,
-        countries_list,
-      }) => {
-        // Format Season
-        let constructor: Array<number[] | string> = []; // Push new values in constructor
+      // Set Periodes
+      state.periode = {
+        baseValues: [payload[0].min_max_dates[0], payload[0].min_max_dates[1]],
+        stateValues: [payload[0].min_max_dates[0], payload[0].min_max_dates[1]]
+      };
+      payload.forEach(({seasons_list, genres_list, countries_list}) => {
+        // Set Seasons
+        let formatedData: Array<{name: string, isChecked: boolean, value?: string}> = [
+          {name: 'Tout les films', value: '', isChecked: false}
+        ]; // Formated data container
+        let constructor: Array<number[] | string> = []; // Constructor container
         seasons_list.forEach((season) => {
           !(constructor.includes(season)) && constructor.push(season);
         });
-        constructor.forEach((season, index) => { // Format and push in new state
-          formatedData.mainFilters.push(
-            { name: `Saison ${season[0]} - ${season[1]}`, value: `season_number=${season[0]}`, 
+        constructor.forEach((season, index) => { // Format data
+          formatedData.push(
+            {name: `Saison ${season[0]} - ${season[1]}`, value: `season_number=${season[0]}`, 
               isChecked: (index === constructor.length - 1) ? true : false});
         });
+        state.mainFilters = formatedData; // Update state
         constructor = []; // Reset constructor
+        formatedData = []; // Reset formatedData
         // Format genres
         genres_list.forEach((genre) => {
           !(constructor.includes(genre)) && constructor.push(genre);
         });
         constructor.forEach((genre) => {
-          formatedData.genre.push({name: genre as string, isChecked: false});
+          formatedData.push({name: genre as string, isChecked: false});
         });
+        state.genre = formatedData;
         constructor = [];
+        formatedData = [];
         // Format countries
         countries_list.forEach((country) => {
           !(constructor.includes(country)) && constructor.push(country);
         }); 
         constructor.forEach((country) => {
-          formatedData.country.push({name: country as string, isChecked: false});
+          formatedData.push({name: country as string, isChecked: false});
         });
+        state.country = formatedData;
       });
-      state = formatedData;
     },
     resetFilters(state) {
       // Reset Season

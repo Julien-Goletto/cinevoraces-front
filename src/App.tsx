@@ -1,15 +1,10 @@
-import React, { useEffect, useState } from 'react';
-import {
-  Routes,
-  Route,
-  Navigate,
-  useLocation
-} from 'react-router-dom';
-import Cookies from 'js-cookie';
+import { useEffect, useState } from 'react';
+import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
 import { useAppDispatch, useAppSelector } from 'redux/hooks';
 import { login, userState } from 'redux/slices/user';
 import { useGetHasUserProposedQuery, useLazyRefreshTokenQuery } from 'redux/api';
+import Cookies from 'js-cookie';
 
 import Toast from 'components/Toasts/Toasts';
 import ResetScroll from 'components/ResetScroll/ResetScroll';
@@ -23,7 +18,6 @@ import Register from './pages/Register/Register';
 import Proposal from './pages/Proposal/Proposal';
 import Team from './pages/Team/Team';
 import Admin from './pages/Admin/Admin';
-import Loader from 'components/Loader/Loader';
 
 function App() {
   const isLogged = useAppSelector(userState); // eslint-disable-line @typescript-eslint/no-unused-vars
@@ -67,9 +61,7 @@ function App() {
               <Route path='/proposal' 
                 element={
                   <RequireAuth redirectTo={'/'}>
-                    <PendingPropositionCheck redirectTo={'/'}>
-                      <Proposal /> 
-                    </PendingPropositionCheck>
+                    <Proposal /> 
                   </RequireAuth>
                 }
               />
@@ -91,23 +83,6 @@ function RequireAuth({children, redirectTo}:{ children:any, redirectTo:any }) {
     resfreshToken();
   }, []);
   if (!isLoading) {
-    return !isError ? children : <Navigate to={redirectTo} />;
-  }
-}
-function PendingPropositionCheck ({children, redirectTo}: {children: any, redirectTo: any}) {
-  const user = useAppSelector(userState);
-  const {data, isError, isLoading} = useGetHasUserProposedQuery(user.id!);
-  console.log(data);
-
-  if (isLoading) {
-    return (
-      <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
-        <Loader />
-      </div>
-    );
-  }
-  
-  if (!isLoading){
     return !isError ? children : <Navigate to={redirectTo} />;
   }
 }

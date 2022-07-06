@@ -96,7 +96,7 @@ function Filters() {
                 />
               </li>))}
           </DropDown>
-          <DropDown name='Pays'>
+          <DropDown name="Pays d'origine">
             {country.map(({name, isChecked}) => (
               <li key={name}>
                 <InputCheckbox
@@ -106,7 +106,7 @@ function Filters() {
                 />
               </li>))}
           </DropDown>
-          <DropDown name={'Période'}>
+          <DropDown name={'Année de sortie'}>
             <DoubleInputRange
               min={periode.baseValues[0]}
               max={periode.baseValues[1]}

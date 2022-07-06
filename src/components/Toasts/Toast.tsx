@@ -27,7 +27,7 @@ function Toast({type, text, duration}: ToastProps) {
       dispatch(removeToast());
       // Self-remove in 3s if duration is unset
     }, duration ? duration : 3000);
-  }, [duration, dispatch]);
+  }, [duration]);
 
   return (
     <div className={`${styles.wrapper} ${fadeout} ${styles[`wrapper--${type}`]}`}>

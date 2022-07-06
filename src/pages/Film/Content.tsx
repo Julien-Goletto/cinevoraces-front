@@ -16,8 +16,7 @@ function Content({movie, isLoading}: ContentProps) {
     if (!isLoading && movie){
       let formatDate = new Date(movie.publishing_date);
       setDate(formatDate.toLocaleDateString('fr-FR', {day:'numeric', month:'long', year:'numeric'}));
-    }
-  }, [movie, isLoading, date]);
+    }}, [movie, isLoading]);
 
   if (!isLoading && date) {
     return (

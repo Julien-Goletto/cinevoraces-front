@@ -78,14 +78,12 @@ function Register() {
       dispatch(addToast({type:'success', text: 'Votre compte à été créé, vous pouvez vous connecter'}));
       dispatch(toggleModal());
       return navigate('/');
-    }
-  }, [isSuccess]);
+    }}, [isSuccess]);
   // Handle registering errors
   useEffect(() => {
     if (isError && 'status' in error!) {
       (error.status === 400) && dispatchToastError('Ce nom d\'utilisateur ou cette adresse mail n\'est pas disponible.');
-    }
-  }, [isError]);
+    }}, [isError]);
   // Handle redirection if connected
   useEffect(() => {
     isOnline && navigate(`/user/${id}`);
@@ -93,9 +91,8 @@ function Register() {
 
   return(
     <AnimationLayout>
-      { isLoading &&
-        <Loader isMaxed={true}/>
-      }
+      {isLoading &&
+        <Loader isMaxed={true}/>}
       <section className={styles.register}>
         <form onSubmit={sendFormHandler} className={styles.form}>
           <h1 className={styles.title}>Créer un compte</h1>

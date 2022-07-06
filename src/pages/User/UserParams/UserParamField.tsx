@@ -19,8 +19,7 @@ function UserParamField ({field, defaultValue, onSubmit, updateIsSuccess}: Param
   useEffect(() => {
     if (updateIsSuccess) {
       setShowInput(false);
-    }
-  }, [updateIsSuccess]);
+    }}, [updateIsSuccess]);
 
   return(
     <form 

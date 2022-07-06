@@ -39,7 +39,7 @@ function Films() {
   // Update redux filter state with fetched filters
   useEffect(() => {
     filtersData && dispatch(initFilters((filtersData)));
-  }, [filtersData, dispatch]);
+  }, [filtersData]);
 
   // Update queryString useState with redux filter state
   useEffect(() => {
@@ -49,8 +49,7 @@ function Films() {
         if (isChecked) query = value!;
       });
       (query !== queryString) && setQueryString(query);
-    }
-  }, [filtersData, mainFilters, dispatch]);
+    }}, [filtersData, mainFilters]);
 
   // Update movies useState with redux filter state
   useEffect(() => {
@@ -82,8 +81,7 @@ function Films() {
         return movie.french_title.toLowerCase().includes(query.toLowerCase());
       });
       setMovies(filteredMovies);
-    }
-  }, [moviesData, filtersData, mainFilters, genre, country, periode, query]);
+    }}, [moviesData, filtersData, mainFilters, genre, country, periode, query]);
   
   return(
     <AnimationLayout>

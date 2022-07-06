@@ -18,8 +18,7 @@ function UserParamPasswordField ({onSubmit, updateIsSuccess}: UserParamPasswordF
   useEffect(() => {
     if (updateIsSuccess) {
       setShowInput(false);
-    }
-  }, [updateIsSuccess]);
+    }}, [updateIsSuccess]);
 
   return(
     <form 

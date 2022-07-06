@@ -60,8 +60,7 @@ function Proposal() {
       setTimeout(()=> {
         navigate('/');
       }, 100);
-    }
-  }, [isPostMovieSuccess, isBookHandleSuccess, slots ]);
+    }}, [isPostMovieSuccess, isBookHandleSuccess, slots]);
 
 
   

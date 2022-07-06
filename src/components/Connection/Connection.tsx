@@ -41,8 +41,7 @@ function Connection() {
       dispatch(login(userData)); // Update local user state
       dispatch(toggleModal());  // Close modal
       dispatch(addToast({type:'success', text: `Bienvenue ${userData!.pseudo}`})); // Show success message
-    }
-  }, [isSuccess]);
+    }}, [isSuccess]);
   
   return (
     <> 

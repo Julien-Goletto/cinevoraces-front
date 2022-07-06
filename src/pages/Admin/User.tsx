@@ -36,8 +36,7 @@ function User({user}: {[key: string]: any}) {
     if (deleteUserSuccess) {
       dispatch(addToast({type: 'success', text: 'Utilisateur supprimé.'}));
       deleteUserReset();
-    }
-  }, [deleteUserSuccess, setAdminRoleSuccess, dispatch, setAdminRoleReset, deleteUserReset]);
+    }}, [deleteUserSuccess, setAdminRoleSuccess]);
 
   return(
     <tr>

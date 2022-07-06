@@ -15,7 +15,7 @@ import styles from './Admin.module.scss';
 
 function Admin () {
   const dispatch = useAppDispatch();
-  const { data, isLoading } = useAdminGetDataQuery();
+  const {data, isLoading} = useAdminGetDataQuery();
   const [publishProposition, {
     isSuccess: publishIsSuccess,
     reset: publishReset
@@ -64,17 +64,15 @@ function Admin () {
       dispatch(addToast({type: 'success', text: 'Film supprimé avec succés.'}));
       setSelectedMovieId(undefined);
       deleteReset();
-    } 
-    
-  }, [deleteIsSuccess, publishIsSuccess, dispatch, deleteReset, publishReset]);
+    }}, [deleteIsSuccess, publishIsSuccess]);
 
   return(
     <AnimationLayout>
       <section className={styles['admin-panel']}>
-        { isLoading &&
+        {isLoading &&
           <Loader/>
         }
-        { !isLoading &&
+        {!isLoading &&
         <>
           { data!.propositions &&
             <form className={styles['proposal-form']}>

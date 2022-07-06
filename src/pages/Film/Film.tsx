@@ -31,27 +31,19 @@ function Film() {
   );
 
   useEffect(() => {
-    // RESET all interaction
+    // Reset interactions
     dispatch(setInactive());
-    // IF user as comment, put edit:true on him and push on top of the list
+    // Set comment on top and add edit button if belong to user
     setFilteredComment(filterComment(user.id, reviews));
-    // SET reviews from db (if no error/no data)
+    // Set reviews from db (if no error/no data)
     if (typeof userReview !== 'string' && !isUserReviewLoad && !isUserReviewError) {
       dispatch(setActive(userReview![0]));
-    }    
-  }, [user,
-    userReview,
-    dispatch,
-    isUserReviewLoad,
-    isUserReviewSuccess,
-    isUserReviewError,
-    reviews,
-    filterComment]);
+    }}, [user, userReview, isUserReviewLoad, reviews]);
   
 
   return (
     <AnimationLayout>
-      { movie ?
+      {movie ?
         <section className={styles.film}>
           <Content 
             movie={movie} 
@@ -76,7 +68,7 @@ function Film() {
             }
           </div>
         </section>
-        : <div style={{display: 'flex', justifyContent: 'center', marginTop: '10rem'}}><Loader /></div> }
+        : <div style={{display: 'flex', justifyContent: 'center', marginTop: '10rem'}}><Loader /></div>}
     </AnimationLayout>
   );
 };

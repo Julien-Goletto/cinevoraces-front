@@ -2,7 +2,7 @@
 @use '~styles/var';
 
 .user-header {
-  composes: container from global;
+  @include mix.container;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;

@@ -1,7 +1,7 @@
 @use '~styles/mixins' as mix;
 
 .register {
-  composes: container from global;
+  @include mix.container;
   display: grid;
   grid-template-columns: 1fr;
   justify-content: space-between;
@@ -22,8 +22,7 @@
     display: flex;
     gap: .5em;
     align-self: end;
-  }
-}
+  }}
 .img {
   display: block;
   max-width: 299px;
@@ -49,19 +48,16 @@
     order: -1;
     margin: 5em 0 0 0;
     max-width: 339px;
-  }
-}
+  }}
 @include mix.breakpoint('laptop') {
   .form {
     width: 480px;
   }
   .img {
     max-width: 479px;
-  }
-}
+  }}
 @include mix.breakpoint('desktop') {
   .form {
     width: 580px;
     margin-right: 3em;
-  }
-}
+  }}

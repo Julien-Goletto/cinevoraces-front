@@ -2,7 +2,7 @@
 @use '~styles/mixins' as mix;
 
 .proposal {
-  composes: container from global;
+  @include mix.container;
   margin-top: 3em
 }
 .title {
@@ -39,7 +39,7 @@
   }
 }
 .button {
-  composes: container from global;
+  @include mix.container;
   display: flex;
   justify-content: flex-end;
   margin-bottom: 2em;

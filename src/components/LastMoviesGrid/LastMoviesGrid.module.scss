@@ -1,7 +1,7 @@
 @use '~styles/mixins' as mix;
 
 .last-movies {
-  composes: container from global;
+  @include mix.container;
   display: flex;
   flex-direction: column;
   gap: 2em;

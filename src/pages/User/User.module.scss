@@ -13,7 +13,7 @@
   font-weight: 700;
 }
 .title-h2 {
-  composes: container from global;
+  @include mix.container;
   text-align: center;
   font-size: 1.45rem;
   font-weight: 600;

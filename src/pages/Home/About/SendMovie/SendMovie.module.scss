@@ -6,7 +6,7 @@
   margin: 4em auto;
 }
 .wrapper {
-  composes: container from global;
+  @include mix.container;
   padding-top: 2em;
   padding-bottom:  2em;
 }

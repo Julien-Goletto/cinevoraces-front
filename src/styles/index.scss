@@ -48,13 +48,3 @@ body::-webkit-scrollbar-thumb {
     }
   } 
 }
-.star-rating-container {
-  width: fit-content;
-  background: var.$background;
-  border-radius: 1em;
-  padding: .2em;
-  font-size: 1.2em;
-  & div {
-    transform: scale(.9);
-  }
-}

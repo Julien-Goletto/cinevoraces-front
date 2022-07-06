@@ -2,7 +2,7 @@
 @use '~styles/mixins' as mix;
 
 .description {
-  composes: container from global;
+  @include mix.container;
 }
 .title {
   @include mix.h5;

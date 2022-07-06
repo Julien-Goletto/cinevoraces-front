@@ -46,5 +46,5 @@
 }
 
 .note {
-  composes: star-rating-container from global;
+  @include mix.star-rating-container;
 }

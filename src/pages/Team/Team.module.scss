@@ -2,7 +2,7 @@
 @use '~styles/var';
 
 .team {
-  composes: container from global;
+  @include mix.container;
   display: flex;
   flex-direction: column;
   align-items: center;

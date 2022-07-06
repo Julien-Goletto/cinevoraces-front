@@ -2,7 +2,7 @@
 @use '~styles/var';
 
 .error {
-  composes: container from global;
+  @include mix.container;
   display: flex;
   flex-direction: column;
   width: fit-content;

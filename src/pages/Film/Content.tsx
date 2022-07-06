@@ -9,11 +9,11 @@ type ContentProps = {
   isLoading: boolean
 }
 
-function Content({ movie, isLoading }: ContentProps) {
+function Content({movie, isLoading}: ContentProps) {
   const [date, setDate] = useState<string>();
   
-  useEffect(()=> {
-    if(!isLoading && movie){
+  useEffect(() => {
+    if (!isLoading && movie){
       let formatDate = new Date(movie.publishing_date);
       setDate(formatDate.toLocaleDateString('fr-FR', {day:'numeric', month:'long', year:'numeric'}));
     }

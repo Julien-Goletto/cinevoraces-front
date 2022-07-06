@@ -36,8 +36,8 @@ function Connection() {
   };
 
   // Handle connection success
-  useEffect(()=> {
-    if(isSuccess) {
+  useEffect(() => {
+    if (isSuccess) {
       dispatch(login(userData)); // Update local user state
       dispatch(toggleModal());  // Close modal
       dispatch(addToast({type:'success', text: `Bienvenue ${userData!.pseudo}`})); // Show success message

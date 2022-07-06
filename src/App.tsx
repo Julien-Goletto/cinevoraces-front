@@ -32,21 +32,19 @@ function App() {
   const [refreshToken, {data, isLoading, isError}] = useLazyRefreshTokenQuery();
 
   // wait for refreshToken cycle to be done
-  const [ready, setReady] = useState<boolean>(false);
-  useEffect(()=>{
+  const [ready, setReady] = useState(false);
+  useEffect(() => {
     const token = Cookies.get('refreshToken');
-    if(token) {
-      refreshToken();
-    } else return;
+    token && refreshToken();
   }, [refreshToken]);
 
-  useEffect(()=> {
-    if(!isLoading && data && !isError ) {
+  useEffect(() => {
+    if (!isLoading && data && !isError) {
       dispatch(login(data));
       setReady(true);
     }
     setReady(true);
-  }, [data, isLoading, isError, dispatch]);
+  }, [data]);
   
   return (
     ready ?
@@ -87,12 +85,12 @@ function App() {
   );
 }
 
-function RequireAuth({ children, redirectTo }:{ children:any, redirectTo:any }) {
+function RequireAuth({children, redirectTo}:{ children:any, redirectTo:any }) {
   const [resfreshToken, {isError, isLoading}] = useLazyRefreshTokenQuery();
-  useEffect(()=> {
+  useEffect(() => {
     resfreshToken();
   }, []);
-  if(!isLoading) {
+  if (!isLoading) {
     return !isError ? children : <Navigate to={redirectTo} />;
   }
 }
@@ -101,7 +99,7 @@ function PendingPropositionCheck ({children, redirectTo}: {children: any, redire
   const {data, isError, isLoading} = useGetHasUserProposedQuery(user.id!);
   console.log(data);
 
-  if(isLoading) {
+  if (isLoading) {
     return (
       <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
         <Loader />
@@ -109,7 +107,7 @@ function PendingPropositionCheck ({children, redirectTo}: {children: any, redire
     );
   }
   
-  if(!isLoading){
+  if (!isLoading){
     return !isError ? children : <Navigate to={redirectTo} />;
   }
 }

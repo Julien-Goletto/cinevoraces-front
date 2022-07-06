@@ -21,7 +21,7 @@ function Proposal() {
   const proposalMovie = useAppSelector(getProposalData);
   const [seasonSelect, setSeasonSelect] = useState<number | string>('~');
   const [searchTrigger, { data, isFetching: isDetailsFetching}] = apiTmdb.endpoints.tmbdCustomDetails.useLazyQuery();
-  const { data: slots, isSuccess: isSlotsSuccess } = useGetSlotsQuery();
+  const {data: slots, isSuccess: isSlotsSuccess} = useGetSlotsQuery();
   const [sendBook, {isSuccess: isBookHandleSuccess}] = usePutSlotMutation();
   const [sendPost, {isSuccess: isPostMovieSuccess}] = usePostMovieMutation();
   const dispatch = useAppDispatch();
@@ -30,7 +30,7 @@ function Proposal() {
     const selected = Number(e.currentTarget.value);
     const episode = slots!.find((slot) => slot.episode === selected);
     setSeasonSelect(episode ? episode.season_number : '~');
-    if(episode) {
+    if (episode) {
       dispatch(setEpisode({
         episode_selected: selected,
         episode_publish_date: episode.publishing_date,
@@ -40,7 +40,7 @@ function Proposal() {
   };
   
   const handleSubmit = async () => {
-    if(proposalMovie.presentation.length <= 1) {
+    if (proposalMovie.presentation.length <= 1) {
       dispatch(addToast({type: 'error', text:'Formulaire invalide'}));
     } else {
       await sendPost({...proposalMovie, user_id: id!});
@@ -48,14 +48,14 @@ function Proposal() {
     }};
 
   
-  useEffect(()=> {  
-    if(isPostMovieSuccess && isBookHandleSuccess) {
+  useEffect(() => {  
+    if (isPostMovieSuccess && isBookHandleSuccess) {
       dispatch(addToast({type: 'success', text: 'Votre film à bien été enregistré'}));
       setTimeout(()=> {
         navigate('/', {state: {}, replace: true});
       },1000);
     }
-    if(typeof slots === 'string') {
+    if (typeof slots === 'string') {
       dispatch(addToast({type: 'warn', text:`${slots}`, duration:6000}));
       setTimeout(()=> {
         navigate('/');

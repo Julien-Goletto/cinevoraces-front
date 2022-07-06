@@ -12,34 +12,34 @@ import AnimationLayout from 'components/AnimationLayout/AnimationLayout';
 import AddComment from './AddComment';
 
 function Film() {
-  const { id }  = useParams();
+  const {id}  = useParams();
   const user = useAppSelector(userState);
   const dispatch = useAppDispatch();
-  const { data: movie, isLoading: isMovieLoad } = useGetOneMovieQuery(Number(id));
-  const { data: reviews, isLoading: isReviewsLoad } = useGetAllReviewsQuery(Number(id));
-  const { data: userReview, isLoading: isUserReviewLoad, isError: isUserReviewError, isSuccess: isUserReviewSuccess } = useGetOneReviewQuery({userId: user.id!, movieId: id! });
+  const {data: movie, isLoading: isMovieLoad} = useGetOneMovieQuery(Number(id));
+  const {data: reviews, isLoading: isReviewsLoad} = useGetAllReviewsQuery(Number(id));
+  const {data: userReview, isLoading: isUserReviewLoad, isError: isUserReviewError, isSuccess: isUserReviewSuccess} = useGetOneReviewQuery({userId: user.id!, movieId: id! });
   const [filteredComment, setFilteredComment] = useState(reviews);
 
   const filterComment = useCallback(
     (userId: number | null, comments:any) => {
-      if(!comments) return false;
+      if (!comments) return false;
       let userComment = comments.find((comment:any) => comment.user_id === userId);
-      if(!user.isOnline || !userComment) return comments;
+      if (!user.isOnline || !userComment) return comments;
       let filterComment = comments.filter((comment:any) => comment.user_id !== userId);
       return [{...userComment, edit: true}, ...filterComment];},
     [user]
   );
 
-  useEffect(()=> {
+  useEffect(() => {
     // RESET all interaction
     dispatch(setInactive());
     // IF user as comment, put edit:true on him and push on top of the list
     setFilteredComment(filterComment(user.id, reviews));
     // SET reviews from db (if no error/no data)
-    if(typeof userReview !== 'string' && !isUserReviewLoad && !isUserReviewError) {
+    if (typeof userReview !== 'string' && !isUserReviewLoad && !isUserReviewError) {
       dispatch(setActive(userReview![0]));
     }    
-  },[user,
+  }, [user,
     userReview,
     dispatch,
     isUserReviewLoad,

@@ -81,8 +81,8 @@ function UserInfo() {
   };
   
   // Handle update success
-  useEffect(()=> {
-    if(isSuccess) {
+  useEffect(() => {
+    if (isSuccess) {
       dispatch(addToast({type: 'success', text: 'Informations mises à jour avec succés.'}));
       // Reset all fields/states
       reset();
@@ -92,12 +92,12 @@ function UserInfo() {
       setNewPassword('');
       setConfirm('');
       setFieldSelector([false, false, false]);
-    }},[isSuccess]);
+    }}, [isSuccess]);
   // Handle update errors
-  useEffect(()=> {
-    if(isError && 'status' in error!) {
+  useEffect(() => {
+    if (isError && 'status' in error!) {
       (error.status === 400) && dispatchToastError('Ce nom d\'utilisateur ou cette adresse mail n\'est pas disponible.');
-    }},[isError]);
+    }}, [isError]);
 
   return(
     <form className={styles['user-params']} onSubmit={sendFormHandler}> 

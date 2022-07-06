@@ -19,7 +19,7 @@ function Toast({type, text, duration}: ToastProps) {
   const dispatch = useAppDispatch();
   const [fadeout, setFadeout] = useState<any>(null);
 
-  useEffect(()=> {
+  useEffect(() => {
     setTimeout(()=> {
       setFadeout(styles['blur-out']);
     }, 2900);

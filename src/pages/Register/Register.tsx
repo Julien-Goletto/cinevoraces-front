@@ -73,19 +73,19 @@ function Register() {
     }};
 
   // Handle registering success
-  useEffect(()=> {
-    if(isSuccess) {
+  useEffect(() => {
+    if (isSuccess) {
       dispatch(addToast({type:'success', text: 'Votre compte à été créé, vous pouvez vous connecter'}));
       dispatch(toggleModal());
       return navigate('/');
     }
-  },[isSuccess]);
+  }, [isSuccess]);
   // Handle registering errors
-  useEffect(()=> {
-    if(isError && 'status' in error!) {
+  useEffect(() => {
+    if (isError && 'status' in error!) {
       (error.status === 400) && dispatchToastError('Ce nom d\'utilisateur ou cette adresse mail n\'est pas disponible.');
     }
-  },[isError]);
+  }, [isError]);
   // Handle redirection if connected
   useEffect(() => {
     isOnline && navigate(`/user/${id}`);

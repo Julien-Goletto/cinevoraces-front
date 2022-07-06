@@ -75,7 +75,7 @@ function Films() {
       filteredMovies = filteredMovies.filter((movie: DBMovie) => {
         const date = new Date(movie.release_date);
         const year = date.getFullYear();
-        if(year >= periode.stateValues[0] && year <= periode.stateValues[1]) {
+        if (year >= periode.stateValues[0] && year <= periode.stateValues[1]) {
           return true;
         }});
       filteredMovies = filteredMovies.filter((movie: DBMovie) => {

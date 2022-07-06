@@ -21,7 +21,7 @@ function AddComment(props: any) {
     e.preventDefault();
     let comment = e.target.comment.value;
     if (user.isOnline) {
-      if(reviews === false) {
+      if (reviews === false) {
         await postInteraction({userId: user.id!, movieId: id!});
       }
       await putInteraction({userId: user.id!, movieId: id!, body: {comment: comment}});

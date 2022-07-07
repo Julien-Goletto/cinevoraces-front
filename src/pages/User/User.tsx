@@ -1,41 +1,67 @@
+import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useGetOneUserQuery } from 'redux/api';
-import UserInfo from './UserInfo';
-import UserHeader from './UserHeader/UserHeader';
-import UserMetrics from './UserMetrics/UserMetrics';
-import UserSubmittedFilm from './UserSubmittedFilm/UserSubmittedFilm';
+import { useAppSelector } from 'redux/hooks';
+import { userState } from 'redux/slices/user';
 import AnimationLayout from 'components/AnimationLayout/AnimationLayout';
+import UserInfo from './UserInfo';
+import UserMetrics from './UserMetrics';
+import UserProposal from './UserProposal';
 import styles from './User.module.scss';
+import Loader from 'components/Loader/Loader';
 
 function User() {
-  const { id }  = useParams();
-  const { data, isLoading } = useGetOneUserQuery(Number(id));
+  const {id: pageId}                = useParams();
+  const {id: stateId, isOnline}     = useAppSelector(userState);
+  const {data: userData} = useGetOneUserQuery(Number(pageId));
+  const [isUserPage, setIsUserPage] = useState(false);
+  const [role, setRole]             = useState('');
+  const [date, setDate]             = useState('');
+  const [avatar, setAvatar]         = useState('/images/user_default.svg');
   
+  // Resolve if page ID is user ID
+  useEffect(() => {
+    if (isOnline && Number(pageId) === stateId) {
+      setIsUserPage(true);
+    } else {
+      setIsUserPage(false);
+    }}, [pageId, stateId, isOnline]);
+  // Resolve user infos
+  useEffect(() => {
+    if (userData) {
+      userData.role === 'user' && setRole('Utilisateur');
+      userData.role === 'admin' && setRole('Administrateur');
+      userData.avatar_url && setAvatar(userData.avatar_url);
+      setDate(
+        new Date(userData.created_at)
+          .toLocaleDateString(
+            'fr-FR', {day: 'numeric', month: 'long', year: 'numeric'}));
+    }}, [userData]);
+
   return(
     <AnimationLayout>
-      { (!isLoading && data) &&
-        <section className={styles['user']}>
-          <h1 className={styles['title']}>Mon compte</h1>
-          <UserHeader
-            username={data.pseudo}
-            avatar={data.avatar_url}
-            registerDate={data.created_at}
-          />
-          <h2 className={styles['title-h2']}>
-            Mon récapitulatif en 5 <span>chiffres :</span>
-          </h2>
-          { id &&
-            <UserMetrics id={id} />
-          }
-          <UserSubmittedFilm
-            id={id!}
-          />
-          <h2 className={styles['title-h2']}>
-            Mes paramètres :
-          </h2>
-          <UserInfo/>
-        </section>
-      }
+      {userData && pageId &&
+        <section className={styles.user}>
+          <h1>{isUserPage ? `Mon compte ${role.toLowerCase()}` : role}</h1>
+          <div className={styles.header}>
+            <div className={styles.row}>
+              <img src={avatar} alt=''/>
+              <div className={styles.username}>{userData.pseudo}</div>
+            </div>
+            <div className={styles.date}>
+              Membre depuis le<span>{date}</span>
+            </div>
+          </div>
+          <h2>{isUserPage ? 'Mon récap' : `Récap de ${userData.pseudo}`}&nbsp;en 5 chiffres</h2>
+          <UserMetrics id={pageId}/>
+          {isUserPage &&
+          <>
+            <UserProposal id={pageId}/>
+            <h2>Mes paramètres</h2>
+            <UserInfo/>
+          </>}
+        </section>}
+      {(!userData || !pageId) && <Loader isMaxed/>}
     </AnimationLayout>
   );
 }

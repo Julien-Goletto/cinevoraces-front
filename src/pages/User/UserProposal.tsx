@@ -1,9 +1,9 @@
 import { useGetPendingProposalQuery } from 'redux/api';
 import { Button } from 'components/Inputs/InputsLib';
-import userStyles from '../User.module.scss';
-import styles from './UserSubmittedFilm.module.scss';
+import userStyles from './User.module.scss';
+import styles from './UserProposal.module.scss';
 
-function UserSubmittedFilm({ id }: {id: string}) {
+function UserProposal({id}: {id: string}) {
   const {data: movieData, isLoading} = useGetPendingProposalQuery(id);
 
   return(
@@ -72,4 +72,4 @@ function UserSubmittedFilm({ id }: {id: string}) {
   );
 }
 
-export default UserSubmittedFilm;
+export default UserProposal;

@@ -36,7 +36,7 @@ function App() {
   
   return ( 
     <>
-      {data &&
+      {!isLoading &&
         <>
           <Layout>
             <AnimatePresence exitBeforeEnter>
@@ -56,7 +56,7 @@ function App() {
           </Layout>
           <Toast />
         </>}
-      {!data && <Loader isMaxed/>}
+      {(isLoading) && <Loader isMaxed/>}
     </>
 
   );

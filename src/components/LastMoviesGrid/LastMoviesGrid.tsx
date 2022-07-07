@@ -1,8 +1,20 @@
 import { useGetAllMoviesQuery } from 'redux/api';
+import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { Button } from 'components/Inputs/InputsLib';
 import Loader from 'components/Loader/Loader';
 import styles from './LastMoviesGrid.module.scss';
+
+const transition = {
+  type: 'tween',
+  ease: 'linear',
+  duration: 0.2,
+  delay: 0.2
+}; 
+const variants = {
+  hidden: {opacity: 0, transition},
+  show:   {opacity: 1, transition},
+};
 
 /**
  * @return grid with the last 5 movies posted
@@ -15,7 +27,7 @@ function LastMoviesGrid() {
   return(
     <>
       {!isLoading && movies &&
-        <div id='last-movie' className={styles['last-movies']}>
+        <motion.div id='last-movie' className={styles['last-movies']} variants={variants} initial='hidden' animate='show'>
           <h2 className={styles.title}>Les derniers ajouts de la communauté</h2>
           <div className={styles.grid}>
             {/* Map only last 5 movies */}
@@ -29,7 +41,7 @@ function LastMoviesGrid() {
           <Button href='/films' styleMod='fill-rounded'>
             Voir la liste des films
           </Button>
-        </div>}
+        </motion.div>}
       {isLoading &&
         <div id='last-movie' className={styles.loader}>
           <Loader />

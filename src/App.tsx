@@ -7,7 +7,7 @@ import { login }                      from 'redux/slices/user';
 import Cookies     from 'js-cookie';
 import Toast       from 'components/Toasts/Toasts';
 import ResetScroll from 'components/ResetScroll/ResetScroll';
-import Layout      from 'components/Layout/Layout';
+import Header      from 'components/Layout/Header';
 import Loader      from 'components/Loader/Loader';
 import Error       from 'pages/Error/Error';
 import Films       from 'pages/Films/Films';
@@ -38,23 +38,22 @@ function App() {
     <>
       {!isLoading &&
         <>
-          <Layout>
-            <AnimatePresence exitBeforeEnter>
-              <ResetScroll />
-              <Routes location={location} key={location.pathname}>
-                <Route path='/' element={<Home />}/>
-                <Route path='/film/:id' element={<Film />}/>
-                <Route path='/films' element={<Films />}/>
-                <Route path='/register' element={<Register />}/>
-                <Route path='/user/:id' element={<User />}/>
-                <Route path='/proposal' element={<Proposal />}/>
-                <Route path='/team' element={<Team />}/>
-                <Route path='/admin' element={<Admin />}/>
-                <Route path='*' element={<Error />}/>
-              </Routes>
-            </AnimatePresence>
-          </Layout>
-          <Toast />
+          <Header/>
+          <AnimatePresence exitBeforeEnter>
+            <ResetScroll/>
+            <Routes location={location} key={location.pathname}>
+              <Route path='/' element={<Home />}/>
+              <Route path='/film/:id' element={<Film />}/>
+              <Route path='/films' element={<Films />}/>
+              <Route path='/register' element={<Register />}/>
+              <Route path='/user/:id' element={<User />}/>
+              <Route path='/proposal' element={<Proposal />}/>
+              <Route path='/team' element={<Team />}/>
+              <Route path='/admin' element={<Admin />}/>
+              <Route path='*' element={<Error />}/>
+            </Routes>
+          </AnimatePresence>
+          <Toast/>
         </>}
       {(isLoading) && <Loader isMaxed/>}
     </>

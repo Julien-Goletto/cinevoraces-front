@@ -2,6 +2,7 @@
 @use '~styles/mixins' as mix;
 
 .footer {
+  transition: 1s;
   background-color: var.$secondary-background;
   & footer {
     padding: 1.7em 0;

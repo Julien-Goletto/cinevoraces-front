@@ -8,6 +8,7 @@ import UserInfo from './UserInfo';
 import UserMetrics from './UserMetrics';
 import UserProposal from './UserProposal';
 import styles from './User.module.scss';
+import Footer from 'components/Layout/Footer';
 import Loader from 'components/Loader/Loader';
 
 function User() {
@@ -41,6 +42,7 @@ function User() {
   return(
     <AnimationLayout>
       {userData && pageId &&
+      <>
         <section className={styles.user}>
           <h1>{isUserPage ? `Mon compte ${role.toLowerCase()}` : role}</h1>
           <div className={styles.header}>
@@ -60,7 +62,9 @@ function User() {
             <h2>Mes paramètres</h2>
             <UserInfo/>
           </>}
-        </section>}
+        </section>
+        <Footer/>
+      </>}
       {(!userData || !pageId) && <Loader isMaxed/>}
     </AnimationLayout>
   );

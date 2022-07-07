@@ -9,7 +9,7 @@ const transition = {
   ease: 'linear',
   duration: 0.2
 }; 
-const variants  = {
+const variants = {
   hidden: {opacity: 0, transition},
   show:   {opacity: 1, transition},
 };

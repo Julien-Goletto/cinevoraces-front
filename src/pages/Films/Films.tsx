@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from 'redux/hooks';
 import { useGetAllMoviesQuery, useGetAllFiltersQuery } from 'redux/api';
 import { initFilters, filters } from 'redux/slices/filter';
@@ -7,6 +7,7 @@ import Loader from 'components/Loader/Loader';
 import Filters from 'components/Filters/Filters';
 import AnimationLayout from 'components/AnimationLayout/AnimationLayout';
 import styles from './Films.module.scss';
+import Footer from 'components/Layout/Footer';
 
 function Films() {
   const dispatch = useAppDispatch();
@@ -95,6 +96,7 @@ function Films() {
             <Loader />
           </div>}
       </section>
+      {!isLoading && <Footer/>}
     </AnimationLayout>
   );
 }

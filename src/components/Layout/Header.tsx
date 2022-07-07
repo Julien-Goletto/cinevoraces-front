@@ -6,11 +6,22 @@ import { userState } from 'redux/slices/user';
 import { useGetLastMovieQuery } from 'redux/api';
 import { Button } from 'components/Inputs/InputsLib';
 import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
 import Connection from 'components/Connection/Connection';
 import Modal from 'components/Modal/Modal';
 import MenuMobile from './MenuMobile';
 import UserMenu from './UserMenu';
 import styles from './Header.module.scss';
+
+const transition = {
+  type: 'tween',
+  ease: 'linear',
+  duration: 0.2,
+}; 
+const variants = {
+  hidden: {opacity: 0, transition},
+  show:   {opacity: 1, transition},
+};
 
 /**
  * @returns App header
@@ -36,7 +47,7 @@ function Header() {
       <Modal>
         <Connection/>
       </Modal>}
-      <header className={styles.header}>
+      <motion.header className={styles.header} variants={variants} initial='hidden' animate='show'>
         <div className={styles.logo}>
           <MenuMobile />
           <Link to='/'><SVGLogo/></Link> 
@@ -54,7 +65,7 @@ function Header() {
             <span className={styles['mobile-sentence']}>Connexion</span>
           </Button>}
         {isOnline && <UserMenu />}
-      </header>
+      </motion.header>
     </>
   );
 }

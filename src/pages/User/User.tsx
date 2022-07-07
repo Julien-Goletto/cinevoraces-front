@@ -43,7 +43,7 @@ function User() {
     <AnimationLayout>
       {userData && pageId &&
       <>
-        <section className={styles.user}>
+        <main className={styles.user}>
           <h1>{isUserPage ? `Mon compte ${role.toLowerCase()}` : role}</h1>
           <div className={styles.header}>
             <div className={styles.row}>
@@ -62,7 +62,7 @@ function User() {
             <h2>Mes paramètres</h2>
             <UserInfo/>
           </>}
-        </section>
+        </main>
         <Footer/>
       </>}
       {(!userData || !pageId) && <Loader isMaxed/>}

@@ -1,59 +1,33 @@
-import { useState } from 'react';
 import { ReactComponent as LinkedIn } from './About.linkedin.svg';
 import AnimationLayout from 'components/AnimationLayout/AnimationLayout';
 import styles from './About.module.scss';
 
-function Team() {
-  const [zoomedBenouit, setZoomedBenouit] = useState('/images/team/benoit.png');
-  const [roleBenouit, setRoleBenouit] = useState('Front Dev');
+function About() {
+  const contributors = [
+    {name: 'Julien GOLETTO', avatar: '/images/contributor_1.jpg', linkedin: 'https://www.linkedin.com/in/julien-goletto-a589a2203/'},
+    {name: 'Gregory MICHALAK', avatar: '/images/contributor_2.png', linkedin: 'https://www.linkedin.com/in/gregory-michalak/'},
+    {name: 'Anthony ESPIRAT', avatar: '/images/contributor_3.png', linkedin: 'https://www.linkedin.com/in/anthony-espirat/'},
+    {name: 'Joffrey D\'ORTOLI', avatar: '/images/contributor_4.jpg', linkedin: 'https://www.linkedin.com/in/joffreydortoli/'},
+    {name: 'Gino SALOME', avatar: '/images/contributor_5.jpg', linkedin: 'https://www.linkedin.com/in/gino-salom%C3%A9-0a10ba139/'}
+  ];
+
   return (
     <AnimationLayout>
-      <section className={styles.team}>
-        <h1 className={styles.title}>L'équipe</h1>
-        <div className={styles.pictures}>
-          <div className={styles.row}>
+      <main className={styles.about}>
+        <h1>L'équipe</h1>
+        <div className={styles.contributors}>
+          {contributors.map(({name, avatar, linkedin}) => (
             <div className={styles.card}>
-              <img className={styles.img} src='/images/team/julien.jpg' alt='Julien' />
-              <p className={styles.name}>Julien GOLETTO</p>
-              <p className={styles.role}>Product Owner / Lead Back</p>
-              <a href='https://www.linkedin.com/in/julien-goletto-a589a2203/' target={'_blank'} rel='noreferrer' className={styles.link}><LinkedIn /></a>
-            </div>
-            <div className={styles.card}>
-              <img className={styles.img} src='/images/team/joffrey.jpg' alt='Joffrey' />
-              <p className={styles.name}>Joffrey D'ORTOLI</p>
-              <p className={styles.role}>Devops / Infra</p>
-              <a href='https://www.linkedin.com/in/joffreydortoli/' target={'_blank'} rel='noreferrer' className={styles.link}><LinkedIn /></a>
-            </div>
-            <div className={styles.card}>
-              <img className={styles.img} src='/images/team/anthony.png' alt='Anthony' />
-              <p className={styles.name}>Anthony ESPIRAT</p>
-              <p className={styles.role}>Designer / Lead Front</p>
-              <a href='https://www.linkedin.com/in/anthony-espirat/' target={'_blank'} rel='noreferrer' className={styles.link}><LinkedIn /></a>
-            </div>
-            <div className={styles.card}>
-              <img className={styles.img}
-                onMouseEnter={() => {setZoomedBenouit('/images/team/benoitzoomed.png');}}
-                onMouseLeave={() => {setZoomedBenouit('/images/team/benoit.png');}}
-                src={zoomedBenouit}
-                alt='Benoit' />
-              <p className={styles.name}>Gregory MICHALAK</p>
-              <p className={styles.role} 
-                onMouseEnter={() => {setRoleBenouit('Front Dev / Troll Master');}}
-                onMouseLeave={() => {setRoleBenouit('Front Dev');}}
-              >{roleBenouit}</p>
-              <a href='https://www.linkedin.com/in/gregory-michalak-b1613b22a/' target={'_blank'} rel='noreferrer' className={styles.link}><LinkedIn /></a>
-            </div>
-            <div className={styles.card}>
-              <img className={styles.img} src='/images/team/gino.jpg' alt='Gino' />
-              <p className={styles.name}>Gino SALOME</p>
-              <p className={styles.role}>Front Dev / Git master</p>
-              <a href='https://www.linkedin.com/in/gino-salom%C3%A9-0a10ba139/' target={'_blank'} rel='noreferrer' className={styles.link}><LinkedIn /></a>
-            </div>
-          </div>
+              <img src={avatar} alt={name}/>
+              <div className={styles.name}>{name}</div>
+              <a href={linkedin} target={'_blank'} rel='noreferrer'>
+                <LinkedIn/>
+              </a>
+            </div>))}
         </div>
-      </section>
+      </main>
     </AnimationLayout>
   );
 };
 
-export default Team;
+export default About;

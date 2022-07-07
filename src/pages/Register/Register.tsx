@@ -9,6 +9,7 @@ import { useAppDispatch, useAppSelector } from 'redux/hooks';
 import { userState } from 'redux/slices/user';
 import { addToast, toggleModal } from 'redux/slices/global';
 import styles from './Register.module.scss';
+import Footer from 'components/Layout/Footer';
 
 function Register() {
   const navigate = useNavigate();
@@ -93,7 +94,7 @@ function Register() {
     <AnimationLayout>
       {isLoading &&
         <Loader isMaxed={true}/>}
-      <section className={styles.register}>
+      <main className={styles.register}>
         <form onSubmit={sendFormHandler} className={styles.form}>
           <h1 className={styles.title}>Créer un compte</h1>
           <InputText
@@ -139,8 +140,9 @@ function Register() {
           </Button>
         </form>
         <img className={styles.img} src='/images/register-img.png' alt='' />
-      </section>
+      </main>
       <Metrics/>
+      <Footer/>
     </AnimationLayout>
   );
 }

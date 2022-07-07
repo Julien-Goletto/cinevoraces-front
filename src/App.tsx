@@ -16,7 +16,7 @@ import Home        from 'pages/Home/Home';
 import Film        from 'pages/Film/Film';
 import Register    from 'pages/Register/Register';
 import Proposal    from 'pages/Proposal/Proposal';
-import Team        from 'pages/Team/Team';
+import About        from 'pages/About/About';
 import Admin       from 'pages/Admin/Admin';
 
 function App() {
@@ -42,15 +42,15 @@ function App() {
           <AnimatePresence exitBeforeEnter>
             <ResetScroll/>
             <Routes location={location} key={location.pathname}>
-              <Route path='/' element={<Home />}/>
-              <Route path='/film/:id' element={<Film />}/>
-              <Route path='/films' element={<Films />}/>
-              <Route path='/register' element={<Register />}/>
-              <Route path='/user/:id' element={<User />}/>
-              <Route path='/proposal' element={<Proposal />}/>
-              <Route path='/team' element={<Team />}/>
-              <Route path='/admin' element={<Admin />}/>
-              <Route path='*' element={<Error />}/>
+              <Route path='/' element={<Home/>}/>
+              <Route path='/film/:id' element={<Film/>}/>
+              <Route path='/films' element={<Films/>}/>
+              <Route path='/register' element={<Register/>}/>
+              <Route path='/user/:id' element={<User/>}/>
+              <Route path='/proposal' element={<Proposal/>}/>
+              <Route path='/team' element={<About/>}/>
+              <Route path='/admin' element={<Admin/>}/>
+              <Route path='*' element={<Error/>}/>
             </Routes>
           </AnimatePresence>
           <Toast/>

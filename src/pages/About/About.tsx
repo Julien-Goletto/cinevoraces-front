@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import { ReactComponent as LinkedIn } from './ico/linkedin.svg';
+import { ReactComponent as LinkedIn } from './About.linkedin.svg';
 import AnimationLayout from 'components/AnimationLayout/AnimationLayout';
-import styles from './Team.module.scss';
+import styles from './About.module.scss';
 
 function Team() {
   const [zoomedBenouit, setZoomedBenouit] = useState('/images/team/benoit.png');

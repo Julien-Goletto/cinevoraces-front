@@ -3,6 +3,7 @@ import { useAppDispatch, useAppSelector } from 'redux/hooks';
 import { useGetAllMoviesQuery, useGetAllFiltersQuery } from 'redux/api';
 import { initFilters, filters } from 'redux/slices/filter';
 import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
 import Loader from 'components/Loader/Loader';
 import Filters from 'components/Filters/Filters';
 import AnimationLayout from 'components/AnimationLayout/AnimationLayout';
@@ -85,7 +86,7 @@ function Films() {
   
   return(
     <AnimationLayout>
-      <section className={styles.films}>
+      <main className={styles.films}>
         <Filters/>
         {!isLoading &&
           <div className={styles.grid}>
@@ -95,22 +96,43 @@ function Films() {
           <div className={styles['loader-wrapper']}>
             <Loader />
           </div>}
-      </section>
+      </main>
       {!isLoading && <Footer/>}
     </AnimationLayout>
   );
 }
 
 function Movie({movie}: {movie: DBMovie}) {
+  const [isLoading, setIsLoading] = useState(true);
   const onLoad = (e: React.SyntheticEvent<HTMLImageElement>) => {
+    setIsLoading(false);
     e.currentTarget.style.opacity = '1';
   };
+  const transition = {
+    type: 'tween',
+    ease: 'linear',
+    duration: 0.2
+  }; 
+  const variants = {
+    hidden: {opacity: 0, transition},
+    show:   {opacity: 1, transition},
+  };
   return(
-    <div className={styles.poster} key={movie.id} onLoad={onLoad}>
-      <Link to={`/film/${movie.id}`}>
-        <img className={`${styles.img}`} src={movie.poster_url} alt={`affiche du film ${movie.french_title}`}/>
-      </Link>
-    </div>
+    <>
+      <div className={styles.poster} key={movie.id}>
+        <Link to={`/film/${movie.id}`}>
+          {isLoading && 
+            <motion.div 
+              variants={variants}
+              initial='hidden'
+              animate='show'
+              className={styles['loader-poster']}>
+              <Loader/>
+            </motion.div>}
+          <img onLoad={onLoad} src={movie.poster_url} alt={`affiche du film ${movie.french_title}`}/>
+        </Link>
+      </div>
+    </>
   );
 }
 

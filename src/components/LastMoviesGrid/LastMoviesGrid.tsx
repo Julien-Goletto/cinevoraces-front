@@ -9,7 +9,9 @@ import styles from './LastMoviesGrid.module.scss';
  */
 function LastMoviesGrid() {
   const {data: movies, isLoading} = useGetAllMoviesQuery('');
-
+  const onLoad = (e: React.SyntheticEvent<HTMLImageElement>) => {
+    e.currentTarget.style.opacity = '1';
+  };
   return(
     <>
       {!isLoading && movies &&
@@ -20,7 +22,7 @@ function LastMoviesGrid() {
             {[...movies].slice(0,5).map(({poster_url, id}) => 
               <div className={styles.poster} key={id}>
                 <Link to={`/film/${id}`}>
-                  <img className={styles.img} src={poster_url} alt={''}/>
+                  <img onLoad={onLoad} src={poster_url} className={styles.img} alt={''}/>
                 </Link>
               </div>)}
           </div>

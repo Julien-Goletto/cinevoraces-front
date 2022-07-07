@@ -34,7 +34,7 @@ const userSlice = createSlice({
       state.pseudo       = action.payload.pseudo;
       state.mail         = action.payload.mail;
       state.role         = action.payload.role;
-      state.avatar       = action.payload.avatar;
+      state.avatar       = action.payload.avatar_url;
       state.accessToken  = action.payload.accessToken;
       state.refreshToken = action.payload.refreshToken;
       Cookies.set('accessToken',action.payload.accessToken);

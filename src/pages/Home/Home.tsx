@@ -7,6 +7,7 @@ import About from './About/About';
 import SendMovie from './About/SendMovie/SendMovie';
 import Share from './About/Share/Share';
 import JoinUs from './JoinUs/JoinUs';
+import Footer from 'components/Layout/Footer';
 import AnimationLayout from 'components/AnimationLayout/AnimationLayout';
 import styles from './Home.module.scss';
 
@@ -23,7 +24,8 @@ function Home() {
         <SendMovie />
         <Share />
       </About>
-      { !isLogged && <JoinUs />}
+      {!isLogged && <JoinUs />}
+      <Footer/>
     </AnimationLayout>
   );
 };

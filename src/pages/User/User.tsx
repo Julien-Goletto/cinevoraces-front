@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { motion } from 'framer-motion';
 import { useParams } from 'react-router-dom';
 import { useGetOneUserQuery } from 'redux/api';
 import { useAppSelector } from 'redux/hooks';
@@ -7,14 +8,28 @@ import AnimationLayout from 'components/AnimationLayout/AnimationLayout';
 import UserInfo from './UserInfo';
 import UserMetrics from './UserMetrics';
 import UserProposal from './UserProposal';
-import styles from './User.module.scss';
 import Footer from 'components/Layout/Footer';
 import Loader from 'components/Loader/Loader';
+import Error from 'pages/Error/Error';
+import styles from './User.module.scss';
+
+const transition = {
+  type: 'tween',
+  ease: 'linear',
+  duration: 0.2,
+  delay: 0.2
+}; 
+const variants = {
+  hidden: {opacity: 0, transition},
+  show:   {opacity: 1, transition},
+};
 
 function User() {
   const {id: pageId}                = useParams();
   const {id: stateId, isOnline}     = useAppSelector(userState);
-  const {data: userData} = useGetOneUserQuery(Number(pageId));
+  const {
+    data: userData,
+    isLoading, isError, error}      = useGetOneUserQuery(Number(pageId));
   const [isUserPage, setIsUserPage] = useState(false);
   const [role, setRole]             = useState('');
   const [date, setDate]             = useState('');
@@ -43,7 +58,7 @@ function User() {
     <AnimationLayout>
       {userData && pageId &&
       <>
-        <main className={styles.user}>
+        <motion.main className={styles.user} variants={variants} initial='hidden' animate='show'>
           <h1>{isUserPage ? `Mon compte ${role.toLowerCase()}` : role}</h1>
           <div className={styles.header}>
             <div className={styles.row}>
@@ -62,10 +77,11 @@ function User() {
             <h2>Mes paramètres</h2>
             <UserInfo/>
           </>}
-        </main>
+        </motion.main>
         <Footer/>
       </>}
-      {(!userData || !pageId) && <Loader isMaxed/>}
+      {isLoading && <Loader isMaxed/>}
+      {isError && <Error/>}
     </AnimationLayout>
   );
 }

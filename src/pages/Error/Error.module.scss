@@ -7,54 +7,41 @@
   flex-direction: column;
   width: fit-content;
   margin: 5rem auto;
-  a:last-child {
-    align-self: center!important;
+  & h1 {
+    @include mix.h3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: .4em;
   }
-}
-.title {
-  display: flex;
-  align-items: center;
-  gap: .4em;
-  font-size: 1.8rem;
-  font-weight: 700;
-}
-.img {
-  width: 4.5rem;
-  height: 2.625rem;
-}
-.subtitle {
-  color: var.$primary;
-  margin-top: 2em;
-}
-.body {
-  margin: 3em 0;
-}
-.pathname {
-  color: var.$primary;
-  margin: 0 .15rem;
-}
+  & svg {
+    transform: scale(.8);
+    -webkit-transform: scale(.8);
+  }
+  & .content {
+    margin: 3em 0;
+    & span {
+      color: var.$primary;
+      margin: 0 .15rem;
+    }}}
+
 .last-movies {
   margin-bottom: 5rem;
   & a {
     width: 100%;
-  }
-}
-
+  }}
 @media (min-width: 430px) {
   .last-movies {
     & a {
       width: fit-content;
-    }
-  }
-}
-
+    }}}
 
 @include mix.breakpoint('tablet') {
-  .title {
-    font-size: 3rem;
-  }
-  .img {
-    width: 7.8rem;
-    height: 4.17rem;
-  }
-}
+  .error {
+    & h1 {
+      @include mix.h1
+    }
+    & svg {
+      transform: scale(1);
+      -webkit-transform: scale(1);
+    }}}

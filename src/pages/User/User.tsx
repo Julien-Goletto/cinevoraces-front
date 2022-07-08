@@ -81,7 +81,7 @@ function User() {
         <Footer/>
       </>}
       {isLoading && <Loader isMaxed/>}
-      {isError && <Error/>}
+      {isError && <Error error={error}/>}
     </AnimationLayout>
   );
 }

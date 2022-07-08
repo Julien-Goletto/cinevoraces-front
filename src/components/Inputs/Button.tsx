@@ -55,8 +55,4 @@ function Button({children, styleMod, handler, href}: ButtonProps)  {
   );
 };
 
-function ButtonSearch({children}: ButtonSearchProps)  {
-  return <button className={`${styles['button-search']} ${styles['button--full']}`}>{children}</button>;
-};
-
-export {ButtonSearch , Button};
+export default Button;

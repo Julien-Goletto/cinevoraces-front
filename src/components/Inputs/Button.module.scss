@@ -36,16 +36,6 @@
 .button--white {
   background-color: var.$white;
 }
-.button-search {
-  padding: 1.2em 2.1em;
-  border-radius: 20px;
-  border: none;
-  box-shadow: inset 0px -2px 3px rgba(48, 48, 48, 0.25);
-  user-select: none;
-}
-.button-search:hover {
-  cursor: pointer;
-}
 
 @include mix.breakpoint('tablet') {
   .button { 

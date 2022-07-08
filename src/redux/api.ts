@@ -123,6 +123,9 @@ export const api = createApi({
       query: ({movieId}) => ({url : `/v1/movies/${movieId}`, method: 'DELETE'}),
       invalidatesTags: ['Propositions'] 
     }),
+    adminPutSlot: build.mutation<string, {publishing_date: string}>({
+      query: (body) => ({url: '/v1/propositions/unbook/', method: 'PUT', body: body})
+    }),
     adminPutUser: build.mutation<string, {userId: id, body: {role: string}}>({
       query: ({userId, body}) => ({url : `/v1/users/modify/${userId}`, method: 'PUT', body: body}),
       invalidatesTags: ['Users'] 
@@ -168,6 +171,7 @@ export const {
   usePostInteractionMutation,
   useAdminPublishMovieMutation,
   useAdminRevokeMovieMutation,
+  useAdminPutSlotMutation,
   useAdminGetDataQuery,
   useAdminPutUserMutation,
   useAdminDeleteUserMutation

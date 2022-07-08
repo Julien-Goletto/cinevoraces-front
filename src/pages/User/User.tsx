@@ -81,7 +81,10 @@ function User() {
         <Footer/>
       </>}
       {isLoading && <Loader isMaxed/>}
-      {isError && <Error error={error}/>}
+      {isError && 
+        <Error error={error}>
+          Cet utilisateur n'existe pas dans notre base données.
+        </Error>}
     </AnimationLayout>
   );
 }

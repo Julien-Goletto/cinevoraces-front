@@ -18,6 +18,10 @@
     transform: scale(.8);
     -webkit-transform: scale(.8);
   }
+  & a, button {
+    width: fit-content;
+    align-self: center;
+  }
   & .content {
     margin: 3em 0;
     & span {

@@ -82,7 +82,7 @@ export const api = createApi({
       query: (id) => ({url: `/v1/users/${id}`, method: 'GET'}),
       providesTags: ['UserParams']
     }),
-    getPendingProposal: build.query<DBProposal, id>({
+    getPendingProposal: build.query<DBMovie, id>({
       query: (id) => ({url: `/v1/propositions/${id}`, method: 'GET'}),
     }),
     getHasUserProposed: build.query<{[key: string]: boolean}, number>({
@@ -134,13 +134,13 @@ export const api = createApi({
       query: ({userId}) => ({url : `/v1/users/${userId}`, method: 'DELETE'}),
       invalidatesTags: ['Users'] 
     }),
-    adminGetData: build.query<{propositions: DBProposal[], users: DBUser[]}, void>({
+    adminGetData: build.query<{propositions: DBMovie[], users: DBUser[]}, void>({
       async queryFn(_arg, _queryApi, _extraOptions, fetchWithBQ) {
         const propositions = await fetchWithBQ('/v1/propositions/pendingPropositions');
         const users = await fetchWithBQ('/v1/users');
         return {data : {
           users: users.data as DBUser[],
-          propositions: propositions.data as DBProposal[]
+          propositions: propositions.data as DBMovie[]
         }};
       },
       providesTags: ['Users', 'Propositions']

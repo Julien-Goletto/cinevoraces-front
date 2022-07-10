@@ -1,13 +1,15 @@
 import { ReactComponent as SearchIco } from './Proposal.ico_search.svg';
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from 'redux/hooks';
 import { usePostMovieMutation, useGetSlotsQuery, usePutSlotMutation } from 'redux/api';
 import { addToast } from 'redux/slices/global';
 import { apiTmdb } from 'redux/apiTmdb';
 import { userState } from 'redux/slices/user';
 import { Button, InputText } from 'components/Inputs/InputsLib';
-import MovieGrid from './MoviesGrid/MovieGrid';
+import Error from 'pages/Error/Error';
+import Footer from 'components/Layout/Footer';
+import MovieGrid from './ProposalMovieGrid';
 import AnimationLayout from 'components/AnimationLayout/AnimationLayout';
 import styles from './Proposal.module.scss';
 
@@ -25,11 +27,11 @@ type AddCommentProps = {
 }
 
 function Proposal() {
-  const {id}     = useAppSelector(userState);
+  const {id, isOnline}     = useAppSelector(userState);
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const [selectedSlot, setSelectedSlot] = useState<{[key: string]: string}>({});
-  const [movie, setMovie]               = useState<{[key: string]: string}>({});
+  const [movie, setMovie]               = useState({});
   const [comment, setComment]           = useState('');
   const [query, setQuery]               = useState('');
   const [sendBook, {isSuccess: isBookHandleSuccess}] = usePutSlotMutation();
@@ -42,7 +44,7 @@ function Proposal() {
     isSuccess: isSlotsSuccess, 
     isError: isSlotsError} = useGetSlotsQuery();
 
-  const handleSelect = (e: React.FormEvent<HTMLSelectElement>) => {
+  const handleSlotSelect = (e: React.FormEvent<HTMLSelectElement>) => {
     // Resolve selected slot with SelectElement value
     const slot = slots!.find((slot) => String(slot.episode) === e.currentTarget.value);
     // Update state if slot is defined 
@@ -52,13 +54,16 @@ function Proposal() {
       season_id: String(slot.season_number)
     });
   };
+  const handleMovieSelect = (id: number) => {
+    setMovie(tmdbData.find((movie: movieProposal) => movie.id === id));
+  };
   const handlePresentation = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setComment(e.currentTarget.value);
   };
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     setQuery(e.currentTarget.value);
   };
-  const submitSearch = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSearchSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     searchTrigger(query, false);
   };
@@ -67,7 +72,8 @@ function Proposal() {
       dispatch(addToast({type: 'error', text:'Formulaire invalide'}));
     } else {
       await sendPost({
-        ...selectedSlot, 
+        ...selectedSlot,
+        ...movie,
         presentation: comment, 
         user_id: id!
       });
@@ -87,27 +93,37 @@ function Proposal() {
 
   return (
     <AnimationLayout>
-      <main className={styles.proposal}>
-        <h1>Ajouter un film</h1>
-        <Notice/>
-        {isSlotsError && 
-          <h2>Aucun créneau n'est disponible, réessayez plus tard.</h2>}
-        {isSlotsSuccess &&
-          <SelectSlot onChange={handleSelect} slots={slots}/>}
-        <h2>Recherche un film</h2>
-        <SearchBar value={query} onChange={handleSearch} onSubmit={submitSearch}/>
-      </main>
-      <MovieGrid movies={tmdbData} isFetching={isDetailsFetching} />
-      <AddComment onChange={handlePresentation}/>
-      <div className={styles.button}>
-        <Button
-          handler={handleSubmit}
-          styleMod='fill-rounded'
-        >
-          <img src='/images/send-icon.svg' alt=''/>
-          Envoyer
-        </Button>
-      </div>
+      {isOnline &&
+        <main className={styles.proposal}>
+          <h1>Ajouter un film</h1>
+          {isSlotsError && 
+            <div style={{height: '67.5vh'}}>
+              <h2>Aucun créneau n'est disponible, réessayez plus tard.</h2>
+            </div>}
+          {isSlotsSuccess &&
+            <>
+              <Notice/>
+              <SelectSlot onChange={handleSlotSelect} slots={slots}/>
+              <h2>Recherche un film</h2>
+              <SearchBar value={query} onChange={handleSearch} onSubmit={handleSearchSubmit}/>
+              <MovieGrid movies={tmdbData} isFetching={isDetailsFetching} movieSetter={handleMovieSelect}/>
+              <AddComment onChange={handlePresentation}/>
+              <div className={styles.button}>
+                <Button handler={handleSubmit} styleMod='fill-rounded'>
+                  <img src='/images/send-icon.svg' alt=''/> Envoyer
+                </Button>
+              </div>
+            </>}
+        </main>}
+      {!isOnline && 
+        <Error error={{status: 401}}>
+          Vous devez vous connecter pour proposer un film à la communautée.
+          <div className={styles['error-401']}>
+            Pas encore membre ?
+            <br /><Link to='/register'>Inscrivez-vous!</Link>
+          </div>
+        </Error>}
+      <Footer/>
     </AnimationLayout>
   );
 }
@@ -129,11 +145,11 @@ function SelectSlot({onChange, slots}: SelectSlotProps) {
 
 function AddComment({onChange}: AddCommentProps) {
   return (
-    <section className={styles.description2}>
+    <>
       <h2 className={styles.title}>Motivez votre choix</h2>
       <p className={styles.text}>Décrivez aux utilisiteurs pourquoi vous proposez <span>ce film</span>.</p>
       <textarea onChange={onChange} placeholder='Decrire votre avis sur le film' className={styles.input} name='description' rows={12} maxLength={1200}></textarea>
-    </section>
+    </>
   );
 }
 

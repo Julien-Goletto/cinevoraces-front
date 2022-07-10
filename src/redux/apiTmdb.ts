@@ -87,7 +87,8 @@ export const apiTmdb = createApi({
             casting,
             movie_genres: genres,
             movie_languages: languages,
-            movie_countries: countries
+            movie_countries: countries,
+            id: movieDetails.data.id
           };
           moviesWithDetails.push(mov);
         }

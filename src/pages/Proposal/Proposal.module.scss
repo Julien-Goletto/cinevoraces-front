@@ -57,20 +57,26 @@ $text-gap: 1rem;
         fill: var.$background;
       }}}}
 
-
+.error-401 {
+  margin-top: 1.5rem;
+  font-size: 1.2rem;
+  letter-spacing: 0.03rem;
+  text-align: center;
+  & a {
+    display: inline-block;
+    font-weight: 600;
+    color: var.$primary;
+    margin-top: .5rem;
+  }
+}
     
 .grid {
   background-color: var.$secondary-background;
 }
 .button {
-  @include mix.container;
   display: flex;
   justify-content: flex-end;
   margin-bottom: 2em;
-}
-
-.description2 {
-  @include mix.container;
 }
 .title {
   @include mix.h5;

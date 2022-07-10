@@ -77,7 +77,7 @@ function Admin () {
           { data!.propositions &&
             <form className={styles['proposal-form']}>
               <div className={styles['proposals-container']}>
-                { data!.propositions.map((proposition: DBProposal) => 
+                { data!.propositions.map((proposition: any) => 
                   <Proposal
                     key={proposition.id}
                     movie={proposition}

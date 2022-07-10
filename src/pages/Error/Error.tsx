@@ -3,6 +3,7 @@ import { ReactComponent as SVGError } from './Error.error_ico.svg';
 import { Button } from 'components/Inputs/InputsLib';
 import LastMoviesGrid from 'components/LastMoviesGrid/LastMoviesGrid';
 import AnimationLayout from 'components/AnimationLayout/AnimationLayout';
+import Footer from 'components/Layout/Footer';
 import styles from './Error.module.scss';
 
 type ErrorProps = {
@@ -35,6 +36,7 @@ function Error({error, children}: ErrorProps) {
       <div className={styles['last-movies']}>
         <LastMoviesGrid/>
       </div>
+      <Footer/>
     </AnimationLayout>
   );
 }

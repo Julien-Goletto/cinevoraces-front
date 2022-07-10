@@ -17,8 +17,7 @@ type proposalBody = {
   user_id: number | null;
   season_id: string | null;
 }
-// Responses
-type DBMovie = {
+interface movie {
   id: number,
   french_title: string,
   original_title: string,
@@ -28,9 +27,14 @@ type DBMovie = {
   runtime: number,
   casting: string[],
   presentation: string,
-  is_published: boolean,
   publishing_date: string,
-  user_id: number,
+  user_id: number
+}
+interface movieProposal extends movie {
+  movie_genres: string[],
+}
+// Responses
+interface DBMovie extends movie {
   user_pseudo: string,
   user_avatar_url: string | null,
   season_number: number,
@@ -49,18 +53,6 @@ type DBFilters = {
   countries_list: string[],
   min_max_dates: [number, number],
   max_runtime: number
-}
-type DBProposal = {
-  id: number,
-  french_title: string,
-  poster_url: string,
-  directors: string[],
-  release_date: string,
-  user_id: number,
-  user_pseudo: string,
-  publishing_date: string,
-  genres: string[],
-  presentation: string
 }
 type TMDBMovie = {
   id: number,

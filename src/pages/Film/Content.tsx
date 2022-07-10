@@ -6,19 +6,18 @@ import { useEffect, useState } from 'react';
 
 type ContentProps = {
   movie: DBMovie,
-  isLoading: boolean
 }
 
-function Content({movie, isLoading}: ContentProps) {
+function Content({movie}: ContentProps) {
   const [date, setDate] = useState<string>();
   
   useEffect(() => {
-    if (!isLoading && movie){
+    if (movie){
       let formatDate = new Date(movie.publishing_date);
       setDate(formatDate.toLocaleDateString('fr-FR', {day:'numeric', month:'long', year:'numeric'}));
-    }}, [movie, isLoading]);
+    }}, [movie]);
 
-  if (!isLoading && date) {
+  if (date) {
     return (
       <>
         <div className={styles.content}>

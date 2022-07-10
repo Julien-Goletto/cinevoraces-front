@@ -30,8 +30,8 @@ function Proposal() {
   const {id, isOnline}     = useAppSelector(userState);
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const [selectedSlot, setSelectedSlot] = useState<{[key: string]: string}>({});
-  const [movie, setMovie]               = useState({});
+  const [selectedSlot, setSelectedSlot] = useState<{[key: string]: string}>();
+  const [movie, setMovie]               = useState<movieProposal>();
   const [comment, setComment]           = useState('');
   const [query, setQuery]               = useState('');
   const [sendBook, {isSuccess: isBookHandleSuccess}] = usePutSlotMutation();
@@ -67,22 +67,33 @@ function Proposal() {
     e.preventDefault();
     searchTrigger(query, false);
   };
-  const handleSubmit = async () => {
-    if (comment.length <= 1) {
-      dispatch(addToast({type: 'error', text:'Formulaire invalide'}));
+  const handleSubmit = () => {
+    if (comment.length <= 1 || !movie || !selectedSlot) {
+      return dispatch(addToast({type: 'error', text:'Formulaire invalide'}));
+    } else if (
+      movie.directors.length < 1
+      || movie.movie_genres.length < 1
+      || movie.casting.length < 1
+      || movie.runtime === 0
+      || movie.poster_url === 'https://image.tmdb.org/t/p/originalnull') {
+      return dispatch(addToast({type: 'error', text:'Sélection invalide'}));
     } else {
-      await sendPost({
+      sendPost({
         ...selectedSlot,
         ...movie,
-        presentation: comment, 
+        presentation: comment,
         user_id: id!
-      });
-      await sendBook({
-        publishing_date: selectedSlot.publishing_date!
       });
     }};
 
-  // Handle PUT success
+  // Handle post success
+  useEffect(() => {
+    isPostMovieSuccess && sendBook({
+      publishing_date: selectedSlot!.publishing_date
+    });
+  }, [isPostMovieSuccess]);
+
+  // Handle booking success
   useEffect(() => {  
     if (isPostMovieSuccess && isBookHandleSuccess) {
       dispatch(addToast({type: 'success', text: 'Votre film à bien été enregistré'}));

@@ -11,12 +11,6 @@ type interactionBody = {
   rating?: number,
   comment?: Comment
 }
-type proposalBody = {
-  publishing_date: string | null;
-  presentation: string | null;
-  user_id: number | null;
-  season_id: string | null;
-}
 interface movie {
   id: number,
   french_title: string,
@@ -32,6 +26,9 @@ interface movie {
 }
 interface movieProposal extends movie {
   movie_genres: string[],
+}
+interface proposalBody extends movieProposal {
+  presentation: string, 
 }
 // Responses
 interface DBMovie extends movie {
@@ -85,7 +82,7 @@ type DBReview = {
   rating: number,
   created_at: string,
   updated_at?: string,
-  comment: Comment,
+  comment: string,
   avatar_url: string,
   edit?: boolean
 }

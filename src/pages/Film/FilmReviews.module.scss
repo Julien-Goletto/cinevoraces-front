@@ -1,0 +1,50 @@
+@use '~styles/mixins' as mix;
+@use '~styles/var';
+
+
+.comment {
+  background: #565676;
+  padding: 1em;
+  border-radius: 10px;
+  margin: 2em 0;
+  // FIXME: Float lol  
+  & button {
+    float: right;
+  }
+}
+
+.profil {
+  display: flex;
+  flex-direction: row;
+  gap: 0.7em;
+  margin-bottom: 1em;
+}
+
+.pic {
+  width: 50px;
+  height: 50px;
+  outline: 1px var.$white solid;
+  border-radius: 100%;
+}
+
+.pic__default {
+  height: 100%;
+}
+
+.box {
+  padding-top: 0.3em;
+}
+
+.name {
+  padding-bottom: 0.5em;
+  @include mix.h5;
+}
+
+.date {
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.note {
+  @include mix.star-rating-container;
+}

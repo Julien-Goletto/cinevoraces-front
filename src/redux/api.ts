@@ -70,8 +70,9 @@ export const api = createApi({
       query: () => ({url: '/v1/metrics', method: 'GET'}),
       transformResponse: (res: {[key: string]: string}[]) => res[0]
     }),
-    getOneReview: build.query<DBReview[], {userId: id, movieId: id}>({
+    getOneReview: build.query<DBReview, {userId: id, movieId: id}>({
       query: ({userId, movieId}) => ({url: `/v1/reviews/${userId}/${movieId}`, method: 'GET'}),
+      transformResponse: (res: DBReview[]) => res[0],
       providesTags: ['Reviews']
     }),
     getAllReviews: build.query<DBReview[], id>({
@@ -108,7 +109,7 @@ export const api = createApi({
       invalidatesTags: ['Movie', 'Reviews'] 
     }),
     // POST
-    postMovie: build.mutation<string, {[key: string]: string | number}>({
+    postMovie: build.mutation<string, proposalBody>({
       query: (body => ({url: 'v1/movies/newmovie/', method: 'POST', body: body}))
     }), 
     postInteraction: build.mutation<string, {userId: id, movieId: id}>({

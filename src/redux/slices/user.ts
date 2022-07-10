@@ -4,7 +4,7 @@ import Cookies from 'js-cookie';
 
 type UserState = { 
   isOnline: boolean,
-  id: number | null,
+  id: number | undefined,
   pseudo: string,
   mail: string,
   avatar: string,
@@ -15,7 +15,7 @@ type UserState = {
 
 const initialState: UserState = { 
   isOnline: false,
-  id: null,
+  id: undefined,
   pseudo: '',
   mail: '',
   role: '',

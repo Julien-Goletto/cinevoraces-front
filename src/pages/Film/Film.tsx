@@ -12,29 +12,30 @@ import AnimationLayout from 'components/AnimationLayout/AnimationLayout';
 import AddComment from './AddComment';
 
 function Film() {
-  const {id}  = useParams();
-  const user = useAppSelector(userState);
+  const {id}     = useParams();
+  const user     = useAppSelector(userState);
+  const {id: userId, isOnline}     = useAppSelector(userState);
   const dispatch = useAppDispatch();
-  const {data: movie, isLoading: isMovieLoad} = useGetOneMovieQuery(Number(id));
-  const {data: reviews, isLoading: isReviewsLoad} = useGetAllReviewsQuery(Number(id));
-  const {data: userReview, isLoading: isUserReviewLoad, isError: isUserReviewError, isSuccess: isUserReviewSuccess} = useGetOneReviewQuery({userId: user.id!, movieId: id! });
-  const [filteredComment, setFilteredComment] = useState(reviews);
+  const {data: movie, isLoading: isMovieLoading} = useGetOneMovieQuery(id!);
+  const {data: reviews, isLoading: isReviewsLoad} = useGetAllReviewsQuery(id!);
+  const {
+    data: userReview, 
+    isLoading: isUserReviewLoad, 
+    isError: isUserReviewError, 
+    isSuccess: isUserReviewSuccess
+  } = useGetOneReviewQuery({userId: user.id!, movieId: id! });
+  const [filteredReviews, setFilteredReviews] = useState(reviews);
 
-  const filterComment = useCallback(
-    (userId: number | null, comments:any) => {
-      if (!comments) return false;
-      let userComment = comments.find((comment:any) => comment.user_id === userId);
-      if (!user.isOnline || !userComment) return comments;
-      let filterComment = comments.filter((comment:any) => comment.user_id !== userId);
-      return [{...userComment, edit: true}, ...filterComment];},
-    [user]
-  );
+  useEffect(() => {
+    if (isOnline && reviews) {
+      const userComment = reviews.find((review) => review.user_id === userId);
+      userComment && setFilteredReviews([{...userComment, edit: true}, ...reviews]);
+    }
+  }, [isOnline, reviews]);
 
   useEffect(() => {
     // Reset interactions
     dispatch(setInactive());
-    // Set comment on top and add edit button if belong to user
-    setFilteredComment(filterComment(user.id, reviews));
     // Set reviews from db (if no error/no data)
     if (typeof userReview !== 'string' && !isUserReviewLoad && !isUserReviewError) {
       dispatch(setActive(userReview![0]));
@@ -43,21 +44,16 @@ function Film() {
 
   return (
     <AnimationLayout>
-      {movie ?
-        <section className={styles.film}>
-          <Content 
-            movie={movie} 
-            isLoading={isMovieLoad}
-          />
+      {movie &&
+        <main className={styles.film}>
+          <Content movie={movie} isLoading={isMovieLoading}/>
           <h3 className={styles['title']}>Commentaires ({reviews ? reviews.length : '~'})</h3>
           <div className={styles.comments}>
-            {
-              (isUserReviewSuccess && !userReview[0].comment) && <AddComment props={{text: userReview[0].comment, date: userReview[0].updated_at}} />
-            }
-            {
-              (!isReviewsLoad && filteredComment) && filteredComment.map((review: any, index:any) => (
-                <Comment key={index} edit={review.edit} pic={review.avatar_url} name={review.user_pseudo} date={review.created_at} text={review.comment} rating={review.rating} />
-              ))
+            {(isUserReviewSuccess && !userReview[0].comment) && 
+              <AddComment props={{text: userReview[0].comment, date: userReview[0].updated_at}}/>}
+
+            {(!isReviewsLoad && filteredReviews) && filteredReviews.map((review: any, index:any) => (
+              <Comment key={index} edit={review.edit} pic={review.avatar_url} name={review.user_pseudo} date={review.created_at} text={review.comment} rating={review.rating} />))
             }
             {
               (!reviews) && <p style={{textAlign: 'center', margin: '1em 0'}}>Aucun commentaire pour ce film</p>
@@ -67,8 +63,9 @@ function Film() {
               <div style={{textAlign: 'center'}}><Loader /></div>
             }
           </div>
-        </section>
-        : <div style={{display: 'flex', justifyContent: 'center', marginTop: '10rem'}}><Loader /></div>}
+        </main>}
+      {isMovieLoading && <Loader isMaxed/>}
+
     </AnimationLayout>
   );
 };

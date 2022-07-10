@@ -78,17 +78,17 @@ type refreshToken = {
   refreshToken: string,
   role: string
 }
-type DBReviews = [{
-  bookmarked: boolean,
-  comment: string,
-  created_at: string,
-  liked: boolean,
-  movie_id: number,
-  rating: null | number,
-  updated_at: string,
+type DBReview = {
   user_id: number,
-  viewed: boolean
-}]
+  user_pseudo: string,
+  movie_id: number,
+  rating: number,
+  created_at: string,
+  updated_at?: string,
+  comment: Comment,
+  avatar_url: string,
+  edit?: boolean
+}
 type slot = {
   id: number,
   season_number: number,

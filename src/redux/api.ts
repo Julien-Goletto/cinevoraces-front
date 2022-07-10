@@ -70,11 +70,11 @@ export const api = createApi({
       query: () => ({url: '/v1/metrics', method: 'GET'}),
       transformResponse: (res: {[key: string]: string}[]) => res[0]
     }),
-    getOneReview: build.query<DBReviews, {userId: id, movieId: id}>({
+    getOneReview: build.query<DBReview[], {userId: id, movieId: id}>({
       query: ({userId, movieId}) => ({url: `/v1/reviews/${userId}/${movieId}`, method: 'GET'}),
       providesTags: ['Reviews']
     }),
-    getAllReviews: build.query<Comment[], id>({
+    getAllReviews: build.query<DBReview[], id>({
       query: (id) => ({url: `/v1/reviews/${id}/comments`, method: 'GET'}),
       providesTags: ['Reviews']
     }),

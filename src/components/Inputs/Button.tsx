@@ -7,9 +7,6 @@ type ButtonProps = {
   handler?: React.MouseEventHandler<HTMLElement>,
   href?: string
 }
-type ButtonSearchProps = {
-  children: React.ReactNode
-};
 
 /**
  * @return          either \<button\> or \<Link\>

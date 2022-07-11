@@ -1,10 +1,11 @@
-import { useState } from 'react';
-import { useAppSelector } from 'redux/hooks';
-import user, { userState } from 'redux/slices/user';
-import { useGetOneMovieQuery, useGetAllReviewsQuery, useGetOneReviewQuery } from 'redux/api';
+import React, { useEffect, useState } from 'react';
+import { useAppSelector, useAppDispatch } from 'redux/hooks';
+import { userState } from 'redux/slices/user';
+import { useGetAllReviewsQuery } from 'redux/api';
+import { usePostInteractionMutation, usePutInteractionMutation } from 'redux/api';
 import { Button, InputStar } from 'components/Inputs/InputsLib';
+import { addToast } from 'redux/slices/global';
 import useSeeMore from 'hooks/useSeeMore';
-import Loader from 'components/Loader/Loader';
 import styles from './FilmReviews.module.scss';
 
 type ReviewProps = {
@@ -13,58 +14,104 @@ type ReviewProps = {
   date: string,
   comment: string,
   note: number,
-  edit?: boolean
+  edit?(): void
 }
+type AddReviewProps = {
+  userId: number,
+  movieId: string,
+  setIsEdit(): void
+  review?: {
+    text: string,
+    date: string,
+  }}
 type FilmReviewsProps = {
-  // reviews: DBReview[],
   movieId: string,
   userId: number | undefined
 }
 
 function FilmReviews({userId, movieId}: FilmReviewsProps) {
-  const {data: reviewsData, isLoading} = useGetAllReviewsQuery(movieId);
+  const {data: reviewsData} = useGetAllReviewsQuery(movieId);
+  const [isEdit, setIsEdit] = useState(false);
+  const [isPost, setIsPost]  = useState(false);
+  const [userReview, setUserReview] = useState<DBReview[]>([]);
+  const [reviews, setReviews] = useState<DBReview[]>([]);
+  const handleIsEdit = () => {
+    setIsEdit(!isEdit);
+  };
+  const handleIsPost = () => {
+    setIsPost(!isPost);
+  };
+  useEffect(() => {
+    reviewsData && userId && setUserReview(
+      reviewsData.filter(({user_id}) => user_id === userId));
+    reviewsData && userId && setReviews(
+      reviewsData.filter(({user_id}) => user_id !== userId));
+  }, [reviewsData, userId]);
+
   return(
-    <div className={styles.comments}>
+    <section className={styles.reviews}>
       {reviewsData &&
         <>
-          <h3 className={styles.title}>Commentaires ({reviewsData.length})</h3>
+          <h3>Commentaires ({reviewsData.length})</h3>
+          {/* Return user post review if no review yet */}
+          {userId && (userReview.length === 0) &&
+            <>
+              {!isPost &&
+              <div className={styles['button-wrapper']}>
+                <Button handler={handleIsPost}>Ajouter un commentaire</Button>
+              </div>}
+              {isPost && 
+                <AddReview 
+                  userId={userId}
+                  movieId={movieId}
+                  setIsEdit={handleIsPost}/>}
+            </>}
           {/* Return user editable review if exist */}
-          {userId && reviewsData
-            .filter(({user_id}) => user_id === userId)
-            .map(({avatar_url, user_pseudo, created_at, comment, rating}) => (
-              <Review edit avatar={avatar_url} username={user_pseudo} date={created_at} comment={comment} note={rating}/>))}
+          {userId && userReview &&
+            userReview.map(({avatar_url, user_pseudo, created_at, comment, rating}) => (
+              <>
+                {isEdit && 
+                  <AddReview 
+                    userId={userId}
+                    movieId={movieId}
+                    review={{text: comment, date: created_at}}
+                    setIsEdit={handleIsEdit}/>}
+                {!isEdit && 
+                  <Review 
+                    edit={handleIsEdit}
+                    avatar={avatar_url}
+                    username={user_pseudo}
+                    date={created_at}
+                    comment={comment}
+                    note={rating}/>}
+              </>))}
           {/* Return other reviews if exist */}
-          {reviewsData
-            .filter(({user_id}) => user_id !== userId)
-            .map(({avatar_url, user_pseudo, created_at, comment, rating}) => (
-              <Review avatar={avatar_url} username={user_pseudo} date={created_at} comment={comment} note={rating}/>))}
+          {reviews.map(({avatar_url, user_pseudo, created_at, comment, rating}) => (
+            <Review 
+              avatar={avatar_url}
+              username={user_pseudo}
+              date={created_at}
+              comment={comment}
+              note={rating}/>))}
         </>}
-      {!reviewsData && !isLoading && 
-        <p style={{textAlign: 'center', margin: '1em 0'}}>
+      {!reviewsData && 
+        <p className={styles.empty}>
           Aucun commentaire pour ce film
         </p>}
-      {isLoading && 
-        <div style={{textAlign: 'center'}}>
-          <Loader />
-        </div>}
-    </div>
+    </section>
   );
 };
 
 function Review({edit, avatar, username, date, comment, note}: ReviewProps) {
   const sliceText = useSeeMore(comment);
-  const [editable, setEditable] = useState(false);
   const createdAt = new Date(date).toLocaleDateString('fr-FR', {day: 'numeric', month: 'long', year: 'numeric'});
   const imgSrc = (avatar) ? avatar : '/images/user_default.svg'; 
-  const editButtonHandler = () => {
-    setEditable(!editable);
-  };
 
   return(
     <div className={styles.comment}>
-      {(edit) && <Button handler={editButtonHandler} styleMod='rounded-fill'>Editer</Button>}
-      <div className={styles.profil}>
-        <img src={imgSrc} alt='Avatar' className={styles.pic}/>
+      {(edit) && <Button handler={edit} styleMod='rounded-fill'>Editer</Button>}
+      <div className={styles.user}>
+        <img src={imgSrc} alt='Avatar'/>
         <div className={styles.box}>
           <h5 className={styles.name}>{username}</h5>
           <div className={styles.date}>{createdAt}</div>
@@ -75,5 +122,53 @@ function Review({edit, avatar, username, date, comment, note}: ReviewProps) {
     </div>
   );
 }
+
+function AddReview({userId, movieId, review, setIsEdit}: AddReviewProps) {
+  const dispatch  = useAppDispatch();
+  const {avatar, pseudo}      = useAppSelector(userState);
+  const [postInteraction] = usePostInteractionMutation();
+  const [putInteraction] = usePutInteractionMutation();
+
+  // FIXME: This method assume nothing goes wrong.
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const comment = e.currentTarget.comment.value;
+    !review && await postInteraction({userId: userId, movieId: movieId});
+    await putInteraction({userId: userId, movieId: movieId, body: {comment: comment}});
+    dispatch(addToast({type: 'success', text: 'Commentaire posté!'}));
+    setIsEdit();
+  };
+  const handleCancel = (e: React.FormEvent<HTMLElement>) => {
+    e.preventDefault();
+    setIsEdit();
+  };
+  
+  return (
+    <>
+      <div className={styles['post-review']}>
+        <div className={styles.user}>
+          <img src={avatar ? avatar : '/images/user_default.svg'} alt='Avatar'/>
+          <div className={styles.box}>
+            <h5 className={styles.name}>{pseudo}</h5>
+            <div className={styles.date}>{review?.date ? review.date : ''}</div>
+          </div>
+        </div>
+        <div className={styles.form}>
+          <form onSubmit={handleSubmit}>
+            <label>
+              <textarea name='comment' defaultValue={review ? review.text : ''} placeholder='Ajouter un commentaire' className={styles.textarea} />
+            </label>
+            <div className={styles.submit}>
+              <Button styleMod='fill-rounded'>
+                <img src='/images/send-icon.svg' alt=''/> Poster
+              </Button>
+              <Button handler={handleCancel} styleMod='fill-rounded'>Annuler</Button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </>
+  );
+};
 
 export default FilmReviews;

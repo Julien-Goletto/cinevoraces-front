@@ -1,0 +1,104 @@
+@use '~styles/mixins' as mix;
+
+.desc {
+  display: flex;
+  flex-direction: column;
+  & .wrapper {
+    width: 100%;
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1em;
+  }}
+
+.poster {
+  $border-radius: 8px;
+  border-radius: $border-radius;
+  & img {
+    width: 100%;
+    border-radius: $border-radius;
+  }
+  width: 80%;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+  box-sizing: border-box;
+  position: relative;
+  margin: 0 auto 1.5rem;
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0; right: 0; bottom: 0; left: 0;
+    z-index: -1;
+    margin: -2px;
+    border-radius: inherit;
+    background: linear-gradient(30.76deg, rgba(0, 0, 0, 0) 34.12%, #FC9A3F 86.37%);
+  }
+  @media (min-width: 430px) {
+      width: 80%;
+      max-width: 80%;
+      margin: 0 auto 1em auto;
+  }
+  @media (min-width: 640px) {
+      width: 100%;
+      max-width: 100%;
+  }}
+
+.interactions {
+  display: flex;
+  width: 30%;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 1.5rem;
+  padding: .2rem 0 .2rem;
+}
+  
+.presentation {
+  background: #393945;
+  padding: 1em;
+  border-radius: 10px;
+  margin: 2em 0;
+  min-width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+@media (min-width: 640px) {
+  .desc {
+    flex-wrap: wrap;
+    flex-direction: row;
+    & .wrapper {
+      width: 45%;
+      flex-direction: column;
+    }
+    .interactions {
+      flex-direction: row;;
+      max-width: 100%;
+      width: 100%;
+      margin-bottom: 0;
+      padding: 0;
+    }}}
+@include mix.breakpoint('tablet') {
+  .interactions {
+    flex-direction: row;
+    justify-content: space-between;
+  }}
+@include mix.breakpoint('laptop') {
+  .desc {
+    & .wrapper {
+      flex: 2;
+    }}
+  .description {
+    padding-left: 3em;
+  }}
+@include mix.breakpoint('desktop') {
+  .desc {
+    align-items: start;
+    & .wrapper {
+      flex: 2;
+    }}
+  .presentation {
+    flex: 2;
+    align-self: start;
+    min-width: auto;
+    max-width: auto;
+  }}

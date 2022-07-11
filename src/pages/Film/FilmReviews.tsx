@@ -44,7 +44,7 @@ function FilmReviews({userId, movieId}: FilmReviewsProps) {
   useEffect(() => {
     reviewsData && userId && setUserReview(
       reviewsData.filter(({user_id}) => user_id === userId));
-    reviewsData && userId && setReviews(
+    reviewsData && setReviews(
       reviewsData.filter(({user_id}) => user_id !== userId));
   }, [reviewsData, userId]);
 

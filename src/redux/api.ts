@@ -61,7 +61,8 @@ export const api = createApi({
       query: () => ({url: 'v1/movies/lastmovie', method: 'GET'})
     }),
     getAllMovies: build.query<DBMovie[], string>({
-      query: (query) =>  ({url: `/v1/movies/search/${query}`, method: 'GET'})
+      query: (query) =>  ({url: `/v1/movies/search/${query}`, method: 'GET'}),
+      providesTags: ['UserParams']
     }),
     getUserMetrics: build.query<{[key: string]: number}[], id>({
       query: (id) => ({url: `/v1/metrics/${id}`, method: 'GET'})
@@ -70,9 +71,9 @@ export const api = createApi({
       query: () => ({url: '/v1/metrics', method: 'GET'}),
       transformResponse: (res: {[key: string]: string}[]) => res[0]
     }),
-    getOneReview: build.query<DBReview, {userId: id, movieId: id}>({
+    getOneReview: build.query<DBUserReview, {userId: id, movieId: id}>({
       query: ({userId, movieId}) => ({url: `/v1/reviews/${userId}/${movieId}`, method: 'GET'}),
-      transformResponse: (res: DBReview[]) => res[0],
+      transformResponse: (res: DBUserReview[]) => res[0],
       providesTags: ['Reviews']
     }),
     getAllReviews: build.query<DBReview[], id>({

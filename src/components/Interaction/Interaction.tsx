@@ -14,7 +14,7 @@ type InteractionProps = {
   type: string,
   count: number,
   value: number | boolean,
-  handler: (arg: any) => Promise<void>,
+  handler(arg: any): void,
   loader: boolean
 }
 

@@ -8,8 +8,7 @@ type user = {
 }
 type id = number | string;
 type interactionBody = {
-  rating?: number,
-  comment?: Comment
+  [key: string]: number | boolean | string,
 }
 interface movie {
   id: number,
@@ -85,6 +84,12 @@ type DBReview = {
   comment: string,
   avatar_url: string,
   edit?: boolean
+}
+type DBUserReview = {
+    bookmarked: boolean,
+    viewed: boolean,
+    liked: boolean,
+    rating: number | boolean,
 }
 type slot = {
   id: number,

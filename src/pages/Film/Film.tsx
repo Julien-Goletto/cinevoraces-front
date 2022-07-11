@@ -2,7 +2,7 @@ import { useGetOneMovieQuery } from 'redux/api';
 import { useParams } from 'react-router-dom';
 import { useAppSelector } from 'redux/hooks';
 import { userState } from 'redux/slices/user';
-import Content from './Content';
+import FilmDesc from './FilmDesc';
 import FilmReviews from './FilmReviews';
 import Footer from 'components/Layout/Footer';
 import Loader from 'components/Loader/Loader';
@@ -18,7 +18,7 @@ function Film() {
       {movie &&
       <>
         <main className={styles.film}>
-          <Content movie={movie}/>
+          <FilmDesc movie={movie} userId={userId}/>
           <FilmReviews movieId={movieId!} userId={userId}/>
         </main>
         <Footer/>

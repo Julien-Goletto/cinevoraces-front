@@ -8,7 +8,7 @@ type DescriptionProps = {
   movie: DBMovie
 }
 
-function Description({ movie }: DescriptionProps) {
+function Description({movie}: DescriptionProps) {
   const isLogged = useAppSelector(userState);
   const {rating} = useAppSelector(userInteractions);
   const date = new Date(movie.release_date);

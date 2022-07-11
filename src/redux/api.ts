@@ -61,8 +61,7 @@ export const api = createApi({
       query: () => ({url: 'v1/movies/lastmovie', method: 'GET'})
     }),
     getAllMovies: build.query<DBMovie[], string>({
-      query: (query) =>  ({url: `/v1/movies/search/${query}`, method: 'GET'}),
-      providesTags: ['UserParams']
+      query: (query) =>  ({url: `/v1/movies/search/${query}`, method: 'GET'})
     }),
     getUserMetrics: build.query<{[key: string]: number}[], id>({
       query: (id) => ({url: `/v1/metrics/${id}`, method: 'GET'})

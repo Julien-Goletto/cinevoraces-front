@@ -1,7 +1,6 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
 import filterSlice from './slices/filter';
 import globalSlice from './slices/global';
-import interactionSlice from './slices/interaction';
 import userSlice from './slices/user';
 import { api } from './api';
 import { apiTmdb } from './apiTmdb';
@@ -10,7 +9,6 @@ import { errorHandle } from './middleware/errorHandle';
 export const store = configureStore({
   reducer: {
     global: globalSlice,
-    interaction: interactionSlice,
     filter: filterSlice,
     user: userSlice,
     [api.reducerPath]: api.reducer,

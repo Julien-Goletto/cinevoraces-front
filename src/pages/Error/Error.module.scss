@@ -13,17 +13,18 @@
     align-items: center;
     justify-content: center;
     gap: .4em;
-  }
-  & svg {
-    transform: scale(.8);
-    -webkit-transform: scale(.8);
-  }
+    & svg {
+      $rotate: -15deg;
+      transform: rotate($rotate);
+      -webkit-transform: rotate($rotate);
+    }}
   & a, button {
     width: fit-content;
     align-self: center;
   }
   & .content {
     margin: 3em 0;
+    text-align: center;
     & span {
       color: var.$primary;
       margin: 0 .15rem;

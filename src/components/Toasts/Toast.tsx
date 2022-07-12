@@ -17,7 +17,7 @@ type ToastProps = {
  */
 function Toast({type, text, duration}: ToastProps) {
   const dispatch = useAppDispatch();
-  const [fadeout, setFadeout] = useState<any>(null);
+  const [fadeout, setFadeout] = useState<string>();
 
   useEffect(() => {
     setTimeout(()=> {

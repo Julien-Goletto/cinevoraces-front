@@ -7,6 +7,7 @@ import { Button, InputStar } from 'components/Inputs/InputsLib';
 import { addToast } from 'redux/slices/global';
 import useSeeMore from 'hooks/useSeeMore';
 import styles from './FilmReviews.module.scss';
+import Avatar from 'components/Avatar/Avatar';
 
 type ReviewProps = {
   avatar: string,
@@ -104,19 +105,11 @@ function FilmReviews({userId, movieId}: FilmReviewsProps) {
 
 function Review({edit, avatar, username, date, comment, note}: ReviewProps) {
   const sliceText = useSeeMore(comment);
-  const createdAt = new Date(date).toLocaleDateString('fr-FR', {day: 'numeric', month: 'long', year: 'numeric'});
-  const imgSrc = (avatar) ? avatar : '/images/user_default.svg'; 
 
   return(
     <div className={styles.comment}>
       {(edit) && <Button handler={edit} styleMod='rounded-fill'>Editer</Button>}
-      <div className={styles.user}>
-        <img src={imgSrc} alt='Avatar'/>
-        <div className={styles.box}>
-          <h5 className={styles.name}>{username}</h5>
-          <div className={styles.date}>{createdAt}</div>
-        </div>
-      </div>
+      <Avatar img={avatar} asInfo={{username: username, date: date}}/>
       <div className={styles.note}><InputStar value={note}/></div>
       {sliceText}
     </div>
@@ -146,13 +139,7 @@ function AddReview({userId, movieId, review, setIsEdit}: AddReviewProps) {
   return (
     <>
       <div className={styles['post-review']}>
-        <div className={styles.user}>
-          <img src={avatar ? avatar : '/images/user_default.svg'} alt='Avatar'/>
-          <div className={styles.box}>
-            <h5 className={styles.name}>{pseudo}</h5>
-            <div className={styles.date}>{review?.date ? review.date : ''}</div>
-          </div>
-        </div>
+        <Avatar img={avatar} asInfo={{username: pseudo, date: review!.date}}/>
         <div className={styles.form}>
           <form onSubmit={handleSubmit}>
             <label>

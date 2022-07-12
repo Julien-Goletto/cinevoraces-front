@@ -36,12 +36,14 @@ function FilmReviews({userId, movieId}: FilmReviewsProps) {
   const [isPost, setIsPost]  = useState(false);
   const [userReview, setUserReview] = useState<DBReview[]>([]);
   const [reviews, setReviews] = useState<DBReview[]>([]);
+  // Handlers
   const handleIsEdit = () => {
     setIsEdit(!isEdit);
   };
   const handleIsPost = () => {
     setIsPost(!isPost);
   };
+  // Reviews resolver
   useEffect(() => {
     reviewsData && userId && setUserReview(
       reviewsData.filter(({user_id}) => user_id === userId));
@@ -117,12 +119,12 @@ function Review({edit, avatar, username, date, comment, note}: ReviewProps) {
 }
 
 function AddReview({userId, movieId, review, setIsEdit}: AddReviewProps) {
-  const dispatch  = useAppDispatch();
-  const {avatar, pseudo}      = useAppSelector(userState);
+  const dispatch          = useAppDispatch();
+  const {avatar, pseudo}  = useAppSelector(userState);
   const [postInteraction] = usePostInteractionMutation();
-  const [putInteraction] = usePutInteractionMutation();
+  const [putInteraction]  = usePutInteractionMutation();
 
-  // FIXME: This method assume nothing goes wrong.
+  // FIXME: Issue #5
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const comment = e.currentTarget.comment.value;

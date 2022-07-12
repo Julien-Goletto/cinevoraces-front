@@ -94,6 +94,7 @@ function Interactions({movie, userId, data}: InteractionProps) {
   const userHasReview = data ? data.created_at : false;
 
   // Handlers
+  // FIXME: Issue #5
   const handleInteractions = async (type: string) => {
     if (userId) { // Check if logged
       const body = {

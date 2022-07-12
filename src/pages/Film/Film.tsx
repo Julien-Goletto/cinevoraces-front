@@ -11,8 +11,8 @@ import AnimationLayout from 'components/AnimationLayout/AnimationLayout';
 import styles from './Film.module.scss';
 
 function Film() {
-  const {id: movieId}            = useParams();
-  const {id: userId}             = useAppSelector(userState);
+  const {id: movieId} = useParams();
+  const {id: userId}  = useAppSelector(userState);
   const {data: movie, isLoading, isError, error} = useGetOneMovieQuery(movieId!);
   return (
     <AnimationLayout>

@@ -142,7 +142,8 @@ function Proposal() {
 function SelectSlot({onChange, slots}: SelectSlotProps) {
   return(
     <form className={styles['slot-selector']}>
-      <label htmlFor='episode'>Selectionez un épisode</label>
+      <label htmlFor='episode'>Sélectionnez un créneaux de visionnage</label>
+      <span>Une saison = 1 année, un épisode = 1 semaine</span>
       <select onChange={onChange} name='episode' id='episode'>
         <option value='x'>Aucun épisode</option>
         {slots.map(({id, episode, publishing_date, season_number, is_booked}) => (
@@ -182,8 +183,11 @@ function SearchBar({value, onChange, onSubmit}: SearchBarProps) {
 function Notice() {
   return(
     <p>
-      Plus un film est <span>disponible</span>, plus il sera regardé.
-      Surprenez-nous, mais ne négligez pas l’accessibilité!
+      Afin de permettre à <em>l’ensemble de la communauté d’interagir</em>,
+      veillez bien à l’accessibilité du film que vous proposerez
+      (disponibilité sur les principales plateformes de streaming, bon référencement sur internet...).
+      Mais tâchez tout de même de nous <em>surprendre</em> dans votre sélection!
+      Plus un film est <em>accessible</em>, plus il sera regardé.
     </p>
   );
 }

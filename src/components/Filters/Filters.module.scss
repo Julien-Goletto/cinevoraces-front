@@ -2,34 +2,26 @@
 @use '~styles/var';
 
 .filters {
-  position: relative;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   gap: 1.5em;
-  margin: 2em 0;
-  & button {
-    width: fit-content;
-    padding: 1em;
-    font-family: 'Montserrat', Arial, Helvetica, sans-serif;
-    color: var.$white;
-    & svg {
-      transform: scale(1.3)!important;
-    }}}
-.button-container {
-  display: flex;
-  gap: 1rem;
-}
-.search-bar {
-  width: 100%;
-}
+  margin: 2rem 0 3rem;
+  .button-container {
+    position: relative;
+    display: flex;
+    gap: 1rem;
+    & button {
+      width: fit-content;
+      padding: 1em;
+      font-family: 'Montserrat', Arial, Helvetica, sans-serif;
+      color: var.$white;
+      & svg {
+        transform: scale(1.3)!important;
+      }}}}
     
 @include mix.breakpoint('tablet') {
-  .search-bar {
-    width: 320px;
-  }
-}
-@include mix.breakpoint('laptop') {
-  .search-bar {
-    width: 420px;
+  .filters {
+    flex-direction: row;
   }
 }

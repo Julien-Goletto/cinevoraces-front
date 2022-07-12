@@ -8,7 +8,7 @@
 .filter-menu {
   position: absolute;
   left: 0; right: 0; top: 4.2rem;
-  max-width: 600px;
+  max-width: 100%;
   z-index: 5;
   display: flex;
   flex-direction: column;
@@ -36,4 +36,11 @@
   }}
 .list {
   margin-left: .5rem;
+}
+
+@media screen and (min-width: 675px) {
+  .filter-menu {
+    min-width: 400px;
+    max-width: 400px;
+  }
 }

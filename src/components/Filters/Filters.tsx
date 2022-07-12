@@ -16,6 +16,7 @@ import { ReactComponent as SVGReset } from './FilterMenu.reset.svg';
 import { ReactComponent as SVGFilterClosed } from './FilterMenu.isClosed.svg';
 import { ReactComponent as SVGFilterOpen } from './FilterMenu.isOpen.svg';
 import styles from './Filters.module.scss';
+import SearchBar from './FilterSearchBar';
 
 /**
  * @returns Filters menu 
@@ -52,6 +53,7 @@ function Filters() {
   
   return(
     <div className={styles.filters}>
+
       <div className={styles['button-container']}>
         <Button handler={handleFilterMenu}> 
           Filtrer
@@ -61,63 +63,47 @@ function Filters() {
           <Button handler={handleReset}> 
             <SVGReset/>
           </Button>}
+        {isFilterMenu && 
+          <FilterMenu handleClose={handleFilterMenu}>
+            <DropDown name='Genres'>
+              {genre.map(({name, isChecked}) => (
+                <li key={name}>
+                  <InputCheckbox
+                    name={name}
+                    isChecked={isChecked}
+                    handler={handleGenreFilter}
+                  />
+                </li>))}
+            </DropDown>
+            <DropDown name="Pays d'origine">
+              {country.map(({name, isChecked}) => (
+                <li key={name}>
+                  <InputCheckbox
+                    name={name}
+                    isChecked={isChecked}
+                    handler={handleCountryFilter}
+                  />
+                </li>))}
+            </DropDown>
+            <DropDown name={'Année de sortie'}>
+              <DoubleInputRange
+                min={periode.baseValues[0]}
+                max={periode.baseValues[1]}
+                valueMin={periode.stateValues[0]}
+                valueMax={periode.stateValues[1]}
+                minSetter={handleMinPeriodeSetter}
+                maxSetter={handleMaxPeriodeSetter}
+                label='Période'
+              />
+            </DropDown>
+          </FilterMenu>}
       </div>
-      <div className={styles['search-bar']}>
-        <InputText 
-          label='' 
-          name='search'
-          type='text'
-          placeholder='Recherche un film'
-          value={query}
-          handler={handleSearchBarQuery}
-        />
-      </div>
-      {isFilterMenu && 
-        <FilterMenu handleClose={handleFilterMenu}>
-          <DropDown name={'Saison'}>
-            {mainFilters.map(({name, value, isChecked}) => (
-              <li key={value}>
-                <InputRadio
-                  name={name}
-                  isChecked={isChecked}
-                  value={value}
-                  handler={handleSeasonSetter}
-                  field='season'
-                />
-              </li>))}
-          </DropDown>
-          <DropDown name='Genres'>
-            {genre.map(({name, isChecked}) => (
-              <li key={name}>
-                <InputCheckbox
-                  name={name}
-                  isChecked={isChecked}
-                  handler={handleGenreFilter}
-                />
-              </li>))}
-          </DropDown>
-          <DropDown name="Pays d'origine">
-            {country.map(({name, isChecked}) => (
-              <li key={name}>
-                <InputCheckbox
-                  name={name}
-                  isChecked={isChecked}
-                  handler={handleCountryFilter}
-                />
-              </li>))}
-          </DropDown>
-          <DropDown name={'Année de sortie'}>
-            <DoubleInputRange
-              min={periode.baseValues[0]}
-              max={periode.baseValues[1]}
-              valueMin={periode.stateValues[0]}
-              valueMax={periode.stateValues[1]}
-              minSetter={handleMinPeriodeSetter}
-              maxSetter={handleMaxPeriodeSetter}
-              label='Période'
-            />
-          </DropDown>
-        </FilterMenu>}
+      <SearchBar
+        state={mainFilters}
+        setter={handleSeasonSetter}
+        queryState={query}
+        querySetter={handleSearchBarQuery}
+      />
     </div>
   );
 }

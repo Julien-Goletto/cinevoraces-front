@@ -37,11 +37,11 @@ export const apiTmdb = createApi({
     }),
     tmbdCustomDetails: build.query<any, any>({
       async queryFn(_arg, _queryApi, _extraOptions, fetchWithBQ) {
-        if(!_arg) return {data: null};
+        if (!_arg) return {data: null};
         const moviesWithDetails:any = [];
         const movies:any = await fetchWithBQ(`/search/movie?api_key=${API_KEY}&language=fr-FR&include_adult=false&query=${_arg}`);
         const results = movies.data;
-        for(let movie of (results.results)) {
+        for (let movie of (results.results)) {
           let movieDetails:any = await fetchWithBQ(`/movie/${movie.id}?api_key=${API_KEY}&language=fr-FR&include_adult=false`);
           let castAndDirectors:any = await fetchWithBQ(`/movie/${movie.id}/credits?api_key=${API_KEY}&language=fr-FR&include_adult=false`);
           let crew = castAndDirectors.data.crew;
@@ -49,14 +49,12 @@ export const apiTmdb = createApi({
           const movieGenres = movieDetails.data.genres;
           const productCoutries = movieDetails.data.production_countries;
           const spokenLanguages = movieDetails.data.spoken_languages;
-
           const directors = [];
-          let director:Director;
-          for(director of crew) {
-            if(director.job === 'Director') {
+          let director: {[key: string]: string | number};
+          for (director of crew) {
+            if (director.job === 'Director') {
               directors.push(director.name);
-            }
-          }
+            }}
           const casting = [];
           let actor: {name:string};
           for (actor of cast.slice(0,5)){
@@ -78,7 +76,7 @@ export const apiTmdb = createApi({
             languages.push(language.name);
           }
 
-          const mov:any = 
+          const mov= 
           {
             french_title: movie.title,
             original_title: movie.original_title,
@@ -89,7 +87,8 @@ export const apiTmdb = createApi({
             casting,
             movie_genres: genres,
             movie_languages: languages,
-            movie_countries: countries
+            movie_countries: countries,
+            id: movieDetails.data.id
           };
           moviesWithDetails.push(mov);
         }

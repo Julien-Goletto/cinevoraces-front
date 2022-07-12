@@ -1,4 +1,4 @@
-import { Button } from 'components/Buttons/Button';
+import { Button } from 'components/Inputs/InputsLib';
 import { useAdminPutUserMutation, useAdminDeleteUserMutation } from 'redux/api';
 import { useEffect } from 'react';
 import { useAppDispatch } from 'redux/hooks';
@@ -36,8 +36,7 @@ function User({user}: {[key: string]: any}) {
     if (deleteUserSuccess) {
       dispatch(addToast({type: 'success', text: 'Utilisateur supprimé.'}));
       deleteUserReset();
-    }
-  }, [deleteUserSuccess, setAdminRoleSuccess, dispatch, setAdminRoleReset, deleteUserReset]);
+    }}, [deleteUserSuccess, setAdminRoleSuccess]);
 
   return(
     <tr>

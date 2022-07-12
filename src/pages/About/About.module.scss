@@ -1,0 +1,41 @@
+@use '~styles/mixins' as mix;
+@use '~styles/var';
+
+.about {
+  @include mix.container;
+  min-height: 66vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3rem;
+  margin: 4rem auto;
+  & h1 {
+    @include mix.h3;
+  }}
+.contributors {
+  display: flex;
+  align-items: center;
+  gap: .5em;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  margin-top: 1em;
+  & .card {
+    margin: 0 1em;
+    display: flex;
+    gap: 1rem;
+    flex-direction: column;
+    align-items: center;
+    & img {
+      width: 150px;
+      height: 150px;
+      border: 1px var.$white solid;
+      border-radius: 100%;
+      }
+    & a {
+      width: 20px;
+      height: 20px;
+      fill: var.$white;
+      &:hover {
+        fill: var.$primary;
+      }}}}
+

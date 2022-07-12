@@ -1,11 +1,17 @@
+import type { RootState } from 'redux/store';
 import { createSlice } from '@reduxjs/toolkit';
-import { RootState } from '../store';
 
+type globalState = {
+  modalIsOpen: boolean,
+  toasts: { 
+    type: 'error' | 'warn' | 'success',
+    text: string,
+    duration?: number,
+  }[],
+};
 
-const initialState : GlobalState = { 
-  mobileIsOpen: false,
-  connectionIsOpen: false,
-  userIsOpen: false,
+const initialState: globalState = { 
+  modalIsOpen: false,
   toasts: [],
 };
 
@@ -13,28 +19,21 @@ const globalSlice = createSlice({
   name: 'global',
   initialState,
   reducers: {
-    toggleConnection(state) {
-      state.connectionIsOpen = !state.connectionIsOpen;
+    toggleModal(state) {
+      state.modalIsOpen = !state.modalIsOpen;
     },
-    mobileIsOpen(state) {
-      state.mobileIsOpen = !state.mobileIsOpen;
-    },
-    userIsOpen(state) {
-      state.userIsOpen = !state.userIsOpen;
-    },
-    addToast(state, action:Toast) {
-      action.payload.id = Math.floor((Math.random() * 9999) + 1);
+    addToast(state, action) {
       state.toasts.push(action.payload);
     },
-    removeToast(state, action:any) {
-
-      state.toasts = state.toasts.filter((el:any) => action.payload !== el.id);
-      
+    removeToast(state) {
+      state.toasts.splice(0, 1);
     }
-  }
-});
+  }});
 
-export const getToasts = (state: RootState) => state.global.toasts;
-
-export const { toggleConnection, mobileIsOpen, userIsOpen, addToast, removeToast } = globalSlice.actions;
+export const globals = (state: RootState) => state.global;
+export const { 
+  toggleModal,
+  addToast,
+  removeToast
+} = globalSlice.actions;
 export default globalSlice.reducer;

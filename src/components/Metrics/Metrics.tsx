@@ -1,11 +1,14 @@
-import { useAllMetricsQuery } from 'redux/api';
+import { useGetAllUserMetricsQuery } from 'redux/api';
 import styles from './Metrics.module.scss';
 
+/**
+ * @returns  display statistics about cinévoraces
+ */
 function Metrics() {
-  const { data } = useAllMetricsQuery<Metrics>();  
+  const { data } = useGetAllUserMetricsQuery();  
   return (
     <>
-      { data &&
+      {data &&
         <section className={styles.metrics}>
           <h3 className={styles.title}>CinéVoraces en quelques chiffres</h3>
           <div className={styles.grid}>
@@ -22,8 +25,7 @@ function Metrics() {
               <span className={styles.type}>Pays</span>
             </div>
           </div>
-        </section>
-      }
+        </section>}
     </>
   );
 };

@@ -1,96 +1,110 @@
+import type { RootState } from 'redux/store';
 import { createSlice } from '@reduxjs/toolkit';
-import { RootState } from '../store';
 
-const initialState: FilterState = { 
-  seasons: [],
-  isViewed: [
-    {name: 'Tous', value: 'all', isChecked: true},
-    {name: 'Vus', value: 'viewed', isChecked: false},
-    {name: 'À voir', value: 'not-viewed', isChecked: false},
-  ],
-  tags: [],
-  periode: {baseValues: [1900, 2077], stateValues: [1900, 2077]},
+type filterState = {
+  mainFilters: filter[],
+  genre: filter[],
+  country: filter[],
+  periode: {[key: string]: number[]},
+  query: string,
+  isDefault: boolean,
+  isLogged: boolean
+}
+
+const initialState: filterState = { 
+  mainFilters: [],
+  periode: {
+    baseValues: [1919, new Date().getFullYear()],
+    stateValues: [1919, new Date().getFullYear()]
+  },
+  genre: [],
+  country: [],
   query: '',
   isDefault: true,
-  filterState: {
-    season_number: 'all',
-    genres: [],
-    countries: []
-  }
+  isLogged: false
 };
 
 const filterSlice = createSlice({
   name: 'filter',
   initialState,
   reducers: {
-    initFilters(state, action) {
-      const {periode, seasons, tags} = action.payload;
-      state.periode = periode;
-      state.tags = tags;
-      state.seasons = seasons;
-      state.filterState.season_number = seasons[0].value;
+    // Rewrite state with fetched data
+    initFilters(state, {payload}: {payload: DBFilters[]}) {
+      // Set Periodes
+      state.periode = {
+        baseValues: [payload[0].min_max_dates[0], payload[0].min_max_dates[1]],
+        stateValues: [payload[0].min_max_dates[0], payload[0].min_max_dates[1]]
+      };
+      payload.forEach(({seasons_list, genres_list, countries_list}) => {
+        // Set Seasons
+        let formatedData: Array<{name: string, isChecked: boolean, value?: string}> = [
+          {name: 'Tout les films', value: '', isChecked: false}
+        ]; // Formated data container
+        let constructor: Array<number[] | string> = []; // Constructor container
+        seasons_list.forEach((season) => {
+          !(constructor.includes(season)) && constructor.push(season);
+        });
+        constructor.forEach((season, index) => { // Format data
+          formatedData.push(
+            {name: `Saison ${season[0]} - ${season[1]}`, value: `season_number=${season[0]}`, 
+              isChecked: (index === constructor.length - 1) ? true : false});
+        });
+        state.mainFilters = formatedData; // Update state
+        constructor = []; // Reset constructor
+        formatedData = []; // Reset formatedData
+        // Format genres
+        genres_list.forEach((genre) => {
+          !(constructor.includes(genre)) && constructor.push(genre);
+        });
+        constructor.forEach((genre) => {
+          formatedData.push({name: genre as string, isChecked: false});
+        });
+        state.genre = formatedData;
+        constructor = [];
+        formatedData = [];
+        // Format countries
+        countries_list.forEach((country) => {
+          !(constructor.includes(country)) && constructor.push(country);
+        }); 
+        constructor.forEach((country) => {
+          formatedData.push({name: country as string, isChecked: false});
+        });
+        state.country = formatedData;
+      });
     },
-    resetAllFilters(state) {
-      const initialFilter = initialState.filterState;
-      state.filterState = initialFilter;
-      
-      state.seasons.forEach((el, i) => {
-        (i === 0) ? el.isChecked = true : el.isChecked = false;
+    resetFilters(state) {
+      // Reset Season
+      state.mainFilters.forEach((el, index) => {
+        el.isChecked = (index === state.mainFilters.length - 1) ? true : false; // Set last season true
       });
-      state.isViewed.forEach((el, i) => {
-        (i === 0) ? el.isChecked = true : el.isChecked = false;
-      });
-      state.tags.forEach((el) => {
-        el.tags.forEach((el) => {
+      // Reset Tags
+      [state.genre, state.country].forEach((tag) => {
+        tag.forEach((el) => {
           el.isChecked = false;
         });
       });
+      // Reset Periodes
+      state.periode.stateValues = state.periode.baseValues;
       state.isDefault = true;
     },
-    setSeasonFilter(state, action) {
-      state.seasons.forEach((el) => {
-        
-        if (el.value === action.payload) {
-          el.isChecked = true;
-          state.filterState.season_number = el.value === 'all' ? 'all' : Number(el.value);
-        } else {
-          el.isChecked = false;
-        }
+    setMainFilter(state, action) {
+      state.mainFilters.forEach((el) => {
+        el.isChecked = (el.value === action.payload) ? true : false;
       });
       state.isDefault = false;
     },
-    setIsViewedFilter(state, action) {
-      state.isViewed.forEach((el) => {
-        (el.value === action.payload) ? el.isChecked = true : el.isChecked = false;
+    setCountryFilter(state, action) {
+      state.country.forEach((el) => {
+        if (el.name === action.payload) {
+          el.isChecked = !el.isChecked;};
       });
       state.isDefault = false;
     },
-    setTagFilter(state, action) {
-      state.tags.forEach((el) => {
-        if (el.tagName === action.payload.tagName) {
-          el.tags.forEach((el) => {
-            if (el.name === action.payload.tag) {
-              el.isChecked = !el.isChecked;
-              switch (action.payload.tagName) {
-              case 'Genres':
-                if (el.isChecked) {
-                  state.filterState.genres.push(el.name);
-                } else {
-                  let i = state.filterState.genres.indexOf(el.name);
-                  state.filterState.genres.splice(i, 1);
-                }
-                break;
-              case 'Pays':
-                if (el.isChecked) {
-                  state.filterState.countries.push(el.name);
-                } else {
-                  let i = state.filterState.countries.indexOf(el.name);
-                  state.filterState.countries.splice(i, 1);
-                }
-                break;
-              }
-            }});
-        }});
+    setGenreFilter(state, action) {
+      state.genre.forEach((el) => {
+        if (el.name === action.payload) {
+          el.isChecked = !el.isChecked;};
+      });
       state.isDefault = false;
     },
     setPeriodeMinVal(state, action) {
@@ -104,25 +118,17 @@ const filterSlice = createSlice({
     setQuery(state, action) {
       state.query = action.payload;
     }
-  }
-});
+  }});
 
 export const filters = (state: RootState) => state.filter;
-export const filterState = (state: RootState) => state.filter.filterState;
-export const filterYearState = (state: RootState) => state.filter.periode.stateValues;
-export const getQuery = (state: RootState) => state.filter.query;
-export const periodeBaseValues = (state: RootState) => state.filter.periode.baseValues;
-export const periodeStateValues = (state: RootState) => state.filter.periode.stateValues;
-
 export const { 
   initFilters,
-  resetAllFilters,
-  setSeasonFilter,
-  setIsViewedFilter,
-  setTagFilter,
+  resetFilters,
+  setMainFilter,
+  setCountryFilter,
+  setGenreFilter,
   setPeriodeMinVal, 
   setPeriodeMaxVal,
   setQuery
 } = filterSlice.actions;
-
 export default filterSlice.reducer;

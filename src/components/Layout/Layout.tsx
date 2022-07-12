@@ -1,14 +1,17 @@
-import Header from './Header/Header';
-import Footer from './Footer/Footer';
+import Header from './Header';
 
-function Layout({children}: Layout) {
+interface LayoutProps {
+  children?: React.ReactNode
+};
+
+/**
+ * @returns App layout 
+ */
+function Layout({children}: LayoutProps) {
   return(
     <>
       <Header/>
-      <main style={{minHeight: '78vh'}}>
-        {children}
-      </main>
-      <Footer/>
+      {children}
     </>
   );
 }

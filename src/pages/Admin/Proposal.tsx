@@ -1,4 +1,4 @@
-import { Button } from 'components/Buttons/Button';
+import { Button } from 'components/Inputs/InputsLib';
 import AdminModal from './AdminModal';
 import styles from './Admin.module.scss';
 import { useState } from 'react';

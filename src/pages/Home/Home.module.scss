@@ -1,3 +1,194 @@
-.movies {
-    margin-bottom: 4em;
-}
+@use '~styles/var';
+@use '~styles/mixins' as mix;
+
+.hero {
+  @include mix.container;
+  margin: 5em auto 6em auto;
+  & .wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    & h1 {
+      @include mix.h1;
+      padding-bottom: .8em;
+    }
+    & p {
+      @include mix.h4;
+      padding-bottom: 2em;
+    }
+    & span {
+      &:nth-child(1) {
+        font-size: 1.2em;
+      }
+      &:nth-child(2) {
+        color: var.$primary;
+      }}
+    & .buttons {
+      display: flex;
+      gap: 1em;
+    }}
+  & .img-wrapper {
+    display: none;
+    text-align: right;
+    & img {
+      max-width: 85%;
+      border-radius: 10px;
+      outline: 4px solid #2D2F37;
+      box-shadow: 4.88426px 2.93056px 11.7222px rgba(0, 0, 0, 0.15);
+    }}}
+
+.about {
+  background-color: var.$secondary-background;
+  margin: 4em auto;
+  & .wrapper {
+    @include mix.container;
+    padding-top: 2em;
+    padding-bottom:  2em;
+    & img {
+      width: 230px;
+      height: 100%;
+    }
+    .content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1em;
+    }}
+  & .title {
+    @include mix.h3;
+    margin-bottom: 1em;
+    &--top {
+      display: block;
+    }
+    &--bottom {
+      display: none;
+    }}}
+
+.share {
+	@include mix.container;
+	margin: 4em auto;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	& h2 {
+		@include mix.h3;
+		margin-bottom: 1em ;
+	}
+	& img {
+		max-width: 100%;
+		margin-top: 2em;
+		border-radius: 10px;
+		outline: 4px solid #2D2F37;
+		box-shadow: 4.88426px 2.93056px 11.7222px rgba(0, 0, 0, 0.15);
+	}
+	& .text {
+		& span {
+			color: var.$primary
+		}}}
+
+.join {
+  margin: 4em auto;
+  background-color: var.$secondary-background;
+  & .wrapper {
+    @include mix.container;
+    padding-top: 2em;
+    padding-bottom: 2em;
+    & .text {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 1.5em;
+      & span {
+        @include mix.h4;
+      }}
+    & a {
+      width: fit-content;
+    }}}
+
+@media (min-width: 515px) {
+  .about {
+    & .wrapper {
+      & .content {
+        flex-direction: row;
+      }}}}
+@media (max-width: 550px) {
+  .join {
+    & .wrapper {
+      & .text {
+        flex-direction: column;
+      }}}}
+@include mix.breakpoint('tablet') {
+  .hero {
+    margin: 7em auto 7em auto;
+    & .wrapper {
+      & .buttons {
+        gap: 2em;
+      }}}
+    .join {
+    & .wrapper {
+      padding-top: 3em;
+      padding-bottom:  3em;
+      & .text {
+        display: flex;
+        flex-direction: row;
+        gap: 10px;
+        & span {
+          @include mix.h3;
+        }}}}
+  .share {
+    flex-direction: row;
+    gap: 3em;
+    & img {
+     max-width: 55%; 
+    }
+    & .text {
+      width: 50%;
+    }}
+  .about {
+    & .wrapper {
+      padding-top: 3em;
+      padding-bottom:  3em;
+      & .content {
+        & .text {
+          display: flex;
+          flex-direction: column;
+          align-items: flex-end;
+          width: 100%;
+          & > * {
+            width: 95%;
+          }}}
+      & img {
+        width: 250px;
+      }}
+      & .title {
+        &--top {
+          display: none;
+        }
+        &--bottom {
+          display: block;
+        }}}}
+@include mix.breakpoint('laptop') {
+	.share {
+		& img {
+			max-width: 100%;
+		}}}
+@include mix.breakpoint('desktop') {
+  .hero {
+    margin: 7em auto 8.5em auto;
+    display: flex;
+    & .wrapper {
+      width: 50%;
+      & h1 {
+        @include mix.h0;
+      }
+      & p {
+        @include mix.h3;
+      }}
+    & .img-wrapper {
+      width: 50%;
+      display: block;
+    }}
+  .about {
+    & .wrapper {
+      &.content {
+        @include mix.wrapper;
+      }}}}

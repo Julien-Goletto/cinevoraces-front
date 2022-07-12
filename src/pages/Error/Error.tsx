@@ -1,52 +1,47 @@
-import LastMoviesGrid from 'components/LastMoviesGrid/LastMoviesGrid';
-import { Button } from 'components/Buttons/Button';
 import { useLocation } from 'react-router-dom';
+import { ReactComponent as SVGError } from './Error.error_ico.svg';
+import { Button } from 'components/Inputs/InputsLib';
+import LastMoviesGrid from 'components/LastMoviesGrid/LastMoviesGrid';
+import AnimationLayout from 'components/AnimationLayout/AnimationLayout';
+import Footer from 'components/Layout/Footer';
 import styles from './Error.module.scss';
-import AnimationLayout from 'components/AnimationRouter';
 
-function Error({ errorNum = 404, }: ErrorPage) {
-  const { pathname } = useLocation();
+type ErrorProps = {
+  error?: any,
+  children?: React.ReactNode
+};
+
+/**
+ * @returns Error Page
+ * @param error       Error log, used for error code.
+ * @param children    Use this to customize error message.
+ */
+function Error({error, children}: ErrorProps) {
+  const {pathname} = useLocation();
+  const errorStatus = `Erreur ${error ? error.status : 404}`;
 
   return(
     <AnimationLayout>
-      <section className={styles.error}>
-        <div>
-          <div className={styles.title}>
-            <img className={styles.img} src='/images/error_icon.svg' alt='' />
-            <h1>
-              Erreur&nbsp;
-              {errorNum}
-            </h1>
-          </div>
-          <div className={styles.subtitle}>
-            { errorNum === 404 && 'Mais on est où là..?'} 
-            { errorNum === 401 && 'Comment est-ce que vous êtes arrivé ici?'} 
-          </div>
+      <main className={styles.error}>
+        <h1><SVGError/>{errorStatus}</h1>
+        <div className={styles.content}>
+          {!error &&
+            <p>
+              L&apos;URL <span>{pathname}</span> n&apos;a rien donné.
+              <br/> Essayez d'ouvrir les yeux en tapant votre requête.
+            </p>}
+          {(error && !children) &&
+            <p>
+              Vous avez forcement fait un truc de travers, on en serait pas là sinon...
+            </p>}
+          {(error && children) && children}
         </div>
-        { (errorNum === 404) &&
-          <p className={styles.body}>
-            L&apos;URL <span className={styles.pathname}>{pathname}</span> n&apos;a rien donné.
-            <br /> Essayez d'ouvrir les yeux en tapant votre requête.
-          </p> }
-        { (errorNum === 401) &&
-          <p className={styles.body}>
-            Vous devez être connecté à un compte utilisateur pour acceder à l&apos;URL <span className={styles.pathname}>{pathname}</span>.
-            <br /> Pas encore membre? <span className={styles.pathname}>Inscrivez-vous!</span>
-
-          </p> }
-
-        { (errorNum === 401) ?
-          <Button href='/register'>
-            S'inscrire
-          </Button>
-          :
-          <Button styleMod='rounded' href='/'>
-            Retourner à l'acceuil
-          </Button> }
-      </section>
+        <Button href='/'>Retourner à l'accueil</Button>
+      </main>
       <div className={styles['last-movies']}>
         <LastMoviesGrid/>
       </div>
+      <Footer/>
     </AnimationLayout>
   );
 }

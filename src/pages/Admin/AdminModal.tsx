@@ -1,7 +1,12 @@
-import { Button } from 'components/Buttons/Button'; 
+import { Button } from 'components/Inputs/InputsLib';
 import styles from './AdminModal.module.scss';
 
-function AdminModal ({children, handler}: AdminModal) {
+type AdminModalProps = {
+  children?: import('react').ReactNode,
+  handler?: React.MouseEventHandler<HTMLElement>,
+};
+
+function AdminModal ({children, handler}: AdminModalProps) {
   return(
     <>
       <div 

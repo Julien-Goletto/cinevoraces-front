@@ -1,108 +1,190 @@
-import styles from './Proposal.module.scss';
-import MovieGrid from './MoviesGrid/MovieGrid';
-import Description from './Description/Description';
-import Option from './Option/Option';
-import Search from './Search/Search';
-import AnimationLayout from 'components/AnimationRouter';
-import { useAppDispatch, useAppSelector } from 'redux/hooks';
-import { getProposalData, getSearch, setEpisode, unsetEpisode } from 'redux/slices/proposal';
-import { Button } from 'components/Buttons/Button';
-// import { useTmbdCustomDetailsQuery } from 'redux/apiTmdb';
-import { addToast } from 'redux/slices/global';
-import { usePostMovieMutation, useAvailableSlotsQuery, useBookSlotMutation } from 'redux/api';
-import { useNavigate } from 'react-router-dom';
+import { ReactComponent as SearchIco } from './Proposal.ico_search.svg';
 import { useEffect, useState } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
+import { useAppDispatch, useAppSelector } from 'redux/hooks';
+import { usePostMovieMutation, useGetSlotsQuery, usePutSlotMutation } from 'redux/api';
+import { addToast } from 'redux/slices/global';
 import { apiTmdb } from 'redux/apiTmdb';
+import { userState } from 'redux/slices/user';
+import { Button, InputText } from 'components/Inputs/InputsLib';
+import Error from 'pages/Error/Error';
+import Footer from 'components/Layout/Footer';
+import MovieGrid from './ProposalMovieGrid';
+import AnimationLayout from 'components/AnimationLayout/AnimationLayout';
+import styles from './Proposal.module.scss';
 
+type SearchBarProps = {
+  value: string,
+  onChange(e: React.ChangeEvent<HTMLInputElement>): void,
+  onSubmit(e: React.FormEvent<HTMLFormElement>): void
+}
+type SelectSlotProps = {
+  onChange(e: React.FormEvent<HTMLSelectElement>): void,
+  slots: slot[]
+}
+type AddCommentProps = {
+  onChange(e: React.ChangeEvent<HTMLTextAreaElement>): void
+}
 
 function Proposal() {
-  const search = useAppSelector(getSearch);
+  const {id, isOnline}     = useAppSelector(userState);
   const navigate = useNavigate();
-  const proposalMovie = useAppSelector(getProposalData);
-  const [seasonSelect, setSeasonSelect] = useState<number | string>('~');
-  const [searchTrigger, { data, isFetching: isDetailsFetching, ...rest }] = apiTmdb.endpoints.tmbdCustomDetails.useLazyQuery();
-  const { data: slots, isSuccess: isSlotsSuccess } = useAvailableSlotsQuery();
-  const [sendBook, bookHandle] = useBookSlotMutation();
-  const [sendPost, postHandle] = usePostMovieMutation();
   const dispatch = useAppDispatch();
-  
-  const handleSelect = (event: onChangeFormEvent) => {
-    const selected = (event.target as HTMLSelectElement).value;
-    const episode = slots.find((slot:any) => slot.episode == selected);
-    setSeasonSelect(episode ? episode.season_number : '~');
+  const [selectedSlot, setSelectedSlot] = useState<{[key: string]: string}>();
+  const [movie, setMovie]               = useState<movieProposal>();
+  const [comment, setComment]           = useState('');
+  const [query, setQuery]               = useState('');
+  const [sendBook, {isSuccess: isBookHandleSuccess}] = usePutSlotMutation();
+  const [sendPost, {isSuccess: isPostMovieSuccess}] = usePostMovieMutation();
+  const [searchTrigger, {
+    data: tmdbData, 
+    isFetching: isDetailsFetching}] = apiTmdb.endpoints.tmbdCustomDetails.useLazyQuery();
+  const {
+    data: slots, 
+    isSuccess: isSlotsSuccess, 
+    isError: isSlotsError} = useGetSlotsQuery();
 
-    if(episode) {
-      dispatch(setEpisode({
-        episode_selected: selected,
-        episode_publish_date: episode.publishing_date,
-        season_id: episode.season_number
-      }));
-    } else dispatch(unsetEpisode());
+  const handleSlotSelect = (e: React.FormEvent<HTMLSelectElement>) => {
+    // Resolve selected slot with SelectElement value
+    const slot = slots!.find((slot) => String(slot.episode) === e.currentTarget.value);
+    // Update state if slot is defined 
+    slot && setSelectedSlot({
+      episode_selected: String(slot.episode),
+      episode_publish_date: slot.publishing_date,
+      season_id: String(slot.season_number)
+    });
   };
-  
-  const handleSubmit = async (e:any) => {
+  const handleMovieSelect = (id: number) => {
+    setMovie(tmdbData.find((movie: movieProposal) => movie.id === id));
+  };
+  const handlePresentation = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setComment(e.currentTarget.value);
+  };
+  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setQuery(e.currentTarget.value);
+  };
+  const handleSearchSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const { presentation, user_id }: any = proposalMovie;
-    if(!presentation || !user_id) {
-      dispatch(addToast({type: 'error', text:'Formulaire invalide'}));
-      return;
-    }
-    const res:any = await sendPost(proposalMovie);
-    if(res.data === 'Film ajouté en base') {
-      await sendBook(proposalMovie.publishing_date);
-    }
+    searchTrigger(query, false);
   };
+  const handleSubmit = () => {
+    if (comment.length <= 1 || !movie || !selectedSlot) {
+      return dispatch(addToast({type: 'error', text:'Formulaire invalide'}));
+    } else if (
+      movie.directors.length < 1
+      || movie.movie_genres.length < 1
+      || movie.casting.length < 1
+      || movie.runtime === 0
+      || movie.poster_url === 'https://image.tmdb.org/t/p/originalnull') {
+      return dispatch(addToast({type: 'error', text:'Sélection invalide'}));
+    } else {
+      sendPost({
+        ...selectedSlot,
+        ...movie,
+        presentation: comment,
+        user_id: id!
+      });
+    }};
 
-  
-  useEffect(()=> {  
-    if(postHandle.isSuccess && bookHandle.isSuccess) {
+  // Handle post success
+  useEffect(() => {
+    isPostMovieSuccess && sendBook({
+      publishing_date: selectedSlot!.publishing_date
+    });
+  }, [isPostMovieSuccess]);
+
+  // Handle booking success
+  useEffect(() => {  
+    if (isPostMovieSuccess && isBookHandleSuccess) {
       dispatch(addToast({type: 'success', text: 'Votre film à bien été enregistré'}));
       setTimeout(()=> {
         navigate('/', {state: {}, replace: true});
       },1000);
-    }
-    if(typeof slots === 'string') {
-      dispatch(addToast({type: 'warn', text:`${slots}`, duration:6000}));
-      setTimeout(()=> {
-        navigate('/');
-      }, 100);
-    }
-  }, [postHandle, bookHandle, slots ]);
+    }}, [isPostMovieSuccess, isBookHandleSuccess, slots]);
 
-
-  
   return (
     <AnimationLayout>
-      <section className={styles.proposal}>
-        <h1 className={styles.title}>Ajouter un film</h1>
-        <form onChange={handleSelect} className={styles.episode}>
-          <label htmlFor='episode'>Selectionez un épisode</label>
-          <div className={styles.select}>
-            <span>Saison - {seasonSelect}</span>
-            <select name='episode' id='episode'>
-              <option value='x'>--- Choissisez votre épisode ---</option>
-              {(slots && isSlotsSuccess && typeof slots !== 'string') && slots.map((slot:any) => (
-                <Option slot={slot} key={slot.id} />
-              ))}
-            </select>
+      {isOnline &&
+        <main className={styles.proposal}>
+          <h1>Ajouter un film</h1>
+          {isSlotsError && 
+            <div style={{height: '67.5vh'}}>
+              <h2>Aucun créneau n'est disponible, réessayez plus tard.</h2>
+            </div>}
+          {isSlotsSuccess &&
+            <>
+              <Notice/>
+              <SelectSlot onChange={handleSlotSelect} slots={slots}/>
+              <h2>Recherche un film</h2>
+              <SearchBar value={query} onChange={handleSearch} onSubmit={handleSearchSubmit}/>
+              <MovieGrid movies={tmdbData} isFetching={isDetailsFetching} movieSetter={handleMovieSelect}/>
+              <AddComment onChange={handlePresentation}/>
+              <div className={styles.button}>
+                <Button handler={handleSubmit} styleMod='fill-rounded'>
+                  <img src='/images/send-icon.svg' alt=''/> Envoyer
+                </Button>
+              </div>
+            </>}
+        </main>}
+      {!isOnline && 
+        <Error error={{status: 401}}>
+          Vous devez vous connecter pour proposer un film à la communautée.
+          <div className={styles['error-401']}>
+            Pas encore membre ?
+            <br /><Link to='/register'>Inscrivez-vous!</Link>
           </div>
-        </form>
-        <h2 className={styles.subtitle}>Recherche un film</h2>
-        <p className={styles.description}>Plus un film est <span>disponible</span>, plus il sera regardé. Surprenez - nous, mais ne négligez pas l’accessibilité !</p>
-        <Search searchTrigger={searchTrigger} />
-      </section>
-      <MovieGrid movies={data} isFetching={isDetailsFetching} />
-      <Description />
-      <div className={styles.button}>
-        <Button
-          handler={handleSubmit}
-          styleMod='fill-rounded'
-        >
-          <img src='/images/send-icon.svg' alt=''/>
-          Envoyer
-        </Button>
-      </div>
+        </Error>}
+      <Footer/>
     </AnimationLayout>
+  );
+}
+
+function SelectSlot({onChange, slots}: SelectSlotProps) {
+  return(
+    <form className={styles['slot-selector']}>
+      <label htmlFor='episode'>Selectionez un épisode</label>
+      <select onChange={onChange} name='episode' id='episode'>
+        <option value='x'>Aucun épisode</option>
+        {slots.map(({id, episode, publishing_date, season_number, is_booked}) => (
+          !is_booked && <option value={episode} key={id}>
+            Saison {season_number} Épisode {episode} - {publishing_date}
+          </option>))}
+      </select>
+    </form>
+  );
+};
+
+function AddComment({onChange}: AddCommentProps) {
+  return (
+    <>
+      <h2 className={styles.title}>Motivez votre choix</h2>
+      <p className={styles.text}>Décrivez aux utilisiteurs pourquoi vous proposez <span>ce film</span>.</p>
+      <textarea onChange={onChange} placeholder='Decrire votre avis sur le film' className={styles.input} name='description' rows={12} maxLength={1200}></textarea>
+    </>
+  );
+}
+
+function SearchBar({value, onChange, onSubmit}: SearchBarProps) {
+  return (
+    <form onSubmit={onSubmit} className={styles['search-form']}>
+      <InputText 
+        name='search' 
+        type='text' 
+        placeholder='Recherche un film'
+        value={value}
+        handler={onChange}
+      />
+      <button><SearchIco/></button>
+    </form>
+  );
+}
+
+function Notice() {
+  return(
+    <p>
+      Plus un film est <span>disponible</span>, plus il sera regardé.
+      Surprenez-nous, mais ne négligez pas l’accessibilité!
+    </p>
   );
 }
 

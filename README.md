@@ -1,4 +1,4 @@
-# CinéVoraces | Dev main branch
+# CinéVoraces | Front Dev
 ## :closed_book: Git Rules
 :warning: **master branch can never be updated without lead team's approval, do not push on master.**
 ### Commits

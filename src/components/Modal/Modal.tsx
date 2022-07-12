@@ -1,26 +1,35 @@
-import React from 'react';
-import styles from './Modal.module.scss';
 import ReactDOM from 'react-dom';
-import { useAppDispatch, useAppSelector } from 'redux/hooks';
-import { toggleConnection } from 'redux/slices/global';
+import { ReactComponent as SVGClose } from './Modal.ico_close.svg';
+import { useAppDispatch } from 'redux/hooks';
+import { toggleModal } from 'redux/slices/global';
+import styles from './Modal.module.scss';
 
+type ModalProps = {
+  children : React.ReactNode
+}
+
+// Append modal outside of App with a portal
 const portal = document.getElementById('portal') as HTMLElement;
 
-function Modal({children} : {children : React.ReactNode}) {
-  const connectionIsOpen = useAppSelector(state => state.global.connectionIsOpen);
+/**
+ * @returns empty modal
+ */
+function Modal({children} : ModalProps) {
   const dispatch = useAppDispatch();
   const handleCloseModal = () => {
-    connectionIsOpen && dispatch(toggleConnection());
+    dispatch(toggleModal());
   };
 
   return ReactDOM.createPortal(
     <div className={styles.container}>
-      <div 
-        className={styles['modal-background']}
-        onClick={handleCloseModal}
-      />
+      <div className={styles['modal-background']} onClick={handleCloseModal}/>
       <div className={`${styles.modal} ${styles['scale-up-center']}`}>
-        { children }
+        <button className={styles.close} onClick={handleCloseModal}>
+          <SVGClose/>
+        </button>
+        <div className={styles.content}>
+          {children}
+        </div>
       </div>
     </div>
     , portal);

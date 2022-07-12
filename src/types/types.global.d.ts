@@ -1,20 +1,16 @@
-
-type Reviews = [{
-  bookmarked: boolean,
-  comment: string,
-  created_at: string,
-  liked: boolean,
-  movie_id: number,
-  rating: null | number,
-  updated_at: string,
-  user_id: number,
-  viewed: boolean
-}]
-
-type ButtonSearch = {
-  children: React.ReactNode
-};
-type DBMovie = {
+// API Arguments
+type user = {
+  pseudo: string,
+  mail: string,
+  password: string,
+  accessToken: string,
+  refreshToken: string
+}
+type id = number | string;
+type interactionBody = {
+  [key: string]: number | boolean | string,
+}
+interface movie {
   id: number,
   french_title: string,
   original_title: string,
@@ -24,9 +20,17 @@ type DBMovie = {
   runtime: number,
   casting: string[],
   presentation: string,
-  is_published: boolean,
   publishing_date: string,
-  user_id: number,
+  user_id: number
+}
+interface movieProposal extends movie {
+  movie_genres: string[],
+}
+interface proposalBody extends movieProposal {
+  presentation: string, 
+}
+// Responses
+interface DBMovie extends movie {
   user_pseudo: string,
   user_avatar_url: string | null,
   season_number: number,
@@ -39,11 +43,13 @@ type DBMovie = {
   views_count: string,
   avg_rating: string
 };
-type DBMovieFilter = {
-  season_number: number | string,
-  genres: string[],
-  countries: string[],
-};
+type DBFilters = {
+  seasons_list: [number[]],
+  genres_list: string[],
+  countries_list: string[],
+  min_max_dates: [number, number],
+  max_runtime: number
+}
 type TMDBMovie = {
   id: number,
   title: string
@@ -52,59 +58,50 @@ type TMDBMovie = {
   original_title?: string
   poster_url?: string
 }
-type ProposalMovie = {
-  id?: number,
-  episode?: string
-  french_title: string,
-  original_title: string,
-  poster_url: string,
-  directors: string[],
-  release_date: string,
-  runtime: number,
-  casting: string[],
-  presentation?: string,
-  publishing_date?: string,
-  user_id?: number,
-  season_id?: number,
-  movie_genres: string[],
-  movie_languages: string[],
-  movie_countries: string[],
+type DBUser = {
+  id: string,
+  pseudo: string,
+  mail: string,
+  role: string,
+  created_at: string
 }
-
-type Director = {
-  job: string,
-  name: string,
-  id: number
+type refreshToken = {
+  accessToken: string,
+  avatar_url: string,
+  created_at: string,
+  id: number,
+  pseudo: string,
+  refreshToken: string,
+  role: string
 }
-type StarRating = {
-  alt?: boolean,
-  value?: number,
-  isInput?: boolean
-};
-type GlobalState = {
-  mobileIsOpen: boolean,
-  connectionIsOpen: boolean,
-  userIsOpen: boolean,
-  toasts: object[],
-}
-type Toast = {
-  payload: {
-    type: 'error' | 'warn' | 'success',
-    text: string,
-    duration?: number,
-    id?: number
-  }
-}
-type RemoveToast = {
-  payload: {
-    id:number
-  } | number
-}
-type Comment = {
-  avatar_url: null | string,
-  comment: string,
-  movie_id: number,
-  rating: null | number,
+type DBReview = {
   user_id: number,
-  user_pseudo: string
+  user_pseudo: string,
+  movie_id: number,
+  rating: number,
+  created_at: string,
+  updated_at?: string,
+  comment: string,
+  avatar_url: string,
+  edit?: boolean
+}
+type DBUserReview = {
+    bookmarked: boolean,
+    viewed: boolean,
+    liked: boolean,
+    rating: number | boolean,
+    created_at?: string
+}
+type slot = {
+  id: number,
+  season_number: number,
+  episode: number,
+  publishing_date: string,
+  is_booked: boolean
+}
+// Global slice
+type filter = {
+  name: string,
+  value?: string,
+  isChecked: boolean
 }

@@ -5,9 +5,9 @@ import {
   useAdminPublishMovieMutation,
   useAdminRevokeMovieMutation,
 } from 'redux/api';
-import { Button } from 'components/Buttons/Button';
+import { Button } from 'components/Inputs/InputsLib';
 import { addToast } from 'redux/slices/global';
-import AnimationLayout from 'components/AnimationRouter';
+import AnimationLayout from 'components/AnimationLayout/AnimationLayout';
 import Loader from 'components/Loader/Loader';
 import Proposal from './Proposal';
 import User from './User';
@@ -15,7 +15,7 @@ import styles from './Admin.module.scss';
 
 function Admin () {
   const dispatch = useAppDispatch();
-  const { data, isLoading } = useAdminGetDataQuery();
+  const {data, isLoading} = useAdminGetDataQuery();
   const [publishProposition, {
     isSuccess: publishIsSuccess,
     reset: publishReset
@@ -64,22 +64,20 @@ function Admin () {
       dispatch(addToast({type: 'success', text: 'Film supprimé avec succés.'}));
       setSelectedMovieId(undefined);
       deleteReset();
-    } 
-    
-  }, [deleteIsSuccess, publishIsSuccess, dispatch, deleteReset, publishReset]);
+    }}, [deleteIsSuccess, publishIsSuccess]);
 
   return(
     <AnimationLayout>
       <section className={styles['admin-panel']}>
-        { isLoading &&
+        {isLoading &&
           <Loader/>
         }
-        { !isLoading &&
+        {!isLoading &&
         <>
-          { data.propositions &&
+          { data!.propositions &&
             <form className={styles['proposal-form']}>
               <div className={styles['proposals-container']}>
-                { data.propositions.map((proposition: any) => 
+                { data!.propositions.map((proposition: any) => 
                   <Proposal
                     key={proposition.id}
                     movie={proposition}
@@ -115,7 +113,7 @@ function Admin () {
               </div>
             </form>
           }
-          { !data.propositions &&
+          { !data!.propositions &&
             <div>y'a R frere</div>
           }
           <form className={styles['user-form']}>
@@ -132,7 +130,7 @@ function Admin () {
                   </tr>
                 </thead>
                 <tbody>
-                  { data.users.map((user: any) => 
+                  { data!.users.map((user) => 
                     <User
                       key={user.id}
                       user={user}

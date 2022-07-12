@@ -7,6 +7,11 @@ type AvatarProps = {
     date: string
   }}
 
+/**
+ * @returns Framer-motion animation wrapper
+ * @param img \<img\> path
+ * @param asInfo Object containing username and publishing date 
+ */
 function Avatar({img = undefined, asInfo}: AvatarProps) {
   const imgSrc = img ? img : '/images/user_default.svg';
   const date = asInfo? new Date(asInfo.date)

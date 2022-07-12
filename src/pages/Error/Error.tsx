@@ -11,6 +11,11 @@ type ErrorProps = {
   children?: React.ReactNode
 };
 
+/**
+ * @returns Error Page
+ * @param error       Error log, used for error code.
+ * @param children    Use this to customize error message.
+ */
 function Error({error, children}: ErrorProps) {
   const {pathname} = useLocation();
   const errorStatus = `Erreur ${error ? error.status : 404}`;

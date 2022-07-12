@@ -90,6 +90,7 @@ type DBUserReview = {
     viewed: boolean,
     liked: boolean,
     rating: number | boolean,
+    created_at?: string
 }
 type slot = {
   id: number,

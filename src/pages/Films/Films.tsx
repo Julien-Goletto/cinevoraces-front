@@ -90,7 +90,7 @@ function Films() {
         <Filters/>
         {!isLoading &&
           <div className={styles.grid}>
-            {movies.map((movie) => <Movie movie={movie}/>)}
+            {movies.map((movie) => <Movie movie={movie} key={movie.id}/>)}
           </div>}
         {isLoading &&
           <div className={styles['loader-wrapper']}>
@@ -119,7 +119,7 @@ function Movie({movie}: {movie: DBMovie}) {
   };
   return(
     <>
-      <div className={styles.poster} key={movie.id}>
+      <div className={styles.poster}>
         <Link to={`/film/${movie.id}`}>
           {isLoading && 
             <motion.div 

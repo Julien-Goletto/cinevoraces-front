@@ -3,6 +3,7 @@
 
 .about {
   @include mix.container;
+  min-height: 66vh;
   display: flex;
   flex-direction: column;
   align-items: center;

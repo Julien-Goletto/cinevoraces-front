@@ -1,6 +1,7 @@
 import { ReactComponent as LinkedIn } from './About.linkedin.svg';
 import AnimationLayout from 'components/AnimationLayout/AnimationLayout';
 import styles from './About.module.scss';
+import Footer from 'components/Layout/Footer';
 
 function About() {
   const contributors = [
@@ -26,6 +27,7 @@ function About() {
             </div>))}
         </div>
       </main>
+      <Footer/>
     </AnimationLayout>
   );
 };

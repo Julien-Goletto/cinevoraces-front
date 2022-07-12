@@ -40,7 +40,13 @@
 @mixin p {
   font-weight: 400 ;
   font-size: 1rem;
-}
+  letter-spacing: .02rem;
+  & em {
+    color: var.$primary;
+  }
+  & a {
+    cursor: pointer!important;
+  }}
 @mixin input-text {
   font-size: 0.875rem;
   font-weight: 500;

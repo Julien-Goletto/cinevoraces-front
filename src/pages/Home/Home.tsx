@@ -8,15 +8,13 @@ import AnimationLayout from 'components/AnimationLayout/AnimationLayout';
 import styles from './Home.module.scss';
 
 function Home() {
-  const {isOnline} = useAppSelector(userState);
   return (
     <AnimationLayout>
       <Hero />
       <LastMoviesGrid />
-      <Metrics />
+      <Metrics/>
       <About/>
       <Share/>
-      {!isOnline && <JoinUs />}
       <Footer/>
     </AnimationLayout>
   );
@@ -45,20 +43,30 @@ function Hero() {
 }
 
 function About() {
+  const {isOnline} = useAppSelector(userState);
+  const title = 'Chaque semaine, une découverte !';
   return (
     <section className={styles.about}>
       <div className={styles.wrapper}>
-        <h2 className={`${styles['title']} ${styles['title--top']}`}>Chaque semaine, une découverte !</h2>
+        <h2 className={styles['mobile-title']}>{title}</h2>
         <div className={styles.content}>
           <img src='/images/week-movie.png' alt=''/>
           <div className={styles.text}>
-            <h2 className={`${styles['title']} ${styles['title--bottom']}`}>Chaque semaine, une découverte !</h2>
-            <p style={{marginBottom: '1rem'}}>
-            Une fois par semaine, un membre du ciné-club propose un film à la communauté.
-            </p>
+            <h2 className={styles['tablet-title']}>{title}</h2>
             <p>
-            Plus un film est disponible, plus il sera regardé. Surprenez-nous, mais ne négligez pas l’accessibilité !
+              <em>CinéVoraces</em> rassemble depuis 2020, les passionnés du grand écran au sens large. Comédies, blockbusters,
+              drames, thrillers, films d’auteurs... tous les genres y sont représentés ! Sur le même principe qu’un 
+              club de lecture, chaque semaine, un membre de la communauté propose une oeuvre à visionner. 
+              Il est ensuite possible de débatre et discuter du film sur <em><a>notre serveur discord</a></em>, ou bien directement sur le site dans l’espace commentaire.
             </p>
+            {!isOnline &&
+            <>
+              <p>
+                <br/>
+                Envie de rejoindre l'aventure? <em>Inscrivez-vous</em> pour échanger entre cinéphiles et partager vos films préférés.
+              </p>
+              <Button styleMod='fill-rounded' href='/register'>S'inscrire</Button>
+            </>}
           </div>
         </div>
       </div>
@@ -72,25 +80,10 @@ function Share() {
       <div className={styles.text}>
         <h2>Partagez votre dernière découverte</h2>
         <p>
-        CinéVoraces est avant tout un site <span>communautaire</span>, rejoignez la communauté et <span>intéragissez</span> avec les films : on veut savoir ce que vous en avez pensé.
+        CinéVoraces est avant tout un site <span>communautaire</span>, rejoignez la communauté et <span>intéragissez</span> avec les films: on veut savoir ce que vous en avez pensé!
         </p>
       </div>
       <img src='/images/dec.jpg' alt=''/>
-    </section>
-  );
-}
-
-function JoinUs() {
-  return (
-    <section className={styles.join}>
-      <div className={styles.wrapper}>
-        <div className={styles.text}>
-          <span>Rejoignez-nous.</span>
-          <span>Régalez-vous.</span>
-          <span>Régalez-nous</span>
-        </div>
-        <Button href='/register' styleMod='fill'>S'inscrire</Button>
-      </div>
     </section>
   );
 }

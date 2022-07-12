@@ -87,6 +87,14 @@ function Films() {
   return(
     <AnimationLayout>
       <main className={styles.films}>
+        <div className={styles.presentation}>
+          <h1>Les films de la communautée</h1>
+          <p>
+            Retrouvez tous les films qui ont été proposés par la <em>communauté CinéVoraces</em>.
+            <br/>Ici, chaque année de partage est représentée sous forme de saison: une saison équivaut à une année.
+            <br/>Bonne découverte !
+          </p>
+        </div>
         <Filters/>
         {!isLoading &&
           <div className={styles.grid}>

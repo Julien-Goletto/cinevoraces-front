@@ -1,9 +1,9 @@
-import { useEffect, useState }            from 'react';
-import { Routes, Route, useLocation }     from 'react-router-dom';
-import { AnimatePresence }                from 'framer-motion';
-import { useLazyRefreshTokenQuery }       from 'redux/api';
-import { useAppDispatch, useAppSelector } from 'redux/hooks';
-import { login, userState }               from 'redux/slices/user';
+import { useEffect }                  from 'react';
+import { Routes, Route, useLocation } from 'react-router-dom';
+import { AnimatePresence }            from 'framer-motion';
+import { useLazyRefreshTokenQuery }   from 'redux/api';
+import { useAppDispatch }             from 'redux/hooks';
+import { login }                      from 'redux/slices/user';
 import Cookies     from 'js-cookie';
 import Toast       from 'components/Toasts/Toasts';
 import ResetScroll from 'components/ResetScroll/ResetScroll';

@@ -36,7 +36,7 @@ function Error({error, children}: ErrorProps) {
             </p>}
           {(error && children) && children}
         </div>
-        <Button href='/'>Retourner à l'accueil</Button>
+        <Button to='/'>Retourner à l'accueil</Button>
       </main>
       <div className={styles['last-movies']}>
         <LastMoviesGrid/>

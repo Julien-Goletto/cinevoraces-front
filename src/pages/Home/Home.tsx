@@ -1,3 +1,4 @@
+import { ReactComponent as SVGDiscord } from './Home.discord.svg';
 import { useAppSelector } from 'redux/hooks';
 import { userState } from 'redux/slices/user';
 import { Button } from 'components/Inputs/InputsLib';
@@ -14,12 +15,14 @@ function Home() {
       <LastMoviesGrid />
       <Metrics/>
       <About/>
+      <Discord/>
       <Share/>
       <Footer/>
     </AnimationLayout>
   );
 };
 
+const discordLink = 'https://discord.gg/r6tK5PGyE7';
 
 function Hero() {
   const {isOnline} = useAppSelector(userState);
@@ -31,8 +34,8 @@ function Hero() {
         </h1>
         <p>Chaque semaine, un film à découvrir</p>
         <div className={styles.buttons}>
-          <Button href='/films' styleMod='fill'>Découvrir un film</Button>
-          {!isOnline && <Button href='/register'>S'inscrire</Button>}
+          <Button to='/films' styleMod='fill'>Découvrir un film</Button>
+          {!isOnline && <Button to='/register'>S'inscrire</Button>}
         </div>
       </div>
       <div className={styles['img-wrapper']}>
@@ -57,7 +60,7 @@ function About() {
               <em>CinéVoraces</em> rassemble depuis 2020, les passionnés du grand écran au sens large. Comédies, blockbusters,
               drames, thrillers, films d’auteurs... tous les genres y sont représentés ! Sur le même principe qu’un 
               club de lecture, chaque semaine, un membre de la communauté propose une oeuvre à visionner. 
-              Il est ensuite possible de débatre et discuter du film sur <em><a>notre serveur discord</a></em>, ou bien directement sur le site dans l’espace commentaire.
+              Il est ensuite possible de débatre et discuter du film sur <a href={discordLink} rel='noreferrer' target='_blank'>notre serveur discord</a>, ou bien directement sur le site dans l’espace commentaire.
             </p>
             {!isOnline &&
             <>
@@ -65,7 +68,7 @@ function About() {
                 <br/>
                 Envie de rejoindre l'aventure? <em>Inscrivez-vous</em> pour échanger entre cinéphiles et partager vos films préférés.
               </p>
-              <Button styleMod='fill-rounded' href='/register'>S'inscrire</Button>
+              <Button styleMod='fill-rounded' to='/register'>S'inscrire</Button>
             </>}
           </div>
         </div>
@@ -74,16 +77,40 @@ function About() {
   );
 }
 
+function Discord() {
+  const title = 'Rejoignez le serveur Discord';
+
+  return (
+    <section className={styles.discord}>
+      <h2 className={styles['mobile-title']}>{title}</h2>
+      <div className={styles.wrapper}>
+        <div>
+          <h2 className={styles['tablet-title']}>{title}</h2>
+          <p>
+            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Magni minima mollitia sit quis atque a laboriosam at? Nemo, maiores temporibus? Accusamus veritatis doloribus vel voluptas corporis iure at esse dicta. Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorum quia soluta saepe doloribus rem nulla quod delectus, eveniet labore, doloremque perspiciatis hic, assumenda omnis tempore animi ipsum aspernatur ipsam id!
+          </p>
+          <Button styleMod='fill-rounded' href={discordLink}>Rejoindre le serveur</Button>
+        </div>
+        <SVGDiscord/>
+      </div>
+    </section>
+  );
+}
+
 function Share() {
   return (
     <section className={styles.share}>
-      <div className={styles.text}>
-        <h2>Partagez votre dernière découverte</h2>
-        <p>
-        CinéVoraces est avant tout un site <span>communautaire</span>, rejoignez la communauté et <span>intéragissez</span> avec les films: on veut savoir ce que vous en avez pensé!
-        </p>
+      <div className={styles.wrapper}>
+        <img src='/images/dec.jpg' alt=''/>
+        <div>
+          <h2>Partagez votre dernière découverte</h2>
+          <p>
+            CinéVoraces est avant tout un site <em>communautaire</em>,
+            rejoignez la communauté et <em>intéragissez</em> avec les films.
+            On veut savoir ce que vous en avez pensé!
+          </p>
+        </div>
       </div>
-      <img src='/images/dec.jpg' alt=''/>
     </section>
   );
 }

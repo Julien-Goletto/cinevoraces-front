@@ -38,7 +38,7 @@ function LastMoviesGrid() {
                 </Link>
               </div>)}
           </div>
-          <Button href='/films' styleMod='fill-rounded'>
+          <Button to='/films' styleMod='fill-rounded'>
             Voir la liste des films
           </Button>
         </motion.div>}

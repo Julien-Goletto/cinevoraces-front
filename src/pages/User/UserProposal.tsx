@@ -15,10 +15,7 @@ function UserProposal({id}: {id: string}) {
             <span>&nbsp;pas de proposition de film en attente</span>
             . Une idée? C’est par ici!
           </p>
-          <Button
-            styleMod='fill'
-            href='/proposal'
-          >
+          <Button styleMod='fill' to='/proposal'>
             Proposer un film
           </Button>
         </div>}

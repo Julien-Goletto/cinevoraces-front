@@ -5,16 +5,17 @@ type ButtonProps = {
   children?: React.ReactNode,
   styleMod?: string,
   handler?: React.MouseEventHandler<HTMLElement>,
+  to?: string
   href?: string
 }
 
 /**
  * @return          either \<button\> or \<Link\>
- * @param href      return \<Link\> if used
+ * @param to      return \<Link\> if used
  * @param handler   onClick handler
  * @param styleMod  'fill' | 'rounded' | 'white' (joinded with '-')
  */
-function Button({children, styleMod, handler, href}: ButtonProps)  {
+function Button({children, styleMod, handler, to, href}: ButtonProps)  {
   // Get styleMod and look for keywords in string
   const styleResolver = (searchedString: string) => {
     if (RegExp(`\\b${searchedString}\\b`).test(styleMod!)) {
@@ -34,14 +35,24 @@ function Button({children, styleMod, handler, href}: ButtonProps)  {
   return(
     <>
       {href &&
-        <Link 
+        <a 
           className={className}
-          to={href}
+          href={href}
+          target='_blank'
+          rel='noreferrer'
           onClick={handler}         
         >
           {children}
-        </Link>      }
-      {(!href) &&
+        </a>}
+      {to &&
+        <Link 
+          className={className}
+          to={to}
+          onClick={handler}         
+        >
+          {children}
+        </Link>}
+      {!to && !href &&
         <button
           className={className}
           onClick={handler}

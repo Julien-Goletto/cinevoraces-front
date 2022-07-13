@@ -68,7 +68,7 @@ function Connection() {
           <Button styleMod='fill'>
             Se connecter
           </Button>
-          <Button href='/register' handler={handleModal}>
+          <Button to='/register' handler={handleModal}>
             S'inscrire
           </Button>
         </div>

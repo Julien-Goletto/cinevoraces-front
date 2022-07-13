@@ -1,6 +1,25 @@
 @use '~styles/var';
 @use '~styles/mixins' as mix;
 
+$section-margin: 4rem auto;
+$wrapper-padding: 2rem;
+
+@mixin wrapper {
+  background-color: var.$secondary-background;
+  margin: $section-margin;
+  & .wrapper {
+    @include mix.container;
+    padding-top: $wrapper-padding;
+    padding-bottom: $wrapper-padding;
+    @include mix.breakpoint('tablet') {
+      padding-top: calc($wrapper-padding * 1.5);
+      padding-bottom: calc($wrapper-padding * 1.5);
+    }}}
+@mixin h2 {
+  @include mix.h3;
+  margin-bottom: 1em;
+}
+
 .hero {
   @include mix.container;
   margin: 5em auto 6em auto;
@@ -35,160 +54,14 @@
       border-radius: 10px;
       outline: 4px solid #2D2F37;
       box-shadow: 4.88426px 2.93056px 11.7222px rgba(0, 0, 0, 0.15);
-    }}}
-
-.about {
-  background-color: var.$secondary-background;
-  margin: 4em auto;
-  & .wrapper {
-    @include mix.container;
-    padding-top: 2em;
-    padding-bottom:  2em;
-    & img {
-      width: 230px;
-      height: 100%;
-    }
-    & .content {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 1em;
-    }
-    & a {
-      align-self: flex-end;
-      width: fit-content;
-      margin-top: 1rem;
-    }
-    & h2 {
-      @include mix.h3;
-      margin-bottom: 1em;
-    }
-    & .mobile-title {
-      display: block;
-    }
-    & .tablet-title {
-      display: none;
     }}
   @include mix.breakpoint('tablet') {
-    & .wrapper {
-      & .mobile-title {
-        display: none;
-      }
-      & .tablet-title {
-        display: block;
-      }
-      & > * {
-        width: 95%;
-      }}}}
-
-      
-.text {
-  @include mix.p;
-  @include mix.breakpoint('tablet') {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    width: 100%;
-    & > * {
-      width: 95%;
-    }}}
-
-
-
-.share {
-	@include mix.container;
-	margin: 4em auto;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	& h2 {
-		@include mix.h3;
-		margin-bottom: 1em ;
-	}
-	& img {
-		max-width: 100%;
-		margin-top: 2em;
-		border-radius: 10px;
-		outline: 4px solid #2D2F37;
-		box-shadow: 4.88426px 2.93056px 11.7222px rgba(0, 0, 0, 0.15);
-	}
-	& .text {
-		& span {
-			color: var.$primary
-		}}}
-
-.join {
-  margin: 4em auto;
-  background-color: var.$secondary-background;
-  & .wrapper {
-    @include mix.container;
-    padding-top: 2em;
-    padding-bottom: 2em;
-    & .text {
-      display: flex;
-      gap: 10px;
-      margin-bottom: 1.5em;
-      & span {
-        @include mix.h4;
-      }}
-    & a {
-      width: fit-content;
-    }}}
-
-@media (min-width: 515px) {
-  .about {
-    & .wrapper {
-      & .content {
-        flex-direction: row;
-      }}}}
-@media (max-width: 550px) {
-  .join {
-    & .wrapper {
-      & .text {
-        flex-direction: column;
-      }}}}
-@include mix.breakpoint('tablet') {
-  .hero {
     margin: 7em auto 7em auto;
     & .wrapper {
       & .buttons {
         gap: 2em;
       }}}
-    .join {
-    & .wrapper {
-      padding-top: 3em;
-      padding-bottom:  3em;
-      & .text {
-        display: flex;
-        flex-direction: row;
-        gap: 10px;
-        & span {
-          @include mix.h3;
-        }}}}
-  .share {
-    flex-direction: row;
-    gap: 3em;
-    & img {
-     max-width: 55%; 
-    }
-    & .text {
-      width: 50%;
-    }}
-  .about {
-    & .wrapper {
-      padding-top: 3em;
-      padding-bottom:  3em;
-      & img {
-        width: 250px;
-      }}
-      }}
-@include mix.breakpoint('laptop') {
-	.share {
-		& img {
-			max-width: 100%;
-		}}}
-@include mix.breakpoint('desktop') {
-  .hero {
+  @include mix.breakpoint('desktop') {
     margin: 7em auto 8.5em auto;
     display: flex;
     & .wrapper {
@@ -202,9 +75,134 @@
     & .img-wrapper {
       width: 50%;
       display: block;
+    }}}
+
+.about {
+  @include wrapper;
+  & .wrapper {
+    & .text {
+      text-align: left;
+      & a {
+        align-self: flex-end;
+        width: fit-content;
+        margin-top: 2rem;
     }}
-  .about {
+    & p {
+      @include mix.p;
+    }
+    & h2 {
+      @include h2;
+    }
+    & img {
+      width: 200px;
+      height: 100%;
+    }
+    & .content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1em;
+    }
+    & .mobile-title {
+      display: block;
+    }
+    & .tablet-title {
+      display: none;
+    }}
+  @media screen and (min-width: 670px) {
     & .wrapper {
-      &.content {
-        @include mix.wrapper;
+      & .text {
+        text-align: right;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        & > * {
+          width: 95%;
+        }}
+      & .content {
+        flex-direction: row;
+      }
+      & .mobile-title {
+        display: none;
+      }
+      & .tablet-title {
+        display: block;
+      }
+      & img {
+        width: 250px;
       }}}}
+
+.discord {
+  @include mix.container;
+  & .mobile-title {
+    display: block;
+  }
+  & .tablet-title {
+    display: none;
+  }
+  & h2 {
+    @include h2;
+  }
+  & .wrapper {
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
+    & p {
+      @include mix.p;
+      margin-bottom: 2rem;
+    }
+    & a {
+      width: fit-content;
+    }
+    & svg {
+      border-radius: 15px;
+      fill: var.$primary;
+      min-width: 125px;
+      max-width: 200px;
+    }}
+  @media screen and (min-width: 500px) {
+    & .wrapper {
+      flex-direction: row;
+      gap: 3em;
+    }
+    & .mobile-title {
+      display: none;
+    }
+    & .tablet-title {
+      display: block;
+    }}}
+
+.share {
+  @include wrapper;
+  & .wrapper {
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
+    text-align: left;
+  }
+	& h2 {
+    @include h2;
+	}
+  & p {
+    @include mix.p;
+  }
+	& img {
+		max-width: 100%;
+		margin-top: 2em;
+		border-radius: 10px;
+		outline: 4px solid #2D2F37;
+		box-shadow: 4.88426px 2.93056px 11.7222px rgba(0, 0, 0, 0.15);
+	}
+  @include mix.breakpoint('tablet') {
+    & .wrapper {
+      text-align: right;
+      flex-direction: row;
+      gap: 3em;
+    }
+    & img {
+      max-width: 55%; 
+    }}
+  @include mix.breakpoint('laptop') {
+    & img {
+      max-width: 100%;
+    }}}

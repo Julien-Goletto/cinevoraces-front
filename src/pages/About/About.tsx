@@ -23,7 +23,7 @@ function About() {
   const owners = [
     {
       name: 'Julien GOLETTO',
-      imgSrc: '/images/contributor_1.jpg',
+      imgSrc: '/images/contributor_1.png',
       roles: ['Propriétaire', 'Dev front & back'],
       links: [
         {svg: <SVGLinkedIn/>, link:'https://www.linkedin.com/in/julien-goletto-a589a2203/'}
@@ -72,6 +72,15 @@ function About() {
       contributions: ['Mais il est où Gino?']
     }
   ];
+  const contributors = [
+    {
+      name: 'Disco Blitzkrieg',
+      imgSrc: '/images/contributor_6.jpg',
+      roles: ['Graphiste'],
+      links: [],
+      contributions: ['Icône page d\'erreur']
+    }
+  ];
 
   return (
     <AnimationLayout>
@@ -92,11 +101,14 @@ function About() {
         <h2>Les contributeurs</h2>
         <h3>À l'origine du projet</h3>
         <List>
-          {owners.map(contributor => (
-            <Li {...contributor}/>
-          ))}
+          {owners.map(owner => (
+            <Li {...owner}/>))}
         </List>
         <h3>Nous ont rejoints</h3>
+        <List>
+          {contributors.map(contributor => (
+            <Li {...contributor}/>))}
+        </List>
       </main>
       <Footer/>
     </AnimationLayout>

@@ -23,7 +23,7 @@ function Footer() {
       <footer className={styles.footer}>
         <SVGLogo/>
         <div className={styles.links}>
-          <Link to='/team' className={styles.link}>L'équipe</Link>
+          <Link to='/team' className={styles.link}>À propos de CinéVoraces</Link>
         </div>
         <div className={styles.copyright}>© Tout droit réservé - 2022</div>
       </footer>

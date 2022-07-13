@@ -18,7 +18,7 @@ function Avatar({img = undefined, asInfo}: AvatarProps) {
     .toLocaleDateString('fr-FR', {day:'numeric', month:'long', year:'numeric'}) : null;
 
   return(
-    <div className={styles.user}>
+    <div className={`${styles.user} ${asInfo ? styles['user--info']: ''}`}>
       <img src={imgSrc} alt='Avatar'/>
       {asInfo &&
         <div className={styles.box}>

@@ -13,10 +13,10 @@ function Home() {
     <AnimationLayout>
       <Hero />
       <LastMoviesGrid />
-      <Metrics/>
       <About/>
       <Discord/>
       <Share/>
+      <Metrics/>
       <Footer/>
     </AnimationLayout>
   );

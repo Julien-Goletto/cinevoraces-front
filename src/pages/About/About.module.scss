@@ -1,6 +1,10 @@
 @use '~styles/mixins' as mix;
 @use '~styles/var';
 
+$gap-sml: .8rem;
+$gap: 1.2rem;
+$border-radius: 5px;
+
 .about {
   @include mix.container;
   min-height: 66vh;
@@ -34,7 +38,17 @@
   }
   & .presentation {
     margin: 3rem 0;
-  }
+    & .intro {
+      $quote-margin: .7rem;
+      @include mix.p;
+      margin-bottom: $gap;
+      padding: $gap $gap calc($gap - $quote-margin);
+      & div {
+        margin-bottom: $quote-margin;
+      }
+      & span {
+        font-style: italic;
+      }}}
   @include mix.breakpoint('tablet') {
     ul {
       grid-template-columns: repeat(2, 1fr);
@@ -49,13 +63,11 @@
     }}}
 
 .contributors {
-  $gap-sml: .8rem;
-  $gap: 1.2rem;
   text-align: left;
   margin-bottom: 1rem;
   & .card {
     background-color: var.$secondary-background;
-    border-radius: 5px;
+    border-radius: $border-radius;
     padding: $gap;
     display: flex;
     flex-direction: column;

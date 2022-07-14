@@ -95,11 +95,32 @@ function About() {
       <main className={styles.about}>
         <div className={styles.presentation}>
           <h1>À propos de CinéVoraces</h1>
+          <div className={styles.intro}>
+            <div>‟<span>Chéri.e, qu'est-ce qu'on mate ce soir ?</span> ”</div>
+            <div>‟<span>Attends je regarde notre liste de films sur Netflix</span> ”</div>
+            <div>5 minutes plus tard ‟<span>T'as trouvé ?</span> ”</div>
+            <div>‟<span>Non, attends</span> ”</div>
+            <div>1h plus tard ‟<span>Bon sang c'est déjà 22h30, roh la flemme</span> ”</div>
+          </div>
           <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius alias earum hic. Asperiores suscipit commodi, dolorem voluptatum fuga, quas et accusamus eum reiciendis sed doloribus amet, perspiciatis enim ipsum excepturi?
+            Cinévoraces c'est d’abord un petit <em>ciné-club distantiel</em> monté par <em>Julien GOLETTO</em> en 
+            début de pandémie avec des copains. Le principe : tous les lundis, un membre peut, s'il le souhaite,
+            proposer le visionnage d'un film pendant une semaine. On le regarde, on échange par écrit, et une fois par mois
+            un debrief d'une heure est organisé pour en discuter de vive voix, et tout se passe sur Discord.
           </p>
           <p>
-            <em>CinéVoraces</em> et son code source sont la propriété intellectuelle de ses créateurs, il est cependant possible de consulter/copier le code source tant qu'il ne <em>s'agit pas d'un usage commercial</em>.
+            C’est lors de sa formation à <a href='https://oclock.io/' target='_blank' rel='noreferrer'>l’école O’Clock</a> que Julien
+            a l’idée de faire grandir CinéVoraces à l’aide de ses compétences en développement web.
+            Il décide d’orienter son projet de fin de formation vers la création d’une application avec ses 
+            collègues <em>Grégory, Anthony, Joffrey et Gino</em>. C’est comme ça qu’est né <em>CinéVoraces 2.0</em>, et ce n’est que le commencement!
+          </p>
+          <p>
+            De nombreux contributeurs nous ont déjà rejoint. <em>Peut-être serez-vous le prochain ?</em>
+          </p>
+          <p>
+            CinéVoraces et son code source sont la propriété intellectuelle de ses créateurs,
+            il est cependant possible de consulter/copier le code source <em>tant qu'il 
+            ne s'agit pas d'un usage commercial</em>.
           </p>
           <div className={styles.links}>
             <Button href={'https://github.com/Julien-Goletto/cinevoraces-front'}>Consulter le dépôt GitHub Front</Button>

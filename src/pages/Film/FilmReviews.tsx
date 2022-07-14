@@ -97,10 +97,24 @@ function FilmReviews({userId, movieId}: FilmReviewsProps) {
               comment={comment}
               note={rating}/>))}
         </>}
-      {!reviewsData && 
-        <p className={styles.empty}>
-          Aucun commentaire pour ce film
-        </p>}
+      {!reviewsData &&
+        <>
+          <p className={styles.empty}>
+            Aucun commentaire pour ce film
+          </p>
+          {userId &&
+            <>
+              {!isPost &&
+              <div className={styles['button-wrapper']}>
+                <Button handler={handleIsPost}>Ajouter un commentaire</Button>
+              </div>}
+              {isPost && 
+                <AddReview 
+                  userId={userId}
+                  movieId={movieId}
+                  setIsEdit={handleIsPost}/>}
+            </>}  
+        </>}
     </section>
   );
 };
@@ -141,7 +155,10 @@ function AddReview({userId, movieId, review, setIsEdit}: AddReviewProps) {
   return (
     <>
       <div className={styles['post-review']}>
-        <Avatar img={avatar} asInfo={{username: pseudo, date: review!.date}}/>
+        <Avatar 
+          img={avatar}
+          asInfo={{username: pseudo, date: review ? review.date : new Date().toString()}}
+        />
         <div className={styles.form}>
           <form onSubmit={handleSubmit}>
             <label>

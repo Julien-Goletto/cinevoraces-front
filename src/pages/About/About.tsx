@@ -40,8 +40,7 @@ function About() {
         {svg: <SVGGit/>, link: 'https://github.com/BenoitSafari'},
         {svg: <SVGWeb/>, link: 'https://benoitsafari.com'}
       ],
-      contributions: ['Tout le front']
-      // Management dépôt git front', 'Filtrage des films', 'Page Films
+      contributions: ['Management dépôt git front', 'Integration', 'Fonctionnalités Front']
     },
     {
       name: 'Anthony ESPIRAT',
@@ -52,7 +51,7 @@ function About() {
         {svg: <SVGGit/>, link: 'https://github.com/anthonyespirat'},
         {svg: <SVGWeb/>, link: 'https://e-anthony.fr/'}
       ],
-      contributions: ['Design du site', 'Integration', 'Systeme d\'authentification', 'Toast', 'debug']
+      contributions: ['Design du site', 'Integration', 'Fonctionnalités Front']
     },
     {
       name: 'Joffrey D\'ORTOLI',
@@ -71,7 +70,7 @@ function About() {
       links: [
         {svg: <SVGLinkedIn/>, link: 'https://www.linkedin.com/in/gino-salom%C3%A9-0a10ba139/'},
       ],
-      contributions: ['Mais il est où Gino?']
+      contributions: ['Integration', 'Fonctionnalités Front']
     }
   ];
   const contributors = [
@@ -81,7 +80,14 @@ function About() {
       roles: ['Graphiste'],
       links: [],
       contributions: ['Icône page d\'erreur']
-    }
+    },
+    {
+      name: 'Camille MICHALAK',
+      imgSrc: '/images/contributor_7.jpg',
+      roles: ['Chargée de Marketing & Communication'],
+      links: [{svg:<SVGLinkedIn/>, link: 'https://www.linkedin.com/in/camille-michalak-a2600982/'}],
+      contributions: ['Rédaction Web', 'Conseils SEO & Communication']
+    },
   ];
 
   return (
@@ -103,13 +109,13 @@ function About() {
         <h2>Les contributeurs</h2>
         <h3>À l'origine du projet</h3>
         <List>
-          {owners.map(owner => (
-            <Li {...owner}/>))}
+          {owners.map((owner, index) => (
+            <ListElement key={index} {...owner}/>))}
         </List>
         <h3>Nous ont rejoint</h3>
         <List>
-          {contributors.map(contributor => (
-            <Li {...contributor}/>))}
+          {contributors.map((contributor, index) => (
+            <ListElement key={index} {...contributor}/>))}
         </List>
       </main>
       <Footer/>
@@ -125,7 +131,7 @@ function List({children}: ListProps) {
   );
 }
 
-function Li(props: LiProps) {
+function ListElement(props: LiProps) {
   const {imgSrc, name, pseudo, roles, links, contributions} = props;
   return(
     <li className={styles.card}>
@@ -134,11 +140,11 @@ function Li(props: LiProps) {
           <strong><em>{name}</em></strong>
           {pseudo && 
             <span className={styles.pseudo}>{pseudo}</span>}
-          {roles.map(role =>(
-            <span>{role}</span>))}
+          {roles.map((role, index) =>(
+            <span key={index}>{role}</span>))}
           <div className={`${styles.row} ${styles['row--links']}`}>
-            {links.map(({svg, link}) => (
-              <a href={link} target={'_blank'} rel='noreferrer'>
+            {links.map(({svg, link}, index) => (
+              <a key={index} href={link} target={'_blank'} rel='noreferrer'>
                 {svg}
               </a>
             ))}
@@ -149,8 +155,8 @@ function Li(props: LiProps) {
       <strong>Contributions</strong>
       <div className={styles.col}>
         <ul className={styles.col}>
-          {contributions.map(contribution => (
-            <li>{contribution}</li>
+          {contributions.map((contribution, index) => (
+            <li key={index}>{contribution}</li>
           ))}
         </ul>
       </div>

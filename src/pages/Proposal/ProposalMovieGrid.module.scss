@@ -51,11 +51,12 @@
   & .directors, .genres {
     margin: 16px 0;
   }
-  & img {
+  & .poster {
     flex: 1;
-    width: 100%;
-    object-fit: contain;
-  }}
+    & img {
+      width: 100%;
+      object-fit: cover;
+    }}}
 .selected {
   background-color: rgba($color: var.$secondary, $alpha: 1);
   color: var.$background;

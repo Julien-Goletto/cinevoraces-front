@@ -39,7 +39,9 @@ function Movie({movie, movieSetter} : MovieProps) {
         <div className={styles.directors}>{directors}</div>
         <div className={styles.genres}>{genres}</div>
       </div>
-      <img src={poster} alt={`Poster de ${movie.french_title}`} />
+      <div className={styles.poster}>
+        <img src={poster} alt={`Poster de ${movie.french_title}`} />
+      </div>
     </div>
   );
 }

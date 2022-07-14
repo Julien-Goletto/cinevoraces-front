@@ -106,7 +106,7 @@ function About() {
           {owners.map(owner => (
             <Li {...owner}/>))}
         </List>
-        <h3>Nous ont rejoints</h3>
+        <h3>Nous ont rejoint</h3>
         <List>
           {contributors.map(contributor => (
             <Li {...contributor}/>))}

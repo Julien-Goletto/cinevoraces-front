@@ -57,7 +57,7 @@ function About() {
           <div className={styles.text}>
             <h2 className={styles['tablet-title']}>{title}</h2>
             <p>
-              <em>CinéVoraces</em> rassemble depuis 2020, les passionnés du grand écran au sens large. Comédies, blockbusters,
+              <em>CinéVoraces</em> rassemble depuis 2020 les passionnés du grand écran au sens large. Comédies, blockbusters,
               drames, thrillers, films d’auteurs... tous les genres y sont représentés ! Sur le même principe qu’un 
               club de lecture, chaque semaine, un membre de la communauté propose une oeuvre à visionner. 
               Il est ensuite possible de débatre et discuter du film sur <a href={discordLink} rel='noreferrer' target='_blank'>notre serveur discord</a>, ou bien directement sur le site dans l’espace commentaire.
@@ -86,9 +86,15 @@ function Discord() {
       <div className={styles.wrapper}>
         <div>
           <h2 className={styles['tablet-title']}>{title}</h2>
-          <p>
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Magni minima mollitia sit quis atque a laboriosam at? Nemo, maiores temporibus? Accusamus veritatis doloribus vel voluptas corporis iure at esse dicta. Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorum quia soluta saepe doloribus rem nulla quod delectus, eveniet labore, doloremque perspiciatis hic, assumenda omnis tempore animi ipsum aspernatur ipsam id!
-          </p>
+          <div className={styles.text}>
+            <p>
+              Vous souhaitez pouvoir échanger avec le reste de la communauté de manière interactive ?
+              Participer aux lives hebdomadaires pour échanger de vive vois sur les films proposés ?
+            </p>
+            <p>
+              Nous sommes de plus en plus nombreux à partager sur cette plateforme. N’hésitez pas à nous rejoindre !
+            </p>
+          </div>
           <Button styleMod='fill-rounded' href={discordLink}>Rejoindre le serveur</Button>
         </div>
         <SVGDiscord/>

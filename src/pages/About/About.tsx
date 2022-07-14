@@ -49,8 +49,10 @@ function About() {
       roles: ['Dev front', 'Designer'],
       links: [
         {svg: <SVGLinkedIn/>, link: 'https://www.linkedin.com/in/anthony-espirat/'},
+        {svg: <SVGGit/>, link: 'https://github.com/anthonyespirat'},
+        {svg: <SVGWeb/>, link: 'https://e-anthony.fr/'}
       ],
-      contributions: ['"Design..." de CinéVoraces', 'Typage de l\'app en <any>']
+      contributions: ['Design du site', 'Integration', 'Systeme d\'authentification', 'Toast', 'debug']
     },
     {
       name: 'Joffrey D\'ORTOLI',

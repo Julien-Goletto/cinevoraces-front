@@ -93,7 +93,9 @@ function Films() {
         <Filters/>
         {!isLoading &&
           <div className={styles.grid}>
-            {movies.map((movie) => <Movie movie={movie} key={movie.id}/>)}
+            {(movies.length === 0) 
+              ? <NotFound/>
+              : movies.map((movie) => <Movie movie={movie} key={movie.id}/>)}
           </div>}
         {isLoading &&
           <div className={styles['loader-wrapper']}>
@@ -136,6 +138,15 @@ function Movie({movie}: {movie: DBMovie}) {
         </Link>
       </div>
     </>
+  );
+}
+
+function NotFound() {
+  // TODO: Design that case
+  return(
+    <div className={styles['not-found']}>
+      Désolé, aucun film ne correspond à votre recherche.
+    </div>
   );
 }
 

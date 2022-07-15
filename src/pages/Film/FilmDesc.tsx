@@ -97,7 +97,6 @@ function Interactions({movie, userId, data}: InteractionProps) {
   // Handlers
   // FIXME: Issue #5
   const handleInteractions = async (type: string) => {
-    console.log(type);
     if (userId) { // Check if logged
       const body = {
         ...state,

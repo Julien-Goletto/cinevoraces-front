@@ -62,7 +62,6 @@ function Films() {
   // Update movies useState with redux filter state
   useEffect(() => {
     if (moviesData && filtersData) {
-      console.log(moviesData);
       // Create checked tag names array
       const checkedGenres: string[] = [];
       const checkedCountries: string[] = [];

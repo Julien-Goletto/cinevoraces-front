@@ -93,8 +93,8 @@ function Films() {
       });
       // By average note
       filteredMovies = filteredMovies.filter(movie => {
-        const filteringRate = avgRate ? avgRate : 5;
-        if (Number(movie.avg_rating) && Number(movie.avg_rating) <= filteringRate) return true;
+        if (avgRate === 0) return true;
+        if (Number(movie.avg_rating) && Number(movie.avg_rating) === avgRate) return true;
       });
       // By movie title
       filteredMovies = filteredMovies.filter(movie => { 

@@ -147,10 +147,12 @@ $wrapper-padding: 2rem;
     display: flex;
     flex-direction: column-reverse;
     align-items: center;
-    & p {
-      @include mix.p;
+    & .text {
       margin-bottom: 2rem;
-    }
+      & p {
+        @include mix.p;
+        margin-bottom: 1rem;
+      }}
     & a {
       width: fit-content;
     }

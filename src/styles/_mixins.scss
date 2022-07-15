@@ -46,6 +46,7 @@
   }
   & a {
     cursor: pointer!important;
+    font-weight: 500;
     color: var.$primary!important;
   }}
 @mixin input-text {

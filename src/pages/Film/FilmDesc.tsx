@@ -83,19 +83,21 @@ function Interactions({movie, userId, data}: InteractionProps) {
   const movieId = movie.id;
   const [postInteraction]             = usePostInteractionMutation();
   const [putInteraction, {isLoading}] = usePutInteractionMutation();
-  // Resolve user interactions state
-  const [state, setState]             = useState({
+  // Resolve user interactions states
+  const [state, setState]             = useState<interactionBody>({
     bookmarked: data ? data.bookmarked : false, 
     viewed: data ? data.viewed : false, 
     liked: data ? data.liked : false, 
-    rating: data ? data.rating : false
   });
+  const [ratingState, setRatingState] = useState(
+    data ? data.rating : false);
   // Resolve if user as reviewed this movie
   const userHasReview = data ? data.created_at : false;
 
   // Handlers
   // FIXME: Issue #5
   const handleInteractions = async (type: string) => {
+    console.log(type);
     if (userId) { // Check if logged
       const body = {
         ...state,
@@ -108,11 +110,10 @@ function Interactions({movie, userId, data}: InteractionProps) {
     }};
   const handleRating = async (n: number) => {
     if (userId) { // Check if logged
-      const body = {...state, rating: n};
       const ids = {userId: userId!, movieId: movieId};
       !userHasReview && await postInteraction({...ids}); // Create review if none
-      await putInteraction({...ids, body: body}); // Send actual review
-      setState(body); // Update local state
+      await putInteraction({...ids, body: {rating: Number(n)}}); // Send actual review
+      setRatingState(Number(n)); // Update local state
     }};
 
   return(
@@ -139,7 +140,7 @@ function Interactions({movie, userId, data}: InteractionProps) {
         loader={isLoading}
       />
       <Interaction
-        value={state.rating}
+        value={ratingState}
         handler={handleRating}
         type='starred'
         count={Number(movie.ratings_count)}

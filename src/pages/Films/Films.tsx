@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from 'redux/hooks';
 import { useGetAllMoviesQuery, useGetAllFiltersQuery } from 'redux/api';
 import { initFilters, filters } from 'redux/slices/filter';
@@ -14,7 +14,7 @@ function Films() {
   const dispatch = useAppDispatch();
   const [queryString, setQueryString] = useState('');
   const {data: filtersData}           = useGetAllFiltersQuery();
-  const {data: moviesData, isLoading} = useGetAllMoviesQuery(queryString);
+  const {data: moviesData, isLoading, isError, error} = useGetAllMoviesQuery(queryString);
   const [movies, setMovies]           = useState<DBMovie[]>([]);
   const {
     mainFilters,
@@ -77,24 +77,27 @@ function Films() {
         isChecked && checkedSeason.push(value!);
       });
       // filter moviesData
-      let filteredMovies = filterTags(checkedSeason, moviesData, 'season'); // Main Filters
+      let filteredMovies = filterTags(checkedSeason, moviesData, 'season');
       filteredMovies = filterTags(checkedGenres, moviesData, 'genres'); 
       filteredMovies = filterTags(checkedCountries, filteredMovies, 'countries');
-      filteredMovies = filteredMovies.filter(movie => { // By periode
+      // By periode
+      filteredMovies = filteredMovies.filter(movie => { 
         const date = new Date(movie.release_date);
         const year = date.getFullYear();
         if (year >= periode.stateValues[0] && year <= periode.stateValues[1]) {
           return true;
         }});
-      filteredMovies = filteredMovies.filter (movie => { // By runtime
+      // By runtime
+      filteredMovies = filteredMovies.filter (movie => { 
         if (movie.runtime <= runtime.value) return true;
       });
-      filteredMovies = filteredMovies.filter(movie => { // by average note
+      // By average note
+      filteredMovies = filteredMovies.filter(movie => {
         const filteringRate = avgRate ? avgRate : 5;
-        console.log(filteringRate);
-        if (Number(movie.avg_rating) <= filteringRate) return true;
+        if (Number(movie.avg_rating) && Number(movie.avg_rating) <= filteringRate) return true;
       });
-      filteredMovies = filteredMovies.filter(movie => { // By movie title
+      // By movie title
+      filteredMovies = filteredMovies.filter(movie => { 
         return movie.french_title.toLowerCase().includes(query.toLowerCase());
       });
       setMovies(filteredMovies);
@@ -105,11 +108,20 @@ function Films() {
       <main className={styles.films}>
         <Filters/>
         {!isLoading &&
-          <div className={styles.grid}>
-            {(movies.length === 0) 
-              ? <NotFound/>
-              : movies.map((movie) => <Movie movie={movie} key={movie.id}/>)}
-          </div>}
+          <>
+            {/* Handle fetch errors */}
+            {isError &&
+              <NotFound error={error}/>}
+            {/* Handle no corresponding movie */}
+            {!isError && (movies.length === 0) &&
+              <NotFound/>}
+            {/* Handle success */}
+            {!isError && movies.length > 0 && 
+              <div className={styles.grid}>
+                {movies.map((movie) => 
+                  <Movie movie={movie} key={movie.id}/>)}
+              </div>}
+          </>}
         {isLoading &&
           <div className={styles['loader-wrapper']}>
             <Loader />
@@ -154,11 +166,12 @@ function Movie({movie}: {movie: DBMovie}) {
   );
 }
 
-function NotFound() {
+function NotFound({error}: any) {
   // TODO: Design that case
   return(
     <div className={styles['not-found']}>
-      Désolé, aucun film ne correspond à votre recherche.
+      {error && (error.status === 404) && 'Vous n\'avez aucun film enregistré dans votre liste.'}
+      {!error && 'Désolé, aucun film ne correspond à votre recherche.'}
     </div>
   );
 }

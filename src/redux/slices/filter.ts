@@ -44,7 +44,8 @@ const filterSlice = createSlice({
       payload.forEach(({seasons_list, genres_list, countries_list}) => {
         // Set Seasons
         let formatedData: Array<{name: string, isChecked: boolean, value?: string}> = [
-          {name: 'Tout les films', value: '', isChecked: false}
+          {name: 'Tout les films', value: '', isChecked: false},
+          {name: 'Ma liste', value: 'bookmarked=true', isChecked: false},
         ]; // Formated data container
         let constructor: Array<number[] | string> = []; // Constructor container
         seasons_list.forEach((season) => {

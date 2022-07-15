@@ -35,7 +35,7 @@ const baseQueryWithReauth: BaseQueryFn<string | FetchArgs, unknown, FetchBaseQue
 
 export const api = createApi({
   reducerPath: 'api',
-  baseQuery: baseQueryWithReauth, tagTypes: ['Movie', 'Reviews', 'Propositions', 'Users', 'UserParams'],
+  baseQuery: baseQueryWithReauth, tagTypes: ['Movie', 'MoviesArray', 'Reviews', 'Propositions', 'Users', 'UserParams'],
   endpoints: (build) => ({
     // SESSION
     register: build.mutation<string, {[key: string]: string}>({
@@ -61,7 +61,8 @@ export const api = createApi({
       query: () => ({url: 'v1/movies/lastmovie', method: 'GET'})
     }),
     getAllMovies: build.query<DBMovie[], string>({
-      query: (query) =>  ({url: `/v1/movies/search/${query}`, method: 'GET'})
+      query: (query) =>  ({url: `/v1/movies/search/${query}`, method: 'GET'}),
+      providesTags: ['MoviesArray']
     }),
     getUserMetrics: build.query<{[key: string]: number}[], id>({
       query: (id) => ({url: `/v1/metrics/${id}`, method: 'GET'})
@@ -106,7 +107,7 @@ export const api = createApi({
     }),
     putInteraction: build.mutation<string, {userId: id, movieId: id, body: interactionBody}>({
       query: ({userId, movieId, body}) => ({url : `/v1/reviews/${userId}/${movieId}`, method: 'PUT', body: body}),
-      invalidatesTags: ['Movie', 'Reviews'] 
+      invalidatesTags: ['Movie', 'MoviesArray', 'Reviews'] 
     }),
     // POST
     postMovie: build.mutation<string, proposalBody>({

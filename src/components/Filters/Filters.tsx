@@ -12,6 +12,7 @@ import {
   setAverageRateVal,
   resetFilters
 } from 'redux/slices/filter';
+import { userState } from 'redux/slices/user';
 import { Button, InputCheckbox, InputRange, DoubleInputRange, InputStar } from 'components/Inputs/InputsLib';
 import { FilterMenu, DropDown } from './FilterMenu';
 import { ReactComponent as SVGReset } from './FilterMenu.reset.svg';
@@ -34,8 +35,8 @@ function Filters() {
     periode,
     runtime,
     avgRate,
-    isDefault} = useAppSelector(filters);
-
+    isDefault}     = useAppSelector(filters);
+  const {isOnline} = useAppSelector(userState);
   const handleFilterMenu = () => {
     (isFilterMenu) ? setFilterMenu(false) : setFilterMenu(true);
   };
@@ -142,6 +143,7 @@ function Filters() {
         setter={handleSeasonSetter}
         queryState={query}
         querySetter={handleSearchBarQuery}
+        isOnline={isOnline}
       />
     </div>
   );

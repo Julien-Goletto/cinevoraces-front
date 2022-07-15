@@ -8,9 +8,12 @@ import {
   setGenreFilter,
   setPeriodeMinVal,
   setPeriodeMaxVal,
+  setRuntimeVal,
+  setAverageRateVal,
   resetFilters
 } from 'redux/slices/filter';
-import { Button, InputText, InputCheckbox, InputRadio, DoubleInputRange } from 'components/Inputs/InputsLib';
+import { userState } from 'redux/slices/user';
+import { Button, InputCheckbox, InputRange, DoubleInputRange, InputStar } from 'components/Inputs/InputsLib';
 import { FilterMenu, DropDown } from './FilterMenu';
 import { ReactComponent as SVGReset } from './FilterMenu.reset.svg';
 import { ReactComponent as SVGFilterClosed } from './FilterMenu.isClosed.svg';
@@ -24,8 +27,16 @@ import SearchBar from './FilterSearchBar';
 function Filters() {
   const [isFilterMenu, setFilterMenu] = useState(false);
   const dispatch = useAppDispatch();
-  const {mainFilters, query, genre, country, periode, isDefault} = useAppSelector(filters);
-
+  const {
+    mainFilters,
+    query,
+    genre,
+    country,
+    periode,
+    runtime,
+    avgRate,
+    isDefault}     = useAppSelector(filters);
+  const {isOnline} = useAppSelector(userState);
   const handleFilterMenu = () => {
     (isFilterMenu) ? setFilterMenu(false) : setFilterMenu(true);
   };
@@ -35,10 +46,10 @@ function Filters() {
   const handleSeasonSetter = (event: React.ChangeEvent<HTMLInputElement>) => {
     dispatch(setMainFilter(event.target.value));
   };
-  const handleCountryFilter = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleCountrySetter = (event: React.ChangeEvent<HTMLInputElement>) => {
     dispatch(setCountryFilter(event.target.value));
   };
-  const handleGenreFilter = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleGenreSetter = (event: React.ChangeEvent<HTMLInputElement>) => {
     dispatch(setGenreFilter(event.target.value));
   };
   const handleMinPeriodeSetter = (value: number) => {
@@ -46,6 +57,15 @@ function Filters() {
   };
   const handleMaxPeriodeSetter = (value: number) => {
     dispatch(setPeriodeMaxVal(value));
+  };
+  const handleRuntimSetter = (value: number) => {
+    dispatch(setRuntimeVal(value));
+  };
+  const handleAverageRateSetter = (value: number) => {
+    dispatch(setAverageRateVal(value));
+  };
+  const handleAverageRateReset = () => {
+    dispatch(setAverageRateVal(0));
   };
   const handleSearchBarQuery = (event: React.ChangeEvent<HTMLInputElement>) => {
     dispatch(setQuery(event.target.value));
@@ -71,7 +91,7 @@ function Filters() {
                   <InputCheckbox
                     name={name}
                     isChecked={isChecked}
-                    handler={handleGenreFilter}
+                    handler={handleGenreSetter}
                   />
                 </li>))}
             </DropDown>
@@ -81,9 +101,18 @@ function Filters() {
                   <InputCheckbox
                     name={name}
                     isChecked={isChecked}
-                    handler={handleCountryFilter}
+                    handler={handleCountrySetter}
                   />
                 </li>))}
+            </DropDown>
+            <DropDown name={'Durée'}>
+              <InputRange
+                min={0}
+                max={runtime.maxValue}
+                stateValue={runtime.value}
+                setter={handleRuntimSetter}
+                label={'runtime'}
+              />
             </DropDown>
             <DropDown name={'Année de sortie'}>
               <DoubleInputRange
@@ -93,8 +122,19 @@ function Filters() {
                 valueMax={periode.stateValues[1]}
                 minSetter={handleMinPeriodeSetter}
                 maxSetter={handleMaxPeriodeSetter}
-                label='Période'
+                label='Année de sortie'
               />
+            </DropDown>
+            <DropDown name={'Note moyenne'}>
+              <div className={styles['input-star-container']}>
+                {/* FIXME: InputStar does not re-render as expected */}
+                {(avgRate === 0) && <InputStar value={avgRate} setter={handleAverageRateSetter} isInput/>}
+                {(avgRate !== 0) && 
+                  <>
+                    <InputStar value={avgRate} setter={handleAverageRateSetter} isInput/>
+                    <button onClick={handleAverageRateReset}><SVGReset/></button>
+                  </>}
+              </div>
             </DropDown>
           </FilterMenu>}
       </div>
@@ -103,6 +143,7 @@ function Filters() {
         setter={handleSeasonSetter}
         queryState={query}
         querySetter={handleSearchBarQuery}
+        isOnline={isOnline}
       />
     </div>
   );

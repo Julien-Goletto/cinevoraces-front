@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from 'redux/hooks';
 import { useGetAllMoviesQuery, useGetAllFiltersQuery } from 'redux/api';
 import { initFilters, filters } from 'redux/slices/filter';
@@ -14,9 +14,16 @@ function Films() {
   const dispatch = useAppDispatch();
   const [queryString, setQueryString] = useState('');
   const {data: filtersData}           = useGetAllFiltersQuery();
-  const {data: moviesData, isLoading} = useGetAllMoviesQuery(queryString);
+  const {data: moviesData, isLoading, isError, error} = useGetAllMoviesQuery(queryString);
   const [movies, setMovies]           = useState<DBMovie[]>([]);
-  const {mainFilters, genre, country, periode, query} = useAppSelector(filters);
+  const {
+    mainFilters,
+    genre,
+    country,
+    periode,
+    runtime,
+    avgRate,
+    query} = useAppSelector(filters);
 
   // Resolve tags filtering
   const filterTags = (tagsArray: string[], movieArray: DBMovie[], tagsField: string) => {
@@ -55,6 +62,7 @@ function Films() {
   // Update movies useState with redux filter state
   useEffect(() => {
     if (moviesData && filtersData) {
+      console.log(moviesData);
       // Create checked tag names array
       const checkedGenres: string[] = [];
       const checkedCountries: string[] = [];
@@ -70,19 +78,30 @@ function Films() {
       });
       // filter moviesData
       let filteredMovies = filterTags(checkedSeason, moviesData, 'season');
-      filteredMovies = filterTags(checkedGenres, moviesData, 'genres');
+      filteredMovies = filterTags(checkedGenres, moviesData, 'genres'); 
       filteredMovies = filterTags(checkedCountries, filteredMovies, 'countries');
-      filteredMovies = filteredMovies.filter((movie: DBMovie) => {
+      // By periode
+      filteredMovies = filteredMovies.filter(movie => { 
         const date = new Date(movie.release_date);
         const year = date.getFullYear();
         if (year >= periode.stateValues[0] && year <= periode.stateValues[1]) {
           return true;
         }});
-      filteredMovies = filteredMovies.filter((movie: DBMovie) => {
+      // By runtime
+      filteredMovies = filteredMovies.filter (movie => { 
+        if (movie.runtime <= runtime.value) return true;
+      });
+      // By average note
+      filteredMovies = filteredMovies.filter(movie => {
+        const filteringRate = avgRate ? avgRate : 5;
+        if (Number(movie.avg_rating) && Number(movie.avg_rating) <= filteringRate) return true;
+      });
+      // By movie title
+      filteredMovies = filteredMovies.filter(movie => { 
         return movie.french_title.toLowerCase().includes(query.toLowerCase());
       });
       setMovies(filteredMovies);
-    }}, [moviesData, filtersData, mainFilters, genre, country, periode, query]);
+    }}, [moviesData, filtersData, mainFilters, genre, country, periode, runtime, avgRate, query]);
   
   return(
     <AnimationLayout>
@@ -97,9 +116,20 @@ function Films() {
         </div>
         <Filters/>
         {!isLoading &&
-          <div className={styles.grid}>
-            {movies.map((movie) => <Movie movie={movie} key={movie.id}/>)}
-          </div>}
+          <>
+            {/* Handle fetch errors */}
+            {isError &&
+              <NotFound error={error}/>}
+            {/* Handle no corresponding movie */}
+            {!isError && (movies.length === 0) &&
+              <NotFound/>}
+            {/* Handle success */}
+            {!isError && movies.length > 0 && 
+              <div className={styles.grid}>
+                {movies.map((movie) => 
+                  <Movie movie={movie} key={movie.id}/>)}
+              </div>}
+          </>}
         {isLoading &&
           <div className={styles['loader-wrapper']}>
             <Loader />
@@ -141,6 +171,18 @@ function Movie({movie}: {movie: DBMovie}) {
         </Link>
       </div>
     </>
+  );
+}
+
+function NotFound({error}: any) {
+  // TODO: Design that case
+  return(
+    <div className={styles['not-found']}>
+      <p>
+        {error && (error.status === 404) && 'Vous n\'avez aucun film enregistré dans votre liste.'}
+        {!error && 'Désolé, aucun film ne correspond à votre recherche.'}
+      </p>
+    </div>
   );
 }
 

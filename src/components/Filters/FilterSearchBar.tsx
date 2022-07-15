@@ -8,26 +8,32 @@ interface SearchBarProps {
   setter(e: React.ChangeEvent): void,
   queryState: string,
   querySetter(e: React.ChangeEvent): void
+  isOnline: boolean
 }
 
-function SearchBar ({state, setter, queryState, querySetter}: SearchBarProps) {
+function SearchBar ({state, setter, queryState, querySetter, isOnline}: SearchBarProps) {
   const [dropDownMenu, setDropDownMenu] = useState<boolean>(false);
   const handleDropDown = () => {
     setDropDownMenu(!dropDownMenu);
   };
+  const filteredState = state.filter(stateEntry => {
+    if (stateEntry.value === 'bookmarked=true' && !isOnline) {
+      return false;
+    } else {
+      return true;
+    }});
 
   return(
     <div className={styles['search-bar']}>
       <button onClick={handleDropDown}>
-        { state
+        {filteredState
           .filter(({isChecked}) => isChecked) 
-          .map(({name}) => name)
-        }
+          .map(({name}) => name)}
       </button>
-      { dropDownMenu &&
+      {dropDownMenu &&
       <>
         <FilterMenu handleClose={handleDropDown}>
-          { state.map(({name, value, isChecked}, index) => (
+          {filteredState.map(({name, value, isChecked}, index) => (
             <div key={index}>
               <InputRadio
                 field='main-filter'
@@ -36,11 +42,9 @@ function SearchBar ({state, setter, queryState, querySetter}: SearchBarProps) {
                 isChecked={isChecked}
                 handler={setter}
               />
-            </div>
-          ))}
+            </div>))}
         </FilterMenu>
-      </>
-      }
+      </>}
       <input 
         name='search-movie'
         type='text'

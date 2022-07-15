@@ -46,7 +46,14 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-    }}}
+    }}
+  .not-found {
+    @include mix.p;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 67vh;
+  }}
 
 @media screen and (max-width: 420px) {
   .films .grid {

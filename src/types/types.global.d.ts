@@ -8,7 +8,7 @@ type user = {
 }
 type id = number | string;
 type interactionBody = {
-  [key: string]: number | boolean | string,
+  [x: string]: number | boolean,
 }
 interface movie {
   id: number,

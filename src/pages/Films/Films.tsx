@@ -170,8 +170,10 @@ function NotFound({error}: any) {
   // TODO: Design that case
   return(
     <div className={styles['not-found']}>
-      {error && (error.status === 404) && 'Vous n\'avez aucun film enregistré dans votre liste.'}
-      {!error && 'Désolé, aucun film ne correspond à votre recherche.'}
+      <p>
+        {error && (error.status === 404) && 'Vous n\'avez aucun film enregistré dans votre liste.'}
+        {!error && 'Désolé, aucun film ne correspond à votre recherche.'}
+      </p>
     </div>
   );
 }

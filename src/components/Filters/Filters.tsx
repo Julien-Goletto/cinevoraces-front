@@ -8,9 +8,10 @@ import {
   setGenreFilter,
   setPeriodeMinVal,
   setPeriodeMaxVal,
+  setRuntimeVal,
   resetFilters
 } from 'redux/slices/filter';
-import { Button, InputText, InputCheckbox, InputRadio, DoubleInputRange } from 'components/Inputs/InputsLib';
+import { Button, InputCheckbox, InputRange, DoubleInputRange } from 'components/Inputs/InputsLib';
 import { FilterMenu, DropDown } from './FilterMenu';
 import { ReactComponent as SVGReset } from './FilterMenu.reset.svg';
 import { ReactComponent as SVGFilterClosed } from './FilterMenu.isClosed.svg';
@@ -24,7 +25,7 @@ import SearchBar from './FilterSearchBar';
 function Filters() {
   const [isFilterMenu, setFilterMenu] = useState(false);
   const dispatch = useAppDispatch();
-  const {mainFilters, query, genre, country, periode, isDefault} = useAppSelector(filters);
+  const {mainFilters, query, genre, country, periode, runtime, isDefault} = useAppSelector(filters);
 
   const handleFilterMenu = () => {
     (isFilterMenu) ? setFilterMenu(false) : setFilterMenu(true);
@@ -46,6 +47,9 @@ function Filters() {
   };
   const handleMaxPeriodeSetter = (value: number) => {
     dispatch(setPeriodeMaxVal(value));
+  };
+  const handleRuntimSetter = (value: number) => {
+    dispatch(setRuntimeVal(value));
   };
   const handleSearchBarQuery = (event: React.ChangeEvent<HTMLInputElement>) => {
     dispatch(setQuery(event.target.value));
@@ -85,17 +89,22 @@ function Filters() {
                   />
                 </li>))}
             </DropDown>
-            <DropDown name={'Année de sortie'}>
-              <DoubleInputRange
-                min={periode.baseValues[0]}
-                max={periode.baseValues[1]}
-                valueMin={periode.stateValues[0]}
-                valueMax={periode.stateValues[1]}
-                minSetter={handleMinPeriodeSetter}
-                maxSetter={handleMaxPeriodeSetter}
-                label='Période'
-              />
-            </DropDown>
+            <InputRange
+              min={0}
+              max={runtime.maxValue}
+              stateValue={runtime.value}
+              setter={handleRuntimSetter}
+              label={'Durée'}
+            />
+            <DoubleInputRange
+              min={periode.baseValues[0]}
+              max={periode.baseValues[1]}
+              valueMin={periode.stateValues[0]}
+              valueMax={periode.stateValues[1]}
+              minSetter={handleMinPeriodeSetter}
+              maxSetter={handleMaxPeriodeSetter}
+              label='Année de sortie'
+            />
           </FilterMenu>}
       </div>
       <SearchBar

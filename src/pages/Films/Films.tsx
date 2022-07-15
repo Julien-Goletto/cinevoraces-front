@@ -16,7 +16,7 @@ function Films() {
   const {data: filtersData}           = useGetAllFiltersQuery();
   const {data: moviesData, isLoading} = useGetAllMoviesQuery(queryString);
   const [movies, setMovies]           = useState<DBMovie[]>([]);
-  const {mainFilters, genre, country, periode, query} = useAppSelector(filters);
+  const {mainFilters, genre, country, periode, runtime, query} = useAppSelector(filters);
 
   // Resolve tags filtering
   const filterTags = (tagsArray: string[], movieArray: DBMovie[], tagsField: string) => {
@@ -72,17 +72,20 @@ function Films() {
       let filteredMovies = filterTags(checkedSeason, moviesData, 'season');
       filteredMovies = filterTags(checkedGenres, moviesData, 'genres');
       filteredMovies = filterTags(checkedCountries, filteredMovies, 'countries');
-      filteredMovies = filteredMovies.filter((movie: DBMovie) => {
+      filteredMovies = filteredMovies.filter(movie => {
         const date = new Date(movie.release_date);
         const year = date.getFullYear();
         if (year >= periode.stateValues[0] && year <= periode.stateValues[1]) {
           return true;
         }});
-      filteredMovies = filteredMovies.filter((movie: DBMovie) => {
+      filteredMovies = filteredMovies.filter (movie => {
+        if (movie.runtime <= runtime.value) return true;
+      });
+      filteredMovies = filteredMovies.filter(movie => {
         return movie.french_title.toLowerCase().includes(query.toLowerCase());
       });
       setMovies(filteredMovies);
-    }}, [moviesData, filtersData, mainFilters, genre, country, periode, query]);
+    }}, [moviesData, filtersData, mainFilters, genre, country, periode, runtime, query]);
   
   return(
     <AnimationLayout>

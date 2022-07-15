@@ -19,7 +19,7 @@ $border-radius: 5px;
   }
   & h3 {
     @include mix.h5;
-    margin-bottom: 1rem;
+    margin: 3rem 0 1.5rem;
   }
   & p {
     @include mix.p;

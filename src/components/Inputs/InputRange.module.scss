@@ -69,15 +69,13 @@ input[type='range'] {
       &--simple {
         position: absolute;
         left: 5rem;
-        right: 0;
-      }
-    }
+        right: 3.5rem;
+      }}
     & .value {
       width: 2.5rem;
       &--simple {
         width: 5rem;
-      }
-    }
+      }}
     & input[type='range'] {
       position: absolute;
       height: 0;
@@ -121,6 +119,4 @@ input[type='range'] {
         &::-webkit-slider-thumb {
         /* CHROME Prevent thumbs to merge  */ 
           margin-left: - calc($range-thumb-size / 3);
-        }
-      }
-    }}
+        }}}}

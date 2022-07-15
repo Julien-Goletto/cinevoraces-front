@@ -89,22 +89,26 @@ function Filters() {
                   />
                 </li>))}
             </DropDown>
-            <InputRange
-              min={0}
-              max={runtime.maxValue}
-              stateValue={runtime.value}
-              setter={handleRuntimSetter}
-              label={'Durée'}
-            />
-            <DoubleInputRange
-              min={periode.baseValues[0]}
-              max={periode.baseValues[1]}
-              valueMin={periode.stateValues[0]}
-              valueMax={periode.stateValues[1]}
-              minSetter={handleMinPeriodeSetter}
-              maxSetter={handleMaxPeriodeSetter}
-              label='Année de sortie'
-            />
+            <DropDown name={'Durée'}>
+              <InputRange
+                min={0}
+                max={runtime.maxValue}
+                stateValue={runtime.value}
+                setter={handleRuntimSetter}
+                label={'runtime'}
+              />
+            </DropDown>
+            <DropDown name={'Année de sortie'}>
+              <DoubleInputRange
+                min={periode.baseValues[0]}
+                max={periode.baseValues[1]}
+                valueMin={periode.stateValues[0]}
+                valueMax={periode.stateValues[1]}
+                minSetter={handleMinPeriodeSetter}
+                maxSetter={handleMaxPeriodeSetter}
+                label='Année de sortie'
+              />
+            </DropDown>
           </FilterMenu>}
       </div>
       <SearchBar

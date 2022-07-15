@@ -31,7 +31,6 @@ function InputRange({min, max, stateValue, setter, label}: InputRangeProps) {
   };
   return (
     <div className={styles['double-input-range']}>
-      <label htmlFor={label}>{label}</label>
       <div className={styles['input-container']}>
         <div className={styles['slider--simple']}>
           <input
@@ -71,7 +70,6 @@ function DoubleInputRange({min, max, valueMin, valueMax, maxSetter, minSetter, l
 
   return (
     <div className={styles['double-input-range']}>
-      <label htmlFor={label}>{label}</label>
       <div className={styles['input-container']}>
         <div className={`${styles['value']}`}>{valueMin}</div>
         <div className={styles['slider']}>

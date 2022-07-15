@@ -41,6 +41,8 @@ const filterSlice = createSlice({
       };
       state.runtime.maxValue = payload[0].max_runtime;
       state.runtime.value = payload[0].max_runtime;
+      // Set Average rate
+      state.avgRate = 0;
       payload.forEach(({seasons_list, genres_list, countries_list}) => {
         // Set Seasons
         let formatedData: Array<{name: string, isChecked: boolean, value?: string}> = [

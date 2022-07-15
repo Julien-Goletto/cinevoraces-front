@@ -16,7 +16,14 @@ function Films() {
   const {data: filtersData}           = useGetAllFiltersQuery();
   const {data: moviesData, isLoading} = useGetAllMoviesQuery(queryString);
   const [movies, setMovies]           = useState<DBMovie[]>([]);
-  const {mainFilters, genre, country, periode, runtime, query} = useAppSelector(filters);
+  const {
+    mainFilters,
+    genre,
+    country,
+    periode,
+    runtime,
+    avgRate,
+    query} = useAppSelector(filters);
 
   // Resolve tags filtering
   const filterTags = (tagsArray: string[], movieArray: DBMovie[], tagsField: string) => {
@@ -55,6 +62,7 @@ function Films() {
   // Update movies useState with redux filter state
   useEffect(() => {
     if (moviesData && filtersData) {
+      console.log(moviesData);
       // Create checked tag names array
       const checkedGenres: string[] = [];
       const checkedCountries: string[] = [];
@@ -69,23 +77,28 @@ function Films() {
         isChecked && checkedSeason.push(value!);
       });
       // filter moviesData
-      let filteredMovies = filterTags(checkedSeason, moviesData, 'season');
-      filteredMovies = filterTags(checkedGenres, moviesData, 'genres');
+      let filteredMovies = filterTags(checkedSeason, moviesData, 'season'); // Main Filters
+      filteredMovies = filterTags(checkedGenres, moviesData, 'genres'); 
       filteredMovies = filterTags(checkedCountries, filteredMovies, 'countries');
-      filteredMovies = filteredMovies.filter(movie => {
+      filteredMovies = filteredMovies.filter(movie => { // By periode
         const date = new Date(movie.release_date);
         const year = date.getFullYear();
         if (year >= periode.stateValues[0] && year <= periode.stateValues[1]) {
           return true;
         }});
-      filteredMovies = filteredMovies.filter (movie => {
+      filteredMovies = filteredMovies.filter (movie => { // By runtime
         if (movie.runtime <= runtime.value) return true;
       });
-      filteredMovies = filteredMovies.filter(movie => {
+      filteredMovies = filteredMovies.filter(movie => { // by average note
+        const filteringRate = avgRate ? avgRate : 5;
+        console.log(filteringRate);
+        if (Number(movie.avg_rating) <= filteringRate) return true;
+      });
+      filteredMovies = filteredMovies.filter(movie => { // By movie title
         return movie.french_title.toLowerCase().includes(query.toLowerCase());
       });
       setMovies(filteredMovies);
-    }}, [moviesData, filtersData, mainFilters, genre, country, periode, runtime, query]);
+    }}, [moviesData, filtersData, mainFilters, genre, country, periode, runtime, avgRate, query]);
   
   return(
     <AnimationLayout>

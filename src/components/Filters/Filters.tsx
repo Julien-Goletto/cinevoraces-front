@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useAppSelector, useAppDispatch } from 'redux/hooks';
 import { 
   filters,
@@ -9,9 +9,10 @@ import {
   setPeriodeMinVal,
   setPeriodeMaxVal,
   setRuntimeVal,
+  setAverageRateVal,
   resetFilters
 } from 'redux/slices/filter';
-import { Button, InputCheckbox, InputRange, DoubleInputRange } from 'components/Inputs/InputsLib';
+import { Button, InputCheckbox, InputRange, DoubleInputRange, InputStar } from 'components/Inputs/InputsLib';
 import { FilterMenu, DropDown } from './FilterMenu';
 import { ReactComponent as SVGReset } from './FilterMenu.reset.svg';
 import { ReactComponent as SVGFilterClosed } from './FilterMenu.isClosed.svg';
@@ -25,7 +26,15 @@ import SearchBar from './FilterSearchBar';
 function Filters() {
   const [isFilterMenu, setFilterMenu] = useState(false);
   const dispatch = useAppDispatch();
-  const {mainFilters, query, genre, country, periode, runtime, isDefault} = useAppSelector(filters);
+  const {
+    mainFilters,
+    query,
+    genre,
+    country,
+    periode,
+    runtime,
+    avgRate,
+    isDefault} = useAppSelector(filters);
 
   const handleFilterMenu = () => {
     (isFilterMenu) ? setFilterMenu(false) : setFilterMenu(true);
@@ -36,10 +45,10 @@ function Filters() {
   const handleSeasonSetter = (event: React.ChangeEvent<HTMLInputElement>) => {
     dispatch(setMainFilter(event.target.value));
   };
-  const handleCountryFilter = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleCountrySetter = (event: React.ChangeEvent<HTMLInputElement>) => {
     dispatch(setCountryFilter(event.target.value));
   };
-  const handleGenreFilter = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleGenreSetter = (event: React.ChangeEvent<HTMLInputElement>) => {
     dispatch(setGenreFilter(event.target.value));
   };
   const handleMinPeriodeSetter = (value: number) => {
@@ -50,6 +59,12 @@ function Filters() {
   };
   const handleRuntimSetter = (value: number) => {
     dispatch(setRuntimeVal(value));
+  };
+  const handleAverageRateSetter = (value: number) => {
+    dispatch(setAverageRateVal(value));
+  };
+  const handleAverageRateReset = () => {
+    dispatch(setAverageRateVal(0));
   };
   const handleSearchBarQuery = (event: React.ChangeEvent<HTMLInputElement>) => {
     dispatch(setQuery(event.target.value));
@@ -75,7 +90,7 @@ function Filters() {
                   <InputCheckbox
                     name={name}
                     isChecked={isChecked}
-                    handler={handleGenreFilter}
+                    handler={handleGenreSetter}
                   />
                 </li>))}
             </DropDown>
@@ -85,7 +100,7 @@ function Filters() {
                   <InputCheckbox
                     name={name}
                     isChecked={isChecked}
-                    handler={handleCountryFilter}
+                    handler={handleCountrySetter}
                   />
                 </li>))}
             </DropDown>
@@ -108,6 +123,17 @@ function Filters() {
                 maxSetter={handleMaxPeriodeSetter}
                 label='Année de sortie'
               />
+            </DropDown>
+            <DropDown name={'Note moyenne'}>
+              <div className={styles['input-star-container']}>
+                {/* FIXME: InputStar does not re-render as expected */}
+                {(avgRate === 0) && <InputStar value={avgRate} setter={handleAverageRateSetter} isInput/>}
+                {(avgRate !== 0) && 
+                  <>
+                    <InputStar value={avgRate} setter={handleAverageRateSetter} isInput/>
+                    <button onClick={handleAverageRateReset}><SVGReset/></button>
+                  </>}
+              </div>
             </DropDown>
           </FilterMenu>}
       </div>

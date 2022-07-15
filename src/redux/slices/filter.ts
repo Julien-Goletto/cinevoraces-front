@@ -6,7 +6,8 @@ type filterState = {
   genre: filter[],
   country: filter[],
   periode: {[key: string]: number[]},
-  runtime: {[key: string]: number}
+  runtime: {[key: string]: number},
+  avgRate: number,
   query: string,
   isDefault: boolean,
   isLogged: boolean
@@ -19,6 +20,7 @@ const initialState: filterState = {
     stateValues: [1919, new Date().getFullYear()]
   },
   runtime: {maxValue: 200, value: 0},
+  avgRate: 0,
   genre: [],
   country: [],
   query: '',
@@ -87,9 +89,10 @@ const filterSlice = createSlice({
           el.isChecked = false;
         });
       });
-      // Reset Periodes
+      // Reset range values
       state.periode.stateValues = state.periode.baseValues;
       state.runtime.value = state.runtime.maxValue;
+      state.avgRate = 0;
       state.isDefault = true;
     },
     setMainFilter(state, action) {
@@ -124,10 +127,13 @@ const filterSlice = createSlice({
       state.runtime.value = action.payload;
       state.isDefault = false;
     },
+    setAverageRateVal(state, action) {
+      state.avgRate = action.payload;
+      state.isDefault = false;
+    },
     setQuery(state, action) {
       state.query = action.payload;
-    }
-  }});
+    }}});
 
 export const filters = (state: RootState) => state.filter;
 export const { 
@@ -139,6 +145,7 @@ export const {
   setPeriodeMinVal, 
   setPeriodeMaxVal,
   setRuntimeVal,
+  setAverageRateVal,
   setQuery
 } = filterSlice.actions;
 export default filterSlice.reducer;

@@ -14,6 +14,8 @@ $transition: .3s;
   border-radius: $border-radius;
   font-size: .9rem;
   & button {
+    color: var.$white;
+    width: fit-content;
     user-select: none;
     font-weight: 500;
     white-space:nowrap;

@@ -16,6 +16,7 @@ $second-border: 0px -2px 0px #FC783F;
 .interaction {
   position: relative;
   & button {
+    color: var.$white;
     flex-direction: column;
     gap: $gap;
     width: 55px;

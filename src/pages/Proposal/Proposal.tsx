@@ -30,8 +30,8 @@ function Proposal() {
   const {id, isOnline}     = useAppSelector(userState);
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const [selectedSlot, setSelectedSlot] = useState<{[key: string]: string}>();
-  const [movie, setMovie]               = useState<movieProposal>();
+  const [selectedSlot, setSelectedSlot] = useState<{[key: string]: string | number}>();
+  const [movie, setMovie]               = useState<proposalBody>();
   const [comment, setComment]           = useState('');
   const [query, setQuery]               = useState('');
   const [sendBook, {isSuccess: isBookHandleSuccess}] = usePutSlotMutation();
@@ -49,9 +49,8 @@ function Proposal() {
     const slot = slots!.find((slot) => String(slot.episode) === e.currentTarget.value);
     // Update state if slot is defined 
     slot && setSelectedSlot({
-      episode_selected: String(slot.episode),
-      episode_publish_date: slot.publishing_date,
-      season_id: String(slot.season_number)
+      publishing_date: slot.publishing_date,
+      season_id: slot.season_number
     });
   };
   const handleMovieSelect = (id: number) => {
@@ -78,9 +77,25 @@ function Proposal() {
       || movie.poster_url === 'https://image.tmdb.org/t/p/originalnull') {
       return dispatch(addToast({type: 'error', text:'Sélection invalide'}));
     } else {
-      sendPost({
+      console.log({
         ...selectedSlot,
         ...movie,
+        presentation: comment,
+        user_id: id!
+      });
+      sendPost({
+        publishing_date: String(selectedSlot.publishing_date),
+        season_id: Number(selectedSlot.season_id),
+        french_title: movie.french_title,
+        original_title: movie.original_title,
+        poster_url: movie.poster_url,
+        directors: movie.directors,
+        release_date: movie.release_date,
+        runtime: movie.runtime,
+        casting: movie.casting,
+        movie_genres: movie.movie_genres,
+        movie_languages: movie.movie_languages,
+        movie_countries: movie.movie_countries,
         presentation: comment,
         user_id: id!
       });
@@ -89,7 +104,7 @@ function Proposal() {
   // Handle post success
   useEffect(() => {
     isPostMovieSuccess && sendBook({
-      publishing_date: selectedSlot!.publishing_date
+      publishing_date: String(selectedSlot!.publishing_date)
     });
   }, [isPostMovieSuccess]);
 

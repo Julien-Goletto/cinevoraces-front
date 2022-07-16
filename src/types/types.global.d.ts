@@ -26,8 +26,21 @@ interface movie {
 interface movieProposal extends movie {
   movie_genres: string[],
 }
-interface proposalBody extends movieProposal {
+type proposalBody = {
+  french_title: string,
+  original_title: string,
+  poster_url: string,
+  directors: string[],
+  release_date: string,
+  runtime: number,
+  casting: string[],
   presentation: string, 
+  publishing_date: string,
+  user_id: number,
+  season_id: number,
+  movie_genres: string[],
+  movie_languages: string[],
+  movie_countries: string[]
 }
 // Responses
 interface DBMovie extends movie {

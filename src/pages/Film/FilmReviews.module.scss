@@ -57,7 +57,15 @@
   border-radius: 10px;
   margin: 2em 0;
   & .form {
+    position: relative;
     width: 100%;
+    & .wrapper-loader {
+      position: absolute;
+      width: 100%;
+      margin-top: 50px;
+      display: flex;
+      justify-content: center;
+    }
   }
   & .textarea {
     width: 100%;

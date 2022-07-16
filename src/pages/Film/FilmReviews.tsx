@@ -8,6 +8,7 @@ import { addToast } from 'redux/slices/global';
 import useSeeMore from 'hooks/useSeeMore';
 import styles from './FilmReviews.module.scss';
 import Avatar from 'components/Avatar/Avatar';
+import Loader from 'components/Loader/Loader';
 
 type ReviewProps = {
   avatar: string,
@@ -136,7 +137,7 @@ function AddReview({userId, movieId, review, setIsEdit}: AddReviewProps) {
   const dispatch          = useAppDispatch();
   const {avatar, pseudo}  = useAppSelector(userState);
   const [postInteraction] = usePostInteractionMutation();
-  const [putInteraction]  = usePutInteractionMutation();
+  const [putInteraction, {isLoading}]  = usePutInteractionMutation();
 
   // FIXME: Issue #5
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -161,6 +162,10 @@ function AddReview({userId, movieId, review, setIsEdit}: AddReviewProps) {
         />
         <div className={styles.form}>
           <form onSubmit={handleSubmit}>
+            {isLoading && 
+            <div className={styles['wrapper-loader']}>
+              <Loader/>
+            </div>}
             <label>
               <textarea name='comment' defaultValue={review ? review.text : ''} placeholder='Ajouter un commentaire' className={styles.textarea} />
             </label>
